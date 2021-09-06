@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "General/Reconnaissance/OSINT/Google Dorks.md",
-            "mode": "preview"
+            "file": "General/Reconnaissance/OSINT/Harvesting E-Mails.md",
+            "mode": "source"
           }
         }
       }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "General/Reconnaissance/OSINT/Google Dorks.md",
+                "file": "General/Reconnaissance/OSINT/Harvesting E-Mails.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,15 +88,15 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
-    "General/Reconnaissance/OSINT/Untitled.md",
     "General/Reconnaissance/OSINT/Harvesting E-Mails.md",
+    "General/Reconnaissance/OSINT/Google Dorks.md",
     "General/Reconnaissance/OSINT/General.md",
+    "General/Malware Analysis/Primer.md",
+    "General/Malware Analysis/Basic Static Analysis.md",
+    "General/Malware Analysis/Resources/Images/Linux-sha256sum.png",
+    "General/Reconnaissance/OSINT/Untitled.md",
     "General/Reconnaissance/Untitled.md",
     "README.md",
-    "General/Malware Analysis/Basic Static Analysis.md",
-    "General/Malware Analysis/Resources/Images/Pasted image 20210827194102.png",
-    "General/Malware Analysis/Resources/Images/CertUtil-sha256sum.png",
-    "General/Malware Analysis/Resources/Images/CertUtil-md5sum.png",
-    "General/Malware Analysis/Resources/Images/Linux-md5sum.png"
+    "General/Malware Analysis/Resources/Images/Pasted image 20210827194102.png"
   ]
 }
