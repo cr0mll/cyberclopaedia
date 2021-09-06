@@ -42,3 +42,6 @@ wakefim@uk.ibm.com
 ```
 
 3. Make sure the E-Mails look valid
+
+# Other tools
+Another very good tool for this purpose is ![theHarvester](Tools/theHarvester.md)
