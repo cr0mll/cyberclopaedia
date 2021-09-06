@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "General/Reconnaissance/OSINT/Harvesting E-Mails.md",
+            "file": "General/Malware Analysis/Basic Static Analysis.md",
             "mode": "source"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "General/Reconnaissance/OSINT/Harvesting E-Mails.md",
+                "file": "General/Malware Analysis/Basic Static Analysis.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,11 +88,11 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
+    "General/Malware Analysis/Basic Static Analysis.md",
     "General/Reconnaissance/OSINT/Harvesting E-Mails.md",
     "General/Reconnaissance/OSINT/Google Dorks.md",
     "General/Reconnaissance/OSINT/General.md",
     "General/Malware Analysis/Primer.md",
-    "General/Malware Analysis/Basic Static Analysis.md",
     "General/Malware Analysis/Resources/Images/Linux-sha256sum.png",
     "General/Reconnaissance/OSINT/Untitled.md",
     "General/Reconnaissance/Untitled.md",
