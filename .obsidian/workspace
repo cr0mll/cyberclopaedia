@@ -1,0 +1,102 @@
+{
+  "main": {
+    "id": "196695d7eb321d66",
+    "type": "split",
+    "children": [
+      {
+        "id": "b354764ed1f9fe77",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "General/Reconnaissance/OSINT/Google Dorks.md",
+            "mode": "preview"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "295819a9e060e6e4",
+    "type": "split",
+    "children": [
+      {
+        "id": "aab2b15c7d41fca3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b43fa3d5a2eb6fc0",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "c48f15ae78001ea8",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "64f7f85f0ac60b6c",
+    "type": "split",
+    "children": [
+      {
+        "id": "9d32f1dc77091566",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3aeeb0fb790eacd8",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "General/Reconnaissance/OSINT/Google Dorks.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "b354764ed1f9fe77",
+  "lastOpenFiles": [
+    "General/Reconnaissance/OSINT/Untitled.md",
+    "General/Reconnaissance/OSINT/Harvesting E-Mails.md",
+    "General/Reconnaissance/OSINT/General.md",
+    "General/Reconnaissance/Untitled.md",
+    "README.md",
+    "General/Malware Analysis/Basic Static Analysis.md",
+    "General/Malware Analysis/Resources/Images/Pasted image 20210827194102.png",
+    "General/Malware Analysis/Resources/Images/CertUtil-sha256sum.png",
+    "General/Malware Analysis/Resources/Images/CertUtil-md5sum.png",
+    "General/Malware Analysis/Resources/Images/Linux-md5sum.png"
+  ]
+}
