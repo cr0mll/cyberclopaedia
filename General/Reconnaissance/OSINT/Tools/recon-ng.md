@@ -46,7 +46,7 @@ You will also see errors for any API keys you haven't set up yet:
 ```
 
 # Workflow
-1. Workspaces - recon-ng organises gathered information into workspaces, which are managed with the `workspaces` command.
+1. Workspaces - recon-ng organises gathered information into workspaces, which are managed with the `workspaces` command. Workspaces are stored in `~/.recon-ng/workspaces`
 	- create a workspace:
 		```bash
 		workspaces create [name]
@@ -61,4 +61,3 @@ You will also see errors for any API keys you haven't set up yet:
 		```
 
 		![](../Resources/Images/recon-ng-workspaces-list.png)
-
