@@ -49,7 +49,7 @@ You will also see errors for any API keys you haven't set up yet:
 1. Workspaces - recon-ng organises gathered information into workspaces, which are managed with the `workspaces` command. Workspaces are stored in `~/.recon-ng/workspaces`
 	- create a workspace:
 		```bash
-		workspaces create [name]
+		workspaces create <name>
 		```
 		```bash
 		[recon-ng][default] > workspaces create MHN
@@ -61,3 +61,44 @@ You will also see errors for any API keys you haven't set up yet:
 		```
 
 		![](../Resources/Images/recon-ng-workspaces-list.png)
+		
+2. Modules - recon-ng organises its functionality into the so-called modules which need to be installed before they may be used.
+	- load a module:
+		```bash
+		modules load <name>
+		```
+		
+		![](../Resources/Images/recon-ng-modules-load.png)
+		
+	- run a module:
+		```bash
+		run
+		```
+		```bash
+		[recon-ng][MHN][profiler] > run
+		[!] Source contains no input.
+		```
+		
+
+# Modules
+### profiler
+This module is a *profile collector* - it searches the Web for user profiles belonging to target individuals and stores any information it finds in the recon-ng database. It uses a table called `profiles` as its source.
+- insert a username into the table:
+	```bash
+	db insert profiles <username>~~~~
+	```
+	```bash
+	[recon-ng][MHN][profiler] > db insert profiles testuser~~~~
+	[*] 1 rows affected.
+	[recon-ng][MHN][profiler] > show profiles
+
+  	+---------------------------------------------------------------------+
+  	| rowid | username | resource | url | category | notes |    module    |
+  	+---------------------------------------------------------------------+
+  	| 1     | testuser |          |     |          |       | user_defined |
+  	+---------------------------------------------------------------------+
+
+	[*] 1 rows returned
+	```
+	- you can also insert an e-mail address or just the first part of one (without the @ and domain)
+	- inserting multiple usernames and/or e-mail addresses is also possible

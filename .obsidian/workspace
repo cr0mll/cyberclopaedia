@@ -10,7 +10,7 @@
           "type": "markdown",
           "state": {
             "file": "General/Reconnaissance/OSINT/Tools/recon-ng.md",
-            "mode": "source"
+            "mode": "preview"
           }
         }
       }
@@ -88,15 +88,15 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
-    "General/Reconnaissance/OSINT/Tools/Recon-ng.md",
+    "General/Reconnaissance/OSINT/Tools/recon-ng.md",
+    "General/Reconnaissance/OSINT/Resources/Images/recon-ng-workspaces-list.png",
+    "General/Reconnaissance/OSINT/Tools/Pasted image 20210912091408.png",
     "General/Reconnaissance/OSINT/Tools/theHarvester.md",
-    "General/Reconnaissance/OSINT/Resources/Images/Pasted image 20210907164619.png",
-    "General/Reconnaissance/OSINT/Resources/Images/theHarvester-simple-results.png",
-    "General/Reconnaissance/OSINT/Tools/Untitled.md",
     "General/Reconnaissance/OSINT/Harvesting E-Mails.md",
-    "General/Reconnaissance/OSINT/General.md",
     "General/Reconnaissance/OSINT/Google Dorks.md",
-    "General/Reconnaissance/OSINT/Tools/Pasted image 20210906172204.png",
-    "General/Reconnaissance/OSINT/Resources/Images/Pasted image 20210906172037.png"
+    "General/Reconnaissance/OSINT/General.md",
+    "General/Reconnaissance/OSINT/Tools/Recon-ng.md",
+    "General/Reconnaissance/OSINT/Resources/Images/Pasted image 20210907164619.png",
+    "General/Reconnaissance/OSINT/Resources/Images/theHarvester-simple-results.png"
   ]
 }
