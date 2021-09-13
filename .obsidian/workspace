@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "General/Reconnaissance/OSINT/Tools/recon-ng.md",
-            "mode": "preview"
+            "file": "General/Networking/DNS.md",
+            "mode": "source"
           }
         }
       }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "General/Reconnaissance/OSINT/Tools/recon-ng.md",
+                "file": "General/Networking/DNS.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,15 +88,15 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
+    "General/Networking/DNS.md",
+    "General/Networking/Resources/Images/DNSHierarchy.png",
+    "General/Networking/Untitled.md",
     "General/Reconnaissance/OSINT/Tools/recon-ng.md",
     "General/Reconnaissance/OSINT/Resources/Images/recon-ng-workspaces-list.png",
     "General/Reconnaissance/OSINT/Tools/Pasted image 20210912091408.png",
     "General/Reconnaissance/OSINT/Tools/theHarvester.md",
     "General/Reconnaissance/OSINT/Harvesting E-Mails.md",
     "General/Reconnaissance/OSINT/Google Dorks.md",
-    "General/Reconnaissance/OSINT/General.md",
-    "General/Reconnaissance/OSINT/Tools/Recon-ng.md",
-    "General/Reconnaissance/OSINT/Resources/Images/Pasted image 20210907164619.png",
-    "General/Reconnaissance/OSINT/Resources/Images/theHarvester-simple-results.png"
+    "General/Reconnaissance/OSINT/General.md"
   ]
 }
