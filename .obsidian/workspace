@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "General/Reconnaissance/OSINT/Domain Name Enumeration.md",
+            "file": "General/Reconnaissance/Active/DNS Server Enumeration.md",
             "mode": "source"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "General/Reconnaissance/OSINT/Domain Name Enumeration.md",
+                "file": "General/Reconnaissance/Active/DNS Server Enumeration.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,15 +88,15 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
+    "General/Reconnaissance/Active/DNS Server Enumeration.md",
     "General/Reconnaissance/OSINT/Domain Name Enumeration.md",
+    "General/Reconnaissance/Active/Untitled.md",
     "General/Networking/DNS/The in-addr.arpa Domain.md",
-    "General/Reconnaissance/OSINT/General.md",
-    "General/Networking/DNS/Untitled.md",
     "General/Networking/DNS/The Domain Name System.md",
     "General/Networking/DNS/DNS Protocol.md",
+    "General/Reconnaissance/OSINT/General.md",
+    "General/Networking/DNS/Untitled.md",
     "General/Reconnaissance/OSINT/Google Dorks.md",
-    "General/Reconnaissance/OSINT/Harvesting E-Mails.md",
-    "General/Networking/DNS/DNS.md",
-    "General/Reconnaissance/OSINT/Untitled.md"
+    "General/Reconnaissance/OSINT/Harvesting E-Mails.md"
   ]
 }
