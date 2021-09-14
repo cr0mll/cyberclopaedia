@@ -36,4 +36,3 @@ I already mentioned that the DNS is similar to a database - one split up and sto
 - **Start of Authority (SOA)** - found at the beginning of every zone file, this record is bigger than others and stores the primary name server for the zone, including some other information
 - **Pointer (PTR)** - used for reverse DNS lookups - finding the hostname by providing an IP address
 - **Text (TXT)** - a simple text record used for adding extra functionality to DNS and storing miscellaneous information. Sometimes used by administrators for leaving humand-readable notes.
-
