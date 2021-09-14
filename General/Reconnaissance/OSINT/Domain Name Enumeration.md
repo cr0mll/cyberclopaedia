@@ -62,4 +62,4 @@ You can also do reverse name lookups by supplying an IP address:
 8.8.8.8.in-addr.arpa domain name pointer dns.google.
 ```
 
-A special domain `in-addr.arpa` is used for reverse DNS lookups. You can read more about it [here](../../../Networking/DNS/The%20in-addr.arpa%20Domain.md).
+A special domain `in-addr.arpa` is used for reverse DNS lookups. You can read more about it [here](../../Networking/DNS/The%20in-addr.arpa%20Domain.md).

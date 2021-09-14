@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "General/Networking/DNS/The in-addr.arpa Domain.md",
+            "file": "General/Reconnaissance/OSINT/Domain Name Enumeration.md",
             "mode": "source"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "General/Networking/DNS/The in-addr.arpa Domain.md",
+                "file": "General/Reconnaissance/OSINT/Domain Name Enumeration.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,12 +88,12 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
-    "General/Networking/DNS/The in-addr.arpa Domain.md",
     "General/Reconnaissance/OSINT/Domain Name Enumeration.md",
+    "General/Networking/DNS/The in-addr.arpa Domain.md",
+    "General/Reconnaissance/OSINT/General.md",
     "General/Networking/DNS/Untitled.md",
     "General/Networking/DNS/The Domain Name System.md",
     "General/Networking/DNS/DNS Protocol.md",
-    "General/Reconnaissance/OSINT/General.md",
     "General/Reconnaissance/OSINT/Google Dorks.md",
     "General/Reconnaissance/OSINT/Harvesting E-Mails.md",
     "General/Networking/DNS/DNS.md",
