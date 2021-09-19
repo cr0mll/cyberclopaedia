@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "General/Reconnaissance/Active/DNS Server Enumeration.md",
-            "mode": "preview"
+            "file": "General/Malware Analysis/Basic Static Analysis.md",
+            "mode": "source"
           }
         }
       }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "General/Reconnaissance/Active/DNS Server Enumeration.md",
+                "file": "General/Malware Analysis/Basic Static Analysis.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,15 +88,15 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
-    "General/Reconnaissance/Active/DNS Server Enumeration.md",
-    "General/Reconnaissance/OSINT/Domain Name Enumeration.md",
-    "General/Reconnaissance/Active/Untitled.md",
+    "General/Malware Analysis/Basic Static Analysis.md",
     "General/Networking/DNS/The in-addr.arpa Domain.md",
-    "General/Networking/DNS/The Domain Name System.md",
     "General/Networking/DNS/DNS Protocol.md",
-    "General/Reconnaissance/OSINT/General.md",
-    "General/Networking/DNS/Untitled.md",
-    "General/Reconnaissance/OSINT/Google Dorks.md",
-    "General/Reconnaissance/OSINT/Harvesting E-Mails.md"
+    "General/Networking/DNS/The Domain Name System.md",
+    "Reconnaissance/Active/DNS Server Enumeration.md",
+    "Reconnaissance/OSINT/Domain Name Enumeration.md",
+    "Reconnaissance/OSINT/Harvesting E-Mails.md",
+    "Reconnaissance/OSINT/Google Dorks.md",
+    "Reconnaissance/OSINT/General.md",
+    "Reconnaissance/OSINT/Tools/recon-ng.md"
   ]
 }

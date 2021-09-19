@@ -1,5 +1,5 @@
 # Grabbing E-Mails from Google using goog-mail.py
-`goog-mail.py` is a useful script used for getting E-Mail addresses from Google search results. Its author is unknown, but the script is available in many different places online.
+`goog-mail.py` is a useful script used for getting email addresses from Google search results. Its author is unknown, but the script is available in many different places online.
 1. You will need to download the script from https://github.com/leebaird/discover/blob/master/mods/goog-mail.py (or any other place you found it)
 ```bash
 wget https://raw.githubusercontent.com/leebaird/discover/master/mods/goog-mail.py
@@ -41,7 +41,7 @@ brian.mcglone@uk.ibm.com
 wakefim@uk.ibm.com
 ```
 
-3. Make sure the E-Mails look valid
+3. Make sure the emails look valid
 
 # Other tools
 Another very good tool for this purpose is [theHarvester](Tools/theHarvester.md).

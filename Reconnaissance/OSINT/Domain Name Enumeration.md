@@ -118,7 +118,7 @@ ns1.google.com.         5       IN      A       216.239.32.10
 ;; MSG SIZE  rcvd: 59
 ```
 
-Note that usually the SOA for domains of smaller organizations, isn't actually a part of that domain, but is usually instead a server providing by a hosting company.
+Note that usually the SOA for domains of smaller organizations, isn't actually a part of that domain, but is instead a server provided by a hosting company.
 
 Notice how in the answer section for `google.com` there was a `dns-admin.google.com` domain? That's actually not a domain, it's an email address and should be read as `dns-admin@google.com`. Yep, DNS stores emails in zone files, too. But how do you figure out which one is a hostname and which is an email address? The email address comes last.
 
