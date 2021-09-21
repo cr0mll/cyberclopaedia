@@ -10,7 +10,7 @@
           "type": "markdown",
           "state": {
             "file": "Exploitation/DNS/DNS Traffic Amplification.md",
-            "mode": "preview"
+            "mode": "source"
           }
         }
       }
@@ -89,14 +89,14 @@
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
     "Exploitation/DNS/DNS Traffic Amplification.md",
+    "Exploitation/Resources/Images/Pasted image 20210921131218.png",
+    "General/Malware Analysis/Basic Static Analysis.md",
+    "General/Malware Analysis/Primer.md",
+    "General/Networking/DNS/DNS Protocol.md",
     "Exploitation/Resources/Images/Pasted image 20210921125557.png",
     "Exploitation/Resources/Images/Pasted image 20210921124637.png",
     "Exploitation/DNS/Pasted image 20210921124556.png",
-    "General/Malware Analysis/Basic Static Analysis.md",
     "Exploitation/DNS/Untitled.md",
-    "Exploitation/Untitled.md",
-    "General/Networking/DNS/The in-addr.arpa Domain.md",
-    "General/Networking/DNS/DNS Protocol.md",
-    "General/Networking/DNS/The Domain Name System.md"
+    "Exploitation/Untitled.md"
   ]
 }
