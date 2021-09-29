@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Exploitation/DNS/DNS Traffic Amplification.md",
+            "file": "Exploitation/DNS/DNS Cache Poisoning.md",
             "mode": "source"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Exploitation/DNS/DNS Traffic Amplification.md",
+                "file": "Exploitation/DNS/DNS Cache Poisoning.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,6 +88,7 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
+    "Exploitation/DNS/Untitled.md",
     "Exploitation/DNS/DNS Traffic Amplification.md",
     "Exploitation/Resources/Images/Pasted image 20210921131218.png",
     "General/Malware Analysis/Basic Static Analysis.md",
@@ -96,7 +97,6 @@
     "Exploitation/Resources/Images/Pasted image 20210921125557.png",
     "Exploitation/Resources/Images/Pasted image 20210921124637.png",
     "Exploitation/DNS/Pasted image 20210921124556.png",
-    "Exploitation/DNS/Untitled.md",
     "Exploitation/Untitled.md"
   ]
 }
