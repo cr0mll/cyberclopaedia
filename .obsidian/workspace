@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Reconnaissance/OSINT/Google Dorks.md",
+            "file": "Reconnaissance/Active/Network Scanning.md",
             "mode": "source"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Reconnaissance/OSINT/Google Dorks.md",
+                "file": "Reconnaissance/Active/Network Scanning.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,6 +88,7 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
+    "Reconnaissance/Active/Untitled.md",
     "Reconnaissance/OSINT/Google Dorks.md",
     "Exploitation/DNS/DNS Cache Poisoning.md",
     "Exploitation/DNS/Untitled.md",
@@ -96,7 +97,6 @@
     "General/Malware Analysis/Basic Static Analysis.md",
     "General/Malware Analysis/Primer.md",
     "General/Networking/DNS/DNS Protocol.md",
-    "Exploitation/Resources/Images/Pasted image 20210921125557.png",
-    "Exploitation/Resources/Images/Pasted image 20210921124637.png"
+    "Exploitation/Resources/Images/Pasted image 20210921125557.png"
   ]
 }
