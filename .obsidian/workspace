@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Reconnaissance/Active/nmap/Overview.md",
+            "file": "Exploitation/Web/Open Redirect.md",
             "mode": "source"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Reconnaissance/Active/nmap/Overview.md",
+                "file": "Exploitation/Web/Open Redirect.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,15 +88,15 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
+    "Exploitation/Web/Untitled.md",
+    "Exploitation/DNS/DNS Traffic Amplification.md",
+    "Exploitation/DNS/DNS Cache Poisoning.md",
     "Reconnaissance/Active/nmap/Overview.md",
     "Reconnaissance/Active/nmap/Resources/Images/Pasted image 20211003212056.png",
     "Reconnaissance/Active/nmap/Resources/Images/Pasted image 20211003211758.png",
     "Reconnaissance/Active/nmap/Untitled.md",
     "Reconnaissance/Active/Untitled.md",
     "Reconnaissance/OSINT/Google Dorks.md",
-    "Exploitation/DNS/DNS Cache Poisoning.md",
-    "Exploitation/DNS/Untitled.md",
-    "Exploitation/DNS/DNS Traffic Amplification.md",
-    "Exploitation/Resources/Images/Pasted image 20210921131218.png"
+    "Exploitation/DNS/Untitled.md"
   ]
 }
