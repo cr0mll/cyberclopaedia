@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Reconnaissance/Active/nmap/FIN, NULL & XMAS Scans.md",
-            "mode": "source"
+            "file": "Exploitation/Web/CRLF Injection.md",
+            "mode": "preview"
           }
         }
       }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Reconnaissance/Active/nmap/FIN, NULL & XMAS Scans.md",
+                "file": "Exploitation/Web/CRLF Injection.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,15 +88,15 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
+    "Exploitation/Web/CRLF Injection.md",
+    "Exploitation/Web/HTTP Response Splitting.md",
+    "Exploitation/Web/Open Redirect.md",
+    "Exploitation/Web/Untitled.md",
+    "Exploitation/Web/HTTP Parameter Pollution.md",
+    "Exploitation/Web/Cross-Site Request Forgery.md",
     "Reconnaissance/Active/nmap/FIN, NULL & XMAS Scans.md",
     "Reconnaissance/Active/nmap/TCP SYN & TCP Connect scans.md",
     "Reconnaissance/Active/nmap/Resources/Images/Pasted image 20211008150629.png",
-    "Reconnaissance/Active/nmap/0 - Overview.md",
-    "Reconnaissance/Active/nmap/Overview.md",
-    "Reconnaissance/Active/nmap/Resources/Images/Pasted image 20211008150409.png",
-    "Reconnaissance/Active/nmap/Resources/Images/Pasted image 20211008150136.png",
-    "Reconnaissance/Active/nmap/Untitled.md",
-    "Exploitation/Web/Cross-Site Request Forgery.md",
-    "Exploitation/Web/HTTP Parameter Pollution.md"
+    "Reconnaissance/Active/nmap/0 - Overview.md"
   ]
 }
