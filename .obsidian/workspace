@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Exploitation/Web/CRLF Injection.md",
-            "mode": "preview"
+            "file": "Exploitation/Web/Cross-Site Scripting.md",
+            "mode": "source"
           }
         }
       }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Exploitation/Web/CRLF Injection.md",
+                "file": "Exploitation/Web/Cross-Site Scripting.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,10 +88,10 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
+    "Exploitation/Web/Untitled.md",
     "Exploitation/Web/CRLF Injection.md",
     "Exploitation/Web/HTTP Response Splitting.md",
     "Exploitation/Web/Open Redirect.md",
-    "Exploitation/Web/Untitled.md",
     "Exploitation/Web/HTTP Parameter Pollution.md",
     "Exploitation/Web/Cross-Site Request Forgery.md",
     "Reconnaissance/Active/nmap/FIN, NULL & XMAS Scans.md",
