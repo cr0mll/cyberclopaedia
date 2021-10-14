@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Exploitation/Web/Template Injection.md",
+            "file": "Exploitation/Web/SQL Injection/Database Metadata.md",
             "mode": "source"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Exploitation/Web/Template Injection.md",
+                "file": "Exploitation/Web/SQL Injection/Database Metadata.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,15 +88,15 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
+    "Exploitation/Web/SQL Injection/Database Metadata.md",
+    "Exploitation/Web/SQL Injection/Untitled.md",
+    "Exploitation/Web/Template Injection.md",
     "Exploitation/Web/Untitled.md",
     "Exploitation/Web/Cross-Site Scripting.md",
     "Exploitation/Web/CRLF Injection.md",
     "Exploitation/Web/HTTP Response Splitting.md",
     "Exploitation/Web/Open Redirect.md",
     "Exploitation/Web/HTTP Parameter Pollution.md",
-    "Exploitation/Web/Cross-Site Request Forgery.md",
-    "Reconnaissance/Active/nmap/FIN, NULL & XMAS Scans.md",
-    "Reconnaissance/Active/nmap/TCP SYN & TCP Connect scans.md",
-    "Reconnaissance/Active/nmap/Resources/Images/Pasted image 20211008150629.png"
+    "Exploitation/Web/Cross-Site Request Forgery.md"
   ]
 }
