@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Exploitation/Web/SQL Injection/Database Metadata.md",
+            "file": "Exploitation/Web/SQL Injection/00 - Introduction.md",
             "mode": "source"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Exploitation/Web/SQL Injection/Database Metadata.md",
+                "file": "Exploitation/Web/SQL Injection/00 - Introduction.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,8 +88,8 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
-    "Exploitation/Web/SQL Injection/Database Metadata.md",
     "Exploitation/Web/SQL Injection/Untitled.md",
+    "Exploitation/Web/SQL Injection/Database Metadata.md",
     "Exploitation/Web/Template Injection.md",
     "Exploitation/Web/Untitled.md",
     "Exploitation/Web/Cross-Site Scripting.md",
