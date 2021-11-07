@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Exploitation/Web/SQL Injection/Defences.md",
+            "file": "Post Exploitation/Active Directory (AD)/Domain Enumeration with PowerView.md",
             "mode": "source"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Exploitation/Web/SQL Injection/Defences.md",
+                "file": "Post Exploitation/Active Directory (AD)/Domain Enumeration with PowerView.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,15 +88,15 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
-    "Exploitation/Web/SQL Injection/Defences.md",
-    "Exploitation/Web/SQL Injection/Database Metadata.md",
-    "Exploitation/Web/SQL Injection/Cheatsheets.md",
-    "Exploitation/Web/SQL Injection/Blind Sleep Calls.md",
-    "Exploitation/Web/SQL Injection/00 - Introduction.md",
-    "Web/Duplicate HTTP Parameter Handling.md",
-    "Exploitation/Web/Cross-Site Request Forgery.md",
-    "Exploitation/Web/CRLF Injection.md",
-    "Exploitation/Web/Template Injection.md",
-    "Exploitation/Web/Untitled.md"
+    "Post Exploitation/Active Directory (AD)/Domain Enumeration with PowerView.md",
+    "Post Exploitation/Active Directory (AD)/Resources/Images/getnetgpo.png",
+    "Post Exploitation/Active Directory (AD)/Resources/Images/getdomaingroups.png",
+    "Post Exploitation/Active Directory (AD)/Resources/Images/getdomaincomputers.png",
+    "Post Exploitation/Active Directory (AD)/Resources/Images/getdomainuserproperty.png",
+    "Post Exploitation/Active Directory (AD)/Resources/Images/getnetusersamaccname.png",
+    "Post Exploitation/Active Directory (AD)/Resources/Images/getsystemaccessdomainpolicy.png",
+    "Post Exploitation/Active Directory (AD)/Resources/Images/powershell-ep-bypass.png",
+    "Post Exploitation/Active Directory (AD)/Resources/Images/getdomainpolicy.png",
+    "Post Exploitation/Active Directory (AD)/Resources/Images/getnetdomaincontroller.png"
   ]
 }
