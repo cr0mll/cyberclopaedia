@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Exploitation/Web/HTTP Response Splitting.md",
-            "mode": "preview"
+            "file": "README.md",
+            "mode": "source"
           }
         }
       }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Exploitation/Web/HTTP Response Splitting.md",
+                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,15 +88,15 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
-    "Exploitation/Web/HTTP Response Splitting.md",
-    "Exploitation/Web/HTTP Parameter Pollution.md",
-    "Exploitation/Web/Cross-Site Request Forgery.md",
-    "Exploitation/Web/CRLF Injection.md",
-    "Exploitation/DNS/DNS Cache Poisoning.md",
-    "Exploitation/DNS/DNS Traffic Amplification.md",
-    "General/Malware Analysis/Primer.md",
-    "General/Malware Analysis/Basic Static Analysis.md",
-    "Post Exploitation/Active Directory (AD)/Domain Enumeration with PowerView.md",
-    "Post Exploitation/Active Directory (AD)/Domain Data Enumeration with Bloodhound.md"
+    "README.md",
+    "Notes/SUMMARY.md",
+    "Notes/Reconnaissance/README.md",
+    "Notes/Reconnaissance/OSINT/Harvesting E-Mails.md",
+    "Notes/Reconnaissance/OSINT/Tools/README.md",
+    "Notes/Reconnaissance/OSINT/Domain Name Enumeration.md",
+    "Notes/Exploitation/README.md",
+    "Notes/Reconnaissance/OSINT/General.md",
+    "Notes/General/Malware Analysis/Basic Static Analysis.md",
+    "Notes/Exploitation/Web/HTTP Response Splitting.md"
   ]
 }
