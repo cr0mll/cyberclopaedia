@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "README.md",
+            "file": "Notes/SUMMARY.md",
             "mode": "source"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "Notes/SUMMARY.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,15 +88,15 @@
   },
   "active": "b354764ed1f9fe77",
   "lastOpenFiles": [
-    "README.md",
     "Notes/SUMMARY.md",
+    "README.md",
+    "Notes/Web/Duplicate HTTP Parameter Handling.md",
     "Notes/Reconnaissance/README.md",
     "Notes/Reconnaissance/OSINT/Harvesting E-Mails.md",
     "Notes/Reconnaissance/OSINT/Tools/README.md",
     "Notes/Reconnaissance/OSINT/Domain Name Enumeration.md",
     "Notes/Exploitation/README.md",
     "Notes/Reconnaissance/OSINT/General.md",
-    "Notes/General/Malware Analysis/Basic Static Analysis.md",
-    "Notes/Exploitation/Web/HTTP Response Splitting.md"
+    "Notes/General/Malware Analysis/Basic Static Analysis.md"
   ]
 }

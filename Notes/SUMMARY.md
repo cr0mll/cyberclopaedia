@@ -1,4 +1,4 @@
-[MHN](../README.md)
+[MHN](README.md)
 - [Reconnaissance](Reconnaissance/README.md)
 	- [Tools](Reconnaissance/OSINT/Tools/README.md)
 		- [recon-ng](Reconnaissance/OSINT/Tools/recon-ng.md)
