@@ -12,7 +12,7 @@ In x86 Intel assembly (i386), the registers are 32 bits (4 bytes) in size and so
 The other registers are general purpose registers and can be used for anything you like:
 `eax`, `ebx`, `ecx`, `edx`, `esi`, `edi`.
 
-x64 AMD assembly (amd64) extends these 32-bit registers to 64-bit ones and denotes these new version by replacing the initial `e` with an `r`: `rbp`, `rsp`, `rip`, `eax`, ... It is important to note that these are *not* different registers - `eax` and `rax` refer to the same space on the CPU, however, `eax` only provides access to the lower 32 bits of the 64-bit register. You can also get access to the lower 16 and 8 bits of the register using different names:
+x64 AMD assembly (amd64) extends these 32-bit registers to 64-bit ones and denotes these new versions by replacing the initial `e` with an `r`: `rbp`, `rsp`, `rip`, `rax`, ... It is important to note that these are *not* different registers - `eax` and `rax` refer to the same space on the CPU, however, `eax` only provides access to the lower 32 bits of the 64-bit register. You can also get access to the lower 16 and 8 bits of the register using different names:
 
 
  8 Byte Register | Lower 4 Bytes | Lower 2 Bytes | Lower Byte 
@@ -38,7 +38,7 @@ x64 AMD assembly (amd64) extends these 32-bit registers to 64-bit ones and denot
 
 Each row contains names which refer to different parts of the *same* register. Note, you cannot access the lower 16 or 8 bits of the instruction pointer.
 
-You might sometimes see `WORD` or `DWORD` being used in a similar context - `WORD` means 2 bytes and `DWORD` means 4 bytes.
+You might sometimes see `WORD` or `DWORD` being used in a similar context - `WORD` means 4 bytes and `DWORD` means 8 bytes.
 
 ## Register Use in x64 Linux
 Under x64 Linux, function arguments are passed via registers:
