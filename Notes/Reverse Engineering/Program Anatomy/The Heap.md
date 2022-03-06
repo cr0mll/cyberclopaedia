@@ -28,16 +28,16 @@ It is important to distinguish between in-use chunks and free (or previously all
 
 The following diagram outlines a chunk that is in use:
 
-![[Resources/Images/In_use_chunk.png]]
+![](Resources/Images/In_use_chunk.png)
 
 The `size` field contains the chunk size in bytes. The following three bits carry specific meaning:
 - **A (0x04)** - Allocated arena. If this bit is 0, the chunk comes from the main arena and the main heap. If this bit is 1, the chunk comes from mmap'd memory and the location of the heap can be computed from the chunk's address.
-- **M (0x02)** - If this bit is set, then the chunk was `mmap`-ed and isn't part of a heap.
+- **M (0x02)** - If this bit is set, then the chunk was `mmap`-ed and isn't part of a heap. Typically used for large allocations.
 - **P (0x01)** - If this bit is set, then the previous chunk should not be considered for coalescing and the `mchunkptr` points to a previous chunk still in use
 
 A free chunk looks a bit different:
 
-![[Resources/Images/Free_chunk.png]]
+![](Resources/Images/Free_chunk.png)
 
 The size and AMP fields carry on the same meaning as those in chunks that are in use. Free chunks are organised in linked or doubly linked lists called *bins*. The `fwd` and `bck` pointers are utilised in the implementation of those linked lists. Different types of bins exist for different purposes.
 
@@ -65,3 +65,49 @@ Large chunks get treated differently in their allocation. These are allocated of
 Different platforms have different default thresholds for what counts as a large chunk and what doesn't.
 
 ## Arenas
+Multithreaded applications require that internal data structures on the heap are protected from race conditions. In the past, the heap manager availed itself of a global mutex before every heap operation, however, significant performance issues arised as a result. Consequently, the concept of "arenas" was introduced. 
+
+Each arena consists of a separate heap which manages its own chunk allocation and bins. Although each arena still utilises a mutex for its internal operations, different threads can make use of different arenas to avoid having to wait for each other. 
+
+The initial (main) arena consists of a single heap and for singlethreaded applications it is all there ever will exist. However, as more threads are spawned, new arenas are allocated and attached to them. Once all available arenas are being utilised by threads, the heap manager will commence creating new ones until a limit - `2 * Number of CPU cores` for 32-bit and `8 * Number of CPU cores` for 64-bit processes - is reached. Afterwards, multiple threads will be forced to share the same arena.
+
+## Bins
+Free chunks are organised in the so-called *bins* which are essentially linked lists. For performance reasons different types of bins exist. There are 62 **small bins,** 63 **large bins,** 1 **unsorted bin,** 10 **fast bins** and 64 **tcache bins** per thread. The last two appeared later and are built on top of the first three.
+
+Pointers to the small, large, and unsorted bins are stored in the same array in the heap manager:
+
+```cpp
+BIN[0] -> invalid (unused)
+BIN[1] -> unsorted bin
+BIN[2] to BIN[63] -> small bins
+BIN[64] to BIN[126] -> large bins
+```
+
+### Small Bins
+There are 62 small bins and each of them stores chunks of a fixed size. Each chunk with a size less than 512 bytes on 32-bit systems and 1024 bytes on 64-bit systems has a corresponding small bin. Small bins are sorted by default due to the fixed size of their elements and Insertion and removal of entries on these bins is incredibly fast.
+
+![](Resources/Images/Small%20Bin.png)
+
+### Large Bins
+There are 63 large bins and they resemble small bins in their operation but store chunks of different sizes. Consequently, insertions and removal of entries on these lists is slower, since the entire bin has to be traversed in order to find a suitable chunk. 
+
+There is a different number of bins allocated for specific chunk size ranges. The size of the chunk size range begins at 64 bytes - there are 32 bins all of which shift the range of chunk sizes they store by 64 from the previous bin. Following are 16 bins which shift the range by 512 bytes and so on.
+
+In essence:
+- Bin 1 -> stores chunks of sizes 512 - 568 bytes;
+- Bin 2 -> stores chunks of sizes 576 - 632 bytes;
+- ...
+
+There are:
+Number of Bins | Spacing between Bins
+----------------|--------------------
+32 | 64
+16 | 512
+8 | 4096
+4 | 32768
+2 | 262144
+1 | Remaining chunk sizes
+
+
+### Unsorted Bins
+There is a single unsorted bin. Chunks from small and large bins end up directly in this bin after they are freed. The point of the unsorted bin is to speed up allocations by serving a sort of cache. When `malloc` is invoked, it will first traverse this bin and see if it can immediately service the request. If not, it will move onto the small or large bins respectively.
