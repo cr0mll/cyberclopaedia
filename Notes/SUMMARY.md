@@ -51,6 +51,7 @@
 		- [Instructions](Reverse%20Engineering/Program%20Anatomy/Instructions.md)
 		- [Registers](Reverse%20Engineering/Program%20Anatomy/Registers.md)
 		- [The Stack](Reverse%20Engineering/Program%20Anatomy/The%20Stack.md)
+		- [The Heap](Reverse%20Engineering/Program%20Anatomy/The%20Heap.md)
 	- [Reverse Engineering with radare2](Reverse%20Engineering/Reverse%20Engineering%20with%20radare2/README.md)
 		- [Analysis](Reverse%20Engineering/Reverse%20Engineering%20with%20radare2/Analysis.md)
 		- [Binary Info](Reverse%20Engineering/Reverse%20Engineering%20with%20radare2/Binary%20Info.md)
