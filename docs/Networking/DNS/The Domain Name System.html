@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js navy">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Domain Name System - Master Hacking Notes</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><a href="../../index.html">MHN</a></li><li class="chapter-item "><a href="../../Reconnaissance/index.html">Reconnaissance</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reconnaissance/OSINT/index.html">OSINT</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Tools/index.html">Tools</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Tools/recon-ng.html">recon-ng</a></li><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Tools/theHarvester.html">theHarvester</a></li></ol></li><li class="chapter-item "><a href="../../Reconnaissance/OSINT/General.html">General</a></li><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Google Dorks.html">Google Dorks</a></li><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Domain Name Enumeration.html">Domain Name Enumeration</a></li><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Harvesting E-Mails.html">Harvesting E-Mails</a></li></ol></li><li class="chapter-item "><a href="../../Reconnaissance/Active/index.html">Active</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reconnaissance/Active/nmap/index.html">Nmap</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reconnaissance/Active/nmap/TCP SYN & TCP Connect scans.html">TCP SYN &amp; TCP Connect scans</a></li><li class="chapter-item "><a href="../../Reconnaissance/Active/nmap/FIN, NULL & XMAS Scans.html">FIN, NULL &amp; XMAS Scans</a></li></ol></li><li class="chapter-item "><a href="../../Reconnaissance/Active/Network Scanning.html">Network Scanning</a></li><li class="chapter-item "><a href="../../Reconnaissance/Active/DNS Server Enumeration.html">DNS Server Enumeration</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../Exploitation/index.html">Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Exploitation/Binary Exploitation/index.html">Binary Exploitation</a></li><li class="chapter-item "><a href="../../Exploitation/DNS/index.html">DNS</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Exploitation/DNS/DNS Cache Poisoning.html">DNS Cache Poisoning</a></li><li class="chapter-item "><a href="../../Exploitation/DNS/DNS Traffic Amplification.html">DNS Traffic Amplification</a></li></ol></li><li class="chapter-item "><a href="../../Exploitation/Web/index.html">Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Exploitation/Web/SQL Injection/Introduction.html">SQL Injection</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Exploitation/Web/SQL Injection/Finding SQLi.html">Finding SQLi</a></li><li class="chapter-item "><a href="../../Exploitation/Web/SQL Injection/Union injections.html">Union injections</a></li><li class="chapter-item "><a href="../../Exploitation/Web/SQL Injection/Defences.html">Defences</a></li><li class="chapter-item "><a href="../../Exploitation/Web/SQL Injection/Cheatsheets.html">Cheatsheet</a></li></ol></li><li class="chapter-item "><a href="../../Exploitation/Web/CRLF Injection.html">CRLF Injection</a></li><li class="chapter-item "><a href="../../Exploitation/Web/Cross-Site Request Forgery.html">Cross-Site Request Forgery</a></li><li class="chapter-item "><a href="../../Exploitation/Web/Cross-Site Scripting.html">Cross-Site Scripting</a></li><li class="chapter-item "><a href="../../Exploitation/Web/HTTP Parameter Pollution.html">HTTP Parameter Pollution</a></li><li class="chapter-item "><a href="../../Exploitation/Web/HTTP Response Splitting.html">HTTP Response Splitting</a></li><li class="chapter-item "><a href="../../Exploitation/Web/Open Redirect.html">Open Redirect</a></li><li class="chapter-item "><a href="../../Exploitation/Web/Template Injection.html">Template Injection</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../Post Exploitation/index.html">Post Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Post Exploitation/Active Directory (AD)/index.html">Active Directory (AD)</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Post Exploitation/Active Directory (AD)/Domain Data Enumeration with Bloodhound.html">Domain Data Enumeration with Bloodhound</a></li><li class="chapter-item "><a href="../../Post Exploitation/Active Directory (AD)/Domain Enumeration with PowerView.html">Domain Enumeration with PowerView</a></li></ol></li><li class="chapter-item "><div>Pivoting</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Post Exploitation/Pivoting/Tunneling with Chisel.html">Tunneling with Chisel</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../Malware Analysis/index.html">Malware Analysis</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Malware Analysis/Basic Static Analysis.html">Basic Static Analysis</a></li></ol></li><li class="chapter-item expanded "><a href="../../Networking/index.html">Networking</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../Networking/DNS/index.html">DNS</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../Networking/DNS/The Domain Name System.html" class="active">The Domain Name System</a></li><li class="chapter-item "><a href="../../Networking/DNS/The in-addr.arpa Domain.html">The in-addr.arpa Domain</a></li><li class="chapter-item "><a href="../../Networking/DNS/DNS Protocol.html">DNS Protocol</a></li></ol></li><li class="chapter-item "><a href="../../Networking/Network Address Translation (NAT).html">Network Address Translation (NAT)</a></li></ol></li><li class="chapter-item "><a href="../../Reverse Engineering/index.html">Reverse Engineering</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reverse Engineering/Program Anatomy/index.html">Program Anatomy</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reverse Engineering/Program Anatomy/Instructions.html">Instructions</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Program Anatomy/Registers.html">Registers</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Program Anatomy/The Stack.html">The Stack</a></li></ol></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/index.html">Reverse Engineering with radare2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/Analysis.html">Analysis</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/Binary Info.html">Binary Info</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/Flags.html">Flags</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/Seeking.html">Seeking</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/Strings.html">Strings</a></li></ol></li><li class="chapter-item "><a href="../../Reverse Engineering/Assembly.html">Assembly</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Basic Reverse Engineering using objdump, strace, and ltrace.html">Basic Reverse Engineering using objdump, strace, and ltrace</a></li></ol></li><li class="chapter-item "><a href="../../Web/index.html">Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Web/Duplicate HTTP Parameter Handling.html">Duplicate HTTP Parameter Handling</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Master Hacking Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/cr0mll/master-hacking-notes/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>Computers connected to the Internet have a numerical identifier - called an Internet Protocol Address (IP Address) - which is used to communicate with this machine. However, remembering a 32-bit number for each computer you want to connect to - even if it's formatted nicely into four separate sections - isn't practical at all. As such, a systematic way of resolving this issue was a created - a sort of lookup table for IP addresses, known as the Domain Name System.</p>
+<h1 id="what-is-the-dns"><a class="header" href="#what-is-the-dns">What is the DNS?</a></h1>
+<p>The Domain Name System (or DNS for short) is a decentrialised database which provides answers to queries for <em>domain names</em>. Such a query is for example &quot;What is the IP address of google.com? &quot; When such a request is sent out, it will go through the DNS and eventually return with an IP address (if such was found). This saves the average user from having to remember a myriad different IPs for each website they want to visit.</p>
+<h1 id="the-dns-hierarchy"><a class="header" href="#the-dns-hierarchy">The DNS Hierarchy</a></h1>
+<p>The DNS utilises a hierarchical structure for both storing and serving requested information.</p>
+<p><img src="../Resources/Images/DNSHierarchy.png" alt="" /></p>
+<p>At the top of the hierarchy are positioned the root name servers. These store and serve information about the top-level domains (TLDs) such as <code>.net</code>, <code>.com</code>, and <code>.org</code>. The TLD servers provide information about domains which use their corresponding TLD - <code>.com</code> servers contain information about domains such as <code>google.com</code> or <code>duckduckgo.com</code>. They won't give you the IP addresses for these hosts, but will instead point you in the right direction - to another DNS server. </p>
+<p>The DNS can be thought of as a file system - one where the addresses are read from right to left and instead of forwards slashes, dots are used. The root is represented by a single dot (.), which is usually not visible. Next follow the top-level domains - similar to directories. Going further, we get second level domains and then subdomains, followed by hosts.</p>
+<h1 id="dissecting-a-basic-dns-query"><a class="header" href="#dissecting-a-basic-dns-query">Dissecting a Basic DNS Query</a></h1>
+<p>Typing a domain name - such as <code>google.com</code> - into your browser will cause your operating system to attempt to resolve that domain name, or in other words - determine its IP address. It will first check locally for an answer as this is the fastest option. It will look into the local cache and the <code>/etc/hosts</code> file (on UNIX-like system, or <code>C:\Windows\System32\drivers\etc\hosts</code> on Windows). If an answer is not found, the DNS request will be forwarded to your DNS server, which will usually be your home router. Your DNS server may have the answer cached because someone on your network recently queried the same domain. If not, the DNS server will contain an IP address for another name server where you can forward your request - for example the DNS server at your ISP. It's very unlikely that your ISP's name server won't have a cached answer, given the amount of queries that constantly go through it. However, if this happens to be the case, the ISP's name server will carry out further requests on your behalf - exactly how your router forwards the query to your ISP's name server. Name servers can be configured to perform such lookups recursively or not. </p>
+<p>If your ISP's name server does not know the IP for the server responsible for <code>.com</code> domains, it will ask one of the 13 root name servers, which are designated with the letters A through M). In reality, there are more than 13 physical machines handling these requests. More information about the root name servers you can find <a href="https://www.iana.org/domains/root/servers">here</a>.</p>
+<p>This process will continue until you are forwarded to the name server responsible for the domain you are looking for. This name server will provide you with the IP address of your desired domain, which will be cached, allowing quicker access later.</p>
+<h1 id="zones-and-authority"><a class="header" href="#zones-and-authority">Zones and Authority</a></h1>
+<p>Some name servers are authoritative in a particular subsection of the DNS - they answer queries only for domains in a particular space. Only one name server, known as the <em>Start of Authority (SOA)</em> could give a decisive answer for a particular query. Other name servers may have the answer cached, but only if they have previously requested it in the span of the time-to-live (TTL).</p>
+<p>For example, the SOA for <code>google.com</code> is only responsible for domains in the <code>google.com</code> space. The spaces or <em>name spaces</em> within the DNS are usually referred to as <em>zones of authority</em> or simply <em>zones</em>.
+In reality, there is usually more than a single name server for a big company like Google, however, they both do the same job and are considered the SOA. Their names usually go ns1, ns2, and so forth. Should one name server go offline, the next one would take its place in processing queries.</p>
+<h1 id="dns-resource-records"><a class="header" href="#dns-resource-records">DNS Resource Records</a></h1>
+<p>I already mentioned that the DNS is similar to a database - one split up and stored around the globe. The entries in this database are called <em>resource records</em> and are usually stored in a flat-file format. Resource records do not only store IP addresses and hostnames - they contain other useful information, as well. These are the most common different types of resource records (a complete list can be found <a href="https://en.wikipedia.org/wiki/List_of_DNS_record_types">here</a>):</p>
+<ul>
+<li><strong>Address of Host (A)</strong> - the IPv4 address of the host</li>
+<li><strong>Address of Host (AAAA)</strong> - the IPv6 address of the host</li>
+<li><strong>Canonical Name (CNAME)</strong> - also an alias; two domains might point to the same place, in which case, one would be an alias. Querying the domain in this server will result in the A record.</li>
+<li><strong>Mail Exchanger (MX)</strong> - refers to a mail server and can contain either an IP address or a hostname</li>
+<li><strong>Name Server (NS)</strong> - contains the name server information for a given zone</li>
+<li><strong>Start of Authority (SOA)</strong> - found at the beginning of every zone file, this record is bigger than others and stores the primary name server for the zone, including some other information</li>
+<li><strong>Pointer (PTR)</strong> - used for reverse DNS lookups - finding the hostname by providing an IP address</li>
+<li><strong>Text (TXT)</strong> - a simple text record used for adding extra functionality to DNS and storing miscellaneous information. Sometimes used by administrators for leaving humand-readable notes.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../Networking/DNS/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../Networking/DNS/The in-addr.arpa Domain.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../Networking/DNS/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../Networking/DNS/The in-addr.arpa Domain.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

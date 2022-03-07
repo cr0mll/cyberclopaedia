@@ -1,0 +1,244 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js navy">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Registers - Master Hacking Notes</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><a href="../../index.html">MHN</a></li><li class="chapter-item "><a href="../../Reconnaissance/index.html">Reconnaissance</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reconnaissance/OSINT/index.html">OSINT</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Tools/index.html">Tools</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Tools/recon-ng.html">recon-ng</a></li><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Tools/theHarvester.html">theHarvester</a></li></ol></li><li class="chapter-item "><a href="../../Reconnaissance/OSINT/General.html">General</a></li><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Google Dorks.html">Google Dorks</a></li><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Domain Name Enumeration.html">Domain Name Enumeration</a></li><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Harvesting E-Mails.html">Harvesting E-Mails</a></li></ol></li><li class="chapter-item "><a href="../../Reconnaissance/Active/index.html">Active</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reconnaissance/Active/nmap/index.html">Nmap</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reconnaissance/Active/nmap/TCP SYN & TCP Connect scans.html">TCP SYN &amp; TCP Connect scans</a></li><li class="chapter-item "><a href="../../Reconnaissance/Active/nmap/FIN, NULL & XMAS Scans.html">FIN, NULL &amp; XMAS Scans</a></li></ol></li><li class="chapter-item "><a href="../../Reconnaissance/Active/Network Scanning.html">Network Scanning</a></li><li class="chapter-item "><a href="../../Reconnaissance/Active/DNS Server Enumeration.html">DNS Server Enumeration</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../Exploitation/index.html">Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Exploitation/Binary Exploitation/index.html">Binary Exploitation</a></li><li class="chapter-item "><a href="../../Exploitation/DNS/index.html">DNS</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Exploitation/DNS/DNS Cache Poisoning.html">DNS Cache Poisoning</a></li><li class="chapter-item "><a href="../../Exploitation/DNS/DNS Traffic Amplification.html">DNS Traffic Amplification</a></li></ol></li><li class="chapter-item "><a href="../../Exploitation/Web/index.html">Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Exploitation/Web/SQL Injection/Introduction.html">SQL Injection</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Exploitation/Web/SQL Injection/Finding SQLi.html">Finding SQLi</a></li><li class="chapter-item "><a href="../../Exploitation/Web/SQL Injection/Union injections.html">Union injections</a></li><li class="chapter-item "><a href="../../Exploitation/Web/SQL Injection/Defences.html">Defences</a></li><li class="chapter-item "><a href="../../Exploitation/Web/SQL Injection/Cheatsheets.html">Cheatsheet</a></li></ol></li><li class="chapter-item "><a href="../../Exploitation/Web/CRLF Injection.html">CRLF Injection</a></li><li class="chapter-item "><a href="../../Exploitation/Web/Cross-Site Request Forgery.html">Cross-Site Request Forgery</a></li><li class="chapter-item "><a href="../../Exploitation/Web/Cross-Site Scripting.html">Cross-Site Scripting</a></li><li class="chapter-item "><a href="../../Exploitation/Web/HTTP Parameter Pollution.html">HTTP Parameter Pollution</a></li><li class="chapter-item "><a href="../../Exploitation/Web/HTTP Response Splitting.html">HTTP Response Splitting</a></li><li class="chapter-item "><a href="../../Exploitation/Web/Open Redirect.html">Open Redirect</a></li><li class="chapter-item "><a href="../../Exploitation/Web/Template Injection.html">Template Injection</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../Post Exploitation/index.html">Post Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Post Exploitation/Active Directory (AD)/index.html">Active Directory (AD)</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Post Exploitation/Active Directory (AD)/Domain Data Enumeration with Bloodhound.html">Domain Data Enumeration with Bloodhound</a></li><li class="chapter-item "><a href="../../Post Exploitation/Active Directory (AD)/Domain Enumeration with PowerView.html">Domain Enumeration with PowerView</a></li></ol></li><li class="chapter-item "><div>Pivoting</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Post Exploitation/Pivoting/Tunneling with Chisel.html">Tunneling with Chisel</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../Malware Analysis/index.html">Malware Analysis</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Malware Analysis/Basic Static Analysis.html">Basic Static Analysis</a></li></ol></li><li class="chapter-item "><a href="../../Networking/index.html">Networking</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Networking/DNS/index.html">DNS</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Networking/DNS/The Domain Name System.html">The Domain Name System</a></li><li class="chapter-item "><a href="../../Networking/DNS/The in-addr.arpa Domain.html">The in-addr.arpa Domain</a></li><li class="chapter-item "><a href="../../Networking/DNS/DNS Protocol.html">DNS Protocol</a></li></ol></li><li class="chapter-item "><a href="../../Networking/Network Address Translation (NAT).html">Network Address Translation (NAT)</a></li></ol></li><li class="chapter-item expanded "><a href="../../Reverse Engineering/index.html">Reverse Engineering</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../Reverse Engineering/Program Anatomy/index.html">Program Anatomy</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reverse Engineering/Program Anatomy/Instructions.html">Instructions</a></li><li class="chapter-item expanded "><a href="../../Reverse Engineering/Program Anatomy/Registers.html" class="active">Registers</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Program Anatomy/The Stack.html">The Stack</a></li></ol></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/index.html">Reverse Engineering with radare2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/Analysis.html">Analysis</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/Binary Info.html">Binary Info</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/Flags.html">Flags</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/Seeking.html">Seeking</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/Strings.html">Strings</a></li></ol></li><li class="chapter-item "><a href="../../Reverse Engineering/Assembly.html">Assembly</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Basic Reverse Engineering using objdump, strace, and ltrace.html">Basic Reverse Engineering using objdump, strace, and ltrace</a></li></ol></li><li class="chapter-item "><a href="../../Web/index.html">Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Web/Duplicate HTTP Parameter Handling.html">Duplicate HTTP Parameter Handling</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Master Hacking Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/cr0mll/master-hacking-notes/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="registers"><a class="header" href="#registers">Registers</a></h1>
+<p>Registers are value containers which reside on the CPU and not in RAM. They are small in size and some have special purposes. You may store both addresses and values in registers and depending on the instruction used, the data inside will be interpreted in a different way - this is commonly called an <em>addressing mode</em>.</p>
+<p>In x86 Intel assembly (i386), the registers are 32 bits (4 bytes) in size and some of them are reserved:</p>
+<p><code>ebp</code> - the base pointer, points to the bottom of the current stack frame</p>
+<p><code>esp</code> - the stack pointer, points to the top of the current stack frame</p>
+<p><code>eip</code> - the instruction pointer, points to the next instruction to be executed</p>
+<p>The other registers are general purpose registers and can be used for anything you like:
+<code>eax</code>, <code>ebx</code>, <code>ecx</code>, <code>edx</code>, <code>esi</code>, <code>edi</code>.</p>
+<p>x64 AMD assembly (amd64) extends these 32-bit registers to 64-bit ones and denotes these new versions by replacing the initial <code>e</code> with an <code>r</code>: <code>rbp</code>, <code>rsp</code>, <code>rip</code>, <code>rax</code>, ... It is important to note that these are <em>not</em> different registers - <code>eax</code> and <code>rax</code> refer to the same space on the CPU, however, <code>eax</code> only provides access to the lower 32 bits of the 64-bit register. You can also get access to the lower 16 and 8 bits of the register using different names:</p>
+<table><thead><tr><th align="center">8 Byte Register</th><th align="center">Lower 4 Bytes</th><th align="center">Lower 2 Bytes</th><th align="center">Lower Byte</th></tr></thead><tbody>
+<tr><td align="center">rbp</td><td align="center">ebp</td><td align="center">bp</td><td align="center">bpl</td></tr>
+<tr><td align="center">rsp</td><td align="center">esp</td><td align="center">sp</td><td align="center">spl</td></tr>
+<tr><td align="center">rip</td><td align="center">eip</td><td align="center"></td><td align="center"></td></tr>
+<tr><td align="center">rax</td><td align="center">eax</td><td align="center">ax</td><td align="center">al</td></tr>
+<tr><td align="center">rbx</td><td align="center">ebx</td><td align="center">bx</td><td align="center">bl</td></tr>
+<tr><td align="center">rcx</td><td align="center">ecx</td><td align="center">cx</td><td align="center">cl</td></tr>
+<tr><td align="center">rdx</td><td align="center">edx</td><td align="center">dx</td><td align="center">dl</td></tr>
+<tr><td align="center">rsi</td><td align="center">esi</td><td align="center">si</td><td align="center">sil</td></tr>
+<tr><td align="center">rdi</td><td align="center">edi</td><td align="center">di</td><td align="center">dil</td></tr>
+<tr><td align="center">r8</td><td align="center">r8d</td><td align="center">r8w</td><td align="center">r8b</td></tr>
+<tr><td align="center">r9</td><td align="center">r9d</td><td align="center">r9w</td><td align="center">r9b</td></tr>
+<tr><td align="center">r10</td><td align="center">r10d</td><td align="center">r10w</td><td align="center">r10b</td></tr>
+<tr><td align="center">r11</td><td align="center">r11d</td><td align="center">r11w</td><td align="center">r11b</td></tr>
+<tr><td align="center">r12</td><td align="center">r12d</td><td align="center">r12w</td><td align="center">r12b</td></tr>
+<tr><td align="center">r13</td><td align="center">r13d</td><td align="center">r13w</td><td align="center">r13b</td></tr>
+<tr><td align="center">r14</td><td align="center">r14d</td><td align="center">r14w</td><td align="center">r14b</td></tr>
+<tr><td align="center">r15</td><td align="center">r15d</td><td align="center">r15w</td><td align="center">r15b</td></tr>
+</tbody></table>
+<p>Each row contains names which refer to different parts of the <em>same</em> register. Note, you cannot access the lower 16 or 8 bits of the instruction pointer.</p>
+<p>You might sometimes see <code>WORD</code> or <code>DWORD</code> being used in a similar context - <code>WORD</code> means 4 bytes and <code>DWORD</code> means 8 bytes.</p>
+<h2 id="register-use-in-x64-linux"><a class="header" href="#register-use-in-x64-linux">Register Use in x64 Linux</a></h2>
+<p>Under x64 Linux, function arguments are passed via registers:</p>
+<pre><code>rdi:    First Argument
+rsi:    Second Argument
+rdx:    Third Argument
+rcx:    Fourth Argument
+r8:     Fifth Argument
+r9:     Sixth Argument
+</code></pre>
+<p>The return value is store in <code>rax</code> (<code>eax</code> on 32-bit machines).</p>
+<h2 id="register-dereferencing"><a class="header" href="#register-dereferencing">Register Dereferencing</a></h2>
+<p>Register dereferencing occurs when the value of the register is treated as an address to the actual data to be used, rather than the data itself. This means that addressed can be stored in registers and used later - this is useful when dealing with large data sizes.</p>
+<p>For example,</p>
+<pre><code>mov rax, [rdx]
+</code></pre>
+<p>Will check the value inside <code>rdx</code> and treat it as an address - it will go to the location where this address points and get its data from there. It will then move this data into <code>rax</code>. If we hadn't used <code>[]</code>, it would have treated the address in <code>rdx</code> simply as a value and moved it directly into <code>rax</code>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../Reverse Engineering/Program Anatomy/Instructions.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../Reverse Engineering/Program Anatomy/The Stack.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../Reverse Engineering/Program Anatomy/Instructions.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../Reverse Engineering/Program Anatomy/The Stack.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
