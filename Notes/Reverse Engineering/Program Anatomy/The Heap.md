@@ -111,3 +111,19 @@ Number of Bins | Spacing between Bins
 
 ### Unsorted Bins
 There is a single unsorted bin. Chunks from small and large bins end up directly in this bin after they are freed. The point of the unsorted bin is to speed up allocations by serving a sort of cache. When `malloc` is invoked, it will first traverse this bin and see if it can immediately service the request. If not, it will move onto the small or large bins respectively.
+
+### Fast Bins
+Fast bins provide a further optimisation layer. Recently released small chunks are put in fast bins and are not initially merged with their neighbours. This allows for them to be repurposed forthwith, should a `malloc` request for that chunk size come very soon after the chunk's release. There are 10 fast bins, covering chunks of size 16, 24, 32, 40, 48, 56, 64, 72, 80, and 88 bytes plus chunk metadata.
+
+Fast bins are implemented as singly linked lists and insertions and removals of entries in them are really fast. Periodically, the heap manager *consolidates* the heap - chunks in the fast bins are merged with the abutting chunks and inserted into the unsorted bin.
+
+### TCache Bins
+A new caching mechanism called *tcache* (thread local caching) was introduced in glibc version 2.26 back in 2017. 
+
+The tcache stores bins of fixed size small chunks as singly linked lists. Similarly to a fast bin, chunks in tcache bins aren't merged with adjoining chunks. By default, there are 64 tcache bins, each containing a maximum of 7 same-sized chunks. The possible chunk sizes range from 12 to 516 bytes on 32-bit systems and from 24 to 1032 bytes on 64-bit systems.
+
+When a chunk is freed, the heap manager checks if the chunk fits into a tcache bin corresponding to that chunk size. If the tcache bin for this size is full or the chunk is simply too big to fit into a tcache bin, the heap manager obtains a lock on the arena and proceeds to comb through other bins in order to find a suitable one for the chunk.
+
+When `malloc` needs to service a request, it first checks the tcache for a chunk of the requested size that is available and should such a chunk be found, `malloc` will return it without ever having to obtain a lock. If the chunk too big, `malloc` continues as before.
+
+A slightly different strategy is employed if the requested chunk size does have a corresponding tcache bin, but that bin is simply full. In that case, `malloc` obtains a lock and promotes as many heap chunks of the requested size to tcache chunks, up to the tcache bin limit of 7. Subsequently, the last matching chunk is returned.
