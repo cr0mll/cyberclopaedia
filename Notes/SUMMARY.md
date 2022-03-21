@@ -16,6 +16,8 @@
 		- [DNS Server Enumeration](Reconnaissance/Active/DNS%20Server%20Enumeration.md)
 - [Exploitation](Exploitation/README.md)
 	- [Binary Exploitation](Exploitation/Binary%20Exploitation/README.md)
+		- [Heap Exploitation](Exploitation/Binary%20Exploitation/Heap%20Exploitation/README.md)
+			- [Use After Free (UAF)](Exploitation/Binary%20Exploitation/Heap%20Exploitation/Use%20After%20Free%20(UAF).md)
 	- [DNS](Exploitation/DNS/README.md)
 		- [DNS Cache Poisoning](Exploitation/DNS/DNS%20Cache%20Poisoning.md)
 		- [DNS Traffic Amplification](Exploitation/DNS/DNS%20Traffic%20Amplification.md)
