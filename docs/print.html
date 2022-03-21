@@ -1315,26 +1315,77 @@ BIN[64] to BIN[126] -&gt; large bins
 <li>Bin 2 -&gt; stores chunks of sizes 576 - 632 bytes;</li>
 <li>...</li>
 </ul>
-<p>There are:
-Number of Bins | Spacing between Bins
-----------------|--------------------
-32 | 64
-16 | 512
-8 | 4096
-4 | 32768
-2 | 262144
-1 | Remaining chunk sizes</p>
+<p>There are:</p>
+<table><thead><tr><th align="center">Number of Bins</th><th align="center">Spacing between Bins</th></tr></thead><tbody>
+<tr><td align="center">32</td><td align="center">64</td></tr>
+<tr><td align="center">16</td><td align="center">512</td></tr>
+<tr><td align="center">8</td><td align="center">4096</td></tr>
+<tr><td align="center">4</td><td align="center">32768</td></tr>
+<tr><td align="center">2</td><td align="center">262144</td></tr>
+<tr><td align="center">1</td><td align="center">Remaining chunk sizes</td></tr>
+</tbody></table>
 <h3 id="unsorted-bins"><a class="header" href="#unsorted-bins">Unsorted Bins</a></h3>
 <p>There is a single unsorted bin. Chunks from small and large bins end up directly in this bin after they are freed. The point of the unsorted bin is to speed up allocations by serving a sort of cache. When <code>malloc</code> is invoked, it will first traverse this bin and see if it can immediately service the request. If not, it will move onto the small or large bins respectively.</p>
 <h3 id="fast-bins"><a class="header" href="#fast-bins">Fast Bins</a></h3>
 <p>Fast bins provide a further optimisation layer. Recently released small chunks are put in fast bins and are not initially merged with their neighbours. This allows for them to be repurposed forthwith, should a <code>malloc</code> request for that chunk size come very soon after the chunk's release. There are 10 fast bins, covering chunks of size 16, 24, 32, 40, 48, 56, 64, 72, 80, and 88 bytes plus chunk metadata.</p>
 <p>Fast bins are implemented as singly linked lists and insertions and removals of entries in them are really fast. Periodically, the heap manager <em>consolidates</em> the heap - chunks in the fast bins are merged with the abutting chunks and inserted into the unsorted bin.</p>
+<p>This consolidation occurs when a <code>malloc</code> request is issued for a size that is larger than a fast bin can serve (chunks over 512 bytes on 32-bit systems and over 1024 bytes on 64-bit systems), when freeing a chunk larger than 64KB or when <code>malloc_trim</code> or <code>mallopt</code> is invoked.</p>
 <h3 id="tcache-bins"><a class="header" href="#tcache-bins">TCache Bins</a></h3>
 <p>A new caching mechanism called <em>tcache</em> (thread local caching) was introduced in glibc version 2.26 back in 2017. </p>
 <p>The tcache stores bins of fixed size small chunks as singly linked lists. Similarly to a fast bin, chunks in tcache bins aren't merged with adjoining chunks. By default, there are 64 tcache bins, each containing a maximum of 7 same-sized chunks. The possible chunk sizes range from 12 to 516 bytes on 32-bit systems and from 24 to 1032 bytes on 64-bit systems.</p>
 <p>When a chunk is freed, the heap manager checks if the chunk fits into a tcache bin corresponding to that chunk size. If the tcache bin for this size is full or the chunk is simply too big to fit into a tcache bin, the heap manager obtains a lock on the arena and proceeds to comb through other bins in order to find a suitable one for the chunk.</p>
 <p>When <code>malloc</code> needs to service a request, it first checks the tcache for a chunk of the requested size that is available and should such a chunk be found, <code>malloc</code> will return it without ever having to obtain a lock. If the chunk too big, <code>malloc</code> continues as before.</p>
 <p>A slightly different strategy is employed if the requested chunk size does have a corresponding tcache bin, but that bin is simply full. In that case, <code>malloc</code> obtains a lock and promotes as many heap chunks of the requested size to tcache chunks, up to the tcache bin limit of 7. Subsequently, the last matching chunk is returned.</p>
+<h2 id="malloc-and-free"><a class="header" href="#malloc-and-free"><code>malloc</code> and <code>free</code></a></h2>
+<h3 id="allocation"><a class="header" href="#allocation">Allocation</a></h3>
+<p>First, every allocation exists as a memory chunk which is aligned and contains metadata as well as the region the programmer wants. When a programmer requests memory from the heap, the heap manager first works out what chunk size the allocation request corresponds to, and then searches for the memory in the following order:</p>
+<ol>
+<li>If the size corresponds with a <em>tcache</em> bin and there is a <code>tcache</code> chunk available, return that immediately.</li>
+<li>If the request is huge, allocate a chunk off-heap via <code>mmap.</code></li>
+<li>Otherwise obtain the arena heap lock and then perform the following steps, in order:
+<ol>
+<li><strong>Try the <em>fastbin/smallbin</em> recycling strategy</strong>
+<ul>
+<li>If a corresponding fast bin exists, try and find a chunk from there (and also opportunistically prefill the tcache with entries from the fast bin).</li>
+<li>Otherwise, if a corresponding small bin exists, allocate from there (opportunistically prefilling the tcache as we go).</li>
+</ul>
+</li>
+<li><strong>Resolve all the deferred frees</strong>
+-   Otherwise merge the entries in the fast bins and move their consolidated chunks to the unsorted bin.
+-   Go through each entry in the unsorted bin. If it is suitable, return it. Otherwise, put the unsorted entry on its corresponding small/large bin as we go (possibly promoting small entries to the tcache).</li>
+<li><strong>Default back to the basic recycling strategy</strong>
+<ul>
+<li>If the chunk size corresponds with a large bin, search the corresponding large bin now.</li>
+</ul>
+</li>
+<li><strong>Create a new chunk from scratch</strong>
+<ul>
+<li>Otherwise, there are no chunks available, so try and get a chunk from the top of the heap.</li>
+<li>If the top of the heap is not big enough, extend it using <code>sbrk</code>.</li>
+<li>If the top of the heap can’t be extended because we ran into something else in the address space, create a discontinuous extension using <code>mmap</code> and allocate from there</li>
+</ul>
+</li>
+<li><strong>If all else fails, return <code>NULL</code>.</strong></li>
+</ol>
+</li>
+</ol>
+<h3 id="deallocation"><a class="header" href="#deallocation">Deallocation</a></h3>
+<ol>
+<li>If the pointer is <code>NULL</code>, do nothing.</li>
+<li>Otherwise, convert the pointer back to a chunk by subtracting the size of the chunk metadata.</li>
+<li>Perform a few sanity checks on the chunk, and abort if the sanity checks fail.</li>
+<li>If the chunk fits into a tcache bin, store it there.</li>
+<li>If the chunk has the <code>M</code> bit set, give it back to the operating system via <code>munmap</code>.</li>
+<li>Otherwise we obtain the arena heap lock and then:
+<ol>
+<li>If the chunk fits into a fastbin, put it on the corresponding fastbin.</li>
+<li>If the chunk size is greater than 64KB, consolidate the fastbins immediately and put the resulting merged chunks on the unsorted bin.</li>
+<li>Merge the chunk backwards and forwards with neighboring freed chunks in the small, large, and unsorted bins.</li>
+<li>If the resulting chunk lies at the top of the heap, merge it into the top chunk.</li>
+<li>Otherwise store it in the <code>unsorted bin</code>. </li>
+</ol>
+</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-8"><a class="header" href="#introduction-8">Introduction</a></h1>
 <p><code>radare2</code> is an open-source framework for reverse engineering. The framework includes multiple tools which all work in tandem in order to aid in the analysis of binary files. </p>
 <p>It uses short abbreviations for its commands - single letters - and many of its commands have subcommands which are also expressed as single letters. Luckily, you can always append a <code>?</code> to a specific command in order to view its subcommands and what they do.</p>

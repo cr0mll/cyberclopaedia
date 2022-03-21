@@ -99,14 +99,15 @@ In essence:
 - ...
 
 There are:
-Number of Bins | Spacing between Bins
-----------------|--------------------
-32 | 64
-16 | 512
-8 | 4096
-4 | 32768
-2 | 262144
-1 | Remaining chunk sizes
+
+| Number of Bins | Spacing between Bins |
+|:----------------:|:----------------------:|
+| 32 | 64 |
+| 16 | 512 |
+| 8 | 4096 |
+| 4 | 32768 |
+| 2 | 262144 |
+| 1 | Remaining chunk sizes |
 
 
 ### Unsorted Bins
@@ -116,6 +117,8 @@ There is a single unsorted bin. Chunks from small and large bins end up directly
 Fast bins provide a further optimisation layer. Recently released small chunks are put in fast bins and are not initially merged with their neighbours. This allows for them to be repurposed forthwith, should a `malloc` request for that chunk size come very soon after the chunk's release. There are 10 fast bins, covering chunks of size 16, 24, 32, 40, 48, 56, 64, 72, 80, and 88 bytes plus chunk metadata.
 
 Fast bins are implemented as singly linked lists and insertions and removals of entries in them are really fast. Periodically, the heap manager *consolidates* the heap - chunks in the fast bins are merged with the abutting chunks and inserted into the unsorted bin.
+
+This consolidation occurs when a `malloc` request is issued for a size that is larger than a fast bin can serve (chunks over 512 bytes on 32-bit systems and over 1024 bytes on 64-bit systems), when freeing a chunk larger than 64KB or when `malloc_trim` or `mallopt` is invoked.
 
 ### TCache Bins
 A new caching mechanism called *tcache* (thread local caching) was introduced in glibc version 2.26 back in 2017. 
@@ -127,3 +130,37 @@ When a chunk is freed, the heap manager checks if the chunk fits into a tcache b
 When `malloc` needs to service a request, it first checks the tcache for a chunk of the requested size that is available and should such a chunk be found, `malloc` will return it without ever having to obtain a lock. If the chunk too big, `malloc` continues as before.
 
 A slightly different strategy is employed if the requested chunk size does have a corresponding tcache bin, but that bin is simply full. In that case, `malloc` obtains a lock and promotes as many heap chunks of the requested size to tcache chunks, up to the tcache bin limit of 7. Subsequently, the last matching chunk is returned.
+
+## `malloc` and `free`
+### Allocation
+First, every allocation exists as a memory chunk which is aligned and contains metadata as well as the region the programmer wants. When a programmer requests memory from the heap, the heap manager first works out what chunk size the allocation request corresponds to, and then searches for the memory in the following order:
+
+1.  If the size corresponds with a _tcache_ bin and there is a `tcache` chunk available, return that immediately.
+2.    If the request is huge, allocate a chunk off-heap via `mmap.`
+3.    Otherwise obtain the arena heap lock and then perform the following steps, in order:
+        1.  **Try the _fastbin/smallbin_ recycling strategy**
+            -   If a corresponding fast bin exists, try and find a chunk from there (and also opportunistically prefill the tcache with entries from the fast bin).
+            -   Otherwise, if a corresponding small bin exists, allocate from there (opportunistically prefilling the tcache as we go).
+         2.  **Resolve all the deferred frees**
+            -   Otherwise merge the entries in the fast bins and move their consolidated chunks to the unsorted bin.
+            -   Go through each entry in the unsorted bin. If it is suitable, return it. Otherwise, put the unsorted entry on its corresponding small/large bin as we go (possibly promoting small entries to the tcache).
+        3.  **Default back to the basic recycling strategy**
+            -   If the chunk size corresponds with a large bin, search the corresponding large bin now.
+        4.  **Create a new chunk from scratch**
+            -   Otherwise, there are no chunks available, so try and get a chunk from the top of the heap.
+            -   If the top of the heap is not big enough, extend it using `sbrk`.
+            -   If the top of the heap can’t be extended because we ran into something else in the address space, create a discontinuous extension using `mmap` and allocate from there
+        5.  **If all else fails, return `NULL`.**
+
+### Deallocation
+1.  If the pointer is `NULL`, do nothing.
+2.  Otherwise, convert the pointer back to a chunk by subtracting the size of the chunk metadata.
+3.  Perform a few sanity checks on the chunk, and abort if the sanity checks fail.
+4.  If the chunk fits into a tcache bin, store it there.
+5.  If the chunk has the `M` bit set, give it back to the operating system via `munmap`.
+6.  Otherwise we obtain the arena heap lock and then:
+    1.  If the chunk fits into a fastbin, put it on the corresponding fastbin.
+    2.  If the chunk size is greater than 64KB, consolidate the fastbins immediately and put the resulting merged chunks on the unsorted bin.
+    3.  Merge the chunk backwards and forwards with neighboring freed chunks in the small, large, and unsorted bins.
+    4.  If the resulting chunk lies at the top of the heap, merge it into the top chunk.
+    5.  Otherwise store it in the `unsorted bin`. 
