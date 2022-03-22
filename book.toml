@@ -3,12 +3,12 @@ authors = ["cr0mll"]
 language = "en"
 multilingual = false
 src = "Notes"
-title = "Master Hacking Notes"
+title = "The Cyberclopaedia"
 
 [output.html]
 no-section-label = true
 default-theme = "navy"
-git-repository-url = "https://github.com/cr0mll/master-hacking-notes/"
+git-repository-url = "https://github.com/cr0mll/cyberclopaedia/"
 git-repository-icon = "fa-github"
 
 [output.html.fold]

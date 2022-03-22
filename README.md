@@ -1,7 +1,5 @@
-# Master Hacking Notes
-This is a collection of notes about cybersecurity which I will be expanding throughout the years.
-
-The notes may be viewed entirely through GitHub, since image rendering now works properly. No need to clone the repository.
+# The Cyberclopaedia
+This is a personal project aimed at compiling and storing all of the knowledge and experience I gain as I learn about the fascinating world of cybersecurity.
 
 **Donate XMR:** 862CjhjSMYGJ9paKwii4RR5sN4yNfHPHv4YyFsFVpyjLQ9ZLMR1DFNAYaNoXNceR33Hxf3Q9LtQNfW5Db4t4zCWSNnf6xgB
 
