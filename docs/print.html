@@ -147,7 +147,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="the-cyberclopaedia"><a class="header" href="#the-cyberclopaedia">The Cyberclopaedia</a></h1>
-<p>This is a personal project aimed at compiling and storing all of the knowledge and experience I gain as I learn about the fascinating world of cybersecurity.</p>
+<p>This is project is aimed at assimilating knowledge from the world of cybersecurity and presenting it in a cogent way with clear-cut examples, so that the content is accessible to as large an audience as possible.</p>
 <p><strong>Donate XMR:</strong> 862CjhjSMYGJ9paKwii4RR5sN4yNfHPHv4YyFsFVpyjLQ9ZLMR1DFNAYaNoXNceR33Hxf3Q9LtQNfW5Db4t4zCWSNnf6xgB</p>
 <p><em>The information here is for educational purposes only and I do not bear any responsibility for your own actions. Use the knowledge here for good.</em></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="osint"><a class="header" href="#osint">OSINT</a></h1>
@@ -632,6 +632,55 @@ return 0;
 }
 </code></pre>
 <p><img src="Exploitation/Binary%20Exploitation/Stack%20Exploitation/Resources/Images/FSV_leak.png" alt="" /></p>
+<h2 id="writing-arbitrary-memory"><a class="header" href="#writing-arbitrary-memory">Writing Arbitrary memory</a></h2>
+<p>The <code>%n</code> format parameter can be used to write to arbitrary memory. Recall that it takes a pointer a pointer as its argument, but where does it get this pointer from? Well, just as any other argument, this pointer is retrieved from the stack. But wait a minute... In i386 and amd64 function arguments are pushed to the stack before a procedure is invoked. Consequently, we can write any value to the stack by putting it at the beginning of the format string, navigating to this value with <code>%x</code> or <code>%p</code> and then just put a <code>%n</code> to treat this value as a location and write to it. As a shortcut, we can use the <code>%parameter$n</code>  to choose a particular value on the stack to treat as a pointer. </p>
+<p>However, writing a large value would require a lot of characters before <code>%n</code>. Luckily, we can print those with a shortcut. Before <code>%n</code> we need to insert <code>%&lt;value&gt;x</code> and this will write <code>value</code> characters to the screen.</p>
+<p>writing_memory.c:</p>
+<pre><code class="language-cpp">#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int target = 0xdeadbeef;
+
+int main(int argc, char *argv[])
+{
+	char buffer[64];
+
+    fgets(buffer, 64, stdin);
+    printf(buffer);
+
+    if(target == 0xdeadc0de) 
+    {
+      	printf(&quot;Pwned!\n&quot;);
+    	return EXIT_SUCCESS;
+	} 
+	else 
+	{
+  	  	printf(&quot;Try again.\n&quot;);
+  	  	exit(EXIT_FAILURE);
+  	}
+}
+</code></pre>
+<p>Upon looking at this code, we immediately notice the potential for a format string vulnerability. We need to somehow overwrite the <code>target</code> variable and change its value to <code>0xdeadc0de</code>. This can be done through <code>%n</code>, but requires the address of <code>target</code>. You might need to use some type of leak to do this, but as an example I will use gdb, which on my machine tells me that <code>target</code> is located at <code>0x555555558048</code>. </p>
+<p>Since this address will be included in the format string, the location of the beginning of the format string on the stack must be found. This can be done through some light fuzzing by putting, for example, a string of <code>A</code>s in the beginning and then following it up with <code>%x</code>s until the repeating <code>A</code>s are reached. The final cound to <code>%x</code> that have been used is the number of the argument. </p>
+<p><img src="Exploitation/Binary%20Exploitation/Stack%20Exploitation/Resources/Images/FSV_writing_arg_fuzz.png" alt="" /></p>
+<p>Consequently, the beginning would be the 8th argument.</p>
+<p>We now have the address we want to write to, all that is needed is to set up the value we want to write. This means that we have to find a way to print a number of <code>0xdeadc0de</code> bytes before <code>%n</code>. One would be crazy for thinking that <em>actually</em> inserting so many bytes into the buffer is even possible. The trick here is to use specify the number of characters we want to pad <code>%n</code> with by using <code>%x</code> like so - <code>%&lt;padding&gt;x%&lt;argument&gt;$n</code>. Even still, the value is too large to be printed in a reasonable time. Here we are allowed to buck the system by splitting the value at the middle like so <code>dead</code> and <code>c0de</code> and just writing two short integers rather than one huge integer. Ergo, <code>0xdead</code> should be written at <code>0x555555558048 + 2 = 0x55555555804a</code>, whereas <code>0xc0de</code> should be placed at <code>0x555555558048</code>.</p>
+<p>The amount of padding is given by the following formula:
+<code>&lt;The value needed&gt; - &lt;Bytes already written&gt;</code></p>
+<p>It is now possible to proceed. Let's commence with the least significant bytes - <code>0xc0de</code> (49374 in decimal). It is best if the address where we want to write to is put at the <em>end</em> of the string, since the internal stack pointer of <code>printf</code> only works with 8-byte displacements and, consequently, any address must have its leading <code>0</code>s until it takes up the entire 8 bytes. Additionally, a certain number of non-zero bytes may need to be inserted before the address in the format string for further alignment purposes.</p>
+<p>To simplify matters here, both <code>0xdeadc0de</code> and <code>0xdeadbeef</code> begin with the same bytes, so we need only overwrite the last ones. If that were not the case, one would simply have to chain multiple paddings with multiple <code>%n</code> format parameters. Therefore, our format string should be the following:</p>
+<p><code>&quot;%49374x%&lt;argument&gt;$n&lt;padding bytes&gt;&lt;zero-extended address&gt;&quot;</code></p>
+<p>The <code>argument</code> number may from system to system and you have to either bruteforce it or calculate it using a debugger like gdb. I have calculated it be 10. You may need further padding bytes and the number of bytes has to either again be bruteforced or calculated. Any addresses to write to should be placed at the end of the string to avoid premature null-termination. Our final string looks like this:</p>
+<p><code>&quot;%49374x%10$hnAAA\x48\x80\x55\x55\x55\x55\x00\x00&quot;</code></p>
+<p>The <code>h</code> before the <code>n</code> just tells <code>printf</code> to write a <code>short</code> instead of an <code>int</code> (Remember that we are only overwriting the last two bytes).</p>
+<p><em>Note: You might be tempted to just print this string with python and pipe it into the program, but that's an appalling approach since the address may contain weird bytes that are outside the range of ASCII and this will result in errors. This can be bypassed by writing the exact bytes to a blank binary file and just piping the file instead of the python output. You might have to do this manually through a hex editor</em>.</p>
+<p>I have now created a file called <code>input</code> which contains the following bytes:</p>
+<p><img src="Exploitation/Binary%20Exploitation/Stack%20Exploitation/Resources/Images/FSV_input_file.png" alt="" /></p>
+<p>Piping this file into the programme results in the overwriting of the <code>target</code> variable!</p>
+<p><img src="Exploitation/Binary%20Exploitation/Stack%20Exploitation/Resources/Images/FSV_write_pipe.png" alt="" /></p>
+<p><img src="Exploitation/Binary%20Exploitation/Stack%20Exploitation/Resources/Images/FSV_write_pwn.png" alt="" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="heap-exploitation"><a class="header" href="#heap-exploitation">Heap Exploitation</a></h1>
 <p>Exploitation techniques for the heap are different from those which work on the stack. In general, heap exploitation is more difficult and warrants creativity in order for an attack to be successful.</p>
 <p>Heap exploitation usually relies on the already implemented logic of a binary and abuses it by providing the program with malicious data. A very common attack goal is to force the program to allocate two structs at the same memory, thereby corrupting them and possibly overwriting any function pointers or causing further overflows on the stack.</p>
@@ -1356,7 +1405,7 @@ In reality, there is usually more than a single name server for a big company li
 <h3 id="jz--jnz"><a class="header" href="#jz--jnz"><code>jz</code> / <code>jnz</code></a></h3>
 <p><code>jump-if-zero</code> and <code>jump-if-not-zero</code> execute depending on the state of the zero flag.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="registers"><a class="header" href="#registers">Registers</a></h1>
-<p>Registers are value containers which reside on the CPU and not in RAM. They are small in size and some have special purposes. You may store both addresses and values in registers and depending on the instruction used, the data inside will be interpreted in a different way - this is commonly called an <em>addressing mode</em>.</p>
+<p>Registers are value containers which reside on the CPU and not in RAM. They are small in size and some have special purposes. You may store both addresses and values in registers and depending on the instruction used the data inside will be interpreted in a different way - this is commonly called an <em>addressing mode</em>.</p>
 <p>In x86 Intel assembly (i386), the registers are 32 bits (4 bytes) in size and some of them are reserved:</p>
 <p><code>ebp</code> - the base pointer, points to the bottom of the current stack frame</p>
 <p><code>esp</code> - the stack pointer, points to the top of the current stack frame</p>

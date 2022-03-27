@@ -1,5 +1,5 @@
 # Registers
-Registers are value containers which reside on the CPU and not in RAM. They are small in size and some have special purposes. You may store both addresses and values in registers and depending on the instruction used, the data inside will be interpreted in a different way - this is commonly called an *addressing mode*.
+Registers are value containers which reside on the CPU and not in RAM. They are small in size and some have special purposes. You may store both addresses and values in registers and depending on the instruction used the data inside will be interpreted in a different way - this is commonly called an *addressing mode*.
 
 In x86 Intel assembly (i386), the registers are 32 bits (4 bytes) in size and some of them are reserved:
 

@@ -1,5 +1,5 @@
 # The Cyberclopaedia
-This is a personal project aimed at compiling and storing all of the knowledge and experience I gain as I learn about the fascinating world of cybersecurity.
+This is project is aimed at assimilating knowledge from the world of cybersecurity and presenting it in a cogent way with clear-cut examples, so that the content is accessible to as large an audience as possible.
 
 **Donate XMR:** 862CjhjSMYGJ9paKwii4RR5sN4yNfHPHv4YyFsFVpyjLQ9ZLMR1DFNAYaNoXNceR33Hxf3Q9LtQNfW5Db4t4zCWSNnf6xgB
 
