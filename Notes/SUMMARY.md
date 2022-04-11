@@ -19,6 +19,7 @@
 		- [Stack Exploitation](Exploitation/Binary%20Exploitation/Stack%20Exploitation/README.md)
 			- [Format String Vulnerabilities](Exploitation/Binary%20Exploitation/Stack%20Exploitation/Format%20String%20Vulnerabilities.md)
 			- [Return to _dl_resolve](Exploitation/Binary%20Exploitation/Stack%20Exploitation/Return%20to%20_dl_resolve.md)
+			- [Return-oriented programming (ROP)](Exploitation/Binary%20Exploitation/Stack%20Exploitation/Return-oriented%20programming%20(ROP).md)
 		- [Heap Exploitation](Exploitation/Binary%20Exploitation/Heap%20Exploitation/README.md)
 			- [Use After Free (UAF)](Exploitation/Binary%20Exploitation/Heap%20Exploitation/Use%20After%20Free%20(UAF).md)
 	- [DNS](Exploitation/DNS/README.md)
