@@ -76,6 +76,8 @@
 		- [DNS Protocol](Networking/DNS/DNS%20Protocol.md)
 		- [The Domain Name System](Networking/DNS/The%20Domain%20Name%20System.md)
 		- [The in-addr.arpa Domain](Networking/DNS/The%20in-addr.arpa%20Domain.md)
+	- [Networks](Networking/Networks/README.md)
 	- [Network Address Translation (NAT)](Networking/Network%20Address%20Translation%20(NAT).md)
+	- [The OSI Model](Networking/The%20OSI%20Model.md)
 - [Web](Web/README.md)
 	- [Duplicate HTTP Parameter Handling](Web/Duplicate%20HTTP%20Parameter%20Handling.md)
