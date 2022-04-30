@@ -77,6 +77,8 @@
 		- [The Domain Name System](Networking/DNS/The%20Domain%20Name%20System.md)
 		- [The in-addr.arpa Domain](Networking/DNS/The%20in-addr.arpa%20Domain.md)
 	- [Networks](Networking/Networks/README.md)
+	- [Protocols](Networking/Protocols/README.md)
+		- [Network Time Protocol (NTP)](Networking/Protocols/Network%20Time%20Protocol%20(NTP).md)
 	- [Network Address Translation (NAT)](Networking/Network%20Address%20Translation%20(NAT).md)
 	- [The OSI Model](Networking/The%20OSI%20Model.md)
 - [Web](Web/README.md)
