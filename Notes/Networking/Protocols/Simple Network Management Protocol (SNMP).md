@@ -20,8 +20,6 @@ Three main ways of communication exist within SNMP:
 2. The NMS can order managed devices to alter aspects of their configuration.
 3. Managed devices can send messages to the NMS when certain events occur, such as an interface going down.
 
-It is important to know that agents reply to SNMP requests only if they are accompanied by the appropriate *community string*, which is akin to a password.
-
 ## `Get` Requests
 When the NMS wants to know about a specific object of an agent, it sends a `Get` request. These include `Get`, `GetNext`, and `GetBulk`. The agent then gives a `Get` response.
 
@@ -37,4 +35,5 @@ These are used by agents when they want to inform the NMS of something such as t
 
 Although they serve the same purpose, `Trap` and `Inform` messages are different. The latter is reliable - it waits for acknowledgement from the NMS. Should it not receive one, the `Inform` message would be resent.
 
-
+## Community strings
+SNMP versions 1 and 2 avail themselves of the so-called *community strings*. It is important to know that agents reply to SNMP requests only if they are accompanied by the appropriate community string, which is akin to a password. Every community string is associated with a set of permissions. These can be either read-only or read-write.

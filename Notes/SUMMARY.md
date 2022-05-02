@@ -7,6 +7,7 @@
 		- [DNS Server Enumeration (53)](Reconnaissance/Active/DNS%20Server%20Enumeration%20(53).md)
 		- [LDAP Enumeration (389, 636, 3268, 3269)](Reconnaissance/Active/LDAP%20Enumeration%20(389,%20636,%203268,%203269).md)
 		- [Network Scanning](Reconnaissance/Active/Network%20Scanning.md)
+		- [SNMP Enumeration (161)](Reconnaissance/Active/SNMP%20Enumeration%20(161).md)
 	- [OSINT](Reconnaissance/OSINT/README.md)
 		- [Tools](Reconnaissance/OSINT/Tools/README.md)
 			- [recon-ng](Reconnaissance/OSINT/Tools/recon-ng.md)
