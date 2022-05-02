@@ -2219,6 +2219,18 @@ In reality, there is usually more than a single name server for a big company li
 <p>NTP utilises a hierarchy system. Each clock is assigned a <em>stratum</em>. Stratum values range between 0 and 15, with a value of 16 denoting an unsynchronised clock. Devices of Stratum 0 are called reference clocks and these are one of the most accurate time-keeping machines such as atomic clocks. The stratum value, therefore, represents the distance from the reference clock or how accurate a given clock is in comparison to a device of Stratum 0. Every new layer adds a 1 to the stratum value.</p>
 <p>Reference clocks are not directly connected to the network. Instead, the so-called <em>primary time servers</em> connect to the reference clock and synchronise their clocks with it. These servers have a stratum value of 1. For each layer you go down the chain, the stratum value increases by 1, since the distance from the reference clocks augments.</p>
 <p><img src="Networking/Protocols/Resources/Images/NTP_Hierarchy.png" alt="" /></p>
+<h1 id="synchronising-time-on-linux-with-ntpdate"><a class="header" href="#synchronising-time-on-linux-with-ntpdate">Synchronising time on Linux with <code>ntpdate</code></a></h1>
+<p><code>ntpdate</code> is a useful utility for synching time on Linux machines through NTP. It's syntax is really simple:</p>
+<p><code>ntpdate [server]</code></p>
+<p>In order to set the date, it requires root privileges:</p>
+<p><img src="Networking/Protocols/Resources/Images/NTP_wrong_time.png" alt="" /></p>
+<p>Synching the time with a Windows machine on my network:</p>
+<p><img src="Networking/Protocols/Resources/Images/NTP_synch.png" alt="" /></p>
+<p>New time:</p>
+<p><img src="Networking/Protocols/Resources/Images/NTP_synched_time.png" alt="" /></p>
+<p>It can also be useful to only check how unsynched your time is with respect to another clock. You can do this by adding the <code>-q</code> option. This does not require root privileges.</p>
+<p><img src="Networking/Protocols/Resources/Images/NTP_time_query.png" alt="" /></p>
+<p>That's quite the difference! </p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="network-address-translation"><a class="header" href="#network-address-translation">Network Address Translation</a></h1>
 <p><img src="https://66.media.tumblr.com/02a533c1d55ca0ba83e0176168df06ec/tumblr_inline_o4m1taQugo1u4ytoo_1280.jpg" alt="Private Ip Addresses Photos on the Web" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-24"><a class="header" href="#introduction-24">Introduction</a></h1>

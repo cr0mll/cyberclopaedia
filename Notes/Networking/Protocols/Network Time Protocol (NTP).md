@@ -9,3 +9,25 @@ Reference clocks are not directly connected to the network. Instead, the so-call
 
 ![](Resources/Images/NTP_Hierarchy.png)
 
+# Synchronising time on Linux with `ntpdate`
+`ntpdate` is a useful utility for synching time on Linux machines through NTP. It's syntax is really simple:
+
+`ntpdate [server]`
+
+In order to set the date, it requires root privileges:
+
+![](Resources/Images/NTP_wrong_time.png)
+
+Synching the time with a Windows machine on my network:
+
+![](Resources/Images/NTP_synch.png)
+
+New time:
+
+![](Resources/Images/NTP_synched_time.png)
+
+It can also be useful to only check how unsynched your time is with respect to another clock. You can do this by adding the `-q` option. This does not require root privileges.
+
+![](Resources/Images/NTP_time_query.png)
+
+That's quite the difference! 
