@@ -83,5 +83,8 @@
 		- [Simple Network Management Protocol (SNMP)](Networking/Protocols/Simple%20Network%20Management%20Protocol%20(SNMP).md)
 	- [Network Address Translation (NAT)](Networking/Network%20Address%20Translation%20(NAT).md)
 	- [The OSI Model](Networking/The%20OSI%20Model.md)
+- [Cryptography](Cryptography/README.md)
+	- [Breaking Classical Cryptrography](Cryptography/Breaking%20Classical%20Cryptrography.md)
+	- [Principles of Modern Cryptography](Cryptography/Principles%20of%20Modern%20Cryptography.md)
 - [Web](Web/README.md)
 	- [Duplicate HTTP Parameter Handling](Web/Duplicate%20HTTP%20Parameter%20Handling.md)

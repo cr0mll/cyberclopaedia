@@ -1,0 +1,6 @@
+# Introduction
+Cryptography is the study and application of techniques for secure communication in the presence of adversarial behaviour. It is concerned with the confidentiality of data. All cryptography is built around the use of *ciphers* or, in modern parlance, *encryption schemes*. 
+
+Cryptrography is typically divided into two fields - symmetric (private-key) cryptography and asymmetric (public-key) cryptography - and depending on which field we are in, an encryption scheme will look differently, but the basic terminology is usually shared.
+
+Furthermore, you might hear the terms "classical" and "modern" cryptography being tossed around. The difference lies in the fact that the former does not make use of today's computational resources and is therefore unable to keep up with modern cryptography. Moreover, modern cryptography has its roots in mathematics and is subject to much more scrutiny and mathematical analysis. It is built around certain [principles](Principles%20of%20Modern%20Cryptography.md)
