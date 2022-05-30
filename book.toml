@@ -7,9 +7,10 @@ title = "The Cyberclopaedia"
 
 [output.html]
 no-section-label = true
-default-theme = "navy"
+default-theme = "ayu"
 git-repository-url = "https://github.com/cr0mll/cyberclopaedia/"
 git-repository-icon = "fa-github"
+mathjax-support = true
 
 [output.html.fold]
 enable = true

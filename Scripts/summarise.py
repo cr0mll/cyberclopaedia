@@ -12,7 +12,7 @@ else:
 
 print("Located summary file at " + str(SummaryFilePath))
 
-NotesDirectoryList = ["Reconnaissance", "Exploitation", "Post Exploitation", "Reverse Engineering", "Malware Analysis", "Networking", "Web"]
+NotesDirectoryList = ["Reconnaissance", "Exploitation", "Post Exploitation", "Reverse Engineering", "Malware Analysis", "Networking", "Cryptography", "Web"]
 
 def SummariseDirectoryRecursively(Dir: str, OutputFile, Counter = 1):
     OutputFile.write("\t" * (Counter - 1) + "- [{}]({})\n".format(Dir[Dir.rfind("/") + 1:], NotesPath.joinpath(Dir).joinpath("README.md").relative_to(NotesPath).as_posix().replace(" ", "%20")))

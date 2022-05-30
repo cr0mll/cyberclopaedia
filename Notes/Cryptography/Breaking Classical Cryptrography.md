@@ -27,3 +27,15 @@ $$ I_j \overset{\mathrm{def}}{=} \sum_{i=0}^{25} p_i \cdot q_{i+j}$$
 
 for every value of $j \in \{0,...,25\}$, then $I_k$ should be approximately equal to 0.065, where $k$ is the actual key. For all $j \neq k$, $I_j$ would be different from 0.065. This ultimately leads to a way to recover the original key that is fairly easy to automate.
 
+# The Vigenère Cipher
+This cipher is a more advanced version of the shift cipher. It is a *poly-alphabetic* shift cipher. Unlike the previous ciphers, it does not define a fixed mapping on a letter-by-letter basis. Instead, it maps blocks of letters whose size depends on the key length. For example, `ab` could be mapped to `xy`, `ac` to `zt`, and `aa` to `bc`. Moreover, identical blocks will be mapped to different blocks depending on their relative position in the plaintext. `ab` could once be mapped to `xy`, but then when `ab` appears again, it may be mapped to `ci`.
+
+In the Vigenère cipher the key is no longer a single number, but rather a string of letters, where each letter is again mapped to the integers $\{0,...,25\}$. The key is then repeatedly overlaid with the plaintext and each letter in the plaintext is shifted by the amount denoted by the key letter is has been matched with.
+
+```
+Plaintext:  the golden sun shone brightly, bathing the beach in its warm sunlight
+Key:        cok ecokec oke cokec okecokec, okecoke cok ecoke co kec okec okecokec
+Ciphertext: vvo kqznip ger uvyrg pbmivdpa, pkxjwxk vvo fgoml kb sxu kkvo gernwqlv
+```
+
+Given a known key length, also called a period, $t$, a ciphertext $c = c_1 \cdot\cdot\cdot c_l$ can be divided into parts, each with length $t$. Therefore, ciphertext characters with the same relative position in each of these groups with length $t$ would have all been encrypted using the same shift amount. In the above example, for the groups `theg` and `olde`, `t` and `o` would have both been encrypted with `c`, `h` and `l` with `o` and so on. Seach characters are said to comprise a *stream*. Stated in a more mathematical way, for all $j \in \{1,...,t\}$, the ciphertext characters $c_j,c_{j+t},c_{j+2t},...$ have all been encrypted by shifting the corresponding plaintext character by $k_j$ positions, where $k_j$ is the $j$ character in the key $k$.
