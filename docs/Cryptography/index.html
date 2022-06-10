@@ -150,7 +150,14 @@
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p>Cryptography is the study and application of techniques for secure communication in the presence of adversarial behaviour. It is concerned with the confidentiality of data. All cryptography is built around the use of <em>ciphers</em> or, in modern parlance, <em>encryption schemes</em>. </p>
 <p>Cryptrography is typically divided into two fields - symmetric (private-key) cryptography and asymmetric (public-key) cryptography - and depending on which field we are in, an encryption scheme will look differently, but the basic terminology is usually shared.</p>
-<p>Furthermore, you might hear the terms &quot;classical&quot; and &quot;modern&quot; cryptography being tossed around. The difference lies in the fact that the former does not make use of today's computational resources and is therefore unable to keep up with modern cryptography. Moreover, modern cryptography has its roots in mathematics and is subject to much more scrutiny and mathematical analysis. It is built around certain <a href="Principles%20of%20Modern%20Cryptography.html">principles</a></p>
+<p>Furthermore, you might hear the terms &quot;classical&quot; and &quot;modern&quot; cryptography being tossed around. The difference lies in the fact that the former does not make use of today's computational resources and is therefore unable to keep up with modern cryptography. Moreover, modern cryptography has its roots in mathematics and is subject to much more scrutiny and mathematical analysis. It is built around certain <a href="Principles%20of%20Modern%20Cryptography.html">principles</a>.</p>
+<h1 id="attack-models"><a class="header" href="#attack-models">Attack Models</a></h1>
+<ol>
+<li><strong>Ciphertext-only attack (COA)</strong> - this is the most basic scenario. The adversary has access to a set of ciphertexts and attempts to glean whatever they can about the underlying plaintexts, but are unable to perform any encryption or decryption queries themselves.</li>
+<li><strong>Known plaintext attack (KPA)</strong> - here, the attacker is provided with a set of plaintext-ciphertext pairs generated with some key. Their ultimate goal is to find out information about the plaintext of <em>another</em> ciphertext generated with the same key. Once again, the attacker is not capable of performing any encryption or decryption queries themselves.</li>
+<li><strong>Chosen plaintext attack (CPA)</strong> - this model is equivalent to the previous one, however, the attacker is capable of choosing specifically which plaintext-ciphertext pairs they have access to. In other words, the attacker can perform encryption queries as per they will, but have no access to the key.</li>
+<li><strong>Chosen ciphertext attack (CCA)</strong> - in this model, the adversary is capable of both encrypting and decrypting any message they like, but lack the key. This scenario is most useful when it is not the output that is important but rather the key.</li>
+</ol>
 
                     </main>
 
