@@ -43,4 +43,4 @@ Given a block size, $n$, and a message of length $m$, the message is padded with
 
 If the message length is already divisible by the block size, then an additional *block* containing bytes with value equal to the block size is appended in order to signify to the decryption algorithm whether the last block is part of the plaintext or just padding. In the above example, if the message length was already divisible by 16, then another 16 bytes of value `0x10` would have been appended to it.
 
-Decryption is fairly simple and works by first deciphering all the unpadded blocks. Subsequently, the last bytes of the last block are checked for conformity with the described scheme. If not, the message is rejected. Otherwise, decryption is performed and the padding bytes are stripped before returning the plaintext.
+Decryption is fairly simple and works by first deciphering all the unpadded blocks. Subsequently, the last block is decrypted and the last bytes of the resulting plaintext are checked for conformity with the aforementioned scheme. If such is not found, the message is rejected. Otherwise, the padding bytes are stripped before returning the plaintext.
