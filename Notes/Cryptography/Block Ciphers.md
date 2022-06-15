@@ -27,3 +27,20 @@ Cipher block chaining resembles ECB, but it actually incorporates the previous b
 ![](Resources/Images/Block_Cipher_CBC_Encrypt.png)
 
 Since each consecutive block depends on the previous one, patterns between blocks are destroyed. Furthermore, if the IV is different each time, two identical plaintexts will produce disparate ciphertexts when encrypted. Note, that for decryption, the IV needs to be known. It is also interesting to mention that CBC decryption can be much faster than encryption due to parallelism. When encrypting, each new block needs to wait for the previous one to be encrypted in order to get its ciphertext, however, with decryption all ciphertexts are already known, so it can optimised on multiple threads.
+
+## Encrypting Non-Conforming Messages
+A non-conforming message is a message whose length is not evenly divisible by the block size. For example, you might have a message of size 18 bytes and a block size of 16 bytes. In this case, there are two main ways to resolve the issue.
+
+### Message Padding
+Padding allows for the encryption of messages of arbitrary lengths, even ones which are shorter than a single block. It is used to expand a message in order to fill a complete block by appending bytes to the plaintext and it is a highly standardised procedure. 
+
+The most common padding algorithm is described by PKCS#7 in RFC 5652.
+
+Given a block size, $n$, and a message of length $m$, the message is padded with $n-m$ number of bytes of value $n-m$.  A concrete example with 16-byte blocks is the following:
+- If there's is one byte left until the message length is divisible by 16 - for example, it is 17 or 33 bytes long - then pad the message with 15 bytes `0x0f` (15 in decimal).
+- If there are two bytes left until the message length is divisible by 16 - for example, it is 18 or 34 bytes long - then pad the message with 14 bytes `0x0e` (14 in decimal).
+- If there are three bytes left until the message length is divisible by 16, then pad the message with 13 bytes `0x0d` (13 in decimal), and so on.
+
+If the message length is already divisible by the block size, then an additional *block* containing bytes with value equal to the block size is appended in order to signify to the decryption algorithm whether the last block is part of the plaintext or just padding. In the above example, if the message length was already divisible by 16, then another 16 bytes of value `0x10` would have been appended to it.
+
+Decryption is fairly simple and works by first deciphering all the unpadded blocks. Subsequently, the last bytes of the last block are checked for conformity with the described scheme. If not, the message is rejected. Otherwise, decryption is performed and the padding bytes are stripped before returning the plaintext.
