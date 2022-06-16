@@ -23,3 +23,4 @@ Ciphertext stealing is another technique for encrypting messages of arbitrary le
 In CBC mode, ciphertext stealing extends the last incomplete plaintext block by taking bits from the previous ciphertext block, thus splitting the penultimate ciphertext block. Once the last plaintext block is complete, it is encrypted and its ciphertext is placed as the penultimate ciphertext block. Now, the first bits (the ones which were not appended) of the broken ciphertext block are placed at the end as a reduced ciphertext block, meaning that the last ciphertext block has a length less than the block size.
 
 ![](../Resources/Images/Block_Cipher_Ciphertext_Stealing.png)
+
