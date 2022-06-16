@@ -7,7 +7,7 @@ Block ciphers represent a repetition of *rounds*, which are short and simple seq
 ## Slide Attacks and Round Keys
 Repeating round keys open room for *slide attacks*. These look for plaintext-ciphertext pairs $(p_1, c_1)$ and $(p_2, c_2)$ where $p_2 = R(p_1)$. Since both the round algorithm and key are identical, then if $p_2 = R(p_1)$ implies that $c_2 = R(c_1)$. This relationship will hold true no matter how many repetitions of the round the plaintext goes through.
 
-![](Resources/Images/Block_Cipher_Slide_Attack.png)
+![](Resources/Images/Block_Cipher_Ciphertext_Stealing.png)
 
 # Modes of Operation
 It's all well and good with block ciphers when encrypting messages whose length matches the block size, but what happens if we want to encrypt a plaintext that is longer than a single block? Well, here comes the use of a *mode of operation*. If the message is longer than the block size, then it must be split into blocks of the desired size. From then on, the mode of operation describes how each of the blocks is encrypted and how the resulting ciphertexts are combined into the final output.
@@ -70,4 +70,4 @@ Ciphertext stealing is another technique for encrypting messages of arbitrary le
 
 In CBC mode, ciphertext stealing extends the last incomplete plaintext block by taking bits from the previous ciphertext block, thus splitting the penultimate ciphertext block. Once the last plaintext block is complete, it is encrypted and its ciphertext is placed as the penultimate ciphertext block. Now, the first bits (the ones which were not appended) of the broken ciphertext block are placed at the end as a reduced ciphertext block, meaning that the last ciphertext block has a length less than the block size.
 
-![](Resources/Images/Block_cipher_ciphertext_stealing.png)
+![](Resources/Images/Block_Cipher_Ciphertext_Stealing.png)
