@@ -155,7 +155,7 @@
 <ol>
 <li><strong>Ciphertext-only attack (COA)</strong> - this is the most basic scenario. The adversary has access to a set of ciphertexts and attempts to glean whatever they can about the underlying plaintexts, but are unable to perform any encryption or decryption queries themselves.</li>
 <li><strong>Known plaintext attack (KPA)</strong> - here, the attacker is provided with a set of plaintext-ciphertext pairs generated with some key. Their ultimate goal is to find out information about the plaintext of <em>another</em> ciphertext generated with the same key. Once again, the attacker is not capable of performing any encryption or decryption queries themselves.</li>
-<li><strong>Chosen plaintext attack (CPA)</strong> - this model is equivalent to the previous one, however, the attacker is capable of choosing specifically which plaintext-ciphertext pairs they have access to. In other words, the attacker can perform encryption queries as per they will, but have no access to the key.</li>
+<li><strong>Chosen plaintext attack (CPA)</strong> - this model is equivalent to the previous one, however, the attacker is capable of choosing specifically which plaintext-ciphertext pairs they have access to. In other words, the attacker can perform encryption queries as they will, but have no access to the key.</li>
 <li><strong>Chosen ciphertext attack (CCA)</strong> - in this model, the adversary is capable of both encrypting and decrypting any message they like, but lack the key. This scenario is most useful when it is not the output that is important but rather the key.</li>
 </ol>
 
