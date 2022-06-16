@@ -189,6 +189,13 @@ This mode is comprised of an IV, often in this case called a <em>nonce</em>, and
 <p>If the message length is already divisible by the block size, then an additional <em>block</em> containing bytes with value equal to the block size is appended in order to signify to the decryption algorithm whether the last block is part of the plaintext or just padding. In the above example, if the message length was already divisible by 16, then another 16 bytes of value <code>0x10</code> would have been appended to it.</p>
 <p>Decryption is fairly simple and works by first deciphering all the unpadded blocks. Subsequently, the last block is decrypted and the last bytes of the resulting plaintext are checked for conformity with the aforementioned scheme. If such is not found, the message is rejected. Otherwise, the padding bytes are stripped before returning the plaintext.</p>
 <h3 id="ciphertext-stealing"><a class="header" href="#ciphertext-stealing">Ciphertext Stealing</a></h3>
+<p>Ciphertext stealing is another technique for encrypting messages of arbitrary length. Whilst more complex, it has several benefits:</p>
+<ul>
+<li>Plaintexts are allowed to be of any <em>bit</em> length and are not restrained to bytes - it is possible to encrypt a message which is 155 bits long.</li>
+<li>Ciphertext have the same length as plaintexts.</li>
+</ul>
+<p>In CBC mode, ciphertext stealing extends the last incomplete plaintext block by taking bits from the previous ciphertext block, thus splitting the penultimate ciphertext block. Once the last plaintext block is complete, it is encrypted and its ciphertext is placed as the penultimate ciphertext block. Now, the first bits (the ones which were not appended) of the broken ciphertext block are placed at the end as a reduced ciphertext block, meaning that the last ciphertext block has a length less than the block size.</p>
+<p><img src="Resources/Images/Block_cipher_ciphertext_stealing.png" alt="" /></p>
 
                     </main>
 

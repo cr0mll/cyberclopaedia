@@ -64,3 +64,10 @@ If the message length is already divisible by the block size, then an additional
 Decryption is fairly simple and works by first deciphering all the unpadded blocks. Subsequently, the last block is decrypted and the last bytes of the resulting plaintext are checked for conformity with the aforementioned scheme. If such is not found, the message is rejected. Otherwise, the padding bytes are stripped before returning the plaintext.
 
 ### Ciphertext Stealing
+Ciphertext stealing is another technique for encrypting messages of arbitrary length. Whilst more complex, it has several benefits:
+- Plaintexts are allowed to be of any *bit* length and are not restrained to bytes - it is possible to encrypt a message which is 155 bits long.
+- Ciphertext have the same length as plaintexts.
+
+In CBC mode, ciphertext stealing extends the last incomplete plaintext block by taking bits from the previous ciphertext block, thus splitting the penultimate ciphertext block. Once the last plaintext block is complete, it is encrypted and its ciphertext is placed as the penultimate ciphertext block. Now, the first bits (the ones which were not appended) of the broken ciphertext block are placed at the end as a reduced ciphertext block, meaning that the last ciphertext block has a length less than the block size.
+
+![](Resources/Images/Block_cipher_ciphertext_stealing.png)
