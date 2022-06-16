@@ -15,6 +15,8 @@ If the message length is already divisible by the block size, then an additional
 
 Decryption is fairly simple and works by first deciphering all the unpadded blocks. Subsequently, the last block is decrypted and the last bytes of the resulting plaintext are checked for conformity with the aforementioned scheme. If such is not found, the message is rejected. Otherwise, the padding bytes are stripped before returning the plaintext.
 
+Note that if not implemented properly, padding may be vulnerable to [Padding Oracle Attacks](Padding%20Oracle%20Attack.md).
+
 # Ciphertext Stealing
 Ciphertext stealing is another technique for encrypting messages of arbitrary length. Whilst more complex, it has several benefits:
 - Plaintexts are allowed to be of any *bit* length and are not restrained to bytes - it is possible to encrypt a message which is 155 bits long.

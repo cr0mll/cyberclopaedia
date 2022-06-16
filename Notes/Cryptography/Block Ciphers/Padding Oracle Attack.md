@@ -20,4 +20,14 @@ Since $x_1$ is the same in both the original and the attack scenario, we can now
 
 We already know $x_1$, so we can obtain the new $y_1 = x_1 \bigoplus \text{0x02}$. We now only need to bruteforce $y_2$ with the same technique described above. Once the oracle returns a "Success", we have found the correct value for $y_2$ and can obtain $x_2 = y_2 \bigoplus \text{0x02}$. Going back to the original scenario, we compute the penultimate byte of the plaintext by XOR-ing the penultimate byte of the unaltered $C_1$ with the value of $x_2$. Rinse and repeat and you have decrypted the entire plaintext! Note, you will have to reset the procedure from `0x01` with each new block.
 
-# Example
+# Reverse Oracle Padding
+Apart from allowing you to *decrypt* a ciphertext, an oracle padding vulnerability can allow you to *encrypt* (almost) any plaintext. This could be useful for example when you need to encrypt a plaintext cookie to a ciphertext in order to use it, but you don't have the key.
+
+First of all you will need to choose the plaintext you want to encrypt, $P_n$ and pad it appropriately. Then generate a random block of data. This will be the last ciphertext block $C_n$. Next, we set $C_{n-1}$ to be a block of 0s and perform a padding oracle attack the usual way, until we obtain the value of $C_{n-1}$ for which $C_n$ decrypts to a full block of padding (in the case of block size 8 this would be `0x0808080808080808`).
+
+We now XOR these together to obtain $I_n = \text{0x0808080808080808} \bigoplus C_{n-1}$. Afterwards, XOR the desired plaintext $P_n$ with the intermediate state $I_n$ in order to obtain a new value for $C_{n-1}$ which will force $C_n$ to be decrypted to the appropriate plaintext. Repeat this process with the rest of the ciphertext blocks, but now use the ultimately obtained $C_{n-1}$ instead of the randomly generated $C_n$, and then the next ultimately obtained $C_{n-i}$, and... ta-da, you have the ciphertext of your desired plaintext. Unforunately, unless you have control of the IV, the last block will always decrypt to garbage.
+
+# Padding Oracle Attacks with `padbuster`
+
+
+
