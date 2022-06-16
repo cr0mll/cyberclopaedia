@@ -7,7 +7,7 @@ Block ciphers represent a repetition of *rounds*, which are short and simple seq
 ## Slide Attacks and Round Keys
 Repeating round keys open room for *slide attacks*. These look for plaintext-ciphertext pairs $(p_1, c_1)$ and $(p_2, c_2)$ where $p_2 = R(p_1)$. Since both the round algorithm and key are identical, then if $p_2 = R(p_1)$ implies that $c_2 = R(c_1)$. This relationship will hold true no matter how many repetitions of the round the plaintext goes through.
 
-![](../Resources/Images/Block_Cipher_Ciphertext_Stealing.png)
+
 
 
 

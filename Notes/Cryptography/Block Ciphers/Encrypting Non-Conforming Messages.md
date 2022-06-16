@@ -1,7 +1,7 @@
 # Introduction
 A non-conforming message is a message whose length is not evenly divisible by the block size. For example, you might have a message of size 18 bytes and a block size of 16 bytes. In this case, there are two main ways to resolve the issue.
 
-## Message Padding
+# Message Padding
 Padding allows for the encryption of messages of arbitrary lengths, even ones which are shorter than a single block. It is used to expand a message in order to fill a complete block by appending bytes to the plaintext and it is a highly standardised procedure. 
 
 The most common padding algorithm is described by PKCS#7 in RFC 5652.
@@ -15,7 +15,7 @@ If the message length is already divisible by the block size, then an additional
 
 Decryption is fairly simple and works by first deciphering all the unpadded blocks. Subsequently, the last block is decrypted and the last bytes of the resulting plaintext are checked for conformity with the aforementioned scheme. If such is not found, the message is rejected. Otherwise, the padding bytes are stripped before returning the plaintext.
 
-## Ciphertext Stealing
+# Ciphertext Stealing
 Ciphertext stealing is another technique for encrypting messages of arbitrary length. Whilst more complex, it has several benefits:
 - Plaintexts are allowed to be of any *bit* length and are not restrained to bytes - it is possible to encrypt a message which is 155 bits long.
 - Ciphertext have the same length as plaintexts.
