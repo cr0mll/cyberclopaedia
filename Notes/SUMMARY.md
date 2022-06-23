@@ -88,6 +88,7 @@
 		- [Encrypting Non-Conforming Messages](Cryptography/Block%20Ciphers/Encrypting%20Non-Conforming%20Messages.md)
 		- [Modes of Operation](Cryptography/Block%20Ciphers/Modes%20of%20Operation.md)
 		- [Padding Oracle Attack](Cryptography/Block%20Ciphers/Padding%20Oracle%20Attack.md)
+	- [Stream Ciphers](Cryptography/Stream%20Ciphers/README.md)
 	- [Breaking Classical Cryptrography](Cryptography/Breaking%20Classical%20Cryptrography.md)
 	- [Principles of Modern Cryptography](Cryptography/Principles%20of%20Modern%20Cryptography.md)
 - [Web](Web/README.md)
