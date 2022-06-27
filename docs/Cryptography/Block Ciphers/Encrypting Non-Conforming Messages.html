@@ -152,7 +152,7 @@
 <h1 id="message-padding"><a class="header" href="#message-padding">Message Padding</a></h1>
 <p>Padding allows for the encryption of messages of arbitrary lengths, even ones which are shorter than a single block. It is used to expand a message in order to fill a complete block by appending bytes to the plaintext and it is a highly standardised procedure. </p>
 <p>The most common padding algorithm is described by PKCS#7 in RFC 5652.</p>
-<p>Given a block size, $n$, and a message of length $m$, the message is padded with $n-m$ number of bytes of value $n-m$.  A concrete example with 16-byte blocks is the following:</p>
+<p>Given a block size, \( n \), and a message of length \( m \), the message is padded with \( n-m \) number of bytes of value \( n-m \).  A concrete example with 16-byte blocks is the following:</p>
 <ul>
 <li>If there's is one byte left until the message length is divisible by 16 - for example, it is 17 or 33 bytes long - then pad the message with 15 bytes <code>0x0f</code> (15 in decimal).</li>
 <li>If there are two bytes left until the message length is divisible by 16 - for example, it is 18 or 34 bytes long - then pad the message with 14 bytes <code>0x0e</code> (14 in decimal).</li>

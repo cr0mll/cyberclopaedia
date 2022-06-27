@@ -3,7 +3,7 @@ One of the oldest known ciphers is known as Caesar's cipher. Julius Caesar encry
 
 An immediate problem with this cipher is the lack of a key - the shift amount is always the same. A natural extension of the cipher would then be to let the shift amount vary, turning it into a key whose possible values are the numbers between 0 and 25. Therefore, the key space is  $K \equiv \{ 0, ..., 25 \}$.
 
-An encryption algorithm $Enc_k$ would take a plaintext $m$, shift its letters forwards by $k$ positions and spit out a ciphertext $c$. In contrast, a decryption algorithm $Dec_k$ would take the ciphertext $c$ and shift its letters *backwards* by $k$ places to retrieve the original plaintext. If we map the alphabet to the set $\set{0,...,25}$ ($a = 0, b = 1$, etc.), a more mathematical description is obtained. Encryption of any message $m = m_1 \cdot\cdot\cdot m_l$ ($m_i \in \set {0,...,25}$) using the key $k$ is given by
+An encryption algorithm $Enc_k$ would take a plaintext $m$, shift its letters forwards by $k$ positions and spit out a ciphertext $c$. In contrast, a decryption algorithm $Dec_k$ would take the ciphertext $c$ and shift its letters *backwards* by $k$ places to retrieve the original plaintext. If we map the alphabet to the set ${0,...,25}$ ($a = 0, b = 1$, etc.), a more mathematical description is obtained. Encryption of any message $m = m_1 \cdot\cdot\cdot m_l$ ($m_i \in {0,...,25}$) using the key $k$ is given by
  
  $$Enc_k (m_1 \cdot\cdot\cdot m_l) = c_1 \cdot\cdot\cdot c_l, \hspace{1cm} where \hspace{1mm} c_i = [(m_i + k) \mod 26]$$
 

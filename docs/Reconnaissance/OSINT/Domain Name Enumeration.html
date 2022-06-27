@@ -152,7 +152,7 @@
 <pre><code class="language-bash">whois &lt;hostname&gt;
 </code></pre>
 <pre><code class="language-bash">┌──(backslash0@kali)-[~]-[]
-└─$ whois tesla.com                                                                                                                                                                                                                      1 ⨯
+└─\\(  whois tesla.com                                                                                                                                                                                                                      1 ⨯
    Domain Name: TESLA.COM
    Registry Domain ID: 187902_DOMAIN_COM-VRSN
    Registrar WHOIS Server: whois.markmonitor.com
@@ -189,7 +189,7 @@
 <pre><code class="language-bash">host &lt;hostname or IP&gt;
 </code></pre>
 <pre><code class="language-bash">┌──(backslash0@kali)-[~]-[]
-└─$ host google.com                
+└─ \\) host google.com                
 google.com has address 172.217.169.174
 google.com has IPv6 address 2a00:1450:4017:80a::200e
 google.com mail is handled by 10 aspmx.l.google.com.
@@ -200,7 +200,7 @@ google.com mail is handled by 50 alt4.aspmx.l.google.com.
 </code></pre>
 <p>You can also do reverse name lookups by supplying an IP address:</p>
 <pre><code class="language-bash">┌──(backslash0@kali)-[~]-[]
-└─$ host 8.8.8.8        
+└─\\(  host 8.8.8.8        
 8.8.8.8.in-addr.arpa domain name pointer dns.google.
 </code></pre>
 <p>A special domain <code>in-addr.arpa</code> is used for reverse DNS lookups. You can read more about it <a href="../../Networking/DNS/The%20in-addr.arpa%20Domain.html">here</a>.</p>
@@ -209,7 +209,7 @@ google.com mail is handled by 50 alt4.aspmx.l.google.com.
 <pre><code class="language-bash">dig &lt;domain&gt; SOA
 </code></pre>
 <pre><code class="language-bash">┌──(backslash0@kali)-[~]-[]
-└─$ dig google.com SOA
+└─ \\) dig google.com SOA
 
 ; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; google.com SOA
 ;; global options: +cmd
@@ -232,7 +232,7 @@ google.com.             5       IN      SOA     ns1.google.com. dns-admin.google
 </code></pre>
 <p>We can see that the SOA is listed as <code>ns1.google.com</code> in the <code>ANSWER SECTION</code>. You can find the IP of this name server with dig, too.</p>
 <pre><code class="language-bash">┌──(backslash0@kali)-[~]-[]
-└─$ dig ns1.google.com
+└─\\(  dig ns1.google.com
 
 ; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; ns1.google.com
 ;; global options: +cmd
@@ -259,7 +259,7 @@ ns1.google.com.         5       IN      A       216.239.32.10
 <pre><code class="language-bash">dig @&lt;name server&gt; &lt;domain&gt;
 </code></pre>
 <pre><code class="language-bash">┌──(backslash0@kali)-[~]-[]
-└─$ dig @192.168.129.138 nsa.gov     
+└─ \\) dig @192.168.129.138 nsa.gov     
 
 ; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; @192.168.129.138 nsa.gov
 ; (1 server found)
