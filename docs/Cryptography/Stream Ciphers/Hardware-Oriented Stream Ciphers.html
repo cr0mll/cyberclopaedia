@@ -161,9 +161,17 @@
 <p>Linear Feedback Shift Registers are FSRs which are equipped with a linear feedback function, namely a procedure which XORs together some of the bits of the current state. The bits that get XOR-ed together are defined by a set of boolean <em>feedback coefficients</em>. It is important that the feedback coefficients are <em>not</em> allowed to mutate throughout any update, since they define the feedback function. The number of bits in the bit array of the register is called its <em>degree</em>.</p>
 <p><img src="Resources/Images/LFSR.png" alt="" /></p>
 <p>For a register consisting of bits $s_{n-1},...,s_0$ and feedback coefficients $c_{n-1},...,c_0$, the state of the LFSR is updated by shifting the register to the right and replacing the left-most bit with the output of the feedback function. Namely, if the register state at time $t$ is described by $s_{n-1}^{(t)},...,{}_{t}s_0^{(t)}$, the state after an update (also called a <em>clock tick</em>) would be given by:</p>
-<p>$$s_i^{(t+1)} \coloneqq s_{i+1}^{(t)}, \text{where } i = 0,...,n-2$$
-$$s_{n-1}^{(t+1)} \coloneqq \bigoplus_{i=0}^{n-1} c_i s_i^{(t)}$$</p>
+<p>$$s_i^{(t+1)} \colon= s_{i+1}^{(t)}, \text{where } i = 0,...,n-2$$
+$$s_{n-1}^{(t+1)} \colon= \bigoplus_{i=0}^{n-1} c_i s_i^{(t)}$$</p>
 <p>For each clock tick, the LFSR outputs the value of the right-most bit, $s_0$. Thus, if the initial state of the LFSR is $s_{n-1}^{(0)},...,s_0^{(t)}$, then the first $n$ bits of the output stream will be the sequence $s_0^{(0)},...,s_{n-1}^{(0)}$, with the next output bit being $s_{n-1}^{(1)} = \bigoplus_{i=0}^{n-1} c_i s_i^{(0)}$.</p>
+<p>The maximal period of an LFSR is $2^n-1$, where $n$ is the degree of the LFSR, for the all-zeros state can never be mutated via a XOR operation. It is paramount that the correct feedback coefficients are chosen in order to ensure a maximal period. Luckily, there is a procedure for accomplishing just that. Starting from 1 for the left-most bit moving up to $n$ for the right-most bit, we construct a polynomial of the form $p(x) = 1 + x + x^2 + x^3 + ... + x^n$, where the term $x^i$ is only included if the $i$th bit has a feedback coefficient equal to 1 (it is included in the XOR operation). Now, the period is maximal if and only if this polynomial is <em>primitive</em>. A polynomial is primitive when it is irreducible (factorisation is impossible) and also satisfies additional mathematical criteria, which I unfortunately do not comprehend myself, but you can read more about them <a href="https://en.wikipedia.org/wiki/Primitive_polynomial_(field_theory)">here</a>.</p>
+<p>LFSRs are inherently insecure due to their linearity. Given known feedback coefficients, the first $n$ output bits will reveal the initial state and from then on it is possible to determine the entirety of all future bits. Even with unknown feedback coefficients, an attacker needs at most $2n$ output bits to determine both the feedback coefficients and the initial state. If we denote the first $n$ output bits as $y_0,...,y_{n-1}$ and the next $n$ bits as $y_n,...,y_{2n-1}$, we can construct the following system of linear equations:</p>
+<p>$$\begin{align}
+y_n &amp;= c_{n-1} y_{n-1} \bigoplus \cdots \bigoplus c_0 y_0 \newline
+\vdots \newline 
+y_{2n-1} &amp;= c_{n-1} y_{2n-2} \bigoplus \cdots \bigoplus c_0 y_{n-1} 
+\end{align}$$</p>
+<p>It is possible to show that for a maximal period LFSR the equations in the system are linearly independent ($\mod 2$) and can be solved through basic linear algebra.</p>
 
                     </main>
 
