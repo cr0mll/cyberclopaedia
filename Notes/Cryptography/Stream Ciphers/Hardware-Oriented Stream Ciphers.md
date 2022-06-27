@@ -15,3 +15,15 @@ Given a feedback function $f$ and an initial state $R_0$, we define the *period*
 With the above function, $f$, and state, $0101$, the period would be 6.
 
 Naturally, an FSR with a larger period will produce a more unpredictable output.
+
+# Linear Feedback Shift Registers (LFSR)
+Linear Feedback Shift Registers are FSRs which are equipped with a linear feedback function, namely a procedure which XORs together some of the bits of the current state. The bits that get XOR-ed together are defined by a set of boolean *feedback coefficients*. It is important that the feedback coefficients are *not* allowed to mutate throughout any update, since they define the feedback function. The number of bits in the bit array of the register is called its *degree*.
+
+![](Resources/Images/LFSR.png)
+
+For a register consisting of bits $s_{n-1},...,s_0$ and feedback coefficients $c_{n-1},...,c_0$, the state of the LFSR is updated by shifting the register to the right and replacing the left-most bit with the output of the feedback function. Namely, if the register state at time $t$ is described by $s_{n-1}^{(t)},...,{}_{t}s_0^{(t)}$, the state after an update (also called a *clock tick*) would be given by:
+
+$$s_i^{(t+1)} \coloneqq s_{i+1}^{(t)}, \text{where } i = 0,...,n-2$$
+$$s_{n-1}^{(t+1)} \coloneqq \bigoplus_{i=0}^{n-1} c_i s_i^{(t)}$$
+
+For each clock tick, the LFSR outputs the value of the right-most bit, $s_0$. Thus, if the initial state of the LFSR is $s_{n-1}^{(0)},...,s_0^{(t)}$, then the first $n$ bits of the output stream will be the sequence $s_0^{(0)},...,s_{n-1}^{(0)}$, with the next output bit being $s_{n-1}^{(1)} = \bigoplus_{i=0}^{n-1} c_i s_i^{(0)}$.

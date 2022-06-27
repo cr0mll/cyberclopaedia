@@ -157,6 +157,13 @@
 <p>Given a feedback function $f$ and an initial state $R_0$, we define the <em>period</em> of the FSR to be the number of updates that the FSR can go through until the new state repeats with one of the previous states, thus forming a cycle. Note, that the period of the FSR will be the same if we substituted $R_0$ for any other state which is produced during its cycle and any single state may only belong to a single cycle. </p>
 <p>With the above function, $f$, and state, $0101$, the period would be 6.</p>
 <p>Naturally, an FSR with a larger period will produce a more unpredictable output.</p>
+<h1 id="linear-feedback-shift-registers-lfsr"><a class="header" href="#linear-feedback-shift-registers-lfsr">Linear Feedback Shift Registers (LFSR)</a></h1>
+<p>Linear Feedback Shift Registers are FSRs which are equipped with a linear feedback function, namely a procedure which XORs together some of the bits of the current state. The bits that get XOR-ed together are defined by a set of boolean <em>feedback coefficients</em>. It is important that the feedback coefficients are <em>not</em> allowed to mutate throughout any update, since they define the feedback function. The number of bits in the bit array of the register is called its <em>degree</em>.</p>
+<p><img src="Resources/Images/LFSR.png" alt="" /></p>
+<p>For a register consisting of bits $s_{n-1},...,s_0$ and feedback coefficients $c_{n-1},...,c_0$, the state of the LFSR is updated by shifting the register to the right and replacing the left-most bit with the output of the feedback function. Namely, if the register state at time $t$ is described by $s_{n-1}^{(t)},...,{}_{t}s_0^{(t)}$, the state after an update (also called a <em>clock tick</em>) would be given by:</p>
+<p>$$s_i^{(t+1)} \coloneqq s_{i+1}^{(t)}, \text{where } i = 0,...,n-2$$
+$$s_{n-1}^{(t+1)} \coloneqq \bigoplus_{i=0}^{n-1} c_i s_i^{(t)}$$</p>
+<p>For each clock tick, the LFSR outputs the value of the right-most bit, $s_0$. Thus, if the initial state of the LFSR is $s_{n-1}^{(0)},...,s_0^{(t)}$, then the first $n$ bits of the output stream will be the sequence $s_0^{(0)},...,s_{n-1}^{(0)}$, with the next output bit being $s_{n-1}^{(1)} = \bigoplus_{i=0}^{n-1} c_i s_i^{(0)}$.</p>
 
                     </main>
 
