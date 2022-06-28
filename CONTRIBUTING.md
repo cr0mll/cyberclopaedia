@@ -5,7 +5,7 @@ The Cyberclopaedia is welcome to all and the community's contributions are much 
 # Getting Started
 You would first need to create a Pull Request. 
 
-In your pull request it is important that you only alter files located in the `Notes` directory. Do NOT use mdbook to build the book yourself in the PR, since that may generate unnecessary merge conflicts and will also mingle with the book publishing cycle (sections of the book may not be made available on https://cr0mll.github.io/cyberclopaedia immediately after they are written).
+In your pull request it is important that you only alter files located in the `Notes` directory. Do NOT use mdbook to build the book yourself in the PR, since that may generate unnecessary merge conflicts and will also mingle with the book publishing cycle (sections of the book may not be made available on https://cr0mll.github.io/cyberclopaedia immediately after they are written). Moreover, do not touch the `SUMMARY.md` file, since it is auto-generated.
 
 You are advised to use Obsidian as your markdown editor, although really anything is possible as long as it uses the `![]()` syntax for images and the `[]()` syntax for links.
 

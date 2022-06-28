@@ -4,7 +4,7 @@ The BIND software is the most commonly used name server software, which supports
 dig @<name server> <class> <domain name> <record type>
 ```
 ```bash
-┌──(backslash0@kali)-[~]-[]
+┌──(cr0mll@kali)-[~]-[]
 └─$ dig @192.168.129.138 chaos version.bind txt 
 
 ; <<>> DiG 9.16.15-Debian <<>> @192.168.129.138 chaos version.bind txt
@@ -39,7 +39,7 @@ A *Zone transfer* request provides the means for copying a DNS zone file from on
 dig @<name server> AXFR <domain>
 ```
 ```bash
-┌──(backslash0@kali)-[~]-[]
+┌──(cr0mll0@kali)-[~]-[]
 └─$ dig @192.168.129.138 AXFR nsa.gov 
 
 ; <<>> DiG 9.16.15-Debian <<>> @192.168.129.138 AXFR nsa.gov
