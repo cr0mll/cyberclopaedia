@@ -41,9 +41,12 @@ y_{2n-1} &= c_{n-1} y_{2n-2} \bigoplus \cdots \bigoplus c_0 y_{n-1}
 It is possible to show that for a maximal period LFSR the equations in the system are linearly independent ($\mod 2$) and can be solved through basic linear algebra.
 
 ## Introducing Nonlinearity
-LFSRs can be strengthen by introducing nonlinearity in the encryption process by different means. For example, it is possible to make the feedback loop nonlinear by setting the value of the leftmost bit at each clock tick to be a nonlinear function of the bits in the previous state. If the register's state at time $t$ is $s_{n-1}^{(t)},...,s_0^{(t)}$, the state at $t+1$ would be
+LFSRs can be strengthen by introducing nonlinearity in the encryption process by different means. This means that it is not only XOR operations that are used, but also logical ANDs and ORs. For example, it is possible to make the feedback loop nonlinear by setting the value of the leftmost bit at each clock tick to be a nonlinear function of the bits in the previous state. If the register's state at time $t$ is $s_{n-1}^{(t)},...,s_0^{(t)}$, the state at $t+1$ would be
 
 $$s_i^{(t+1)} \colon= s_{i+1}^{(t)}, \text{where } i = 0,...,n-2$$
 $$s_{n-1}^{(t+1)} \colon= g(s_{n-1}^{(t)},...,s_0^{(t)})$$
 
-$$$$
+As before, the rightmost bit, $s_0$ is outputted at each clock tick. In order for the FSR to be secure, the feedback function, $g$ should be balanced in the sense that $\text{Pr}[g( s_{n-1},...,s_0 ) = 1] \approx \frac{1}{2}$.
+
+### Filtered FSRs
+In the above example, the FSR itself is nonlinear, since the way that the leftmost is altered at each clock tick is determined by a nonlinear function. However, it is also possible to keep the FSR linear and instead pass its output to a filter function, $g$. Instead of outputting the rightmost bit, $s_0$, the entire register is passed to the filter function and the output of the register is determined by the output of $g$.
