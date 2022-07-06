@@ -1,5 +1,5 @@
 # The Cyberclopaedia
-This is an aspiring project aimed at accumulating knowledge from the world of cybersecurity and presenting in a cogent way, so it is accessible to as large and audience as possible and so that everyone has a good resource to learn hacking from.
+This is an aspiring project aimed at accumulating knowledge from the world of cybersecurity and presenting it in a cogent way, so it is accessible to as large and audience as possible and so that everyone has a good resource to learn hacking from.
 
 Experimental support for inline Mathjax is now provided using a [custom preprocessor](https://github.com/cr0mll/mdbook-inline-mathjax). If you find that any LaTeX is not rendered properly, please create a GitHub issue including the chapter name that contains the broken LaTeX. Furthermore, in this case you should view the Cyberclopaedia [here](https://github.com/cr0mll/cyberclopaedia) on GitHub.
 

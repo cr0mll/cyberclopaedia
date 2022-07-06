@@ -16,7 +16,7 @@ With the above function, $f$, and state, $0101$, the period would be 6.
 
 Naturally, an FSR with a larger period will produce a more unpredictable output.
 
-# Linear Feedback Shift Registers (LFSR)
+## Linear Feedback Shift Registers (LFSR)
 Linear Feedback Shift Registers are FSRs which are equipped with a linear feedback function, namely a procedure which XORs together some of the bits of the current state. The bits that get XOR-ed together are defined by a set of boolean *feedback coefficients*. It is important that the feedback coefficients are *not* allowed to mutate throughout any update, since they define the feedback function. The number of bits in the bit array of the register is called its *degree*.
 
 ![](Resources/Images/LFSR.png)
@@ -39,3 +39,11 @@ y_{2n-1} &= c_{n-1} y_{2n-2} \bigoplus \cdots \bigoplus c_0 y_{n-1}
 \end{align}$$
 
 It is possible to show that for a maximal period LFSR the equations in the system are linearly independent ($\mod 2$) and can be solved through basic linear algebra.
+
+## Introducing Nonlinearity
+LFSRs can be strengthen by introducing nonlinearity in the encryption process by different means. For example, it is possible to make the feedback loop nonlinear by setting the value of the leftmost bit at each clock tick to be a nonlinear function of the bits in the previous state. If the register's state at time $t$ is $s_{n-1}^{(t)},...,s_0^{(t)}$, the state at $t+1$ would be
+
+$$s_i^{(t+1)} \colon= s_{i+1}^{(t)}, \text{where } i = 0,...,n-2$$
+$$s_{n-1}^{(t+1)} \colon= g(s_{n-1}^{(t)},...,s_0^{(t)})$$
+
+$$$$
