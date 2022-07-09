@@ -46,7 +46,11 @@ LFSRs can be strengthen by introducing nonlinearity in the encryption process by
 $$s_i^{(t+1)} \colon= s_{i+1}^{(t)}, \text{where } i = 0,...,n-2$$
 $$s_{n-1}^{(t+1)} \colon= g(s_{n-1}^{(t)},...,s_0^{(t)})$$
 
-As before, the rightmost bit, $s_0$ is outputted at each clock tick. In order for the FSR to be secure, the feedback function, $g$ should be balanced in the sense that $\text{Pr}[g( s_{n-1},...,s_0 ) = 1] \approx \frac{1}{2}$.
+As before, the rightmost bit, $s_0$ is outputted at each clock tick. In order for the FSR to be secure, the feedback function, $g$ should be balanced in the sense that $\text{Pr}[g( s_{n-1},...,s_0 ) = 1] \approx \frac{1}{2}$. This is called an NFSR.
+
+![](Resources/Images/NFSR.png)
 
 ### Filtered FSRs
 In the above example, the FSR itself is nonlinear, since the way that the leftmost is altered at each clock tick is determined by a nonlinear function. However, it is also possible to keep the FSR linear and instead pass its output to a filter function, $g$. Instead of outputting the rightmost bit, $s_0$, the entire register is passed to the filter function and the output of the register is determined by the output of $g$.
+
+![](Resources/Images/Filtered_FSR.png)
