@@ -19,7 +19,7 @@ Naturally, an FSR with a larger period will produce a more unpredictable output.
 ## Linear Feedback Shift Registers (LFSR)
 Linear Feedback Shift Registers are FSRs which are equipped with a linear feedback function, namely a procedure which XORs together some of the bits of the current state. The bits that get XOR-ed together are defined by a set of boolean *feedback coefficients*. It is important that the feedback coefficients are *not* allowed to mutate throughout any update, since they define the feedback function. The number of bits in the bit array of the register is called its *degree*.
 
-![](Resources/Images/LFSR.png)
+![](../Resources/Images/LFSR.png)
 
 For a register consisting of bits $s_{n-1},...,s_0$ and feedback coefficients $c_{n-1},...,c_0$, the state of the LFSR is updated by shifting the register to the right and replacing the left-most bit with the output of the feedback function. Namely, if the register state at time $t$ is described by $s_{n-1}^{(t)},...,{}_{t}s_0^{(t)}$, the state after an update (also called a *clock tick*) would be given by:
 
@@ -46,11 +46,15 @@ LFSRs can be strengthen by introducing nonlinearity in the encryption process by
 $$s_i^{(t+1)} \colon= s_{i+1}^{(t)}, \text{where } i = 0,...,n-2$$
 $$s_{n-1}^{(t+1)} \colon= g(s_{n-1}^{(t)},...,s_0^{(t)})$$
 
-As before, the rightmost bit, $s_0$ is outputted at each clock tick. In order for the FSR to be secure, the feedback function, $g$ should be balanced in the sense that $\text{Pr}[g( s_{n-1},...,s_0 ) = 1] \approx \frac{1}{2}$. This is called an NFSR.
+As before, the rightmost bit, $s_0$ is outputted at each clock tick. In order for the FSR to be secure, the feedback function, $g$ should be balanced in the sense that $\text{Pr}[g( s_{n-1},...,s_0 ) = 1] \approx \frac{1}{2}$. 
 
-![](Resources/Images/NFSR.png)
+![](../Resources/Images/NFSR.png)
+
+Unfortunately, there is a downside to NFSRs (Nonlinear FSRs). There is no efficient way to determine an NFSR's period or even whether its period is maximal. It is however, possible to mitigate this by combining NFSRs and LFSRs, which is what [Grain-128a](Grain-128a.md) does.
 
 ### Filtered FSRs
 In the above example, the FSR itself is nonlinear, since the way that the leftmost is altered at each clock tick is determined by a nonlinear function. However, it is also possible to keep the FSR linear and instead pass its output to a filter function, $g$. Instead of outputting the rightmost bit, $s_0$, the entire register is passed to the filter function and the output of the register is determined by the output of $g$.
 
-![](Resources/Images/Filtered_FSR.png)
+![](../Resources/Images/Filtered_FSR.png)
+
+Whilst filtered FSRs are stronger than LFSRs, their underlying partial linearity makes them vulnerable to complex attacks such as *algebraic attacks*, *cube attacks*, and *fast correlation attacks*.
