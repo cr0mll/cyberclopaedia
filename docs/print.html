@@ -1608,6 +1608,27 @@ window.location.replace(https://www.google.com)
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-15"><a class="header" href="#introduction-15">Introduction</a></h1>
 <p>Pivoting is the act of establishing access to internal resources on a network through a compromised machine. This allows an adversary to exifltrate local data which is usually not accessible from the outside world. Moreover, it permits the use of hacking tools as if they were running from inside the network.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-16"><a class="header" href="#introduction-16">Introduction</a></h1>
+<p>SSH Tunneling is a port forwarding technique which uses SSH. It can be used to access internal resources within a network if you have SSH access to a host inside it. Additionally, the tunnel goes through a pre-existing SSH connection and can thus be utilised for bypassing firewalls.</p>
+<h1 id="local-port-forwarding"><a class="header" href="#local-port-forwarding">Local Port Forwarding</a></h1>
+<p>Local port forwarding is used when you want to create a bridge to a port that hosts an internal service which does not accept connections from outside the network. For this to work, you need to specify two ports - one for the service on the remote machine which you want to access and one on your local machine to create the listener on. Any packets sent to your machine on the local port will be tunneled to the port on the remote machine through the SSH connection.</p>
+<p><img src="Post%20Exploitation/Pivoting/../../../SSH_Local_Tunnel.png" alt="" /></p>
+<p>The syntax is fairly simple:</p>
+<pre><code>ssh -L [LOCAL_IP:]LOCAL_PORT:DESTINATION:DESTINATION_PORT [USER@]SSH_SERVER
+</code></pre>
+<ul>
+<li><code>[LOCAL_IP:]</code> - the interface you want to open the listener on. This can be omitted and defaults to <code>localhost</code>.</li>
+<li><code>LOCAL_PORT</code> - the port you want to start the listener on. Any traffic sent to this port will be forwarded through the tunnel.</li>
+<li><code>DESTINATION</code> - the destination host. This does not need to (and most likely won't) match <code>SSH_SERVER</code>, since you are now trying to access an internal resource.</li>
+<li><code>DESTINATION_PORT</code> - the port on the remote machine, that you want to access through the tunnel.</li>
+</ul>
+<p>You can also add <code>-N -f</code> to the above command, so that <code>ssh</code> runs in the background and only opens the tunnel without giving an interface for typing commands.</p>
+<p><img src="Post%20Exploitation/Pivoting/Resources/Images/SSH_Local_Tunnel_Wrong.png" alt="" /></p>
+<p>We have now established a tunnel on my Kali machine's port 8080, which will forward any traffic to <code>192.168.129.137:1337</code>, which is my ubuntu server. So let's see if we can access the web page.</p>
+<p><img src="Post%20Exploitation/Pivoting/Resources/Images/SSH_Local_Tunnel_Fail.png" alt="" /></p>
+<p>Let's again check to see if we have access to the resource hidden behind <code>localhost:1337</code> on the Ubuntu server...</p>
+<p><img src="Post%20Exploitation/Pivoting/Resources/Images/SSH_Local_Tunnel_Success.png" alt="" /></p>
+<p>Wait, what? We just created the tunnel, but it does not seem to work? Well, remember how the <code>DESTINATION</code> does not need to match the server's IP? This is because the <code>DESTINATION</code> is where the traffic is sent <em>after</em> it gets to the remote machine. In a sense, the remote machine is now the sender and not us. Therefore, in order to access a resource internal to the network, we would need to change <code>DESTINATION</code> to something like <code>localhost</code> or another computer's IP.</p>
+<p><img src="Post%20Exploitation/Pivoting/Resources/Images/SSH_Local_Tunnel_Correct.png" alt="" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-17"><a class="header" href="#introduction-17">Introduction</a></h1>
 <p>Chisel is an open-source application for port tunneling. You can get it from https://github.com/jpillora/chisel. Clone the repo and follow the installation instructions.</p>
 <p>In order to port tunnel with chisel, you need to have a copy of the binary on both the attacking and the compromised machines.</p>
