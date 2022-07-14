@@ -1,5 +1,5 @@
 # Introduction
-Unlike block ciphers, stream ciphers do not fuse plaintext with key bits. Instead, a stream cipher generates a pseudorandom bits from the key and encrypts the plaintext by XOR-ing it with those bits. The psuedorandom bits are said to construct a *keystream*. In addition to the key, which is usually 128 or 256 bits, a stream cipher also takes a nonce. The nonce need not be secret but should be unique for every key. Nonce sizes are typically between 64 and 128 bits.
+Unlike block ciphers, stream ciphers do not fuse plaintext with key bits. Instead, a stream cipher generates a pseudorandom bits from the key and encrypts the plaintext by XOR-ing it with those bits. The pseudorandom bits are said to construct a *keystream*. In addition to the key, which is usually 128 or 256 bits, a stream cipher also takes a nonce. The nonce need not be secret but should be unique for every key. Nonce sizes are typically between 64 and 128 bits.
 
 ![](Resources/Images/Stream_Cipher.png)
 

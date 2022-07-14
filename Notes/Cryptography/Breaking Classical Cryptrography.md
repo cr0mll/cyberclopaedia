@@ -21,7 +21,7 @@ Let's once again map the alphabet with the integers 0 through 25 and also this t
 
 $$ \sum_{i=0}^{25} p_i^2 \approx 0.065$$
 
-Now, let $q_i$ denote the frequency of the $i$th letter in the ciphertext - this is just equal to the number of occurences of the $i$th letter divided by the length of the ciphertext. If the key is $k$, then $p_i$ should be approximately equal to $q_{i+k}$, since the $i$th letter gets mapped to the $(i+k)$th letter (technically, these should be $i+k \mod 26$, but that's too cumbersome to write here). Therefore, if we compute
+Now, let $q_i$ denote the frequency of the $i$th letter in the ciphertext - this is just equal to the number of occurrences of the $i$th letter divided by the length of the ciphertext. If the key is $k$, then $p_i$ should be approximately equal to $q_{i+k}$, since the $i$th letter gets mapped to the $(i+k)$th letter (technically, these should be $i+k \mod 26$, but that's too cumbersome to write here). Therefore, if we compute
 
 $$ I_j \overset{\mathrm{def}}{=} \sum_{i=0}^{25} p_i \cdot q_{i+j}$$
 

@@ -1,7 +1,7 @@
 # The Heap
-The heap is a memory region which allows for dynamic allocation. Memory on the heap is alloted at runtime and programs are permitted to freely request additional heap memory whenever it is required.
+The heap is a memory region which allows for dynamic allocation. Memory on the heap is allotted at runtime and programs are permitted to freely request additional heap memory whenever it is required.
 
-It is the program's job to request and relieve any heap memory *only once*. Failure to do so can result in undefined behaviour. In C, heap memory is usually allocated through the use of `malloc` and whenever the program is finished with this data, the `free` function must be envoked in order to mark the area as available for use by the operating system and/or other programs.
+It is the program's job to request and relieve any heap memory *only once*. Failure to do so can result in undefined behaviour. In C, heap memory is usually allocated through the use of `malloc` and whenever the program is finished with this data, the `free` function must be invoked in order to mark the area as available for use by the operating system and/or other programs.
 
 Heap memory can also be allocated by using malloc-compatible heap functions like `calloc`, `realloc` and `memalign` or in C++ using the corresponding `new` and `new[]` operators as well as their deallocation counterparts `delete` and `delete[]`.
 
@@ -19,7 +19,7 @@ Heap memory can also be allocated by using malloc-compatible heap functions like
 The implementation of the heap is platform specific.
 
 # The GLIBC Heap
-The heap grows from lower to higher address. 
+The heap grows from lower to higher addresses. 
 
 ## Chunks
 The heap manager allocates resources in the so-called *chunks*. These chunks are stored adjacent to each other and must be 8-byte aligned or 16-byte aligned on 32-bit and 64-bit systems respectively. In addition to this padding, each chunks contains metadata which provides information about the chunk itself. Consequently, issuing a request for memory allocation on the heap actually allocates more bytes than originally requested.
@@ -65,11 +65,11 @@ Large chunks get treated differently in their allocation. These are allocated of
 Different platforms have different default thresholds for what counts as a large chunk and what doesn't.
 
 ## Arenas
-Multithreaded applications require that internal data structures on the heap are protected from race conditions. In the past, the heap manager availed itself of a global mutex before every heap operation, however, significant performance issues arised as a result. Consequently, the concept of "arenas" was introduced. 
+Multithreaded applications require that internal data structures on the heap are protected from race conditions. In the past, the heap manager availed itself of a global mutex before every heap operation, however, significant performance issues arose as a result. Consequently, the concept of "arenas" was introduced. 
 
 Each arena consists of a separate heap which manages its own chunk allocation and bins. Although each arena still utilises a mutex for its internal operations, different threads can make use of different arenas to avoid having to wait for each other. 
 
-The initial (main) arena consists of a single heap and for singlethreaded applications it is all there ever will exist. However, as more threads are spawned, new arenas are allocated and attached to them. Once all available arenas are being utilised by threads, the heap manager will commence creating new ones until a limit - `2 * Number of CPU cores` for 32-bit and `8 * Number of CPU cores` for 64-bit processes - is reached. Afterwards, multiple threads will be forced to share the same arena.
+The initial (main) arena consists of a single heap and for single-threaded applications it is all there ever will exist. However, as more threads are spawned, new arenas are allocated and attached to them. Once all available arenas are being utilised by threads, the heap manager will commence creating new ones until a limit - `2 * Number of CPU cores` for 32-bit and `8 * Number of CPU cores` for 64-bit processes - is reached. Afterwards, multiple threads will be forced to share the same arena.
 
 ## Bins
 Free chunks are organised in the so-called *bins* which are essentially linked lists. For performance reasons different types of bins exist. There are 62 **small bins,** 63 **large bins,** 1 **unsorted bin,** 10 **fast bins** and 64 **tcache bins** per thread. The last two appeared later and are built on top of the first three.

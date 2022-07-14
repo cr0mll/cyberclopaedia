@@ -29,7 +29,7 @@ After this, the nonce-counter pair is encrypted with the key and then XOR-ed wit
 
 It is paramount that the nonce is unique between messages, since when encrypting two plaintexts with the same nonce-counter stream - $c_1 = p_1 \bigoplus S$ and $c_2 = p_2 \bigoplus S$, then $c_1 \bigoplus c_2$ reveals $p_1 \bigoplus p_2$.
 
-Furthermore, a random nonce is sufficient only if it is long enough. Given a nonce of length $n$ bits, it is likely that after $2^{n/2}$ encryptions collisions will start occuring. Therefore, a 64-bit nonce is abominable due to the fact that collisions will commence after approximately $2^{32}$ encryptions, which is a very low number. 
+Furthermore, a random nonce is sufficient only if it is long enough. Given a nonce of length $n$ bits, it is likely that after $2^{n/2}$ encryptions collisions will start occurring. Therefore, a 64-bit nonce is abominable due to the fact that collisions will commence after approximately $2^{32}$ encryptions, which is a very low number. 
 
 Decryption works by XOR-ing the ciphertext with the appropriate nonce-counter pair.
 
