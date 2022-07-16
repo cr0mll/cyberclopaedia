@@ -2,7 +2,7 @@
 The **Executable and Linkable Format** (ELF) has established itself as the standard binary format for Unix operating systems and their derivatives. Under LINUX, BSD variants, and other operating systems, ELF is used for executables, shared libraries, object files, core files, and even the kernel boot image. 
 
 # Structure
-An ELF file comprises an ELF header followed by data. Inside lie the [Program Header Table](Program%20Header%20Table.md) and the [Section Header Table](Section%20Header%20Table.md). The former describes memory *segments*, while the latter outlies the memory *sections*. 
+An ELF file comprises an ELF header followed by data. Inside lie the Program Header Table and the Section Header Table. The former describes memory [segments](Segments.md), while the latter outlies the [sections](Sections.md). 
 
 # File Types
 An ELF file may be any of the following:

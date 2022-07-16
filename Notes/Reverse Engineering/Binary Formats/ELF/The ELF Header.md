@@ -1,5 +1,5 @@
 # Introduction
-The ELF header is a data structure which sits at the beginning of every ELF file and describes its layout. It starts with 16 identification bytes that contain the ELF magic bytes. The following structs are defined in `<elf.h>`
+The ELF header is a data structure which sits at the beginning of every ELF file and describes its layout. It starts with 16 identification bytes that contain the ELF magic bytes. The following structs are defined in `<elf.h>`:
 
 ```cpp
 #define EI_NIDENT 16
@@ -42,7 +42,7 @@ typedef struct {
 ![](Resources/Images/ELF_Header.png)
 
 - `e_ident` - the initial magic bytes which denote an ELF file.
-- `e_type` - the type of the object file. Values from `ET_`
+- `e_type` - the type of the object file. 
 
 | Name | Value | Meaning |
 |:-----:|:----:|:--------:|
@@ -230,3 +230,6 @@ Next is the `EI_CLASS` byte which describes the file's class - whether it is a 3
 `EI_ABIVERSION` identifies the target ABI version and is used to distinguish between incompatible ABI versions. The byte's interpretation depends on the ABI specified by `EI_OSABI`. If it is unspecified, `EI_ABIVERSION` should contain 0.
 
 `EI_PAD` - demarcates the beginning of the unused bytes in `e_ident`, which are reserved and set to 0. The value of this byte may change as meanings are assigned to these unused bytes.
+
+You can view the ELF header of an ELF binary by using `readelf` with the `-h` option:
+![](Resources/Images/ELF_Header_read.png)
