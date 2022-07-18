@@ -1775,7 +1775,191 @@ typedef struct {
 <h2 id="how-_dl_resolve-works"><a class="header" href="#how-_dl_resolve-works">How <code>_dl_resolve</code> works</a></h2>
 <p><code>_dl_resolve</code> on its own is a simple wrapper around several other functions. Initially, the relocation argument is used in order to locate the appropriate entry in the relocation table of the executable. The <code>r_info</code> member of this entry is then used to find the corresponding element in the dynamic symbol table. From there, <code>st_name</code> is utilised to pinpoint the location of the name of the function in the string table. Subsequently, <code>_dl_resolve</code> avails itself of this string in order to look it up in the code of the library. Once the address is found, <code>r_offset</code> is used to locate where in the GOT the address should be placed (note that despite its use, <code>r_offset</code> is actually an offset from the beginning of the ELF header). The function initially invoked is also called with any arguments which were provided to it. It bears a resemblance to the following:</p>
 <p><img src="Reverse%20Engineering/Binary%20Formats/ELF/Resources/Images/_dl_resolve.png.png" alt="" /></p>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-21"><a class="header" href="#introduction-21">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-21"><a class="header" href="#introduction-21">Introduction</a></h1>
+<p>Sections comprise the entirety of an ELF binary with the exception of the <a href="Reverse%20Engineering/Binary%20Formats/ELF/The%20ELF%20Header.html">ELF header</a>, the Programme Header Table and the Section Header Table. Each section is characterised by a single section header. A section must occupy a contiguous block of space in the file and section overlap is not allowed - each byte in the file may only belong to a single function. However, bytes may also pertain to no sections at all, in which case their contents are unspecified.</p>
+<p>It is paramount to understand that sections are <em>not</em> loaded as such into the memory image of the binary. Instead, specific parts from them are organised and grouped by the ELF segments. You can imagine sections as turning into segments during load-time. Sections themselves are really only relevant for linking and debugging purposes.</p>
+<h1 id="the-section-header-table-sht"><a class="header" href="#the-section-header-table-sht">The Section Header Table (SHT)</a></h1>
+<p>Sections are described by <em>section headers</em> which are in turn stored in the <em>Section Header Table (SHT)</em>. Since the SHT is not pertinent to a binary at runtime, it may be stripped from the file entirely. A corollary of this is the fact that while every ELF object has sections, but not every ELF object has section <em>headers</em>. In fact, a common procedure for hindering reverse engineering and debugging of a binary is to strip the section header table, which makes life rather difficult for debuggers, since they will be unable to directly reference symbol information. Note, however, that this information may still be recovered via analysis of the rest of the binary, and more specifically, of the Programme Header Table due to its inherent overlap between segments and sections.</p>
+<p>Ultimately, the section header table is an array of the following structures:</p>
+<pre><code class="language-cpp">
+typedef struct
+{
+  Elf32_Word	sh_name;		/* Section name (string tbl index) */
+  Elf32_Word	sh_type;		/* Section type */
+  Elf32_Word	sh_flags;		/* Section flags */
+  Elf32_Addr	sh_addr;		/* Section virtual addr at execution */
+  Elf32_Off	sh_offset;		/* Section file offset */
+  Elf32_Word	sh_size;		/* Section size in bytes */
+  Elf32_Word	sh_link;		/* Link to another section */
+  Elf32_Word	sh_info;		/* Additional section information */
+  Elf32_Word	sh_addralign;		/* Section alignment */
+  Elf32_Word	sh_entsize;		/* Entry size if section holds table */
+} Elf32_Shdr;
+
+typedef struct
+{
+  Elf64_Word	sh_name;		/* Section name (string tbl index) */
+  Elf64_Word	sh_type;		/* Section type */
+  Elf64_Xword	sh_flags;		/* Section flags */
+  Elf64_Addr	sh_addr;		/* Section virtual addr at execution */
+  Elf64_Off	sh_offset;		/* Section file offset */
+  Elf64_Xword	sh_size;		/* Section size in bytes */
+  Elf64_Word	sh_link;		/* Link to another section */
+  Elf64_Word	sh_info;		/* Additional section information */
+  Elf64_Xword	sh_addralign;		/* Section alignment */
+  Elf64_Xword	sh_entsize;		/* Entry size if section holds table */
+} Elf64_Shdr;
+</code></pre>
+<p><img src="Reverse%20Engineering/Binary%20Formats/ELF/Resources/Images/ELF_Section_Header.png" alt="" /></p>
+<ul>
+<li><code>sh_name</code> - the offset (in bytes) from the beginning of the section name string table at which the name of the current section is located.</li>
+<li><code>sh_type</code> - the type of the section.</li>
+<li><code>sh_flags</code> - sections support 1-bit flags which describe certain attributes.</li>
+<li><code>sh_addr</code> - if the section is to be loaded into the memory image of the file, this field contains the address at which the section should reside. It holds 0 otherwise.</li>
+<li><code>sh_offset</code> - the offset (in bytes) from the beginning of the file where the section resides. For sections of type <code>SHT_NOBITS</code>, this portrays only a conceptual position.</li>
+<li><code>sh_size</code> - the section's size in bytes. Sections of type <code>SHT_NOBITS</code> may have this field set to a non-zero value, but will still occupy no space in the file.</li>
+<li><code>sh_link</code> - a link to another section header. The interpretation of this field depends on the section's type.</li>
+<li><code>sh_info</code> - this field holds additional information and its interpretation is different based on the section's type</li>
+</ul>
+<table><thead><tr><th><code>sh_type</code></th><th><code>sh_link</code></th><th><code>sh_info</code></th></tr></thead><tbody>
+<tr><td><code>SHT_DYNAMIC</code></td><td>The section header index of the string table used by entries in the section.</td><td>0</td></tr>
+<tr><td><code>SHT_HASH</code></td><td>The section header index of the symbol table to which the hash table pertains.</td><td>0</td></tr>
+<tr><td><code>SHT_RELSHT_RELA</code></td><td>The section header index of the associated symbol table.</td><td>The section header index of the section to which the relocation applies.</td></tr>
+<tr><td><code>SHT_SYMTABSHT_DYNSYM</code></td><td>The section header index of the associated string table.</td><td>One greater than the symbol table index of the last local symbol (binding STB_LOCAL).</td></tr>
+<tr><td><code>SHT_GROUP</code></td><td>The section header index of the associated symbol table.</td><td>The symbol table index of an entry in the associated symbol table.  The name of the specified symbol table entry provides a signature for the section group.</td></tr>
+<tr><td><code>SHT_SYMTAB_SHNDX</code></td><td>The section header index of the associated symbol table section.</td><td>0</td></tr>
+</tbody></table>
+<ul>
+<li><code>sh_addralign</code> - certain sections have alignment constraints. For example, if the section holds a doubleword, doubleword alignment is to be ensured for the entire section. Values 0 and 1 mean that the section requires no special alignment. Otherwise, only positive integral values of 2 are allowed for this field. Ultimately, <code>sh_addr</code> must be divisible by <code>sh_addralign</code>.</li>
+<li><code>sh_entsize</code> - if the section contains some sort of a table of fixed-sized entries, this field holds the entry size. If no such table is present, this member holds 0.</li>
+</ul>
+<p>If the number of section headers is greater than or equal to <code>SHN_LORESERVE (0xff00)</code>, then the <code>e_shnum</code> field of the ELF header holds <code>SHN_UNDEF (0)</code> and the actual number of section headers is stored in the <code>sh_size</code> field of the first entry in the section header table. </p>
+<p>Certain indices in the section header table are reserved. The first section header has the following form:</p>
+<table><thead><tr><th>Name</th><th style="text-align: center">Value</th><th>Note</th></tr></thead><tbody>
+<tr><td><code>sh_name</code></td><td style="text-align: center">0</td><td>No name</td></tr>
+<tr><td><code>sh_type</code></td><td style="text-align: center">SHT_NULL</td><td>Inactive</td></tr>
+<tr><td><code>sh_flags</code></td><td style="text-align: center">0</td><td>No flags</td></tr>
+<tr><td><code>sh_addr</code></td><td style="text-align: center">0</td><td>No address</td></tr>
+<tr><td><code>sh_offset</code></td><td style="text-align: center">0</td><td>No offset</td></tr>
+<tr><td><code>sh_size</code></td><td style="text-align: center">Unspecified</td><td>If non-zero, the actual number of section header entries</td></tr>
+<tr><td><code>sh_link</code></td><td style="text-align: center">Unspecified</td><td>If non-zero, the index of the section header string table section</td></tr>
+<tr><td><code>sh_info</code></td><td style="text-align: center">0</td><td>No auxiliary information</td></tr>
+<tr><td><code>sh_addralign</code></td><td style="text-align: center">0</td><td>No alignment</td></tr>
+<tr><td><code>sh_entsize</code></td><td style="text-align: center">0</td><td>No entries</td></tr>
+</tbody></table>
+<p>The other reserved indices are described in the following table:</p>
+<table><thead><tr><th>Name</th><th style="text-align: center">Value</th></tr></thead><tbody>
+<tr><td><code>SHN_UNDEF</code></td><td style="text-align: center"><code>0</code></td></tr>
+<tr><td><code>SHN_LORESERVE</code></td><td style="text-align: center"><code>0xff00</code></td></tr>
+<tr><td><code>SHN_LOPROC</code></td><td style="text-align: center"><code>0xff00</code></td></tr>
+<tr><td><code>SHN_HIPROC</code></td><td style="text-align: center"><code>0xff1f</code></td></tr>
+<tr><td><code>SHN_LOOS</code></td><td style="text-align: center"><code>0xff20</code></td></tr>
+<tr><td><code>SHN_HIOS</code></td><td style="text-align: center"><code>0xff3f</code></td></tr>
+<tr><td><code>SHN_ABS</code></td><td style="text-align: center"><code>0xfff1</code></td></tr>
+<tr><td><code>SHN_COMMON</code></td><td style="text-align: center"><code>0xfff2</code></td></tr>
+<tr><td><code>SHN_XINDEX</code></td><td style="text-align: center"><code>0xffff</code></td></tr>
+<tr><td><code>SHN_HIRESERVE</code></td><td style="text-align: center"><code>0xffff</code></td></tr>
+</tbody></table>
+<ul>
+<li><code>SHN_LORESERVE</code> - the lower bound for reserved indices.</li>
+<li><code>SHN_LOPROC</code> through <code>SHN_HIPROC</code> - reserved for processor-specific semantics.</li>
+<li><code>SHN_LOOS</code> through <code>SHN_HIOS</code> - reserved for OS-specific semantics.</li>
+<li><code>SHN_ABS</code> - specifies absolute values. For example, symbol definitions relative to this section number are absolutes and are not affected by relocation.</li>
+<li><code>SHN_COMMON</code> - symbols defined relative to this section are &quot;common&quot; symbols such as unallocated <code>C</code> external variables.</li>
+<li><code>SHN_XINDEX</code> - an escape value denoting an index which cannot fit in the containing field and thus must be found elsewhere (this is specific to the structure it is found in).</li>
+<li><code>SHN_HIRESERVE</code> - the upper bound for reserved indices.</li>
+</ul>
+<h1 id="section-types"><a class="header" href="#section-types">Section Types</a></h1>
+<h2 id="sht_null"><a class="header" href="#sht_null"><code>SHT_NULL</code></a></h2>
+<p>The section header is marked as inactive and lacks an associated section. The rest of the members of such a header have undefined values.</p>
+<h2 id="sht_progbits"><a class="header" href="#sht_progbits"><code>SHT_PROGBITS</code></a></h2>
+<p>The section contains data whose contents are solely defined and used by the actual programme.</p>
+<h2 id="sht_symtab-and-sht_dynsym"><a class="header" href="#sht_symtab-and-sht_dynsym"><code>SHT_SYMTAB</code> and <code>SHT_DYNSYM</code></a></h2>
+<p>These sections hold symbol tables. A file may contain at most one from each type of symbol table. Since <code>SHT_SYMTAB</code> is a complete symbol table, it is useful for both link editing and dynamic linking. However, its completeness comes with sizeable contents, so an ELF file may also contain an <code>SHT_DYNSYM</code> section which stores only symbols for dynamic linking.</p>
+<h2 id="sht_strtab"><a class="header" href="#sht_strtab"><code>SHT_STRTAB</code></a></h2>
+<p>This section is a string table. A file may have multiple string tables for different purposes.</p>
+<h2 id="sht_rela-and-sht_rel"><a class="header" href="#sht_rela-and-sht_rel"><code>SHT_RELA</code> and <code>SHT_REL</code></a></h2>
+<p>These sections hold relocation entries with without explicit addends, respectively. Multiple relocation sections are allowed per file.</p>
+<h2 id="sht_hash"><a class="header" href="#sht_hash"><code>SHT_HASH</code></a></h2>
+<p>The section is a symbol hash table. An ELF file may contain only one such section.</p>
+<h2 id="sht_dynamic"><a class="header" href="#sht_dynamic"><code>SHT_DYNAMIC</code></a></h2>
+<p>This section stores information relevant for dynamic linking. Only one such section is allowed for the entire file.</p>
+<h2 id="sht_note"><a class="header" href="#sht_note"><code>SHT_NOTE</code></a></h2>
+<p>This section stores auxiliary information.</p>
+<h2 id="sht_nobits"><a class="header" href="#sht_nobits"><code>SHT_NOBITS</code></a></h2>
+<p>This section occupies no file space but otherwise resembles <code>SHT_PROGBITS</code>. Whilst the section has a size of 0, the <code>sh_offset</code> field of the header contains the conceptual file offset.</p>
+<h2 id="sht_preinit_array-sht_init_array-and-sht_fini_array"><a class="header" href="#sht_preinit_array-sht_init_array-and-sht_fini_array"><code>SHT_PREINIT_ARRAY</code>, <code>SHT_INIT_ARRAY</code>, and <code>SHT_FINI_ARRAY</code></a></h2>
+<p><code>SHT_PREINIT_ARRAY</code> stores pointers to functions which are invoked before any initialisation functions, while <code>SHT_INIT_ARRAY</code> and <code>SHT_FINI_ARRAY</code> have pointers which point to initialisation and termination functions, respectively. All pointers represent procedures with no parameters and a <code>void</code> return.</p>
+<h2 id="sht_group"><a class="header" href="#sht_group"><code>SHT_GROUP</code></a></h2>
+<p>This section specifies a section group. Section groups represent sets of related sections that must be treated by the linker in a special way. Such sections may only appear in relocatable files and the SHT entry for the group must precede any of the group's members in the section header table.</p>
+<h2 id="sht_symtab_shndx"><a class="header" href="#sht_symtab_shndx"><code>SHT_SYMTAB_SHNDX</code></a></h2>
+<p>This section is associated with an <code>SHT_SYMTAB</code> section and is required if any of the entries in the symbols table contain section header references to <code>SHN_XINDEX</code>. It holds an array of words and each entry corresponds to a </p>
+<h2 id="other"><a class="header" href="#other">Other</a></h2>
+<p>The <code>SHT_SHLIB</code> section type is reserved but unspecified. As always, values from <code>SHT_LOOS</code> through <code>SHT_HIOS</code> and from <code>SHT_LOPROC</code> through <code>SHT_HIPROC</code> are reserved for OS- and processor-specific semantics, respectively. Values between <code>SHT_LOUSER</code> and <code>SHT_HIUSER</code> may be used as per the application's needs without creating any conflicts.</p>
+<h2 id="special-sections"><a class="header" href="#special-sections">Special Sections</a></h2>
+<table><thead><tr><th>Name</th><th>Type</th><th>Attributes</th></tr></thead><tbody>
+<tr><td>.bss</td><td><code>SHT_NOBITS</code></td><td><code>SHF_ALLOC+SHF_WRITE</code></td></tr>
+<tr><td>.comment</td><td><code>SHT_PROGBITS</code></td><td>none</td></tr>
+<tr><td>.data</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC+SHF_WRITE</code></td></tr>
+<tr><td>.data1</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC+SHF_WRITE</code></td></tr>
+<tr><td>.debug</td><td><code>SHT_PROGBITS</code></td><td>none</td></tr>
+<tr><td>.dynamic</td><td><code>SHT_DYNAMIC</code></td><td><code>SHF_ALLOC+...</code></td></tr>
+<tr><td>.dynstr</td><td><code>SHT_STRTAB</code></td><td><code>SHF_ALLOC</code></td></tr>
+<tr><td>.dynsym</td><td><code>SHT_DYNSYM</code></td><td><code>SHF_ALLOC</code></td></tr>
+<tr><td>.fini</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC+SHF_EXECINSTR</code></td></tr>
+<tr><td>.fini_array</td><td><code>SHT_FINI_ARRAY</code></td><td><code>SHF_ALLOC+SHF_WRITE</code></td></tr>
+<tr><td>.got</td><td><code>SHT_PROGBITS</code></td><td>?</td></tr>
+<tr><td>.hash</td><td><code>SHT_HASH</code></td><td><code>SHF_ALLOC</code></td></tr>
+<tr><td>.init</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC+SHF_EXECINSTR</code></td></tr>
+<tr><td>.init_array</td><td><code>SHT_INIT_ARRAY</code></td><td><code>SHF_ALLOC+SHF_WRITE</code></td></tr>
+<tr><td>.interp</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC</code>/none</td></tr>
+<tr><td>.line</td><td><code>SHT_PROGBITS</code></td><td>none</td></tr>
+<tr><td>.note</td><td><code>SHT_NOTE</code></td><td>none</td></tr>
+<tr><td>.plt</td><td><code>SHT_PROGBITS</code></td><td>?</td></tr>
+<tr><td>.preinit_array</td><td><code>SHT_PREINIT_ARRAY</code></td><td><code>SHF_ALLOC+SHF_WRITE</code></td></tr>
+<tr><td>.rel<em>name</em></td><td><code>SHT_REL</code></td><td><code>SHF_ALLOC</code>/none</td></tr>
+<tr><td>.rela<em>name</em></td><td><code>SHT_RELA</code></td><td><code>SHF_ALLOC</code>/none</td></tr>
+<tr><td>.rodata</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC</code></td></tr>
+<tr><td>.rodata1</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC</code></td></tr>
+<tr><td>.shstrtab</td><td><code>SHT_STRTAB</code></td><td>none</td></tr>
+<tr><td>.strtab</td><td><code>SHT_STRTAB</code></td><td><code>SHF_ALLOC</code>/none</td></tr>
+<tr><td>.symtab</td><td><code>SHT_SYMTAB</code></td><td><code>SHF_ALLOC</code>/none</td></tr>
+<tr><td>.symtab_shndx</td><td><code>SHT_SYMTAB_SHNDX</code></td><td><code>SHF_ALLOC</code>/none</td></tr>
+<tr><td>.tbss</td><td><code>SHT_NOBITS</code></td><td><code>SHF_ALLOC+SHF_WRITE+SHF_TLS</code></td></tr>
+<tr><td>.tdata</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC+SHF_WRITE+SHF_TLS</code></td></tr>
+<tr><td>.tdata1</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC+SHF_WRITE+SHF_TLS</code></td></tr>
+<tr><td>.text</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC+SHF_EXECINSTR</code></td></tr>
+</tbody></table>
+<ul>
+<li><code>.bss</code> - this section holds uninitialised data that contributes to a process's memory image. It occupies no space in the file and gets filled with 0s when the programme is run.</li>
+<li><code>.comment</code> - used for version control.</li>
+<li><code>.data</code> and <code>.data1</code> - these hold initialised data that contributes to a process's memory image.</li>
+<li><code>.debug</code> - holds debugging information and has unspecified contents.</li>
+<li><code>.dynamic</code> - This section holds dynamic linking information and its attributes will include the <code>SHF_ALLOC</code> bit. Whether the <code>SHF_WRITE</code> bit is set, however, is processor specific.</li>
+<li><code>.dynstr</code> - this is a string table containing the strings necessary for dynamic linking such as symbol names.</li>
+<li><code>.dynsym</code> - this section holds the dynamic symbol linking table.</li>
+<li><code>.fini</code> - contains instructions which contribute to process termination. Execution flow is transferred here when a process exits successfully.</li>
+<li><code>.fini_array</code> - this section holds function pointers for process termination.</li>
+<li><code>.got</code> - the Global Offset Table.</li>
+<li><code>.hash</code> - this section holds a symbol hash table.</li>
+<li><code>.init</code> - this section contains instructions relevant to process initialisation. The code here is executed before control is transferred to the programme's entry point (called <code>main</code> in most cases).</li>
+<li><code>.init_array</code> - this section holds function pointers for process initialisation.</li>
+<li><code>.interp</code> - this section holds the path name of the programme interpreter. If the file has a loadable segment with relocation, the sections' attributes will include the <code>SHF_ALLOC</code> bit.</li>
+<li><code>.line</code> - this section holds line number information for debugging with source files.</li>
+<li><code>.note</code> - this section holds auxiliary information.</li>
+<li><code>.plt</code> - this section holds the Procedure Linkage Table.</li>
+<li><code>.preinit_array</code> - this section holds function pointers for pre-initialisation.</li>
+<li><code>.rel</code><em>name</em> and <code>.rela</code><em>name</em> - these sections hold relocation information, where <em>name</em> is the name of the section for which the relocations are relevant such as <code>.rel.text</code> or <code>.rela.text</code>. If the file has a loadable segment that includes relocation, the sections' attributes will include the <code>SHF_ALLOC</code> bit.</li>
+<li><code>.rodata</code> and <code>.rodata1</code> - these sections hold read-only data that gets loaded into the memory image of the process.</li>
+<li><code>.shstrtab</code> - the string table for the section names.</li>
+<li><code>.strtab</code> - a string table which typically holds symbol names. If the file has a loadable segment that includes the symbol string table, the section's attributes will include the <code>SHF_ALLOC</code> bit.</li>
+<li><code>.symtab</code> - the complete symbol table. If the file has a loadable segment that includes the symbol table, the section's attributes will include the <code>SHF_ALLOC</code> bit.</li>
+<li><code>.symtab_shndx</code> - this section holds the special symbol table section index array described above. The section's attributes will include the <code>SHF_ALLOC</code> bit if the associated symbol table section does.</li>
+<li><code>.tbss</code> - this section holds uninitialised thread-local data which contributes to the memory image. This data is set to all 0s for each new execution flow and occupies no bytes in the file.</li>
+<li><code>.tdata</code> - this section holds initialised thread-local data which contributes to the memory image. A copy of it is generated for each new execution flow.</li>
+<li><code>.text</code> - this section holds the executable instructions of the programme.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-22"><a class="header" href="#introduction-22">Introduction</a></h1>
 <p>Segments split the ELF binary into parts which are then loaded into memory by the OS programme loader. They can be thought of as grouping sections by their attributes and only selecting those which will be loaded into memory. In essence, segments contain information needed at runtime, while sections contain information needed at link-time. </p>
 <h1 id="the-programme-header-table"><a class="header" href="#the-programme-header-table">The Programme Header Table</a></h1>
 <p>Segments are described by <em>programme headers</em> which are stored in the Programme Header Table (PHT). These structs are again defined in <code>&lt;elf.h&gt;</code>:</p>
@@ -1877,7 +2061,7 @@ typedef struct
 <h2 id="other-segments"><a class="header" href="#other-segments">Other Segments</a></h2>
 <p><code>PT_SHLIB</code> is reserved but is unspecified, while values from <code>PT_LOOS</code> to <code>PT_HIOS</code> and from <code>PT_LOPROC</code> through <code>PT_HIPROC</code> are reserved for OS- and processor-specific semantics, respectively.</p>
 <h1 id="segment-flags"><a class="header" href="#segment-flags">Segment Flags</a></h1>
-<p>The <code>p_flags</code> field described the permissions the segment is equipped with. It is important to note that the system may actually give more access than requested with the exception that a segment will never be assigned write permissions, unless explicitly requested:</p>
+<p>The <code>p_flags</code> field describes the permissions the segment is equipped with. It is important to note that the system may actually give more access than requested with the exception that a segment will never be assigned write permissions, unless explicitly requested:</p>
 <table><thead><tr><th>Flags</th><th style="text-align: center">Value</th><th>Exact</th><th>Allowable</th></tr></thead><tbody>
 <tr><td>none</td><td style="text-align: center">0</td><td>All access denied</td><td>All access denied</td></tr>
 <tr><td><code>PF_X</code></td><td style="text-align: center">1</td><td>Execute only</td><td>Read, execute</td></tr>
@@ -1888,7 +2072,7 @@ typedef struct
 <tr><td><code>PF_R+PF_W</code></td><td style="text-align: center">6</td><td>Read, write</td><td>Read, write, execute</td></tr>
 <tr><td><code>PF_R+PF_W+PF_X</code></td><td style="text-align: center">7</td><td>Read, write, execute</td><td>Read, write, execute</td></tr>
 </tbody></table>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-22"><a class="header" href="#introduction-22">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-23"><a class="header" href="#introduction-23">Introduction</a></h1>
 <p>The ELF header is a data structure which sits at the beginning of every ELF file and describes its layout. It starts with 16 identification bytes that contain the ELF magic bytes. The following structs are defined in <code>&lt;elf.h&gt;</code>:</p>
 <pre><code class="language-cpp">#define EI_NIDENT 16
 
@@ -2108,7 +2292,7 @@ typedef struct {
 <p><code>EI_PAD</code> - demarcates the beginning of the unused bytes in <code>e_ident</code>, which are reserved and set to 0. The value of this byte may change as meanings are assigned to these unused bytes.</p>
 <p>You can view the ELF header of an ELF binary by using <code>readelf</code> with the <code>-h</code> option:
 <img src="Reverse%20Engineering/Binary%20Formats/ELF/Resources/Images/ELF_Header_read.png" alt="" /></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-23"><a class="header" href="#introduction-23">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-24"><a class="header" href="#introduction-24">Introduction</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="program-anatomy"><a class="header" href="#program-anatomy">Program Anatomy</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="instructions"><a class="header" href="#instructions">Instructions</a></h1>
 <p>Each program is comprised of a set of instructions which tell the CPU what operations it needs to perform. Different CPU architectures make use of different instruction sets, however, all of them boil down to two things - an opertation code (opcode) and optional data that the instruction operates with. These are all represented using bits - 1s and 0s.</p>
@@ -2361,7 +2545,7 @@ BIN[64] to BIN[126] -&gt; large bins
 </code></pre>
 <p><img src="Reverse%20Engineering/Program%20Anatomy/Resources/Images/stackframe.png" alt="" /></p>
 <p>Sometimes, the base pointer might be completely absent in optimised programs because compilers are good enough in keeping track of offsets directly from the stack pointer.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-24"><a class="header" href="#introduction-24">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-25"><a class="header" href="#introduction-25">Introduction</a></h1>
 <p>Ghidra is an open-source framework for reverse engineering developed by the NSA. It groups binaries into <em>projects</em> which can be shared amonst multiple people.</p>
 <h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
 <p>To install Ghidra, you can run <code>sudo apt install ghidra</code>.</p>
@@ -2398,7 +2582,7 @@ BIN[64] to BIN[126] -&gt; large bins
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="initial-analysis"><a class="header" href="#initial-analysis">Initial Analysis</a></h1>
 <p>Double-clicking on a program will open it in the Code Browser. A prompt will appear for analysing the binary. Ghidra will attempt to create and label functions, as well as identify any cross-references in memory. Once the binary has been analysed you will be presented with the following screen:</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-25"><a class="header" href="#introduction-25">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-26"><a class="header" href="#introduction-26">Introduction</a></h1>
 <p><code>radare2</code> is an open-source framework for reverse engineering. The framework includes multiple tools which all work in tandem in order to aid in the analysis of binary files. </p>
 <p>It uses short abbreviations for its commands - single letters - and many of its commands have subcommands which are also expressed as single letters. Luckily, you can always append a <code>?</code> to a specific command in order to view its subcommands and what they do.</p>
 <p>To quit <code>radare2</code>, use the <code>q</code> command.</p>
@@ -2525,7 +2709,7 @@ Usage: s    # Help for the seek commands. See ?\\( ? to see all variables
 </ul>
 </li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-26"><a class="header" href="#introduction-26">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-27"><a class="header" href="#introduction-27">Introduction</a></h1>
 <p>Source code gets compiled to assembly and then assembly gets compiled to machine code. Assembly has a direct one-to-one mapping of its instructions to those in machine language. This makes assembly the only possible way to disambiguously take a look at what a program does. Assembly is essentially a human readable version of machine code.</p>
 <h2 id="intel-vs-att-syntax"><a class="header" href="#intel-vs-att-syntax">Intel vs AT&amp;T Syntax</a></h2>
 <p>There are two general syntax formats for writing Assembly - Intel and AT&amp;T. I will be using Intel throughout my notes, but here is a list of common differences between the two because you never know which one you might have to read:</p>
@@ -2584,7 +2768,7 @@ movl (%ebx),%eax
 </code></pre>
 <p>Note, that if the binary is in your current working directory, you will need to prepend <code>./</code> to its name because <code>ltrace</code> works with processes and not the actual stored binary.</p>
 <p><img src="Reverse%20Engineering/Resources/Images/ltrace-basic.png" alt="" /></p>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-27"><a class="header" href="#introduction-27">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-28"><a class="header" href="#introduction-28">Introduction</a></h1>
 <p>Cryptography is the study and application of techniques for secure communication in the presence of adversarial behaviour. It is concerned with the confidentiality of data. All cryptography is built around the use of <em>ciphers</em> or, in modern parlance, <em>encryption schemes</em>. </p>
 <p>Cryptrography is typically divided into two fields - symmetric (private-key) cryptography and asymmetric (public-key) cryptography - and depending on which field we are in, an encryption scheme will look differently, but the basic terminology is usually shared.</p>
 <p>Furthermore, you might hear the terms &quot;classical&quot; and &quot;modern&quot; cryptography being tossed around. The difference lies in the fact that the former does not make use of today's computational resources and is therefore unable to keep up with modern cryptography. Moreover, modern cryptography has its roots in mathematics and is subject to much more scrutiny and mathematical analysis. It is built around certain <a href="Cryptography/Principles%20of%20Modern%20Cryptography.html">principles</a>.</p>
@@ -2595,13 +2779,13 @@ movl (%ebx),%eax
 <li><strong>Chosen plaintext attack (CPA)</strong> - this model is equivalent to the previous one, however, the attacker is capable of choosing specifically which plaintext-ciphertext pairs they have access to. In other words, the attacker can perform encryption queries as they will, but have no access to the key.</li>
 <li><strong>Chosen ciphertext attack (CCA)</strong> - in this model, the adversary is capable of both encrypting and decrypting any message they like, but lack the key. This scenario is most useful when it is not the output that is important but rather the key.</li>
 </ol>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-28"><a class="header" href="#introduction-28">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-29"><a class="header" href="#introduction-29">Introduction</a></h1>
 <p>A block cipher is an encryption scheme which works on plaintexts of a fixed size. Furthermore, it is usually paired with a <em>mode of operation</em>. The size is typically small, such as 64 or 128 bits, although, it is possible to have smaller or larger block sizes. Large block sizes have a lofty memory footprint and are less efficient. It is, however, paramount that the block size is also not too small lest the cipher becomes vulnerable to a codebook attack. This attack is actuated by the construction of a look-up table which contains all possible plaintext-ciphertext pairs generated by a given block cipher and can be easily used to look up a plaintext given its ciphertext. For example, a block size of 16 requires only \( 2^{16} \times 2^{16} = 2^{20} \) bits of memory, which is equal to 128 kilobytes. With the 32-bit blocks, the memory needs grow to 16 gigabytes which is still feasible. However, with a block size of 64 bits, the memory required shoots up to \( 2^{70} \) bits. Good luck storing that.</p>
 <h1 id="anatomy-of-a-block-cipher"><a class="header" href="#anatomy-of-a-block-cipher">Anatomy of a Block Cipher</a></h1>
 <p>Block ciphers represent a repetition of <em>rounds</em>, which are short and simple sequences of operation. The strength of a block cipher lies not in its complexity, but rather its repetitiveness. The ciphertext of a given block is the sequence of rounds applied to the plaintext: \( c = R_3(R_2(R_1(p, {k^{\prime}}), {k^{\prime\prime}}),{k^{\prime\prime\prime}}) \). In addition to the output of the previous round, each round also takes in a <em>round key</em>. The round keys \( k^{\prime},k^{\prime\prime},k^{\prime\prime\prime},... \) are generated from the master key \( k \) through an algorithm bearing the name <em>key schedule</em>. The round functions \( R_1, R_2,... \) are usually the same algorithm which why it is crucial that they are provided with different round keys in order to generate different outputs.</p>
 <h2 id="slide-attacks-and-round-keys"><a class="header" href="#slide-attacks-and-round-keys">Slide Attacks and Round Keys</a></h2>
 <p>Repeating round keys open room for <em>slide attacks</em>. These look for plaintext-ciphertext pairs \( (p_1, c_1) \) and \( (p_2, c_2) \) where \( p_2 = R(p_1) \). Since both the round algorithm and key are identical, then if \( p_2 = R(p_1) \) implies that \( c_2 = R(c_1) \). This relationship will hold true no matter how many repetitions of the round the plaintext goes through.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-29"><a class="header" href="#introduction-29">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-30"><a class="header" href="#introduction-30">Introduction</a></h1>
 <p>A non-conforming message is a message whose length is not evenly divisible by the block size. For example, you might have a message of size 18 bytes and a block size of 16 bytes. In this case, there are two main ways to resolve the issue.</p>
 <h1 id="message-padding"><a class="header" href="#message-padding">Message Padding</a></h1>
 <p>Padding allows for the encryption of messages of arbitrary lengths, even ones which are shorter than a single block. It is used to expand a message in order to fill a complete block by appending bytes to the plaintext and it is a highly standardised procedure. </p>
@@ -2623,7 +2807,7 @@ movl (%ebx),%eax
 </ul>
 <p>In CBC mode, ciphertext stealing extends the last incomplete plaintext block by taking bits from the previous ciphertext block, thus splitting the penultimate ciphertext block. Once the last plaintext block is complete, it is encrypted and its ciphertext is placed as the penultimate ciphertext block. Now, the first bits (the ones which were not appended) of the broken ciphertext block are placed at the end as a reduced ciphertext block, meaning that the last ciphertext block has a length less than the block size.</p>
 <p><img src="Cryptography/Block%20Ciphers/Resources/Images/Block_Cipher_Ciphertext_Stealing.png" alt="" /></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-30"><a class="header" href="#introduction-30">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-31"><a class="header" href="#introduction-31">Introduction</a></h1>
 <p>It's all well and good with block ciphers when encrypting messages whose length matches the block size, but what happens if we want to encrypt a plaintext that is longer than a single block? Well, here comes the use of a <em>mode of operation</em>. If the message is longer than the block size, then it must be split into blocks of the desired size. From then on, the mode of operation describes how each of the blocks is encrypted and how the resulting ciphertexts are combined into the final output.</p>
 <h1 id="the-electronic-codebook-ecb-mode"><a class="header" href="#the-electronic-codebook-ecb-mode">The Electronic Codebook (ECB) Mode</a></h1>
 <p>This is the simplest mode of operation you could think of. It encrypts each plaintext block independently and then just concatenates the resulting ciphertexts. </p>
@@ -2644,7 +2828,7 @@ This mode is comprised of an IV, often in this case called a <em>nonce</em>, and
 <p>Furthermore, a random nonce is sufficient only if it is long enough. Given a nonce of length \( n \) bits, it is likely that after \( 2^{n/2} \) encryptions collisions will start occurring. Therefore, a 64-bit nonce is abominable due to the fact that collisions will commence after approximately \( 2^{32} \) encryptions, which is a very low number. </p>
 <p>Decryption works by XOR-ing the ciphertext with the appropriate nonce-counter pair.</p>
 <p>A particular benefit of the CTR mode is that it is parallelisable and can thus execute rather quickly. You can even begin encryption before having the message to encrypt by selecting a nonce and computing the nonce-counter stream which will be later XOR-ed with the plaintext.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-31"><a class="header" href="#introduction-31">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-32"><a class="header" href="#introduction-32">Introduction</a></h1>
 <p>A padding oracle attack abuses padding validation information in order to decrypt an arbitrary message. In order for it to work, it requires a <em>padding oracle</em>. A padding oracle is any system which, given a ciphertext, behaves differently depending on whether the decrypted plaintext has valid padding or not. For the sake of simplicity, you can think of it as a sending an arbitrary ciphertext to a server and it returning &quot;Success&quot; when the corresponding plaintext has valid padding, and spitting out &quot;Failure&quot; otherwise. Note that the ciphertexts you query the oracle with need not have meaningful plaintexts behind them and you will not even be generating them by encryption, but rather crafting them in a custom manner in order to exploit the information from the oracle.</p>
 <h1 id="how-it-works"><a class="header" href="#how-it-works">How It Works</a></h1>
 <p>Let's remind ourselves of how CBC decryption works by taking a simplified look at the last two blocks:</p>
@@ -2672,7 +2856,7 @@ This mode is comprised of an IV, often in this case called a <em>nonce</em>, and
 <p>Unfortunately, if you don't know the IV, the last block will decrypt to garbage:</p>
 <p><img src="Cryptography/Block%20Ciphers/Resources/Images/Padbuster_No_IV_Garbage.png" alt="" /></p>
 <p>Note, in the above screenshot the hex is actually the decrypted version of the ciphertext generated by <code>padbuster.</code></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-32"><a class="header" href="#introduction-32">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-33"><a class="header" href="#introduction-33">Introduction</a></h1>
 <p>Unlike block ciphers, stream ciphers do not fuse plaintext with key bits. Instead, a stream cipher generates a pseudorandom bits from the key and encrypts the plaintext by XOR-ing it with those bits. The pseudorandom bits are said to construct a <em>keystream</em>. In addition to the key, which is usually 128 or 256 bits, a stream cipher also takes a nonce. The nonce need not be secret but should be unique for every key. Nonce sizes are typically between 64 and 128 bits.</p>
 <p><img src="Cryptography/Stream%20Ciphers/Resources/Images/Stream_Cipher.png" alt="" /></p>
 <p>It is paramount that the same key-nonce pair \( k_1 \), \( n_1 \) is not used for the encryption of multiple messages, since you would then have \( c_1 = p_1 \bigoplus ks \) and \( c_2 = p_2 \bigoplus ks \), so if you know \( p_1 \), you could easily determine \( p_2 = c_1 \bigoplus c_2 \bigoplus p_1 \).</p>
@@ -2681,7 +2865,7 @@ This mode is comprised of an IV, often in this case called a <em>nonce</em>, and
 <p><img src="Cryptography/Stream%20Ciphers/Resources/Images/Stateful_stream_cipher.png" alt="" /></p>
 <p>The other type is <em>counter-based stream ciphers</em>. These produce chunks of keystream bits by taking the key, nonce and a counter which changes at every turn.</p>
 <p><img src="Cryptography/Stream%20Ciphers/Resources/Images/Counter_Based_Stream_Cipher.png" alt="" /></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-33"><a class="header" href="#introduction-33">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-34"><a class="header" href="#introduction-34">Introduction</a></h1>
 <p>Hardware-oriented stream ciphers are designed to be run on <em>dedicated hardware</em>. They typically work on the bit-level, since hardware can be custom-tailored to be more efficient with these operations. Almost all hardware stream ciphers are built upon a concept called <em>feedback shift registers (FSRs).</em></p>
 <h1 id="feedback-shift-registers"><a class="header" href="#feedback-shift-registers">Feedback Shift Registers</a></h1>
 <p>An FSR is comprised of a bit array, called a <em>register</em>, which is equipped with an update feedback function, denoted as \( f \), which takes a bit array and produces a single bit based on it. Each update alters the register and produces a single output bit. Given a current register state, \( R_i \), the subsequent state will be this:</p>
@@ -2755,7 +2939,7 @@ Ergo, the smallest value \( \tau \), for which \( S_{\tau} \approx 0.065 \), is 
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="networking"><a class="header" href="#networking">Networking</a></h1>
 <p>Computer networking refers to the study, management, and orginisation of computer networks.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dns-1"><a class="header" href="#dns-1">DNS</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-34"><a class="header" href="#introduction-34">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-35"><a class="header" href="#introduction-35">Introduction</a></h1>
 <p>Computers connected to the Internet have a numerical identifier - called an Internet Protocol Address (IP Address) - which is used to communicate with this machine. However, remembering a 32-bit number for each computer you want to connect to - even if it's formatted nicely into four separate sections - isn't practical at all. As such, a systematic way of resolving this issue was a created - a sort of lookup table for IP addresses, known as the Domain Name System.</p>
 <h1 id="what-is-the-dns"><a class="header" href="#what-is-the-dns">What is the DNS?</a></h1>
 <p>The Domain Name System (or DNS for short) is a decentrialised database which provides answers to queries for <em>domain names</em>. Such a query is for example &quot;What is the IP address of google.com? &quot; When such a request is sent out, it will go through the DNS and eventually return with an IP address (if such was found). This saves the average user from having to remember a myriad different IPs for each website they want to visit.</p>
@@ -2786,12 +2970,12 @@ In reality, there is usually more than a single name server for a big company li
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><p>This is a special domain used for reverse DNS lookups. In the <code>in-addr.arpa</code> domain, IP addresses are represented as a sequence of four decimal numbers separated by dots. The suffix of <code>in-addr.arpa</code> is appended to the IP address. In this domain, however, IP address octets are read from right to left, but the contents of the octets are not. For example, in order to do a reverse lookup on <code>172.217.169.174</code>, you would use <code>174.169.217.172.in-addr.arpa</code>. This domain is used for reverse lookups on IPv4 addresses. </p>
 <p>For IPv6 addresses, the <code>ip6.arpa</code> domain is used. The address is represented by hex digits in reverse order - each digit looking like a domain name. For example, to do a reverse look up on <code>2001:db8::567:89ab</code>, you would use <code>b.a.9.8.7.6.5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.b.d.0.1.0.0.2.ip6.arpa</code>.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-35"><a class="header" href="#introduction-35">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-36"><a class="header" href="#introduction-36">Introduction</a></h1>
 <p>A computer network is a network which allows for the exchange of resources and information between devies connected to the network. These device span a range of types, sizes, and functions. </p>
 <h1 id="network-devices"><a class="header" href="#network-devices">Network Devices</a></h1>
 <h2 id="switch"><a class="header" href="#switch">Switch</a></h2>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-36"><a class="header" href="#introduction-36">Introduction</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-37"><a class="header" href="#introduction-37">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-38"><a class="header" href="#introduction-38">Introduction</a></h1>
 <p>The <strong>N</strong>etwork <strong>T</strong>ime <strong>P</strong>rotocol (NTP) is a protocol for clock synchronisation across computer systems. Its existence is paramount in order to pinpoint events occurring at a certain moment within a network. Devices with unsynchronised clocks will report that the event transpired at different times thus making it very difficult to figure out the actual time of occurrence.</p>
 <p>This protocol works over UDP on port 123.</p>
 <h1 id="how-does-ntp-work"><a class="header" href="#how-does-ntp-work">How does NTP work?</a></h1>
@@ -2810,7 +2994,7 @@ In reality, there is usually more than a single name server for a big company li
 <p>It can also be useful to only check how unsynched your time is with respect to another clock. You can do this by adding the <code>-q</code> option. This does not require root privileges.</p>
 <p><img src="Networking/Protocols/Resources/Images/NTP_time_query.png" alt="" /></p>
 <p>That's quite the difference! </p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-38"><a class="header" href="#introduction-38">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-39"><a class="header" href="#introduction-39">Introduction</a></h1>
 <p>SNMP is a protocol which renders the service of providing monitoring of devices connected to a network. It can provide information such as online status, network bandwith, and even temperature.</p>
 <p>This protocol works over UDP on port 161.</p>
 <h1 id="agents"><a class="header" href="#agents">Agents</a></h1>
@@ -2839,7 +3023,7 @@ In reality, there is usually more than a single name server for a big company li
 <p>SNMP versions 1 and 2 avail themselves of the so-called <em>community strings</em>. It is important to know that agents reply to SNMP requests only if they are accompanied by the appropriate community string, which is akin to a password. Every community string is associated with a set of permissions. These can be either read-only or read-write.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="network-address-translation"><a class="header" href="#network-address-translation">Network Address Translation</a></h1>
 <p><img src="https://66.media.tumblr.com/02a533c1d55ca0ba83e0176168df06ec/tumblr_inline_o4m1taQugo1u4ytoo_1280.jpg" alt="Private Ip Addresses Photos on the Web" /></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-39"><a class="header" href="#introduction-39">Introduction</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-40"><a class="header" href="#introduction-40">Introduction</a></h1>
 <p>The OSI model is a conceptual protocol model which groups different protocols into <em>layers</em>, based on their function. Each layer is in turn only allowed to communicate with the layers immediately above and below it, taking data from the previous layer, processing it in some way and then forwarding it to the next layer. There are 7 layers in the OSI model and together they form the layer stack:</p>
 <p><img src="Networking/Resources/Images/OSI_Layers.png" alt="" /></p>
 <p>When data is sent from a device, this data is processed in each layer from top to bottom. Furthermore, each layer may augment the actual data transmitted by adding <em>headers</em> to the data.</p>

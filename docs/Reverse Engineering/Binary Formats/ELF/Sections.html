@@ -147,7 +147,191 @@
 
                 <div id="content" class="content">
                     <main>
-                        
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>Sections comprise the entirety of an ELF binary with the exception of the <a href="The%20ELF%20Header.html">ELF header</a>, the Programme Header Table and the Section Header Table. Each section is characterised by a single section header. A section must occupy a contiguous block of space in the file and section overlap is not allowed - each byte in the file may only belong to a single function. However, bytes may also pertain to no sections at all, in which case their contents are unspecified.</p>
+<p>It is paramount to understand that sections are <em>not</em> loaded as such into the memory image of the binary. Instead, specific parts from them are organised and grouped by the ELF segments. You can imagine sections as turning into segments during load-time. Sections themselves are really only relevant for linking and debugging purposes.</p>
+<h1 id="the-section-header-table-sht"><a class="header" href="#the-section-header-table-sht">The Section Header Table (SHT)</a></h1>
+<p>Sections are described by <em>section headers</em> which are in turn stored in the <em>Section Header Table (SHT)</em>. Since the SHT is not pertinent to a binary at runtime, it may be stripped from the file entirely. A corollary of this is the fact that while every ELF object has sections, but not every ELF object has section <em>headers</em>. In fact, a common procedure for hindering reverse engineering and debugging of a binary is to strip the section header table, which makes life rather difficult for debuggers, since they will be unable to directly reference symbol information. Note, however, that this information may still be recovered via analysis of the rest of the binary, and more specifically, of the Programme Header Table due to its inherent overlap between segments and sections.</p>
+<p>Ultimately, the section header table is an array of the following structures:</p>
+<pre><code class="language-cpp">
+typedef struct
+{
+  Elf32_Word	sh_name;		/* Section name (string tbl index) */
+  Elf32_Word	sh_type;		/* Section type */
+  Elf32_Word	sh_flags;		/* Section flags */
+  Elf32_Addr	sh_addr;		/* Section virtual addr at execution */
+  Elf32_Off	sh_offset;		/* Section file offset */
+  Elf32_Word	sh_size;		/* Section size in bytes */
+  Elf32_Word	sh_link;		/* Link to another section */
+  Elf32_Word	sh_info;		/* Additional section information */
+  Elf32_Word	sh_addralign;		/* Section alignment */
+  Elf32_Word	sh_entsize;		/* Entry size if section holds table */
+} Elf32_Shdr;
+
+typedef struct
+{
+  Elf64_Word	sh_name;		/* Section name (string tbl index) */
+  Elf64_Word	sh_type;		/* Section type */
+  Elf64_Xword	sh_flags;		/* Section flags */
+  Elf64_Addr	sh_addr;		/* Section virtual addr at execution */
+  Elf64_Off	sh_offset;		/* Section file offset */
+  Elf64_Xword	sh_size;		/* Section size in bytes */
+  Elf64_Word	sh_link;		/* Link to another section */
+  Elf64_Word	sh_info;		/* Additional section information */
+  Elf64_Xword	sh_addralign;		/* Section alignment */
+  Elf64_Xword	sh_entsize;		/* Entry size if section holds table */
+} Elf64_Shdr;
+</code></pre>
+<p><img src="Resources/Images/ELF_Section_Header.png" alt="" /></p>
+<ul>
+<li><code>sh_name</code> - the offset (in bytes) from the beginning of the section name string table at which the name of the current section is located.</li>
+<li><code>sh_type</code> - the type of the section.</li>
+<li><code>sh_flags</code> - sections support 1-bit flags which describe certain attributes.</li>
+<li><code>sh_addr</code> - if the section is to be loaded into the memory image of the file, this field contains the address at which the section should reside. It holds 0 otherwise.</li>
+<li><code>sh_offset</code> - the offset (in bytes) from the beginning of the file where the section resides. For sections of type <code>SHT_NOBITS</code>, this portrays only a conceptual position.</li>
+<li><code>sh_size</code> - the section's size in bytes. Sections of type <code>SHT_NOBITS</code> may have this field set to a non-zero value, but will still occupy no space in the file.</li>
+<li><code>sh_link</code> - a link to another section header. The interpretation of this field depends on the section's type.</li>
+<li><code>sh_info</code> - this field holds additional information and its interpretation is different based on the section's type</li>
+</ul>
+<table><thead><tr><th><code>sh_type</code></th><th><code>sh_link</code></th><th><code>sh_info</code></th></tr></thead><tbody>
+<tr><td><code>SHT_DYNAMIC</code></td><td>The section header index of the string table used by entries in the section.</td><td>0</td></tr>
+<tr><td><code>SHT_HASH</code></td><td>The section header index of the symbol table to which the hash table pertains.</td><td>0</td></tr>
+<tr><td><code>SHT_RELSHT_RELA</code></td><td>The section header index of the associated symbol table.</td><td>The section header index of the section to which the relocation applies.</td></tr>
+<tr><td><code>SHT_SYMTABSHT_DYNSYM</code></td><td>The section header index of the associated string table.</td><td>One greater than the symbol table index of the last local symbol (binding STB_LOCAL).</td></tr>
+<tr><td><code>SHT_GROUP</code></td><td>The section header index of the associated symbol table.</td><td>The symbol table index of an entry in the associated symbol table.  The name of the specified symbol table entry provides a signature for the section group.</td></tr>
+<tr><td><code>SHT_SYMTAB_SHNDX</code></td><td>The section header index of the associated symbol table section.</td><td>0</td></tr>
+</tbody></table>
+<ul>
+<li><code>sh_addralign</code> - certain sections have alignment constraints. For example, if the section holds a doubleword, doubleword alignment is to be ensured for the entire section. Values 0 and 1 mean that the section requires no special alignment. Otherwise, only positive integral values of 2 are allowed for this field. Ultimately, <code>sh_addr</code> must be divisible by <code>sh_addralign</code>.</li>
+<li><code>sh_entsize</code> - if the section contains some sort of a table of fixed-sized entries, this field holds the entry size. If no such table is present, this member holds 0.</li>
+</ul>
+<p>If the number of section headers is greater than or equal to <code>SHN_LORESERVE (0xff00)</code>, then the <code>e_shnum</code> field of the ELF header holds <code>SHN_UNDEF (0)</code> and the actual number of section headers is stored in the <code>sh_size</code> field of the first entry in the section header table. </p>
+<p>Certain indices in the section header table are reserved. The first section header has the following form:</p>
+<table><thead><tr><th>Name</th><th style="text-align: center">Value</th><th>Note</th></tr></thead><tbody>
+<tr><td><code>sh_name</code></td><td style="text-align: center">0</td><td>No name</td></tr>
+<tr><td><code>sh_type</code></td><td style="text-align: center">SHT_NULL</td><td>Inactive</td></tr>
+<tr><td><code>sh_flags</code></td><td style="text-align: center">0</td><td>No flags</td></tr>
+<tr><td><code>sh_addr</code></td><td style="text-align: center">0</td><td>No address</td></tr>
+<tr><td><code>sh_offset</code></td><td style="text-align: center">0</td><td>No offset</td></tr>
+<tr><td><code>sh_size</code></td><td style="text-align: center">Unspecified</td><td>If non-zero, the actual number of section header entries</td></tr>
+<tr><td><code>sh_link</code></td><td style="text-align: center">Unspecified</td><td>If non-zero, the index of the section header string table section</td></tr>
+<tr><td><code>sh_info</code></td><td style="text-align: center">0</td><td>No auxiliary information</td></tr>
+<tr><td><code>sh_addralign</code></td><td style="text-align: center">0</td><td>No alignment</td></tr>
+<tr><td><code>sh_entsize</code></td><td style="text-align: center">0</td><td>No entries</td></tr>
+</tbody></table>
+<p>The other reserved indices are described in the following table:</p>
+<table><thead><tr><th>Name</th><th style="text-align: center">Value</th></tr></thead><tbody>
+<tr><td><code>SHN_UNDEF</code></td><td style="text-align: center"><code>0</code></td></tr>
+<tr><td><code>SHN_LORESERVE</code></td><td style="text-align: center"><code>0xff00</code></td></tr>
+<tr><td><code>SHN_LOPROC</code></td><td style="text-align: center"><code>0xff00</code></td></tr>
+<tr><td><code>SHN_HIPROC</code></td><td style="text-align: center"><code>0xff1f</code></td></tr>
+<tr><td><code>SHN_LOOS</code></td><td style="text-align: center"><code>0xff20</code></td></tr>
+<tr><td><code>SHN_HIOS</code></td><td style="text-align: center"><code>0xff3f</code></td></tr>
+<tr><td><code>SHN_ABS</code></td><td style="text-align: center"><code>0xfff1</code></td></tr>
+<tr><td><code>SHN_COMMON</code></td><td style="text-align: center"><code>0xfff2</code></td></tr>
+<tr><td><code>SHN_XINDEX</code></td><td style="text-align: center"><code>0xffff</code></td></tr>
+<tr><td><code>SHN_HIRESERVE</code></td><td style="text-align: center"><code>0xffff</code></td></tr>
+</tbody></table>
+<ul>
+<li><code>SHN_LORESERVE</code> - the lower bound for reserved indices.</li>
+<li><code>SHN_LOPROC</code> through <code>SHN_HIPROC</code> - reserved for processor-specific semantics.</li>
+<li><code>SHN_LOOS</code> through <code>SHN_HIOS</code> - reserved for OS-specific semantics.</li>
+<li><code>SHN_ABS</code> - specifies absolute values. For example, symbol definitions relative to this section number are absolutes and are not affected by relocation.</li>
+<li><code>SHN_COMMON</code> - symbols defined relative to this section are &quot;common&quot; symbols such as unallocated <code>C</code> external variables.</li>
+<li><code>SHN_XINDEX</code> - an escape value denoting an index which cannot fit in the containing field and thus must be found elsewhere (this is specific to the structure it is found in).</li>
+<li><code>SHN_HIRESERVE</code> - the upper bound for reserved indices.</li>
+</ul>
+<h1 id="section-types"><a class="header" href="#section-types">Section Types</a></h1>
+<h2 id="sht_null"><a class="header" href="#sht_null"><code>SHT_NULL</code></a></h2>
+<p>The section header is marked as inactive and lacks an associated section. The rest of the members of such a header have undefined values.</p>
+<h2 id="sht_progbits"><a class="header" href="#sht_progbits"><code>SHT_PROGBITS</code></a></h2>
+<p>The section contains data whose contents are solely defined and used by the actual programme.</p>
+<h2 id="sht_symtab-and-sht_dynsym"><a class="header" href="#sht_symtab-and-sht_dynsym"><code>SHT_SYMTAB</code> and <code>SHT_DYNSYM</code></a></h2>
+<p>These sections hold symbol tables. A file may contain at most one from each type of symbol table. Since <code>SHT_SYMTAB</code> is a complete symbol table, it is useful for both link editing and dynamic linking. However, its completeness comes with sizeable contents, so an ELF file may also contain an <code>SHT_DYNSYM</code> section which stores only symbols for dynamic linking.</p>
+<h2 id="sht_strtab"><a class="header" href="#sht_strtab"><code>SHT_STRTAB</code></a></h2>
+<p>This section is a string table. A file may have multiple string tables for different purposes.</p>
+<h2 id="sht_rela-and-sht_rel"><a class="header" href="#sht_rela-and-sht_rel"><code>SHT_RELA</code> and <code>SHT_REL</code></a></h2>
+<p>These sections hold relocation entries with without explicit addends, respectively. Multiple relocation sections are allowed per file.</p>
+<h2 id="sht_hash"><a class="header" href="#sht_hash"><code>SHT_HASH</code></a></h2>
+<p>The section is a symbol hash table. An ELF file may contain only one such section.</p>
+<h2 id="sht_dynamic"><a class="header" href="#sht_dynamic"><code>SHT_DYNAMIC</code></a></h2>
+<p>This section stores information relevant for dynamic linking. Only one such section is allowed for the entire file.</p>
+<h2 id="sht_note"><a class="header" href="#sht_note"><code>SHT_NOTE</code></a></h2>
+<p>This section stores auxiliary information.</p>
+<h2 id="sht_nobits"><a class="header" href="#sht_nobits"><code>SHT_NOBITS</code></a></h2>
+<p>This section occupies no file space but otherwise resembles <code>SHT_PROGBITS</code>. Whilst the section has a size of 0, the <code>sh_offset</code> field of the header contains the conceptual file offset.</p>
+<h2 id="sht_preinit_array-sht_init_array-and-sht_fini_array"><a class="header" href="#sht_preinit_array-sht_init_array-and-sht_fini_array"><code>SHT_PREINIT_ARRAY</code>, <code>SHT_INIT_ARRAY</code>, and <code>SHT_FINI_ARRAY</code></a></h2>
+<p><code>SHT_PREINIT_ARRAY</code> stores pointers to functions which are invoked before any initialisation functions, while <code>SHT_INIT_ARRAY</code> and <code>SHT_FINI_ARRAY</code> have pointers which point to initialisation and termination functions, respectively. All pointers represent procedures with no parameters and a <code>void</code> return.</p>
+<h2 id="sht_group"><a class="header" href="#sht_group"><code>SHT_GROUP</code></a></h2>
+<p>This section specifies a section group. Section groups represent sets of related sections that must be treated by the linker in a special way. Such sections may only appear in relocatable files and the SHT entry for the group must precede any of the group's members in the section header table.</p>
+<h2 id="sht_symtab_shndx"><a class="header" href="#sht_symtab_shndx"><code>SHT_SYMTAB_SHNDX</code></a></h2>
+<p>This section is associated with an <code>SHT_SYMTAB</code> section and is required if any of the entries in the symbols table contain section header references to <code>SHN_XINDEX</code>. It holds an array of words and each entry corresponds to a </p>
+<h2 id="other"><a class="header" href="#other">Other</a></h2>
+<p>The <code>SHT_SHLIB</code> section type is reserved but unspecified. As always, values from <code>SHT_LOOS</code> through <code>SHT_HIOS</code> and from <code>SHT_LOPROC</code> through <code>SHT_HIPROC</code> are reserved for OS- and processor-specific semantics, respectively. Values between <code>SHT_LOUSER</code> and <code>SHT_HIUSER</code> may be used as per the application's needs without creating any conflicts.</p>
+<h2 id="special-sections"><a class="header" href="#special-sections">Special Sections</a></h2>
+<table><thead><tr><th>Name</th><th>Type</th><th>Attributes</th></tr></thead><tbody>
+<tr><td>.bss</td><td><code>SHT_NOBITS</code></td><td><code>SHF_ALLOC+SHF_WRITE</code></td></tr>
+<tr><td>.comment</td><td><code>SHT_PROGBITS</code></td><td>none</td></tr>
+<tr><td>.data</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC+SHF_WRITE</code></td></tr>
+<tr><td>.data1</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC+SHF_WRITE</code></td></tr>
+<tr><td>.debug</td><td><code>SHT_PROGBITS</code></td><td>none</td></tr>
+<tr><td>.dynamic</td><td><code>SHT_DYNAMIC</code></td><td><code>SHF_ALLOC+...</code></td></tr>
+<tr><td>.dynstr</td><td><code>SHT_STRTAB</code></td><td><code>SHF_ALLOC</code></td></tr>
+<tr><td>.dynsym</td><td><code>SHT_DYNSYM</code></td><td><code>SHF_ALLOC</code></td></tr>
+<tr><td>.fini</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC+SHF_EXECINSTR</code></td></tr>
+<tr><td>.fini_array</td><td><code>SHT_FINI_ARRAY</code></td><td><code>SHF_ALLOC+SHF_WRITE</code></td></tr>
+<tr><td>.got</td><td><code>SHT_PROGBITS</code></td><td>?</td></tr>
+<tr><td>.hash</td><td><code>SHT_HASH</code></td><td><code>SHF_ALLOC</code></td></tr>
+<tr><td>.init</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC+SHF_EXECINSTR</code></td></tr>
+<tr><td>.init_array</td><td><code>SHT_INIT_ARRAY</code></td><td><code>SHF_ALLOC+SHF_WRITE</code></td></tr>
+<tr><td>.interp</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC</code>/none</td></tr>
+<tr><td>.line</td><td><code>SHT_PROGBITS</code></td><td>none</td></tr>
+<tr><td>.note</td><td><code>SHT_NOTE</code></td><td>none</td></tr>
+<tr><td>.plt</td><td><code>SHT_PROGBITS</code></td><td>?</td></tr>
+<tr><td>.preinit_array</td><td><code>SHT_PREINIT_ARRAY</code></td><td><code>SHF_ALLOC+SHF_WRITE</code></td></tr>
+<tr><td>.rel<em>name</em></td><td><code>SHT_REL</code></td><td><code>SHF_ALLOC</code>/none</td></tr>
+<tr><td>.rela<em>name</em></td><td><code>SHT_RELA</code></td><td><code>SHF_ALLOC</code>/none</td></tr>
+<tr><td>.rodata</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC</code></td></tr>
+<tr><td>.rodata1</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC</code></td></tr>
+<tr><td>.shstrtab</td><td><code>SHT_STRTAB</code></td><td>none</td></tr>
+<tr><td>.strtab</td><td><code>SHT_STRTAB</code></td><td><code>SHF_ALLOC</code>/none</td></tr>
+<tr><td>.symtab</td><td><code>SHT_SYMTAB</code></td><td><code>SHF_ALLOC</code>/none</td></tr>
+<tr><td>.symtab_shndx</td><td><code>SHT_SYMTAB_SHNDX</code></td><td><code>SHF_ALLOC</code>/none</td></tr>
+<tr><td>.tbss</td><td><code>SHT_NOBITS</code></td><td><code>SHF_ALLOC+SHF_WRITE+SHF_TLS</code></td></tr>
+<tr><td>.tdata</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC+SHF_WRITE+SHF_TLS</code></td></tr>
+<tr><td>.tdata1</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC+SHF_WRITE+SHF_TLS</code></td></tr>
+<tr><td>.text</td><td><code>SHT_PROGBITS</code></td><td><code>SHF_ALLOC+SHF_EXECINSTR</code></td></tr>
+</tbody></table>
+<ul>
+<li><code>.bss</code> - this section holds uninitialised data that contributes to a process's memory image. It occupies no space in the file and gets filled with 0s when the programme is run.</li>
+<li><code>.comment</code> - used for version control.</li>
+<li><code>.data</code> and <code>.data1</code> - these hold initialised data that contributes to a process's memory image.</li>
+<li><code>.debug</code> - holds debugging information and has unspecified contents.</li>
+<li><code>.dynamic</code> - This section holds dynamic linking information and its attributes will include the <code>SHF_ALLOC</code> bit. Whether the <code>SHF_WRITE</code> bit is set, however, is processor specific.</li>
+<li><code>.dynstr</code> - this is a string table containing the strings necessary for dynamic linking such as symbol names.</li>
+<li><code>.dynsym</code> - this section holds the dynamic symbol linking table.</li>
+<li><code>.fini</code> - contains instructions which contribute to process termination. Execution flow is transferred here when a process exits successfully.</li>
+<li><code>.fini_array</code> - this section holds function pointers for process termination.</li>
+<li><code>.got</code> - the Global Offset Table.</li>
+<li><code>.hash</code> - this section holds a symbol hash table.</li>
+<li><code>.init</code> - this section contains instructions relevant to process initialisation. The code here is executed before control is transferred to the programme's entry point (called <code>main</code> in most cases).</li>
+<li><code>.init_array</code> - this section holds function pointers for process initialisation.</li>
+<li><code>.interp</code> - this section holds the path name of the programme interpreter. If the file has a loadable segment with relocation, the sections' attributes will include the <code>SHF_ALLOC</code> bit.</li>
+<li><code>.line</code> - this section holds line number information for debugging with source files.</li>
+<li><code>.note</code> - this section holds auxiliary information.</li>
+<li><code>.plt</code> - this section holds the Procedure Linkage Table.</li>
+<li><code>.preinit_array</code> - this section holds function pointers for pre-initialisation.</li>
+<li><code>.rel</code><em>name</em> and <code>.rela</code><em>name</em> - these sections hold relocation information, where <em>name</em> is the name of the section for which the relocations are relevant such as <code>.rel.text</code> or <code>.rela.text</code>. If the file has a loadable segment that includes relocation, the sections' attributes will include the <code>SHF_ALLOC</code> bit.</li>
+<li><code>.rodata</code> and <code>.rodata1</code> - these sections hold read-only data that gets loaded into the memory image of the process.</li>
+<li><code>.shstrtab</code> - the string table for the section names.</li>
+<li><code>.strtab</code> - a string table which typically holds symbol names. If the file has a loadable segment that includes the symbol string table, the section's attributes will include the <code>SHF_ALLOC</code> bit.</li>
+<li><code>.symtab</code> - the complete symbol table. If the file has a loadable segment that includes the symbol table, the section's attributes will include the <code>SHF_ALLOC</code> bit.</li>
+<li><code>.symtab_shndx</code> - this section holds the special symbol table section index array described above. The section's attributes will include the <code>SHF_ALLOC</code> bit if the associated symbol table section does.</li>
+<li><code>.tbss</code> - this section holds uninitialised thread-local data which contributes to the memory image. This data is set to all 0s for each new execution flow and occupies no bytes in the file.</li>
+<li><code>.tdata</code> - this section holds initialised thread-local data which contributes to the memory image. A copy of it is generated for each new execution flow.</li>
+<li><code>.text</code> - this section holds the executable instructions of the programme.</li>
+</ul>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

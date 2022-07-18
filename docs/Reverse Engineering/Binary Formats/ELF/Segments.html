@@ -249,7 +249,7 @@ typedef struct
 <h2 id="other-segments"><a class="header" href="#other-segments">Other Segments</a></h2>
 <p><code>PT_SHLIB</code> is reserved but is unspecified, while values from <code>PT_LOOS</code> to <code>PT_HIOS</code> and from <code>PT_LOPROC</code> through <code>PT_HIPROC</code> are reserved for OS- and processor-specific semantics, respectively.</p>
 <h1 id="segment-flags"><a class="header" href="#segment-flags">Segment Flags</a></h1>
-<p>The <code>p_flags</code> field described the permissions the segment is equipped with. It is important to note that the system may actually give more access than requested with the exception that a segment will never be assigned write permissions, unless explicitly requested:</p>
+<p>The <code>p_flags</code> field describes the permissions the segment is equipped with. It is important to note that the system may actually give more access than requested with the exception that a segment will never be assigned write permissions, unless explicitly requested:</p>
 <table><thead><tr><th>Flags</th><th style="text-align: center">Value</th><th>Exact</th><th>Allowable</th></tr></thead><tbody>
 <tr><td>none</td><td style="text-align: center">0</td><td>All access denied</td><td>All access denied</td></tr>
 <tr><td><code>PF_X</code></td><td style="text-align: center">1</td><td>Execute only</td><td>Read, execute</td></tr>
