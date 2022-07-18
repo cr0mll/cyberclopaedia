@@ -150,7 +150,7 @@
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p>The <strong>Executable and Linkable Format</strong> (ELF) has established itself as the standard binary format for Unix operating systems and their derivatives. Under LINUX, BSD variants, and other operating systems, ELF is used for executables, shared libraries, object files, core files, and even the kernel boot image. </p>
 <h1 id="structure"><a class="header" href="#structure">Structure</a></h1>
-<p>An ELF file comprises an ELF header followed by data. Inside lie the Program Header Table and the Section Header Table. The former describes memory <a href="Segments.html">segments</a>, while the latter outlies the <a href="Sections.html">sections</a>. </p>
+<p>An ELF file comprises an <a href="The%20ELF%20Header.html">ELF header</a> followed by data. Inside lie the Program Header Table and the Section Header Table. The former describes memory <a href="Segments.html">segments</a>, while the latter outlies the <a href="Sections.html">sections</a>. </p>
 <h1 id="file-types"><a class="header" href="#file-types">File Types</a></h1>
 <p>An ELF file may be any of the following:</p>
 <ul>
@@ -158,7 +158,7 @@
 <li><code>ET_REL</code> - a relocatable file, also sometimes referred to as an object filed. Relocatable object files typically contain position independent code (PIC) that has not yet been linked into an executable and often have the extension <code>.o</code>.</li>
 <li><code>ET_EXEC</code> - this is an executable file.</li>
 <li><code>ET_DYN</code> - a shared object. This file can be dynamically linked and is also known as a shared library. Such files are loaded and linked into a process' image at runtime by the dynamic linker. Additionally, these <code>DYN</code> files can also serve as standalone executables.</li>
-<li><code>ET_CORE</code> - a coredump file. These are full images of a process during a crash or when a <code>SIGSEGV</code> is returned. These files can be read by debuggers to aid in determining the cause of the crash</li>
+<li><code>ET_CORE</code> - a core-dump file. These are full images of a process during a crash or when a <code>SIGSEGV</code> is returned. These files can be read by debuggers to aid in determining the cause of the crash</li>
 </ul>
 
                     </main>

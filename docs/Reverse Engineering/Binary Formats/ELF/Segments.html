@@ -248,6 +248,18 @@ typedef struct
 </tbody></table>
 <h2 id="other-segments"><a class="header" href="#other-segments">Other Segments</a></h2>
 <p><code>PT_SHLIB</code> is reserved but is unspecified, while values from <code>PT_LOOS</code> to <code>PT_HIOS</code> and from <code>PT_LOPROC</code> through <code>PT_HIPROC</code> are reserved for OS- and processor-specific semantics, respectively.</p>
+<h1 id="segment-flags"><a class="header" href="#segment-flags">Segment Flags</a></h1>
+<p>The <code>p_flags</code> field described the permissions the segment is equipped with. It is important to note that the system may actually give more access than requested with the exception that a segment will never be assigned write permissions, unless explicitly requested:</p>
+<table><thead><tr><th>Flags</th><th style="text-align: center">Value</th><th>Exact</th><th>Allowable</th></tr></thead><tbody>
+<tr><td>none</td><td style="text-align: center">0</td><td>All access denied</td><td>All access denied</td></tr>
+<tr><td><code>PF_X</code></td><td style="text-align: center">1</td><td>Execute only</td><td>Read, execute</td></tr>
+<tr><td><code>PF_W</code></td><td style="text-align: center">2</td><td>Write only</td><td>Read, write, execute</td></tr>
+<tr><td><code>PF_W+PF_X</code></td><td style="text-align: center">3</td><td>Write, execute</td><td>Read, write, execute</td></tr>
+<tr><td><code>PF_R</code></td><td style="text-align: center">4</td><td>Read only</td><td>Read, execute</td></tr>
+<tr><td><code>PF_R+PF_X</code></td><td style="text-align: center">5</td><td>Read, execute</td><td>Read, execute</td></tr>
+<tr><td><code>PF_R+PF_W</code></td><td style="text-align: center">6</td><td>Read, write</td><td>Read, write, execute</td></tr>
+<tr><td><code>PF_R+PF_W+PF_X</code></td><td style="text-align: center">7</td><td>Read, write, execute</td><td>Read, write, execute</td></tr>
+</tbody></table>
 
                     </main>
 

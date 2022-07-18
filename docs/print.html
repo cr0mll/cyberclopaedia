@@ -1627,10 +1627,10 @@ window.location.replace(https://www.google.com)
 <p><img src="Post%20Exploitation/Pivoting/Resources/Images/SSH_Local_Tunnel_Wrong.png" alt="" /></p>
 <p>We have now established a tunnel on my Kali machine's port 8080, which will forward any traffic to <code>192.168.129.137:1337</code>, which is my ubuntu server. So let's see if we can access the web page.</p>
 <p><img src="Post%20Exploitation/Pivoting/Resources/Images/SSH_Local_Tunnel_Fail.png" alt="" /></p>
-<p>Let's again check to see if we have access to the resource hidden behind <code>localhost:1337</code> on the Ubuntu server...</p>
-<p><img src="Post%20Exploitation/Pivoting/Resources/Images/SSH_Local_Tunnel_Success.png" alt="" /></p>
 <p>Wait, what? We just created the tunnel, but it does not seem to work? Well, remember how the <code>DESTINATION</code> does not need to match the server's IP? This is because the <code>DESTINATION</code> is where the traffic is sent <em>after</em> it gets to the remote machine. In a sense, the remote machine is now the sender and not us. Therefore, in order to access a resource internal to the network, we would need to change <code>DESTINATION</code> to something like <code>localhost</code> or another computer's IP.</p>
 <p><img src="Post%20Exploitation/Pivoting/Resources/Images/SSH_Local_Tunnel_Correct.png" alt="" /></p>
+<p>Let's again check to see if we have access to the resource hidden behind <code>localhost:1337</code> on the Ubuntu server...</p>
+<p><img src="Post%20Exploitation/Pivoting/Resources/Images/SSH_Local_Tunnel_Success.png" alt="" /></p>
 <h1 id="remote-port-forwarding"><a class="header" href="#remote-port-forwarding">Remote Port Forwarding</a></h1>
 <p>Remote port forwarding is sort of the reverse of local port forwarding. A tunnel is opened and any traffic sent to the tunnel port on the remote machine will be forwarded to the local machine. In the exact same way as above, once the traffic is tunneled, the local machine becomes the sender. Therefore, remote port forwarding is more useful when you want to <em>receive</em> traffic from inside the network, rather than <em>injecting</em> it. You will be able to actively receive any data that is sent to the remote port, but you won't be able to send arbitrary data through the tunnel yourself.</p>
 <p>The syntax is also very similar:</p>
@@ -1710,7 +1710,7 @@ window.location.replace(https://www.google.com)
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-19"><a class="header" href="#introduction-19">Introduction</a></h1>
 <p>The <strong>Executable and Linkable Format</strong> (ELF) has established itself as the standard binary format for Unix operating systems and their derivatives. Under LINUX, BSD variants, and other operating systems, ELF is used for executables, shared libraries, object files, core files, and even the kernel boot image. </p>
 <h1 id="structure"><a class="header" href="#structure">Structure</a></h1>
-<p>An ELF file comprises an ELF header followed by data. Inside lie the Program Header Table and the Section Header Table. The former describes memory <a href="Reverse%20Engineering/Binary%20Formats/ELF/Segments.html">segments</a>, while the latter outlies the <a href="Reverse%20Engineering/Binary%20Formats/ELF/Sections.html">sections</a>. </p>
+<p>An ELF file comprises an <a href="Reverse%20Engineering/Binary%20Formats/ELF/The%20ELF%20Header.html">ELF header</a> followed by data. Inside lie the Program Header Table and the Section Header Table. The former describes memory <a href="Reverse%20Engineering/Binary%20Formats/ELF/Segments.html">segments</a>, while the latter outlies the <a href="Reverse%20Engineering/Binary%20Formats/ELF/Sections.html">sections</a>. </p>
 <h1 id="file-types"><a class="header" href="#file-types">File Types</a></h1>
 <p>An ELF file may be any of the following:</p>
 <ul>
@@ -1718,7 +1718,7 @@ window.location.replace(https://www.google.com)
 <li><code>ET_REL</code> - a relocatable file, also sometimes referred to as an object filed. Relocatable object files typically contain position independent code (PIC) that has not yet been linked into an executable and often have the extension <code>.o</code>.</li>
 <li><code>ET_EXEC</code> - this is an executable file.</li>
 <li><code>ET_DYN</code> - a shared object. This file can be dynamically linked and is also known as a shared library. Such files are loaded and linked into a process' image at runtime by the dynamic linker. Additionally, these <code>DYN</code> files can also serve as standalone executables.</li>
-<li><code>ET_CORE</code> - a coredump file. These are full images of a process during a crash or when a <code>SIGSEGV</code> is returned. These files can be read by debuggers to aid in determining the cause of the crash</li>
+<li><code>ET_CORE</code> - a core-dump file. These are full images of a process during a crash or when a <code>SIGSEGV</code> is returned. These files can be read by debuggers to aid in determining the cause of the crash</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-20"><a class="header" href="#introduction-20">Introduction</a></h1>
 <p>Dynamic linking permits the loading of libraries at runtime, which avoids their incorporation into the executable at compile time and, consequently, saves a drastic amount of disk space at the cost of significantly complicating the linking process. The dynamic linker has to go through the instructions and fix any calls to external functions after the required libraries have been mapped into the running executable. Additionally, the default behaviour is the so-called lazy loading - function addresses aren’t even resolved until the first time a procedure is invoked (although this can be overridden when compiling the executable).</p>
@@ -1876,6 +1876,18 @@ typedef struct
 </tbody></table>
 <h2 id="other-segments"><a class="header" href="#other-segments">Other Segments</a></h2>
 <p><code>PT_SHLIB</code> is reserved but is unspecified, while values from <code>PT_LOOS</code> to <code>PT_HIOS</code> and from <code>PT_LOPROC</code> through <code>PT_HIPROC</code> are reserved for OS- and processor-specific semantics, respectively.</p>
+<h1 id="segment-flags"><a class="header" href="#segment-flags">Segment Flags</a></h1>
+<p>The <code>p_flags</code> field described the permissions the segment is equipped with. It is important to note that the system may actually give more access than requested with the exception that a segment will never be assigned write permissions, unless explicitly requested:</p>
+<table><thead><tr><th>Flags</th><th style="text-align: center">Value</th><th>Exact</th><th>Allowable</th></tr></thead><tbody>
+<tr><td>none</td><td style="text-align: center">0</td><td>All access denied</td><td>All access denied</td></tr>
+<tr><td><code>PF_X</code></td><td style="text-align: center">1</td><td>Execute only</td><td>Read, execute</td></tr>
+<tr><td><code>PF_W</code></td><td style="text-align: center">2</td><td>Write only</td><td>Read, write, execute</td></tr>
+<tr><td><code>PF_W+PF_X</code></td><td style="text-align: center">3</td><td>Write, execute</td><td>Read, write, execute</td></tr>
+<tr><td><code>PF_R</code></td><td style="text-align: center">4</td><td>Read only</td><td>Read, execute</td></tr>
+<tr><td><code>PF_R+PF_X</code></td><td style="text-align: center">5</td><td>Read, execute</td><td>Read, execute</td></tr>
+<tr><td><code>PF_R+PF_W</code></td><td style="text-align: center">6</td><td>Read, write</td><td>Read, write, execute</td></tr>
+<tr><td><code>PF_R+PF_W+PF_X</code></td><td style="text-align: center">7</td><td>Read, write, execute</td><td>Read, write, execute</td></tr>
+</tbody></table>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-22"><a class="header" href="#introduction-22">Introduction</a></h1>
 <p>The ELF header is a data structure which sits at the beginning of every ELF file and describes its layout. It starts with 16 identification bytes that contain the ELF magic bytes. The following structs are defined in <code>&lt;elf.h&gt;</code>:</p>
 <pre><code class="language-cpp">#define EI_NIDENT 16
