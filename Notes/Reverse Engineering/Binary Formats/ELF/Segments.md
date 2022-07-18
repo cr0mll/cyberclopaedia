@@ -119,3 +119,16 @@ This segment specifies the Thread-Local Storage template. The latter is an amalg
 ## Other Segments
 `PT_SHLIB` is reserved but is unspecified, while values from `PT_LOOS` to `PT_HIOS` and from `PT_LOPROC` through `PT_HIPROC` are reserved for OS- and processor-specific semantics, respectively.
 
+# Segment Flags
+The `p_flags` field described the permissions the segment is equipped with. It is important to note that the system may actually give more access than requested with the exception that a segment will never be assigned write permissions, unless explicitly requested:
+
+| Flags          | Value | Exact                | Allowable            |
+|----------------|:-----:|----------------------|----------------------|
+| none           | 0     | All access denied    | All access denied    |
+| `PF_X`           | 1     | Execute only         | Read, execute        |
+| `PF_W`           | 2     | Write only           | Read, write, execute |
+| `PF_W+PF_X`      | 3     | Write, execute       | Read, write, execute |
+| `PF_R`           | 4     | Read only            | Read, execute        |
+| `PF_R+PF_X`      | 5     | Read, execute        | Read, execute        |
+| `PF_R+PF_W`      | 6     | Read, write          | Read, write, execute |
+| `PF_R+PF_W+PF_X` | 7     | Read, write, execute | Read, write, execute |
