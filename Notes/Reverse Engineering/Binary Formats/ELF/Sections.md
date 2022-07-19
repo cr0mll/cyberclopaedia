@@ -205,3 +205,10 @@ The `SHT_SHLIB` section type is reserved but unspecified. As always, values from
 - `.tbss` - this section holds uninitialised thread-local data which contributes to the memory image. This data is set to all 0s for each new execution flow and occupies no bytes in the file.
 - `.tdata` - this section holds initialised thread-local data which contributes to the memory image. A copy of it is generated for each new execution flow.
 - `.text` - this section holds the executable instructions of the programme.
+
+# Section Groups
+Some sections occur in interrelated groups or contain references to other sections which become meaningless if the referenced object is removed or altered. Such groups must be included or omitted from the linked object together and may not be separated. Each section is only allowed to be part of a single group. 
+
+Such a grouping of sections is denoted by the `SHT_GROUP` type. In one of the ELF object's symbol tables is an entry whose name provides a signature for the section group. The section header of the `SHT_GROUP` section specifies this entry: The `sh_link` field contains the section header index of the symbol table section that contains the entry, while `sh_info` holds the symbol table index for the appropriate entry. 
+
+The data within an `SHT_GROUP` section is comprised of word entries, where the first entry is a flag word and the rest are section header indices of the sections which make up the group. The sections must each have the `SHF_GROUP` flag set in their `sh_flags` fields.
