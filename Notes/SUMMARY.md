@@ -60,6 +60,7 @@
 			- [Dynamic Linking](Reverse%20Engineering/Binary%20Formats/ELF/Dynamic%20Linking.md)
 			- [Sections](Reverse%20Engineering/Binary%20Formats/ELF/Sections.md)
 			- [Segments](Reverse%20Engineering/Binary%20Formats/ELF/Segments.md)
+			- [Symbols](Reverse%20Engineering/Binary%20Formats/ELF/Symbols.md)
 			- [The ELF Header](Reverse%20Engineering/Binary%20Formats/ELF/The%20ELF%20Header.md)
 		- [Reverse Engineering Android Applications](Reverse%20Engineering/Binary%20Formats/Reverse%20Engineering%20Android%20Applications.md)
 	- [Program Anatomy](Reverse%20Engineering/Program%20Anatomy/README.md)
