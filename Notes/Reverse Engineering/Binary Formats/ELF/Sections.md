@@ -103,6 +103,10 @@ The other reserved indices are described in the following table:
 - `SHN_XINDEX` - an escape value denoting an index which cannot fit in the containing field and thus must be found elsewhere (this is specific to the structure it is found in).
 - `SHN_HIRESERVE` - the upper bound for reserved indices.
 
+You can view the section header table by using the `-S` option in `readelf`.
+
+![](Resources/Images/ELF_read_SHT.png)
+
 # Section Types
 ## `SHT_NULL`
 The section header is marked as inactive and lacks an associated section. The rest of the members of such a header have undefined values.
@@ -111,7 +115,7 @@ The section header is marked as inactive and lacks an associated section. The re
 The section contains data whose contents are solely defined and used by the actual programme.
 
 ## `SHT_SYMTAB` and `SHT_DYNSYM`
-These sections hold symbol tables. A file may contain at most one from each type of symbol table. Since `SHT_SYMTAB` is a complete symbol table, it is useful for both link editing and dynamic linking. However, its completeness comes with sizeable contents, so an ELF file may also contain an `SHT_DYNSYM` section which stores only symbols for dynamic linking.
+These sections hold symbol tables. A file may contain at most one from each type of symbol table. Since `SHT_SYMTAB` is a complete symbol table, it is useful for both link editing and dynamic linking. However, its completeness comes with sizeable contents, so an ELF file may also contain an `SHT_DYNSYM` section which stores only symbols for dynamic linking. Only the latter may be loaded into memory.
 
 ## `SHT_STRTAB`
 This section is a string table. A file may have multiple string tables for different purposes.
