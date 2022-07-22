@@ -58,6 +58,7 @@
 	- [Binary Formats](Reverse%20Engineering/Binary%20Formats/README.md)
 		- [ELF](Reverse%20Engineering/Binary%20Formats/ELF/README.md)
 			- [Dynamic Linking](Reverse%20Engineering/Binary%20Formats/ELF/Dynamic%20Linking.md)
+			- [Relocations](Reverse%20Engineering/Binary%20Formats/ELF/Relocations.md)
 			- [Sections](Reverse%20Engineering/Binary%20Formats/ELF/Sections.md)
 			- [Segments](Reverse%20Engineering/Binary%20Formats/ELF/Segments.md)
 			- [Symbols](Reverse%20Engineering/Binary%20Formats/ELF/Symbols.md)
