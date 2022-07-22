@@ -11,7 +11,7 @@ renderer = ["html"]
 
 [output.html]
 no-section-label = true
-default-theme = "ayu"
+default-theme = "coal"
 git-repository-url = "https://github.com/cr0mll/cyberclopaedia/"
 git-repository-icon = "fa-github"
 mathjax-support = true
