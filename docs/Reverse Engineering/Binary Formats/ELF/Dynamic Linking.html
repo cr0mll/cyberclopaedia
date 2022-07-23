@@ -148,59 +148,25 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p>Dynamic linking permits the loading of libraries at runtime, which avoids their incorporation into the executable at compile time and, consequently, saves a drastic amount of disk space at the cost of significantly complicating the linking process. The dynamic linker has to go through the instructions and fix any calls to external functions after the required libraries have been mapped into the running executable. Additionally, the default behaviour is the so-called lazy loading - function addresses aren’t even resolved until the first time a procedure is invoked (although this can be overridden when compiling the executable).</p>
-<p>When a function from a dynamic library is called, the call instruction always jumps to somewhere in the executable section of the ELF file called the Procedure Linking Table (PLT). All entries in this table are of a fixed length and each corresponds to a particular function. The initial element (PLT0) is a bit different in that it contains two instructions - the first one pushes the address of the link map (a structure containing a list of the shared libraries referenced by the executable) to the stack and the second instruction jumps to <code>_dl_resolve</code>, which takes two parameters - the link map and a relocation argument.</p>
-<p><img src="Resources/Images/PLT0.png" alt="" /></p>
-<p>When a PLT entry, other than the first one, is executed, the programme first jumps to the address contained in the corresponding part of the Global Offset Table (GOT). When the function hasn’t been called before, this address will point to the next instruction in the respective PLT entry - in the case of <code>memcpy</code> this is the instruction at address 1036. This instruction pushes the offset from the beginning of the relocation table at which relocation information about this particular symbol is located. This is also the relocation argument we mentioned earlier. If the procedure has been previously invoked, its address will already be stored in the corresponding GOT entry and so the first instruction in the PLT entry will directly jump to the function at hand. The last instruction of every function’s PLT section just hands off execution to PLT0.</p>
-<h1 id="the-relocation-table"><a class="header" href="#the-relocation-table">The Relocation Table</a></h1>
-<p>The relocation table contains symbol relocation information in the form of an array of either <code>Elf32_Rel</code> or <code>Elf32_Rela</code> structures (for x32) and <code>Elf64_Rel</code> or <code>Elf64_Rela</code> (for x64). These are defined as follows:</p>
-<pre><code class="language-cpp">typedef struct {
-        Elf32_Addr      r_offset;
-        Elf32_Xword     r_info;
-} Elf32_Rel;
- 
-typedef struct {
-        Elf32_Addr      r_offset;
-        Elf32_Xword     r_info;
-        Elf32_Sxword    r_addend;
-} Elf32_Rela;
-
-typedef struct {
-        Elf64_Addr      r_offset;
-        Elf64_Xword     r_info;
-} Elf64_Rel;
- 
-typedef struct {
-        Elf64_Addr      r_offset;
-        Elf64_Xword     r_info;
-        Elf64_Sxword    r_addend;
-} Elf64_Rela;
-
-</code></pre>
-<h1 id="the-dynamic-symbol-table"><a class="header" href="#the-dynamic-symbol-table">The Dynamic Symbol Table</a></h1>
-<p>The dynamic symbol table (<code>.dynsym</code>) is an array of <code>Elf32_Sym</code> or <code>Elf64_Sym</code> structures (for x32 and x64, respectively) which are comprised of the following:</p>
-<pre><code class="language-cpp">typedef struct {
-		Elf32_Word      st_name;
-        Elf32_Addr      st_value;
-        Elf32_Word      st_size;
-        unsigned char   st_info;
-        unsigned char   st_other;
-        Elf32_Half      st_shndx;
-} Elf32_Sym;
-
-typedef struct {
-        Elf64_Word      st_name;
-        unsigned char   st_info;
-        unsigned char   st_other;
-        Elf64_Half      st_shndx;
-        Elf64_Addr      st_value;
-        Elf64_Xword     st_size;
-} Elf64_Sym;
-</code></pre>
-<h1 id="_dl_resolve"><a class="header" href="#_dl_resolve"><code>_dl_resolve</code></a></h1>
-<p>When PLT0 hands off execution to <code>_dl_resolve</code>, the function will be called with the link map (pushed on the stack by PLT0) and the relocation argument (<code>reloc_arg</code>) which was pushed onto the stack by the respective PLT entry. You will notice that <code>_dl_resolve</code> takes its arguments directly from the stack. This is because once <code>_dl_resolve</code> finds the address of the requested symbol, it will invoke the procedure in addition to placing its address in the GOT. This means that we can still use the registers in order to provide arguments to the requested function.</p>
-<h2 id="how-_dl_resolve-works"><a class="header" href="#how-_dl_resolve-works">How <code>_dl_resolve</code> works</a></h2>
-<p><code>_dl_resolve</code> on its own is a simple wrapper around several other functions. Initially, the relocation argument is used in order to locate the appropriate entry in the relocation table of the executable. The <code>r_info</code> member of this entry is then used to find the corresponding element in the dynamic symbol table. From there, <code>st_name</code> is utilised to pinpoint the location of the name of the function in the string table. Subsequently, <code>_dl_resolve</code> avails itself of this string in order to look it up in the code of the library. Once the address is found, <code>r_offset</code> is used to locate where in the GOT the address should be placed (note that despite its use, <code>r_offset</code> is actually an offset from the beginning of the ELF header). The function initially invoked is also called with any arguments which were provided to it. It bears a resemblance to the following:</p>
-<p><img src="Resources/Images/_dl_resolve.png.png" alt="" /></p>
+<h1 id="how-it-works"><a class="header" href="#how-it-works">How It Works</a></h1>
+<p>Dynamically-linked programmes contain a segment of type <code>PT_INTERP</code> which holds the path to the programme's interpreter. Upon execution, the interpreter is invoked and control flow is transferred to it. Subsequently, the interpreter loads the <code>PT_LOAD</code> segments of the programme. Then it uses the dynamic segment (<code>.dynamic</code>) to locate and load all dependencies from disk into memory. Since each dependency may also contain other dynamic dependencies, this process is recursive. Once this is done, <a href="Relocations.html">relocations</a> are performed. Subsequently, the initialisation functions (those in the <code>.preinit_array</code>, <code>.init</code>, and <code>.init_array</code> sections) of the shared libraries are invoked. Finally, the interpreter transfers execution to the programme's entry point as if nothing had happened.</p>
+<p><img src="Resources/Images/ELF_Dynamic_Linking.png" alt="" /></p>
+<h2 id="lazy-loading"><a class="header" href="#lazy-loading">Lazy Loading</a></h2>
+<p>The above process, while working, is very unoptimised. Imagine how much time will be wasted loading thousands of symbols at start-up for large programmes. Moreover, a programme could exit prematurely due to incorrect input and what then? All those symbols which got loaded never got used and so resources were again wasted. The solution to this problem, which is also nowadays the default behaviour, is to use the so-called <em>lazy loading</em>. Instead of loading every symbol before the programme even starts, symbols are loaded at the time of their first use. More specifically, functions are resolved when they are first invoked. This is all enabled by the <em>Procedure Linkage Table (PLT)</em> and the <em>Global Offset Table (GOT)</em>.</p>
+<h3 id="the-global-offset-table"><a class="header" href="#the-global-offset-table">The Global Offset Table</a></h3>
+<p>The Global Offset Table is a section which gets loaded into the memory image of an ELF file. When lazy loading is enabled, the GOT is writable. Ultimately, the GOT stores absolute addresses but is referenced in a position-independent way. Thus, it serves as a converter from relative to absolute addresses. It is an array of 32- or 64-bit addresses. It is paramount to note that the GOT holds <em>values</em> and <em>not</em> instructions, so disassembling it will result in garbage.</p>
+<h3 id="the-procedure-linkage-table"><a class="header" href="#the-procedure-linkage-table">The Procedure Linkage Table</a></h3>
+<p>The Procedure Linkage Table resembles the GOT in the sense that it redirects position-independent function calls to absolute locations. This table contains entries of executable code which are 3 instructions long. You can view the PLT of an ELF file using this command:
+<code>objdump -d -j .plt &lt;filename&gt;</code></p>
+<p><img src="Resources/Images/ELF_PLT.png" alt="" /></p>
+<p>There is an entry for every function that is located in a shared library. The first instruction in each entry jumps to the location specified in the corresponding entry of the Global Offset Table. If the function has been called before, this will be the absolute address of its definition in the shared library and so execution flow will be forwarded directly to the function. </p>
+<p><img src="Resources/Images/ELF_PLT_GOT_Called.png" alt="" /></p>
+<p>If this is the first time that the procedure is being invoked, the entry in the Global Offset Table will point to the next instruction in the relevant PLT entry. This instruction pushes the <em>relocation argument</em> (<code>relog_arg</code>) for this symbol onto the stack. Finally, the third instruction jumps to the first entry in the PLT - PLT0. This entry is special. In reality, it only contains two instructions (the third is there for alignment purposes). The first instruction in PLT0 pushes the address of the <em>link map</em> onto the stack. The link map is a structure which describes all the dependencies that the ELF file requires and its address is stored in the first entry of the GOT. Next, PLT0 jumps to a function called <code>_dl_runtime_resolve</code>, whose address is stored in the second entry of the GOT.</p>
+<p><img src="Resources/Images/ELF_PLT_GOT_Uncalled.png" alt="" /></p>
+<h3 id="_dl_runtime_resolve"><a class="header" href="#_dl_runtime_resolve"><code>_dl_runtime_resolve</code></a></h3>
+<p><code>_dl_runtime_resolve</code> is a special procedure which is what actuates the dynamic linking process. It does not follow standard calling conventions and instead retrieves its arguments directly from the stack. It takes the <code>link_map</code> and the relocation argument, <code>reloc_arg</code>. Under the hood, <code>_dl_runtime_resolve</code> is just a wrapper around several other procedures which will ultimately locate the requested symbol, change its entry in the GOT and then forward execution to it.</p>
+<p>Initially, the relocation argument is used in order to locate the appropriate entry in the relocation table of the executable. The <code>r_info</code> member of this entry is then used to find the corresponding element in the dynamic symbol table. From there, <code>st_name</code> is utilised to pinpoint the location of the name of the function in the string table. Subsequently, <code>_dl_runtime_resolve</code> avails itself of this string in order to look it up in the code of the library. Once the address is found, <code>r_offset</code> is used to locate where in the GOT the address should be placed (note that despite its use, <code>r_offset</code> is actually an offset from the beginning of the ELF header). At last, <code>_dl_runtime_resolve_</code> forwards execution to the function initially invoked with any arguments which were provided to it.</p>
+<p><img src="Resources/Images/ELF_dl_runtime_resolve.png.png" alt="" /></p>
 
                     </main>
 
