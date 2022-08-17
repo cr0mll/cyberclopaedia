@@ -22,7 +22,10 @@ sudo airodump-ng <dev>
 
 ![](Resources/Images/WIFI_airodump_monitor_all.png)
 
-Once you have identified the network you want to attack, you can make `airodump` specifically listening for it by providing a MAC address (`--bssid`) and a channel (`-c`). You will also want to write the capture to a file, so that it may later be cracked with `aircrack-ng`:
+Once you have identified the network you want to attack, you can make `airodump` specifically listening for it by providing a MAC address (`--bssid`) and a channel (`-c`). You will also want to write the capture to a file (`--write <filename>`), so that it may later be cracked with `aircrack-ng`:
+```
+sudo airodump-ng --bssid 50:D4:F7:95:CE:13 -c 11 --write PwnMe
+```
 
 ![](Resources/Images/WIFI_airodump_listen_pwn.png)
 
@@ -56,3 +59,7 @@ aircrack-ng <capture> -w <wordlist>
 ![](Resources/Images/WIFI_aircrack.png)
 
 Boom! We successfully cracked the very difficult-to-guess password of... `password`.
+
+Remember to stop your adapter's monitor mode or you will not be able to use it normally:
+
+![](Resources/Images/WIFI_stop_monitor_mode.png)

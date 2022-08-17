@@ -3227,7 +3227,9 @@ movl (%ebx),%eax
 <pre><code>sudo airodump-ng &lt;dev&gt;
 </code></pre>
 <p><img src="Hardware%20Hacking/Wireless%20Attacks/Resources/Images/WIFI_airodump_monitor_all.png" alt="" /></p>
-<p>Once you have identified the network you want to attack, you can make <code>airodump</code> specifically listening for it by providing a MAC address (<code>--bssid</code>) and a channel (<code>-c</code>). You will also want to write the capture to a file, so that it may later be cracked with <code>aircrack-ng</code>:</p>
+<p>Once you have identified the network you want to attack, you can make <code>airodump</code> specifically listening for it by providing a MAC address (<code>--bssid</code>) and a channel (<code>-c</code>). You will also want to write the capture to a file (<code>--write &lt;filename&gt;</code>), so that it may later be cracked with <code>aircrack-ng</code>:</p>
+<pre><code>sudo airodump-ng --bssid 50:D4:F7:95:CE:13 -c 11 --write PwnMe
+</code></pre>
 <p><img src="Hardware%20Hacking/Wireless%20Attacks/Resources/Images/WIFI_airodump_listen_pwn.png" alt="" /></p>
 <p>Now, <code>airodump</code> is listening for the specified access point. Under the <code>STATION</code> tab, you can see all devices which are connected to the network. </p>
 <p>You now have to wait for someone new to connect to the target network or to reconnect in order to capture the handshake. If you are too impatient, however, there is a way to speed this process up. You can use <code>aireplay-ng</code> to disconnect a device already connected to the network. Since most devices are configured to look for and automatically connect to saved networks, the disconnected device is likely to attempt to connect to the network, establishing a 4-way handshake without any user interaction. The syntax for <code>aireplay-ng</code> is the following:</p>
@@ -3249,6 +3251,8 @@ movl (%ebx),%eax
 </code></pre>
 <p><img src="Hardware%20Hacking/Wireless%20Attacks/Resources/Images/WIFI_aircrack.png" alt="" /></p>
 <p>Boom! We successfully cracked the very difficult-to-guess password of... <code>password</code>.</p>
+<p>Remember to stop your adapter's monitor mode or you will not be able to use it normally:</p>
+<p><img src="Hardware%20Hacking/Wireless%20Attacks/Resources/Images/WIFI_stop_monitor_mode.png" alt="" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-38"><a class="header" href="#introduction-38">Introduction</a></h1>
 <p>Cryptography is the study and application of techniques for secure communication in the presence of adversarial behaviour. It is concerned with the confidentiality of data. All cryptography is built around the use of <em>ciphers</em> or, in modern parlance, <em>encryption schemes</em>. </p>
 <p>Cryptrography is typically divided into two fields - symmetric (private-key) cryptography and asymmetric (public-key) cryptography - and depending on which field we are in, an encryption scheme will look differently, but the basic terminology is usually shared.</p>
@@ -3505,13 +3509,22 @@ In reality, there is usually more than a single name server for a big company li
 <p>Higher speed standards avail themselves of all the pins. Additionally, in 1000BASE-T and 10GBASE-T are bidirectional and allow for both transmission and reception which allows for greater speeds.</p>
 <p><img src="Networking/Networking%20Models/Resources/Images/UTP_1000_10GBASE_T.png" alt="" /></p>
 <h2 id="fibre-optic-cables"><a class="header" href="#fibre-optic-cables">Fibre-Optic Cables</a></h2>
-<p>Fibre-Optic cables are a new generation of cables. Instead of transferring electrical signals through copper wiring, these cables conduct signals in the form of <em>light</em>. In order to use fibre-optics, a special type of connector called SFP is required, which is short for <em>Small Form-Factor Pluggable</em> and looks like this:</p>
+<p>Fibre-Optic cables are a new generation of cables. Instead of transferring electrical signals through copper wiring, these cables conduct signals in the form of <em>light</em>, which makes them immune to EMI. In order to use fibre-optics, a special type of connector called SFP is required, which is short for <em>Small Form-Factor Pluggable</em> and looks like this:</p>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/QSFP-40G-SR4_Transceiver.jpg" alt="" /></p>
 <p>Data is transferred through the fibre-optic cable which has two connections on each end - one for sending and one for receiving:</p>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Lc-sc-fiber-connectors.jpg" alt="" /></p>
 <p>The fibre-optic cable is comprised of 4 main layers. The innermost layer is the fibreglass core, which is what the light travels through. This core is enveloped in a cladding layer which reflects the light beam travelling through the cable. Around the cladding is a protective buffer, which is in turn wrapped in the outer jacket.</p>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Singlemode_fibre_structure.svg/1024px-Singlemode_fibre_structure.svg.png" alt="" /></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-47"><a class="header" href="#introduction-47">Introduction</a></h1>
+<p>There are two main types of fibre-optic cables in the wild. The first type is multi-mode fibre which allows for light to enter at multiple angles. It has a larger glass core and allows for a greater transmission distance than UTP and is also cheaper than single-mode fibre. Single-mode fibre, on the other hand allows for light to enter only at a single angle, called a <em>mode</em>, and has a much greater maximum distance than that of multi-mode (step index).</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Optical_fiber_types.svg/1920px-Optical_fiber_types.svg.png" alt="" /></p>
+<p>The following fibre-optic cable standards are defined:</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Informal Name</th><th style="text-align: center">IEEE Standard</th><th style="text-align: center">Speed</th><th style="text-align: center">Cable Type</th><th style="text-align: center">Maximum Length</th></tr></thead><tbody>
+<tr><td style="text-align: center">1000BASE-LX</td><td style="text-align: center">802.3z</td><td style="text-align: center">1 Gbps</td><td style="text-align: center">Multi- or single-mode</td><td style="text-align: center">550 m (MM), 5 km (SM)</td></tr>
+<tr><td style="text-align: center">10GBASE-SR</td><td style="text-align: center">802.3ae</td><td style="text-align: center">10 Gbps</td><td style="text-align: center">Multi-mode</td><td style="text-align: center">400 m</td></tr>
+<tr><td style="text-align: center">10GBASE-LR</td><td style="text-align: center">802.3ae</td><td style="text-align: center">10 Gbps</td><td style="text-align: center">Single-mode</td><td style="text-align: center">10 km</td></tr>
+<tr><td style="text-align: center">10GBASE-ER</td><td style="text-align: center">802.3ae</td><td style="text-align: center">10 Gbps</td><td style="text-align: center">Single-mode</td><td style="text-align: center">30 km</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-47"><a class="header" href="#introduction-47">Introduction</a></h1>
 <p>A computer network is a network which allows for the exchange of resources and information between devies connected to the network. These device span a range of types, sizes, and functions. </p>
 <h1 id="network-devices"><a class="header" href="#network-devices">Network Devices</a></h1>
 <h2 id="switch"><a class="header" href="#switch">Switch</a></h2>

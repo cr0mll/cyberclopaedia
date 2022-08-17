@@ -41,9 +41,8 @@ Higher speed standards avail themselves of all the pins. Additionally, in 1000BA
 
 ![](Resources/Images/UTP_1000_10GBASE_T.png)
 
-
 ## Fibre-Optic Cables
-Fibre-Optic cables are a new generation of cables. Instead of transferring electrical signals through copper wiring, these cables conduct signals in the form of *light*. In order to use fibre-optics, a special type of connector called SFP is required, which is short for *Small Form-Factor Pluggable* and looks like this:
+Fibre-Optic cables are a new generation of cables. Instead of transferring electrical signals through copper wiring, these cables conduct signals in the form of *light*, which makes them immune to EMI. In order to use fibre-optics, a special type of connector called SFP is required, which is short for *Small Form-Factor Pluggable* and looks like this:
 
 ![](https://upload.wikimedia.org/wikipedia/commons/0/0e/QSFP-40G-SR4_Transceiver.jpg)
 
@@ -54,5 +53,18 @@ Data is transferred through the fibre-optic cable which has two connections on e
 The fibre-optic cable is comprised of 4 main layers. The innermost layer is the fibreglass core, which is what the light travels through. This core is enveloped in a cladding layer which reflects the light beam travelling through the cable. Around the cladding is a protective buffer, which is in turn wrapped in the outer jacket.
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Singlemode_fibre_structure.svg/1024px-Singlemode_fibre_structure.svg.png)
+
+There are two main types of fibre-optic cables in the wild. The first type is multi-mode fibre which allows for light to enter at multiple angles. It has a larger glass core and allows for a greater transmission distance than UTP and is also cheaper than single-mode fibre. Single-mode fibre, on the other hand allows for light to enter only at a single angle, called a *mode*, and has a much greater maximum distance than that of multi-mode (step index).
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Optical_fiber_types.svg/1920px-Optical_fiber_types.svg.png)
+
+The following fibre-optic cable standards are defined:
+
+| Informal Name | IEEE Standard | Speed | Cable Type | Maximum Length |
+|:-----------------:|:---------------:|:-------:|:------------:|:--------------------:|
+| 1000BASE-LX | 802.3z | 1 Gbps | Multi- or single-mode | 550 m (MM), 5 km (SM) |
+| 10GBASE-SR | 802.3ae | 10 Gbps | Multi-mode | 400 m |
+| 10GBASE-LR | 802.3ae | 10 Gbps | Single-mode | 10 km |
+| 10GBASE-ER | 802.3ae | 10 Gbps | Single-mode | 30 km |
 
 
