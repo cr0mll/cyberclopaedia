@@ -89,7 +89,7 @@
 	- [Basic Reverse Engineering using objdump, strace, and ltrace](Reverse%20Engineering/Basic%20Reverse%20Engineering%20using%20objdump,%20strace,%20and%20ltrace.md)
 - [Hardware Hacking](Hardware%20Hacking/README.md)
 	- [Wireless Attacks](Hardware%20Hacking/Wireless%20Attacks/README.md)
-		- [WiFi Hacking](Hardware%20Hacking/Wireless%20Attacks/WiFi%20Hacking.md)
+		- [Hacking WPA Networks](Hardware%20Hacking/Wireless%20Attacks/Hacking%20WPA%20Networks.md)
 - [Cryptography](Cryptography/README.md)
 	- [Block Ciphers](Cryptography/Block%20Ciphers/README.md)
 		- [Encrypting Non-Conforming Messages](Cryptography/Block%20Ciphers/Encrypting%20Non-Conforming%20Messages.md)

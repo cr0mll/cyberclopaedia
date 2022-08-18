@@ -1,19 +1,13 @@
 # Introduction
-WiFi has become an integral part of our lives, however it can be hacked rather easily if you do not have a strong password.
-
-Before proceeding, you will need a wireless adapter which supports [monitor mode and packet injection](https://deviwiki.com/wiki/List_of_Wireless_Adapters_That_Support_Monitor_Mode_and_Packet_Injection).
-
 When connecting a device to a WiFi network, the device and the access point go through the process of a *4-way handshake*. During this time, the hash of the password is broadcasted and if we can capture this hash, we can also attempt to crack it.
 
 # Capturing the Handshake
-You will first need to put your adapter into monitor mode with the following command:
+You will first need to put your adapter into [monitor mode](README.md):
 ```
 sudo airmon-ng start <dev>
 ```
 
-You can get a list of devices with `ip a`.
-
-![](Resources/Images/WIFI_Start_Monitor_Mode.png)
+![](Resources/Images/WIFI_airmon_start.png)
 
 Next, you should listen for the available access points by using
 ```
@@ -27,7 +21,7 @@ Once you have identified the network you want to attack, you can make `airodump`
 sudo airodump-ng --bssid 50:D4:F7:95:CE:13 -c 11 --write PwnMe
 ```
 
-![](Resources/Images/WIFI_airodump_listen_pwn.png)
+![](Resources/Images/WIFI_airodump_monitor_single.png)
 
 Now, `airodump` is listening for the specified access point. Under the `STATION` tab, you can see all devices which are connected to the network. 
 
@@ -49,7 +43,7 @@ If the target is not disconnected on the first try, you can always send more dea
 
 ![](Resources/Images/WIFI_handshake_captured.png)
 
-![](Resources/Images/WIFI_handshake_list.png)
+![](Resources/Images/WIFI_airodump_list_capture_files.png)
 
 You can now use `aircrack` to crack the hash:
 ```
@@ -62,4 +56,5 @@ Boom! We successfully cracked the very difficult-to-guess password of... `passwo
 
 Remember to stop your adapter's monitor mode or you will not be able to use it normally:
 
-![](Resources/Images/WIFI_stop_monitor_mode.png)
+![](Resources/Images/WIFI_airmon_stop.png)
+
