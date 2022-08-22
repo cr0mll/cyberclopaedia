@@ -7,7 +7,7 @@ NTP utilises a hierarchy system. Each clock is assigned a *stratum*. Stratum val
 
 Reference clocks are not directly connected to the network. Instead, the so-called *primary time servers* connect to the reference clock and synchronise their clocks with it. These servers have a stratum value of 1. For each layer you go down the chain, the stratum value increases by 1, since the distance from the reference clocks augments.
 
-![](Resources/Images/NTP_Hierarchy.png)
+![](Resources/Images/NTP/Hierarchy.png)
 
 # Synchronising time on Linux with `ntpdate`
 `ntpdate` is a useful utility for synching time on Linux machines through NTP. It's syntax is really simple:
@@ -16,18 +16,18 @@ Reference clocks are not directly connected to the network. Instead, the so-call
 
 In order to set the date, it requires root privileges:
 
-![](Resources/Images/NTP_wrong_time.png)
+![](Resources/Images/NTP/wrong_time.png)
 
 Synching the time with a Windows machine on my network:
 
-![](Resources/Images/NTP_synch.png)
+![](Resources/Images/NTP/synch.png)
 
 New time:
 
-![](Resources/Images/NTP_synched_time.png)
+![](Resources/Images/NTP/synched_time.png)
 
 It can also be useful to only check how unsynched your time is with respect to another clock. You can do this by adding the `-q` option. This does not require root privileges.
 
-![](Resources/Images/NTP_time_query.png)
+![](Resources/Images/NTP/time_query.png)
 
 That's quite the difference! 

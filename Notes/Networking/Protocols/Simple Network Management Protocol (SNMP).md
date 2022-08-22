@@ -23,7 +23,7 @@ Three main ways of communication exist within SNMP:
 ## `Get` Requests
 When the NMS wants to know about a specific object of an agent, it sends a `Get` request. These include `Get`, `GetNext`, and `GetBulk`. The agent then gives a `Get` response.
 
-![](Resources/Images/SNMP_Get_request.png)
+![](Resources/Images/SNMP/Get_request.png)
 
 ## `Set` Requests
 `Set` requests are issued by the NMS, when it wants a certain agent to make a change to one of its objects.
@@ -31,7 +31,7 @@ When the NMS wants to know about a specific object of an agent, it sends a `Get`
 ## `Trap` and `Inform`
 These are used by agents when they want to inform the NMS of something such as the occurrence of a critical event.
 
-![](Resources/Images/SNMP_trap_inform.png)
+![](Resources/Images/SNMP/trap_inform.png)
 
 Although they serve the same purpose, `Trap` and `Inform` messages are different. The latter is reliable - it waits for acknowledgement from the NMS. Should it not receive one, the `Inform` message would be resent.
 

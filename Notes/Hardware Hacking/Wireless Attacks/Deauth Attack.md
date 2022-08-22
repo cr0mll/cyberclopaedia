@@ -10,7 +10,7 @@ aireplay-ng --deauth <count> -a <access point> -c <client> -D <dev>
 - `--deauth` specifies the amount of deauth frames to send. If this is 0, then `aireplay-ng` will produce a continuous stream of deauthentication packets, resulting in a DOS attack.
 - `-a` is the MAC address (BSSID) of the network you want to attack.
 - `-c` is the MAC address (BSSID) of the device you want to disconnect from the network. If this is not specified, `aireplay-ng` will disconnect all devices connected to the network.
-- `-D` will ensure that the deauth packets are forcibly sent. The attack may not work if this option is not specified, since `aireplay-ng` will look for the target network in all channels and may not find it in time. This can be omitted if the wireless adapter is already locked on a specific channel by, for example, `airmon-ng` when listening to a particular network and channel. 
+- `-D` will ensure that the deauth packets are forcibly sent. The attack may not work if this option is not specified, since `aireplay-ng` will look for the target network in all channels and may not find it in time. This can be omitted if the wireless adapter is already locked on a specific channel by, for example, `airodump-ng` when listening to a particular network and channel. 
 - `<dev>` is the wireless adapter you wish to use for the attack.
 
 ![](Resources/Images/WIFI_aireplay_deauth.png)

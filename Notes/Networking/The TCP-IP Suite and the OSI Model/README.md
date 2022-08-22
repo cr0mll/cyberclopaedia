@@ -1,13 +1,13 @@
 # The OSI Model
 The OSI model is a conceptual protocol model which groups different protocols into *layers*, based on their function. Each layer is in turn only allowed to communicate with the layers immediately above and below it, taking data from the previous layer, processing it in some way and then forwarding it to the next layer. There are 7 layers in the OSI model and together they form the layer stack:
 
-![](Resources/Images/OSI_Model.png)
+![](Resources/Images/OSI_model.png)
 
 When data is sent from a device, this data is processed in each layer from top to bottom. Furthermore, each layer may augment the actual data transmitted by adding *headers* to the data.
 
 At the site of arrival, data processing occurs in the reverse order. Each layer processes the corresponding header and acts upon it. Once it's done with its job, it forwards the remaining information up to the above layer. It's just like peeling an onion!
 
-![](../Resources/Images/OSI_Data_flow.png)
+![](Resources/Images/OSI_Data_flow.png)
 
 ## The Application Layer
 Here reside the myriad network applications and their application-layer protocols, such as HTTP, FTP, and SMTP. These are all tailored to the network application and serve very specific purposes. It is relatively easy to also develop and implement your own application-layer protocols. Pakcets of information at this layer are referred to as *messages*.
