@@ -3216,8 +3216,8 @@ movl (%ebx),%eax
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-37"><a class="header" href="#introduction-37">Introduction</a></h1>
 <p>WiFi has become an integral part of our lives.</p>
 <p>Many wireless attack will require a wireless adapter which supports <a href="https://deviwiki.com/wiki/List_of_Wireless_Adapters_That_Support_Monitor_Mode_and_Packet_Injection">monitor mode and packet injection</a>.</p>
-<h1 id="monitor-mode"> Monitor Mode </h1>
-Monitor mode disconnects a wireless interface from any network that it may be connected to and allows the device to listen to *all* traffic in the area at the same, from *all* access points and *all* clients. 
+<h1 id="monitor-mode"><a class="header" href="#monitor-mode">Monitor Mode</a></h1>
+<p>Monitor mode disconnects a wireless interface from any network that it may be connected to and allows the device to listen to <em>all</em> traffic in the area at the same, from <em>all</em> access points and <em>all</em> clients. </p>
 <p>Since certain processes may interfere with the wireless device, they should be checked for before putting the wireless card into monitor mode. This can be done via the following command:</p>
 <pre><code>sudo airmon-ng check
 </code></pre>
@@ -3251,8 +3251,8 @@ sudo ifconfig &lt;dev&gt; up
 <p>Finally, you should restart the process killed by <code>airmon-ng</code>:</p>
 <pre><code>sudo systemctl start NetworkManager 
 </code></pre>
-<h1 id="capturing-traffic">Capturing WiFi Traffic </h1>
-WiFi hacking relies heavily on the traffic captured from the air. A very useful tool which can accomplish this task is `airodump-ng`. Its basic syntax looks like this:
+<h1 id="capturing-wifi-traffic"><a class="header" href="#capturing-wifi-traffic">Capturing WiFi Traffic</a></h1>
+<p>WiFi hacking relies heavily on the traffic captured from the air. A very useful tool which can accomplish this task is <code>airodump-ng</code>. Its basic syntax looks like this:</p>
 <pre><code>sudo airodump-ng &lt;dev&gt;
 </code></pre>
 <p>By default, it monitors all networks in the area by hopping around channels.</p>
@@ -3796,6 +3796,22 @@ In reality, there is usually more than a single name server for a big company li
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

@@ -3,7 +3,7 @@ WiFi has become an integral part of our lives.
 
 Many wireless attack will require a wireless adapter which supports [monitor mode and packet injection](https://deviwiki.com/wiki/List_of_Wireless_Adapters_That_Support_Monitor_Mode_and_Packet_Injection).
 
-<h1 id="monitor-mode"> Monitor Mode </h1>
+# Monitor Mode
 Monitor mode disconnects a wireless interface from any network that it may be connected to and allows the device to listen to *all* traffic in the area at the same, from *all* access points and *all* clients. 
 
 Since certain processes may interfere with the wireless device, they should be checked for before putting the wireless card into monitor mode. This can be done via the following command:
@@ -62,7 +62,7 @@ Finally, you should restart the process killed by `airmon-ng`:
 sudo systemctl start NetworkManager 
 ```
 
-<h1 id="capturing-traffic">Capturing WiFi Traffic </h1>
+# Capturing WiFi Traffic
 WiFi hacking relies heavily on the traffic captured from the air. A very useful tool which can accomplish this task is `airodump-ng`. Its basic syntax looks like this:
 
 ```
