@@ -94,9 +94,9 @@ There are a few standards defined in IEEE 802.11:
 
 ## Service Sets
 The IEEE 802.11 standard also defines a different kinds of *service sets*. These are groups of wireless network devices and are organised into three main types:
-- Independent;
-- Infrastructure;
-- Mesh.
+- Independent
+- Infrastructure
+- Mesh
 
 All devices in a service set share the same *service set identifier (SSID)*. This is a human-readable name which does *not* have to be unique. Following is an example of the SSIDs visible to my current device.
 
@@ -123,4 +123,7 @@ For the creation of larger WLANs, which span more than the range of a single AP,
 
 Clients are able to pass between APs without the need to reconnect, which is referred to as *roaming*. In order to ensure as seamless an experience as possible, the BSAs should overlap ~10-15%.
 
+### Mesh Basic Service Set (MBSS)
+An MBSS is employed when difficulties arise with running a direct Ethernet connection through every AP. Mesh access points utilise two radios - one for the provision of a BSS to the wireless clients and one for inter-AP communication, called a *backhaul network*. At least one AP must be connected to the wired network and it is referred to as *Root Access Point (RAP)*. The rest of the APs are called *Mesh Access Points (MAPs)*. A protocol is employed to determine the best path for traffic in the MBSS.
 
+![](Resources/Images/WiFi_MBSS.png)
