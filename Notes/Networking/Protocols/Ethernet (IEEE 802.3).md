@@ -46,3 +46,16 @@ show mac address-table
 ![](Resources/Images/Ethernet/Cisco_Switch_Show_MAC_Address_Table.png)
 
 `Type` indicates whether or not the MAC address was statically configured or dynamically-learnt. `Ports` here means interfaces.
+
+# 802.1Q Encapsulation
+When multiple VLANs with trunking are supported in a LAN, they are typically distinguished by dint of the IEEE 802.1Q Encapsulation standard. This standard inserts a 4-byte (32-bit) field, called the *802.1Q tag*, between the source MAC and type/length fields of the Ethernet header.
+
+![](Resources/Images/Ethernet/Ethernet_8021q_header.png)
+
+![](Resources/Images/Ethernet/8021q_tag.png)
+
+This tag is separated into two main fields - the Tag Protocol Identifier (TPID) and the Tag Control Information (TCI). Each field is two bytes in length.
+
+The TPID is constant and always has the value of `0x8100`. It is typically located where the type/length field would and is what identifies the frame as a *802.1Q-tagged frame*.
+
+The TCI is further subdivided into 3 fields. The Priority Code Point (PCP) is 3 bits in length and is utilised for Class of Service (CoS) which assigns different priority to traffic in congested networks. Following is the 1-bit Drop Eligible Indicator (DEI) and it specifies whether or not the frame is allowed to be dropped if the network is congested. The last 12 bits are the VLAN ID (VID) which actually identifies the VLAN that the frame pertains to.

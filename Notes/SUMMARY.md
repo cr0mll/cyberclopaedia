@@ -118,5 +118,6 @@
 		- [(2) The Datalink Layer](Networking/The%20TCP-IP%20Suite%20and%20the%20OSI%20Model/(2)%20The%20Datalink%20Layer.md)
 	- [Network Address Translation (NAT)](Networking/Network%20Address%20Translation%20(NAT).md)
 	- [Subnetting](Networking/Subnetting.md)
+	- [VLANs](Networking/VLANs.md)
 - [Web](Web/README.md)
 	- [Duplicate HTTP Parameter Handling](Web/Duplicate%20HTTP%20Parameter%20Handling.md)
