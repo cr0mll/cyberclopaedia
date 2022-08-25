@@ -17,7 +17,7 @@
         <meta property="og:title" content="" />
         <meta property="og:image" content="http://cr0mll.github.io/cyberclopaedia/favicon.png" />
         <meta property="og:image:secure_url" content="https://cr0mll.github.io/cyberclopaedia/favicon.png" />
-        <meta property="og:description" content="The Cyberclopaedia an aspiring project aimed at accumulating knowledge from the world of cybersecurity and presenting it in a cogent way, so it is accessible to as large and audience as possible and so that everyone has a good resource to learn hacking from." />
+        <meta property="og:description" content="The Cyberclopaedia is an aspiring project aimed at accumulating knowledge from the world of cybersecurity and presenting it in a cogent way, so it is accessible to as large and audience as possible and so that everyone has a good resource to learn hacking from." />
 
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
@@ -3768,7 +3768,7 @@ In reality, there is usually more than a single name server for a big company li
 <tr><td style="text-align: center">10GBASE-ER</td><td style="text-align: center">802.3ae</td><td style="text-align: center">10 Gbps</td><td style="text-align: center">Single-mode</td><td style="text-align: center">30 km</td></tr>
 </tbody></table>
 </div>
-<h2 id="wireless-wifi"><a class="header" href="#wireless-wifi">Wireless (WiFi)</a></h2>
+<h1 id="wireless-wifi"><a class="header" href="#wireless-wifi">Wireless (WiFi)</a></h1>
 <p>Wireless LANs (WLANs) use electromagnetic radiation for the transfer of data. The standards WLANs are defined in IEEE 802.11. Although commonly called &quot;WiFi&quot;, this is actually a trademark of the <em>WiFi Alliance</em> which certifies devices for compliance with the IEEE 802.11 standards, but is not directly connected with it.</p>
 <p>A corollary of WiFi's using radio waves to transmit data is that <em>all</em> devices within range receive <em>all</em> frames. It is, therefore, paramount that this data is encrypted. Furthermore, due to the fact that multiple devices will be using the same frequency ranges to transmit data, it is of the utmost importance that collisions are avoided. This is typically actuated by <em>CSMA/CA</em> - Carrier Sense Multiple Access will Collision Avoidance. Essentially, when this technique is in use, the device will wait for the channel to be free before transmitting any data by checking it periodically. An additional feature is also supported whereby the device will send a Request-To-Send (RTS) packet and will wait for a Clear-To-Send (CTS) response.</p>
 <p>WiFi uses 3 major <em>frequency bands (ranges)</em>. The first is 2.4 GHz and it covers the frequencies from 2.400 GHz to 2.4835 GHz. Next is the 5 GHz band which ranges from 5.150 GHz to 5.825 GHz and is further subdivided into 4 smaller bands - from 5.150 to 5.250 GHz, from 5.250 to 5.350, from 5.470 to 5.725, and from 5.725 to 5.825. The last band is the 6 GHz band and it was introduced with WiFi 6.</p>
@@ -3810,6 +3810,17 @@ In reality, there is usually more than a single name server for a big company li
 <h3 id="mesh-basic-service-set-mbss"><a class="header" href="#mesh-basic-service-set-mbss">Mesh Basic Service Set (MBSS)</a></h3>
 <p>An MBSS is employed when difficulties arise with running a direct Ethernet connection through every AP. Mesh access points utilise two radios - one for the provision of a BSS to the wireless clients and one for inter-AP communication, called a <em>backhaul network</em>. At least one AP must be connected to the wired network and it is referred to as <em>Root Access Point (RAP)</em>. The rest of the APs are called <em>Mesh Access Points (MAPs)</em>. A protocol is employed to determine the best path for traffic in the MBSS.</p>
 <p><img src="Networking/The%20TCP-IP%20Suite%20and%20the%20OSI%20Model/Resources/Images/WiFi_MBSS.png" alt="" /></p>
+<h3 id="the-distribution-system"><a class="header" href="#the-distribution-system">The Distribution System</a></h3>
+<p>Most wireless networks typically aren't standalone networks, but instead provide a means for wireless devices to connect to a wired network. This wired network is referred to as the <em>Distribution System (DS)</em>. Each BSS or ESS gets mapped to a <a href="Networking/The%20TCP-IP%20Suite%20and%20the%20OSI%20Model/../VLANs.html">VLAN</a> on the wired network. Moreover, an AP is capable of providing multiple wireless LANs, each with a unique SSID and BSSID, where the latter is typically achieved by incrementing the last digit of the BSSID by one. IN this case, each WLAN gets mapped to a separate VLAN in the wired network.</p>
+<h2 id="ap-operation-modes"><a class="header" href="#ap-operation-modes">AP Operation Modes</a></h2>
+<h3 id="repeater-mode"><a class="header" href="#repeater-mode">Repeater Mode</a></h3>
+<p>An AP in repeater mode can be utilised to extend the range of a BSS. The repeater simply retransmits any signal it receives from the AP. It is recommended that the repeater support at least two radios so that it can receive from the AP on one channel and then retransmit the data on a different channel, so as to avoid cutting the overall throughput.</p>
+<p><img src="Networking/The%20TCP-IP%20Suite%20and%20the%20OSI%20Model/Resources/Images/AP_Repeater.png" alt="" /></p>
+<h3 id="workgroup-bridge"><a class="header" href="#workgroup-bridge">Workgroup Bridge</a></h3>
+<p>A workgroup bridge (WGP) acts as a client of another AP and can be used to connect wired devices to the wireless network. </p>
+<p><img src="Networking/The%20TCP-IP%20Suite%20and%20the%20OSI%20Model/Resources/Images/AP_WGB.png" alt="" /></p>
+<h3 id="outdoor-bridge"><a class="header" href="#outdoor-bridge">Outdoor Bridge</a></h3>
+<p>An outdoor bridge is used to connect networks over large distances without a physical cable. This is achieved by APs with special directional antennas.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-55"><a class="header" href="#introduction-55">Introduction</a></h1>
 <p>There are two major standards which govern how data is transmitted at the datalink layer. The first on is a protocol called <a href="Networking/The%20TCP-IP%20Suite%20and%20the%20OSI%20Model/../Protocols/Ethernet%20(IEEE%20802.3).html">Ethernet</a> and it describes the transfer of data in wired LANs. It is defined in the IEEE 802.3 standard.</p>
 <p>The second one is the IEEE 802.11 WLAN standard and it describes how data is transferred in <em>wireless</em> networks over WiFi.</p>

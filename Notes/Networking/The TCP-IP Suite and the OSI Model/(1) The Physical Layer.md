@@ -67,7 +67,7 @@ The following fibre-optic cable standards are defined:
 | 10GBASE-LR | 802.3ae | 10 Gbps | Single-mode | 10 km |
 | 10GBASE-ER | 802.3ae | 10 Gbps | Single-mode | 30 km |
 
-## Wireless (WiFi)
+# Wireless (WiFi)
 Wireless LANs (WLANs) use electromagnetic radiation for the transfer of data. The standards WLANs are defined in IEEE 802.11. Although commonly called "WiFi", this is actually a trademark of the *WiFi Alliance* which certifies devices for compliance with the IEEE 802.11 standards, but is not directly connected with it.
 
 A corollary of WiFi's using radio waves to transmit data is that *all* devices within range receive *all* frames. It is, therefore, paramount that this data is encrypted. Furthermore, due to the fact that multiple devices will be using the same frequency ranges to transmit data, it is of the utmost importance that collisions are avoided. This is typically actuated by *CSMA/CA* - Carrier Sense Multiple Access will Collision Avoidance. Essentially, when this technique is in use, the device will wait for the channel to be free before transmitting any data by checking it periodically. An additional feature is also supported whereby the device will send a Request-To-Send (RTS) packet and will wait for a Clear-To-Send (CTS) response.
@@ -127,3 +127,20 @@ Clients are able to pass between APs without the need to reconnect, which is ref
 An MBSS is employed when difficulties arise with running a direct Ethernet connection through every AP. Mesh access points utilise two radios - one for the provision of a BSS to the wireless clients and one for inter-AP communication, called a *backhaul network*. At least one AP must be connected to the wired network and it is referred to as *Root Access Point (RAP)*. The rest of the APs are called *Mesh Access Points (MAPs)*. A protocol is employed to determine the best path for traffic in the MBSS.
 
 ![](Resources/Images/WiFi_MBSS.png)
+
+### The Distribution System
+Most wireless networks typically aren't standalone networks, but instead provide a means for wireless devices to connect to a wired network. This wired network is referred to as the *Distribution System (DS)*. Each BSS or ESS gets mapped to a [VLAN](../VLANs.md) on the wired network. Moreover, an AP is capable of providing multiple wireless LANs, each with a unique SSID and BSSID, where the latter is typically achieved by incrementing the last digit of the BSSID by one. IN this case, each WLAN gets mapped to a separate VLAN in the wired network.
+
+## AP Operation Modes
+### Repeater Mode
+An AP in repeater mode can be utilised to extend the range of a BSS. The repeater simply retransmits any signal it receives from the AP. It is recommended that the repeater support at least two radios so that it can receive from the AP on one channel and then retransmit the data on a different channel, so as to avoid cutting the overall throughput.
+
+![](Resources/Images/AP_Repeater.png)
+
+### Workgroup Bridge
+A workgroup bridge (WGP) acts as a client of another AP and can be used to connect wired devices to the wireless network. 
+
+![](Resources/Images/AP_WGB.png)
+
+### Outdoor Bridge
+An outdoor bridge is used to connect networks over large distances without a physical cable. This is achieved by APs with special directional antennas.
