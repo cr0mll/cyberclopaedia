@@ -1,5 +1,5 @@
 # Introduction
-When connecting a device to a WiFi network, the device and the access point go through the process of a *4-way handshake*. During this time, the hash of the password is broadcasted and if we can capture this hash, we can also attempt to crack it.
+When connecting a device to a WiFi network, the device and the access point go through the process of a [4-way handshake](../../Networking/Protocols/WLAN%20(802.11)/Authentication%20&%20Association.md). During this time, the hash of the password is broadcasted and if we can capture this hash, we can also attempt to crack it.
 
 # Capturing the Handshake
 You will first need to put your adapter into [monitor mode](README.md):

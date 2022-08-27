@@ -1,14 +1,14 @@
 # Introduction
 The IEEE 802.11 standard defines the structure of datalink frames in wireless networks. These frames have a more complicated structure that [Ethernet](Ethernet%20(IEEE%20802.3).md) ones.
 
-![](Resources/Images/WLAN_Frame.png)
+![](Resources/Images/WLAN_Frame.svg)
 
 The existence of the last 6 fields in the MAC header is contingent on the type of the frame.
 
 ## Frame Control
 The Frame Control is a 2-byte field, subdivided into 11 subfields, which carries information about the WiFi frame, including its type. 
 
-![](Resources/Images/WLAN_Frame_Control.png)
+![](Resources/Images/WLAN_Frame_Control.svg)
 
 The `Protocol Version` is 2 bits long and is set to 00 for PV0 (WLAN) or to 01 for PV1 (802.11ah). The revision level is incremented only when there is a fundamental incompatibility between two versions of the standard.
 
@@ -66,7 +66,7 @@ This 16-bit field is further separated into two fields. The first 4 bits are cal
 ## QoS Control
 This 16-bit field is used for Quality of Service control and is only present in data frames of type QoS-data. It is further subdivided into 5 subfields.
 
-![](Resources/Images/MAC_Header_QoS.png)
+![](Resources/Images/MAC_Header_QoS.svg)
 
 The first 4 bits are the `Traffic Indicator (TID)` and it identifies the User Priority (UP) which map to their 802.1Q equivalents. Furthermore, the User Priorities are categorised into 4 QoS Access Categories (AC). 802.11 uses the Enhanced Distributed Channel Access (EDCA) model where each Access Category is mapped to a different queue.
 
@@ -108,6 +108,5 @@ This field was introduced in the 802.11n standard and enable high-throughput ope
 ## Frame Check Sequence (FCS)
 Similarly to Ethernet, this field is used to verify the integrity of the rest of the frame.
 
-# Association
 
 
