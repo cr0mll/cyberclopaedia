@@ -17,7 +17,7 @@ Cipher block chaining resembles ECB, but it actually incorporates the previous b
 
 Since each consecutive block depends on the previous one, patterns between blocks are destroyed. Furthermore, if the IV is different each time, two identical plaintexts will produce disparate ciphertexts when encrypted. Note, that for decryption, the IV needs to be known. It is also interesting to mention that CBC decryption can be much faster than encryption due to parallelism. When encrypting, each new block needs to wait for the previous one to be encrypted in order to get its ciphertext, however, with decryption all ciphertexts are already known, so it can optimised on multiple threads.
 
-# The Counter (CTR) Mode
+# The Counter Mode (CTR) 
 The Counter mode is a bit different to the ones described above. It turns a block cipher into a stream cipher - in fact, it doesn't even encrypt the blocks themselves! 
 This mode is comprised of an IV, often in this case called a *nonce*, and a counter. The counter may be any function which is guaranteed to generate a sequence which will not repeat for a long time. That being said, it is still very common to just use a simple increment-by-one counter. 
 

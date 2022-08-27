@@ -11,10 +11,8 @@ Authentication refers to the verification of a device's identity, but does *not*
 ## Open Authentication
 Open Authentication is fairly simple and absolutely insecure. A device needs only send a request to the AP telling it that it wants to authenticate to the network.. If this is allowed, then the client will be associated with the network, no questions asked. When WEP is enabled, however, the client will still need the WEP key in order to encrypt and decrypt traffic. 
 
-## Shared-Key Authentication
+## Shared Key Authentication
 This is also sometimes referred to as WEP authentication and [isn't secure either](../../../Hardware%20Hacking/Wireless%20Attacks/Hacking%20WEP%20Networks.md).  In shared key authentication, a client needs to already have the WEP key in order to authenticate. When connecting to the network, the AP sends a *challenge* (random bytes), in clear text, to the client. The client must encrypt the sent challenge with the WEP key and send it back to the AP. When the AP receives the encrypted challenge, it attempts to decrypt it using the WEP key and if the decrypted challenge matches what was originally sent in cleartext, then the client is authenticated.
-
-This key can be either 40 or 104 bits in length and is combined with a 24-bit *Initialisation Vector (IV)*.
 
 ![](Resources/Images/Shared_Key_Auth.svg)
 
