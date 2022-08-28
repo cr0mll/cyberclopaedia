@@ -115,7 +115,7 @@
 			- [Control Frames](Networking/Protocols/WLAN%20(802.11)/Control%20Frames.md)
 			- [Data Frames](Networking/Protocols/WLAN%20(802.11)/Data%20Frames.md)
 			- [Encryption & Integrity](Networking/Protocols/WLAN%20(802.11)/Encryption%20&%20Integrity.md)
-			- [Management Frames](Networking/Protocols/WLAN%20(802.11)/Management%20Frames.md)
+			- [README](Networking/Protocols/WLAN%20(802.11)/Management%20Frames/README.md)
 			- [WiFi Protected Access (WPA)](Networking/Protocols/WLAN%20(802.11)/WiFi%20Protected%20Access%20(WPA).md)
 		- [Ethernet (IEEE 802.3)](Networking/Protocols/Ethernet%20(IEEE%20802.3).md)
 		- [Network Time Protocol (NTP)](Networking/Protocols/Network%20Time%20Protocol%20(NTP).md)
