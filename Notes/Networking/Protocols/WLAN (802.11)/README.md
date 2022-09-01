@@ -1,5 +1,5 @@
 # Introduction
-The IEEE 802.11 standard defines the structure of datalink frames in wireless networks. These frames have a more complicated structure that [Ethernet](Ethernet%20(IEEE%20802.3).md) ones.
+The IEEE 802.11 standard defines the structure of datalink frames in wireless networks. These frames have a more complicated structure than [Ethernet](Ethernet%20(IEEE%20802.3).md) ones.
 
 ![](Resources/Images/WLAN_Frame.svg)
 

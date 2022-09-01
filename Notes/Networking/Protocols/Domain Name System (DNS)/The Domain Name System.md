@@ -7,7 +7,7 @@ The Domain Name System (or DNS for short) is a decentrialised database which pro
 # The DNS Hierarchy
 The DNS utilises a hierarchical structure for both storing and serving requested information.
 
-![](../Resources/Images/DNSHierarchy.png)
+![](../../Resources/Images/DNSHierarchy.png)
 
 At the top of the hierarchy are positioned the root name servers. These store and serve information about the top-level domains (TLDs) such as `.net`, `.com`, and `.org`. The TLD servers provide information about domains which use their corresponding TLD - `.com` servers contain information about domains such as `google.com` or `duckduckgo.com`. They won't give you the IP addresses for these hosts, but will instead point you in the right direction - to another DNS server. 
 

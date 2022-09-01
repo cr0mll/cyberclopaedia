@@ -62,7 +62,7 @@ You can also do reverse name lookups by supplying an IP address:
 8.8.8.8.in-addr.arpa domain name pointer dns.google.
 ```
 
-A special domain `in-addr.arpa` is used for reverse DNS lookups. You can read more about it [here](../../Networking/DNS/The%20in-addr.arpa%20Domain.md).
+A special domain `in-addr.arpa` is used for reverse DNS lookups. You can read more about it [here](../../Networking/Protocols/Domain%20Name%20System%20(DNS)/The%20in-addr.arpa%20Domain.md).
 
 # Querying name servers with dig
 `dig` is a tool for performing DNS queries. It can be used to request specific resource records such as the SOA.
