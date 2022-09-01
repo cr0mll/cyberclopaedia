@@ -3,8 +3,7 @@ Before connecting to a wireless network, a client needs to be aware of its exist
 
 Passive scanning is when the client goes through all available channels in turn and listens for beacon frames from the APs in the area. The time spent on each channel is defined by the device's driver.
 
-Active scanning is when the client sends probe requests to particular APs and awaits probe responses.
-
+Active scanning is when the client sends probe requests to each channel in turn in order to discover what networks are available on it.
 # Beacon Frames
 Beacon frames are used by APs (and stations in IBSS) in order to announce their presence to the surrounding area and to communicate the parameters of the network. Not only are these frames used by potential clients, but it they also serve the active clients in the network.
 
@@ -50,8 +49,28 @@ Following is a table of the possible fields in a beacon frame (the order for opt
 |40|Overlapping BSS Scan Parameters|Optional||Used with 802.11n.|
 |41|Extended Capabilities|Optional|See Capability Information.|
 
+# Probe Request Frame
+Probe request frames are employed by devices seeking to uncover what networks are present on a certain channel. They are typically sent to the broadcast address of `FF:FF:FF:FF:FF:FF` using the common CSMA/CA procedure. Once a probe request is sent, the sender station initiates a countdown, typically much shorter than the duration of a beacon interval. When the timer runs out, the device process the probe responses it received.
 
+![](Resources/Images/Probe_Request_Frame.svg)
 
+|Order|Name|Status|Description|
+|:-----:|:------:|:-----:|------------|
+|1|[Service Set Identifier (SSID)](README.md#ssid)|Mandatory||
+|2|[Supported Rates](README.md#supported-rates-extended-supported-rates)|Mandatory||
+|3|Request Information|Optional||
+|4|[Extended Supported Rates](README.md#supported-rates-extended-supported-rates)|Optional|See Supported Rates.|
+|5|Vendor-Specific|Optional|Used by the vendor as seen fit.|
+
+The SSID of a particular network that the device is looking for may be set in the appropriate field. This way, only the devices bearing the desired SSID should response. Otherwise, the SSID element is still present but is empty. In this case, it signifies a wildcard probe and so all available networks should respond.
+
+The rates supported by the device are sent together with the probe request so as to serve as a reference to the AP's response.
+
+The `Request Information` element is optional and may be used to enquire about a particular information element of a network. 
+
+![](Resources/Images/Request_Information_MFIE.svg)
+
+It has an element ID of 10 and its component is a series of 1-byte integers indicating the element IDs of the desired elements. The network should in turn respond with these elements in the Probe Response.
 
 # Probe Response Frame
 |Order|Name|Status|Description|
