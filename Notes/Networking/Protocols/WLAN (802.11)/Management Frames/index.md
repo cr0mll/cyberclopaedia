@@ -1,5 +1,5 @@
 # Introduction
-Management frames render the service of managing the Service Set. They have 3 addresses in their MAC header and are 24 bytes in size for 802.11a/b/g/, and 28 bytes for 802.11n (additional 4 bytes for the HT Control field). Their type in the [Frame Control](README.md#frame-control) is indicated by `00`. Moreover, management frames are never forwarded to the DS, so they have the `FromDS` and `ToDS` bits set to 0 in their Frame Control. 
+Management frames render the service of managing the Service Set. They have 3 addresses in their MAC header and are 24 bytes in size for 802.11a/b/g/, and 28 bytes for 802.11n (additional 4 bytes for the HT Control field). Their type in the [Frame Control](../index.md#frame-control) is indicated by `00`. Moreover, management frames are never forwarded to the DS, so they have the `FromDS` and `ToDS` bits set to 0 in their Frame Control. 
 
 ![](Resources/Images/Management_Frame.svg)
 
@@ -87,7 +87,7 @@ The following Element IDs are defined:
 |7| Country |
 |8| Hopping Pattern Parameters |
 |9| Hopping Pattern Table |
-|10| Request |
+|10| Request Information|
 |11 - 15| Reserved |
 |16| Challenge Text |
 |17 - 31| Reserved |

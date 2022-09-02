@@ -17,11 +17,11 @@ Following is a table of the possible fields in a beacon frame (the order for opt
 
 |Order|Name|Status|Description|
 |:-----:|:------:|:-----:|------------|
-|1|[README](README.md#timestamp)|Mandatory||
-|2|[Beacon Interval](README.md#beacon-interval)|Mandatory||
-|3|[Capability Information](README.md#capability-information)|Mandatory||
-|4|[Service Set Identifier (SSID)](README.md#ssid)|Mandatory||
-|5|[Supported Rates](README.md#supported-rates-extended-supported-rates)|Mandatory||
+|1|[Timestamp](index.md#timestamp)|Mandatory||
+|2|[Beacon Interval](index.md#beacon-interval)|Mandatory||
+|3|[Capability Information](index.md#capability-information)|Mandatory||
+|4|[Service Set Identifier (SSID)](index.md#ssid)|Mandatory||
+|5|[Supported Rates](index.md#supported-rates--extended-supported-rates)|Mandatory||
 |6|Frequency-Hopping (FH) Parameter Set|Optional|Used by legacy FH stations.|
 |7|DS Parameter Set|Optional|Present within beacon frames with stations with clause 15, 18, and 19 as their provenance.|
 |8|CF Parameter Set|Optional|Used for PCF and not present in non-notional situations.|
@@ -36,8 +36,8 @@ Following is a table of the possible fields in a beacon frame (the order for opt
 |17|IBSS DFS|Optional|Used with 802.11h in an IBSS.|
 |18|TRC Report|Optional|Used with 802.11h.|
 |19|ERP Information|Optional||
-|20|[Extended Supported Rates](README.md#supported-rates-extended-supported-rates)|Optional|See Supported Rates.|
-|21|[RSN](README.md#robust-security-network-rsn)|Optional||
+|20|[Extended Supported Rates](index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
+|21|[RSN](index.md#robust-security-network-rsn)|Optional||
 |22|BSS Load|Optional|Used with 802.11e QoS.|
 |23|EDCA Parameter|Optional|Used with 802.11e QoS when the QoS Capability element is missing.|
 |24|QoS Capability|Optional|Used with 802.11e QoS when the EDCA Parameter element is missing.|
@@ -56,10 +56,10 @@ Probe request frames are employed by devices seeking to uncover what networks ar
 
 |Order|Name|Status|Description|
 |:-----:|:------:|:-----:|------------|
-|1|[Service Set Identifier (SSID)](README.md#ssid)|Mandatory||
-|2|[Supported Rates](README.md#supported-rates-extended-supported-rates)|Mandatory||
+|1|[Service Set Identifier (SSID)](index.md#ssid)|Mandatory||
+|2|[Supported Rates](index.md#supported-rates--extended-supported-rates)|Mandatory||
 |3|Request Information|Optional||
-|4|[Extended Supported Rates](README.md#supported-rates-extended-supported-rates)|Optional|See Supported Rates.|
+|4|[Extended Supported Rates](index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
 |5|Vendor-Specific|Optional|Used by the vendor as seen fit.|
 
 The SSID of a particular network that the device is looking for may be set in the appropriate field. This way, only the devices bearing the desired SSID should response. Otherwise, the SSID element is still present but is empty. In this case, it signifies a wildcard probe and so all available networks should respond.
@@ -73,18 +73,29 @@ The `Request Information` element is optional and may be used to enquire about a
 It has an element ID of 10 and its component is a series of 1-byte integers indicating the element IDs of the desired elements. The network should in turn respond with these elements in the Probe Response.
 
 # Probe Response Frame
+This is the type of frame which serves as a response to a Probe Request. It closely resembles a beacon frame, since they both answer the same more or less the same questions - they give information about the AP (or a station in IBSS) and the network. In fact, here are the differences:
+- A beacon frame has a TIM field, whereas a probe response does not.
+- A beacon frame may contain a QoS Information element, announcing basic QoS support.
+- A probe response will also contain the elements requested in the probe request.
+
+
+
+A probe response frame is sent as a unicast frame with the destination address being the MAC address of the station which issued a probe request. The probe response is transmitted at the lowest mutually supported rate by the AP and the soliciting station. Just like any unicast frame, a probe response should be acknowledged by the recipient station.
+
+![](Resources/Images/Probe_Response_Frame.svg)
+
 |Order|Name|Status|Description|
 |:-----:|:------:|:-----:|------------|
-|1|[README](README.md#timestamp)|Mandatory||
-|2|[Beacon Interval](README.md#beacon-interval)|Mandatory||
-|3|[Capability Information](README.md#capability-information)|Mandatory||
-|4|[Service Set Identifier (SSID)](README.md#ssid)|Mandatory||
-|5|[Supported Rates](README.md#supported-rates-extended-supported-rates)|Mandatory||
+|1|[Timestamp](index.md#timestamp)|Mandatory||
+|2|[Beacon Interval](index.md#beacon-interval)|Mandatory||
+|3|[Capability Information](index.md#capability-information)|Mandatory||
+|4|[Service Set Identifier (SSID)](index.md#ssid)|Mandatory||
+|5|[Supported Rates](index.md#supported-rates--extended-supported-rates)|Mandatory||
 |6|Frequency-Hopping (FH) Parameter Set|Optional|Used by legacy FH stations.|
 |7|DS Parameter Set|Optional|Present within beacon frames with stations with clause 15, 18, and 19 as their provenance.|
 |8|CF Parameter Set|Optional|Used for PCF and not present in non-notional situations.|
 |9|IBSS Parameter Set|Optional|Used within an IBSS (duh).|
-|10|Country|Optional||
+|10|Country|Optional|Used with 802.11d and used with 802.11h.|
 |11|FH Parameters|Optional|Used with legacy FH stations.|
 |12|FH Pattern Table|Optional|Used with legacy FH stations.|
 |13|Power Constraint|Optional|Used with 802.11h.|
@@ -93,12 +104,24 @@ It has an element ID of 10 and its component is a series of 1-byte integers indi
 |16|IBSS DFS|Optional|Used with 802.11h in an IBSS.|
 |17|TRC Report|Optional|Used with 802.11h.|
 |18|ERP Information|Optional||
-|19|[Extended Supported Rates](README.md#supported-rates-extended-supported-rates)|Optional|See Supported Rates.|
-|20|[RSN](README.md#robust-security-network-rsn)|Optional||
+|19|[Extended Supported Rates](index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
+|20|[RSN](index.md#robust-security-network-rsn)|Optional||
 |21|BSS Load|Optional|Used with 802.11e QoS.|
 |22|EDCA Parameter|Optional|Used with 802.11e QoS when the QoS capability element is missing.|
 |23|Measurement Pilot Transmission Information|Optional|Used with 802.11k.|
 |24|Multiple BSSID|Optional|Used with 802.11k.|
 |25|RRM Enabled Capabilities|Optional|Used with 802.11k.|
 |26|AP Channel Report|Optional|Used with 802.11k.|
-|24|Multiple BSSID|Optional|Used with 802.11k.|
+|27|BSS Average Access Delay|Optional|Used with 802.11k.|
+|28 - 30|Reserved| - ||
+|31|Mobility Domain|Optional|Used with 802.11r.|
+|32|DSE Registered Location|Optional|Used with 802.11w.|
+|33|Extended Channel Switch Announcement|Optional|Used with 802.11y.|
+|34|Supported Regulatory Classes|Optional|Used with 802.11y.|
+|35|HT Capabilities|Optional|Used with 802.11n.|
+|36|HT Operation|Optional|Used with 802.11n.|
+|37|20/40 BSS Coexistence|Optional|Used with 802.11n.|
+|38|Overlapping BSS Scan Parameters|Optional||Used with 802.11n.|
+|39|Extended Capabilities|Optional|See Capability Information.|
+|40 - n|Requested Information Elements|Optional|The information elements requested in the Probe Request.|
+|Last|Vendor-Specific|Optional|Follows all other elements.|
