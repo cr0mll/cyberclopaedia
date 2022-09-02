@@ -62,12 +62,6 @@ This 2-byte field is used to indicate the reason that an unsolicited notificatio
 agement frame of type disassociation, deauthentication, DELTS, DELBA, or DLS teardown  
 was generated. It is only present in frames of the above types when such a frame is sent to a station without the client asking.
 
-## Timestamp
-This is an 8-byte long field which contains the number of μs that the AP has been active. It is used in [beacon](Discovery%20Frames.md#beacon-frames) and probe response frames. Stations avail themselves of this field in order to synchronise their clocks using a Time Synchronising Function (TSF). Should the timestamp exceed its maximum value, it will simply be reset to 0 and the counter would continue, although that would take 580 000 years.
-
-## Beacon Interval
-This 2-byte field represents the interval, in time units (1 TU = 1 kμs = 1 024 μs), between target beacon transmission times (TBTTs). It defaults to 100 TU but small changes may be allowed by certain drivers.
-
 # Management Frame Information Elements
 Manage frames can contain Management Frame Information Elements which are variable-length components and they may or may not be present. The typical structure of an MFIE is an element ID, followed by a length, and then the actual payload. The element ID and the length fields are both 1 bytes long, while the payload may range from 0 to 32 bytes. 
 
@@ -164,3 +158,11 @@ The next two fields are similar to the Pairwise Cipher Suite fields, but describ
 The `RSN Capabilities` is a 2-byte field. The first 4 bits are flags and the rest must be set to 0. The `Preauthentication` bit is set by an AP to indicate that it supports preauthentication with other APs in order to move security sessions around. The `No Pairwise` bit is set station can support a manual WEP key for broadcast data in conjunction with a stronger unicast key, but this should not be used. 
 
 The last two fields, `PMKID Count` and `PMKID List`, describe a list of PMKs which a client may send to an AP during association in order to speed up the process by bypassing time-consuming authentication. This only works if the AP caches PMKs. 
+
+## Direct Sequence (DS) Parameter Set
+The DS Parameter Set element in used both by DSSS and OFDM system, on both 2.4 GHz and 5 GHz bands. It is a simple field with an important task - it indicates the current channel.
+
+![](Resources/Images/DS_Parameter_Set_MFIE.svg)
+
+Since 802.11 signals are spread across multiple channel, this indicates the channel that the sender is centering their transmission on.
+When 802.11n is employed with channel bonding, the secondary channel is indicated in several 802.11n-specific field such as the Secondary Channel element or the 20/40 IBSS Coexistence element.

@@ -4,6 +4,34 @@ Before connecting to a wireless network, a client needs to be aware of its exist
 Passive scanning is when the client goes through all available channels in turn and listens for beacon frames from the APs in the area. The time spent on each channel is defined by the device's driver.
 
 Active scanning is when the client sends probe requests to each channel in turn in order to discover what networks are available on it.
+
+# Management Frame Fields & Information Elements
+These are management frame fields and information elements specifically found in discovery management frames - beacon, probe request, and probe response.
+
+## Frame Fields
+### Timestamp
+This is an 8-byte long field which contains the number of μs that the AP has been active. It is used in [beacon](Discovery%20Frames.md#beacon-frames) and [probe response](Discovery%20Frames.md#probe-response-frames) frames. Stations avail themselves of this field in order to synchronise their clocks using a Time Synchronising Function (TSF). Should the timestamp exceed its maximum value, it will simply be reset to 0 and the counter would continue, although that would take 580 000 years.
+
+### Beacon Interval
+This 2-byte field represents the interval, in time units (1 TU = 1 kμs = 1 024 μs), between target beacon transmission times (TBTTs). It defaults to 100 TU but small changes may be allowed by certain drivers. It is found in [beacon](Discovery%20Frames.md#beacon-frames) and [probe response](Discovery%20Frames.md#probe-response-frames) .
+
+## Information Elements
+### Extended Rate PHY (ERP) Element
+This element is found only in beacon and probe response frames on 2.4 GHz networks which support 802.11g.
+
+![](Resources/Images/ERP_MFIE.svg)
+
+This field is essential to the operation of 802.11b/g/n networks.
+
+The `Non-EPR Present` bit is set to 1 when either of the following criteria are met:
+- A non-ERP station (legacy 802.11 or 802.11b) gets associated with the network.
+- An adjoining network which only supports non-ERP data rates is detected, typically via a beacon frame from this BSS/IBSS.
+- A management frame (except for probe requests) is received from an adjoining network which only supports non-ERP data rates.
+
+The `UseProtection` bit is set to 1 as soon as a non-ERP client is associated with the network. It indicates the presence of a station lacking support for 802.11g and signals to ERP clients that the use of a protection mechanism (RTS/CTS or CTS to self) is necessitated before transmission. Within an IBSS, this behaviour is extended to any ERP station receiving a frame from a non-ERP one due to the lack of proper "association". This bit serves as a warning to other ERP stations to signal the presence of the non-ERP station and should spread to the other ERP stations (they should also set the `UseProtection` bit to 1 in their frames). It is common nowadays to witness the same procedure within a BSS, although it is not standard behaviour.
+
+The `Barker Preamble Mode` bit is set to 0 to indicate, when using protection, that short preambles are permitted and is set to 1 when only long preambles should be utilised.  
+
 # Beacon Frames
 Beacon frames are used by APs (and stations in IBSS) in order to announce their presence to the surrounding area and to communicate the parameters of the network. Not only are these frames used by potential clients, but it they also serve the active clients in the network.
 
@@ -23,7 +51,7 @@ Following is a table of the possible fields in a beacon frame (the order for opt
 |4|[Service Set Identifier (SSID)](index.md#ssid)|Mandatory||
 |5|[Supported Rates](index.md#supported-rates--extended-supported-rates)|Mandatory||
 |6|Frequency-Hopping (FH) Parameter Set|Optional|Used by legacy FH stations.|
-|7|DS Parameter Set|Optional|Present within beacon frames with stations with clause 15, 18, and 19 as their provenance.|
+|7|[DS Parameter Set](index.md#direct-sequence-ds-parameter-set)|Optional|Present within beacon frames with stations with clause 15, 18, and 19 as their provenance.|
 |8|CF Parameter Set|Optional|Used for PCF and not present in non-notional situations.|
 |9|IBSS Parameter Set|Optional|Used within an IBSS (duh).|
 |10|Traffic Indication Map (TIM)|Optional|Present only in beacons with an AP as their provenance.|
@@ -35,7 +63,7 @@ Following is a table of the possible fields in a beacon frame (the order for opt
 |16|Quiet|Optional|Used with 802.11h.|
 |17|IBSS DFS|Optional|Used with 802.11h in an IBSS.|
 |18|TRC Report|Optional|Used with 802.11h.|
-|19|ERP Information|Optional||
+|19|[ERP Information](Discovery%20Frames.md#extended-rate-phy-erp-element)|Optional||
 |20|[Extended Supported Rates](index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
 |21|[RSN](index.md#robust-security-network-rsn)|Optional||
 |22|BSS Load|Optional|Used with 802.11e QoS.|
@@ -58,7 +86,7 @@ Probe request frames are employed by devices seeking to uncover what networks ar
 |:-----:|:------:|:-----:|------------|
 |1|[Service Set Identifier (SSID)](index.md#ssid)|Mandatory||
 |2|[Supported Rates](index.md#supported-rates--extended-supported-rates)|Mandatory||
-|3|Request Information|Optional||
+|3|Request Information|Optional|See below.|
 |4|[Extended Supported Rates](index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
 |5|Vendor-Specific|Optional|Used by the vendor as seen fit.|
 
@@ -78,11 +106,9 @@ This is the type of frame which serves as a response to a Probe Request. It clos
 - A beacon frame may contain a QoS Information element, announcing basic QoS support.
 - A probe response will also contain the elements requested in the probe request.
 
-
+![](Resources/Images/Probe_Response_Frame.svg)
 
 A probe response frame is sent as a unicast frame with the destination address being the MAC address of the station which issued a probe request. The probe response is transmitted at the lowest mutually supported rate by the AP and the soliciting station. Just like any unicast frame, a probe response should be acknowledged by the recipient station.
-
-![](Resources/Images/Probe_Response_Frame.svg)
 
 |Order|Name|Status|Description|
 |:-----:|:------:|:-----:|------------|
@@ -92,7 +118,7 @@ A probe response frame is sent as a unicast frame with the destination address b
 |4|[Service Set Identifier (SSID)](index.md#ssid)|Mandatory||
 |5|[Supported Rates](index.md#supported-rates--extended-supported-rates)|Mandatory||
 |6|Frequency-Hopping (FH) Parameter Set|Optional|Used by legacy FH stations.|
-|7|DS Parameter Set|Optional|Present within beacon frames with stations with clause 15, 18, and 19 as their provenance.|
+|7|[DS Parameter Set](index.md#direct-sequence-ds-parameter-set)|Optional|Present within beacon frames with stations with clause 15, 18, and 19 as their provenance.|
 |8|CF Parameter Set|Optional|Used for PCF and not present in non-notional situations.|
 |9|IBSS Parameter Set|Optional|Used within an IBSS (duh).|
 |10|Country|Optional|Used with 802.11d and used with 802.11h.|
@@ -103,7 +129,7 @@ A probe response frame is sent as a unicast frame with the destination address b
 |15|Quiet|Optional|Used with 802.11h.|
 |16|IBSS DFS|Optional|Used with 802.11h in an IBSS.|
 |17|TRC Report|Optional|Used with 802.11h.|
-|18|ERP Information|Optional||
+|18|[ERP Information](Discovery%20Frames.md#extended-rate-phy-erp-element)|Optional||
 |19|[Extended Supported Rates](index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
 |20|[RSN](index.md#robust-security-network-rsn)|Optional||
 |21|BSS Load|Optional|Used with 802.11e QoS.|
