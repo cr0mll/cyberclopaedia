@@ -82,7 +82,8 @@ The following Element IDs are defined:
 |8| Hopping Pattern Parameters |
 |9| Hopping Pattern Table |
 |10| Request Information|
-|11 - 15| Reserved |
+|11|BSS Load|
+|12 - 15| Reserved |
 |16| Challenge Text |
 |17 - 31| Reserved |
 |32| Power Constraint |
@@ -166,3 +167,98 @@ The DS Parameter Set element in used both by DSSS and OFDM system, on both 2.4 G
 
 Since 802.11 signals are spread across multiple channel, this indicates the channel that the sender is centering their transmission on.
 When 802.11n is employed with channel bonding, the secondary channel is indicated in several 802.11n-specific field such as the Secondary Channel element or the 20/40 IBSS Coexistence element.
+
+## BSS Load
+This element is used only when QoS is supported (when the QoS subfield in the Capability  
+Information element is enabled) and is often additionally called QBSS Load. It provides information about the network load and is typically sent by APs. Stations avail themselves of this field in order to determine how to [roam](../../../The%20TCP-IP%20Suite%20and%20the%20OSI%20Model/(1)%20The%20Physical%20Layer.md#extended-service-set-ess).
+
+![](Resources/Images/BSS_Load_MFIE.svg)
+
+The `Station Count` is an integer indicating the number of stations currently connected to the network.
+
+The `Channel Utilisation` field is the percentage of time, normalised to 255, that the AP sensed the medium was busy. An AP senses the medium every slot time. At regular inter- vals (every 50 beacons by default)), the AP looks over the last period and counts how many times the  
+network was seen as busy and how many times it was seen as idle. A simple percentage is then calculated and translated into a 0 to 255 range.
+
+## Enhanced Distributed Channel Access (EDCA) Parameter
+This element is used only when QoS is supported. In most QoS-enabled networks, this  
+field is not used, and the same information is provided through the WMM or the WME  
+vendor-specific elements.
+
+## QoS Capability
+This element is used only when QoS is supported. It is used as a conjugate to the EDCA  
+Parameter element when EDCA Parameter is not present. Furthermore, It is utilised by the AP to transmit QoS information to the network. It is a shorter version of the EDCA Parameter Set  
+element and contains only the QoS information section. In most QoS-enabled networks,  
+this field is not used, and the same information is provided through the WMM or the  
+WME vendor-specific elements.
+
+## IBSS DFS
+IBSSs require a designated owner for the dynamic frequency selection (DFS) algorithm. Thus, this element may be transmitted by management frames in an IBSS.
+
+![](Resources/Images/IBSS_DFS_MFIE.svg)
+
+The `DFS Owner` field contains the MAC address of the, well, DFS owner. Should this owner disappear or be lost during a hop, the `DFS Recovery Interval` will contain a timeout (in TBTTs or beacon intervals) for how long a station not hearing from the DFS owner should wait before selecting its own channel and assuming the role of a DFS owner itself.
+
+The last field is a `Channel Map` which is a series of members which report what is detected on each channel. A channel map member consists of two bytes - one for the channel number and one for the actual information.
+
+The latter byte is split into five subfields - the last three bits are reserved. The `BSS` bit will be set to 1 if frames from another network are detected during a measurement period. The `OFDM Preamble` bit is set if the 802.11a short training sequence is detected, but without being followed by the rest of the frame. The `Unidentified Signal` bit is set to 1 when the received power is high, but the signal cannot be classified as either a 802.11 network, an OFDM network, or a radar signal. The `Radar` bit is set to 1 if a radar signal was received during the measurement period. The `Unmeasured` bit is set to 1 if the channel wasn't measured. In this case, all other bits will naturally be 0.
+
+## Country
+Since each country is allowed to regulate the allowed channels and power levels, a mechanism was invented for networks to describe these limitations to new stations instead of ceaselessly updating drivers.
+
+![](Resources/Images/Country_MFIE.svg)
+
+The `Country String` is a 3-byte ASCII string representing the country of operation. The first two characters are the country's ISO code and the last character is either set to "I" or "O" which distinguishes between indoor and outdoor regulations, respectively.
+
+The rest of the country MFIE is composed of `Constraint Triplets`. The `First Channel` field signifies the lowest channel subject to the power constraint. Next is the `Number of Channels` in the band that are subject to the power constraint. Ultimately comes the `Max Transmit Power` which indicates the maximum transmission power allowed, in dBm.
+
+The size of the information element must be an even number. Otherwise, a `Padding` byte full of 0s is appended.
+
+## Power Constraint
+Under 802.11h, stations operating in the 5 GHz bands should reduce their power level so as to avoid creating interference with other devices using the same spectrum. This is referred to as "satellite services", but is so far implemented only to avoid interference with civilian airport radars in the UNII-2 and UNII-2 extended bands. In this field, the AP indicates how much lower than the maximum power indicated by the Country element participants should strive for.
+
+![](Resources/Images/Power_Constraint_MFIE.svg)
+
+The `Local Power Constraint` field is the reduction of power, in dBm, from the one in the Country element that stations should strive for. If the Country element designated 10 dBm as the maximum and this field contains 4 dBm, then the stations should ultimately strive for a signal power of 6 dBm.
+
+## Power Capability
+This field allows a station to report its minimum and maximum transmission power in dBm.
+
+![](Resources/Images/Power_Capability_MFIE.svg)
+
+## TPC Report
+The attenuation of the link is useful to stations seeking to adjust their transmission power. This field typically serves as a response to a [TPC Request](Discovery%20Frames.md#tpc-request). 
+
+![](Resources/Images/TPC_Report_MFIE.svg)
+
+The `Transmit Power` indicates the transmission power, in dBm, used to transmit the frame containing the element. The `Link Margin` is another field which contains the number of decibels that are required by the sending station for safety.
+
+## Supported Channels
+This field describes the channel sub-bands supported by the device. After the element header follows a series of *sub-band descriptors*. The first member of the descriptor is the lowest channel supported in the sub-band. The second subfield describes the number of supported channels, beginning with the `First Channel`.
+
+![](Resources/Images/Supported_Channels_MFIE.svg)
+
+If a station supported channels 20 through 36, then it would have the above fields set to 20 and 16, respectively.
+
+## Channel Switch Announcement
+With the advent of 802.11h, a feature for dynamic channel switching was implemented. Therefore, management frames may include this element in order to warn stations about the impending channel switch.
+
+![](Resources/Images/Channel_Switch_Announcement_MFIE.svg)
+
+When the channel is switched, communications are disrupted. If the `Switch Mode` is set to 1, then associated stations should cease transmission until the switch occurs. If set to 0, no restrictions are placed on transmission.
+
+The `New Channel` field indicates the number of the channel to switch to.
+
+Channel switching can be scheduled. The `Switch Count` indicates the number of [TBTTs](Discovery%20Frames.md#beacon-frames) that it will take before the channel is changed. The channel switch occurs at the nick of time before the [beacon frame](Discovery%20Frames.md#beacon-frames) is sent. If this field is set to 0, then the channel switch may occur without further warning.
+
+## Quiet
+Under 802.11h, an AP can request a period of silence during which no station should transmit. This is done in order to detect possible radars and then possible issue a channel switch if such is found.
+
+![](Resources/Images/Quiet_MFIE.svg)
+
+Silence periods are scheduled. The `Quiet Count` field contains the number of [TBTTs](Discovery%20Frames.md#beacon-frames) before the quiet period is to occur.
+
+Moreover, silence periods may be scheduled periodically. The `Quiet Period` field indicates the number of [beacon intervals](Discovery%20Frames.md#beacon-interval) between silence periods. If this field is set to 0, then the silence period is not periodical.
+
+The `Quiet Duration` field specifies the number of time units that the silence period will last.
+
+The `Quiet Offset` field is the number of time units after a [beacon interval](Discovery%20Frames.md#beacon-interval) that the silence period is to begin at.
