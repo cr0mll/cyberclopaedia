@@ -1,9 +1,9 @@
 # Introduction
-Management frames render the service of managing the Service Set. They have 3 addresses in their MAC header and are 24 bytes in size for 802.11a/b/g/, and 28 bytes for 802.11n (additional 4 bytes for the HT Control field). Their type in the [Frame Control](../index.md#frame-control) is indicated by `00`. Moreover, management frames are never forwarded to the DS, so they have the `FromDS` and `ToDS` bits set to 0 in their Frame Control. 
+Management frames render the service of managing the Service Set. They have 3 addresses in their MAC header, which is 24 bytes in size for 802.11a/b/g/, and 28 bytes for 802.11n (additional 4 bytes for the HT Control field). Their type in the [Frame Control](../index.md#frame-control) is indicated by `00`. Moreover, management frames are never forwarded to the DS, so they have the `FromDS` and `ToDS` bits set to 0 in their Frame Control. 
 
 ![](Resources/Images/Management_Frame.svg)
 
-The source and destination MAC addresses are self-explanatory. The third address is the BSS ID which can either be MAC of the AP or a wildcard value (for probe requests). If 802.11n is used, there is also an HT Control field in the MAC header. The frame body (payload) is comprised of fixed-size fields and variable-size information elements.
+The source and destination MAC addresses are self-explanatory. The third address is the BSS ID which can either be the MAC of the AP or a wildcard value (for probe requests). If 802.11n is used, there is also an HT Control field in the MAC header. The frame body (payload) is comprised of fixed-size fields and variable-size information elements.
 
 There are 12 subtypes of management frames:
 

@@ -38,7 +38,7 @@ Afterwards comes the `Retry` field. A value of 1 indicates that this frame is a 
 
 The `Power Management` field is set to 1 if the station uses power saving mode, which means that periodically shuts down some of its components to preserve power. Frames with this bit set but no actual data are used to inform the AP of the station's power saving mode. The AP will then buffer frames intended for this client.
 
-The `More Data field indicates whether or not the AP has more buffered frames to send to a station in power saving mode. Receiving a frame with this bit set to 1 which cause the station to wait to receive all frames from the AP before proceeding with its power saving shenanigans. 
+The `More Data` field indicates whether or not the AP has more buffered frames to send to a station in power saving mode. Receiving a frame with this bit set to 1 which cause the station to wait to receive all frames from the AP before proceeding with its power saving shenanigans. 
 
 The `Protected Frame` bit is set to 1 when the payload of the frame is encrypted and is 0 otherwise. 
 
