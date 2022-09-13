@@ -11,14 +11,14 @@ Since certain processes may interfere with the wireless device, they should be c
 sudo airmon-ng check
 ```
 
-![](Wireless%20Attacks/Resources/Images/WIFI_airmon_check.png)
+![](Resources/Images/WIFI_airmon_check.png)
 
 `airmon-ng` is also capable of stopping these processes if `kill` is added to the above command:
 ```
 sudo airmon-ng check kill
 ```
 
-![](Wireless%20Attacks/Resources/Images/WIFI_airmon_check_kill.png)
+![](Resources/Images/WIFI_airmon_check_kill.png)
 
 A list of the available network devices may be obtained through `iwconfig`:
 
