@@ -164,7 +164,7 @@ max-height:100%;" src="../../favicon.png" > <!-- Icon pls -->
                 <div id="content" class="content">
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
-<p>When connecting a device to a <a href="../../Networking/Protocols/WLAN%20(802.11)/WiFi%20Protected%20Access%20(WPA).html">WPA</a> WiFi network, the device and the access point go through the process of a <a href="../../Networking/Protocols/WLAN%20(802.11)/Authentication%20&amp;%20Association.html">4-way handshake</a>. During this time, the hash of the password is broadcasted and if we can capture this hash, we can also attempt to crack it.</p>
+<p>When connecting a device to a <a href="../../Networking/Protocols/WLAN%20(IEEE%20802.11)/WiFi%20Protected%20Access%20(WPA).html">WPA</a> WiFi network, the device and the access point go through the process of a <a href="../../Networking/Protocols/WLAN%20(IEEE%20802.11)/Authentication%20&amp;%20Association.html">4-way handshake</a>. During this time, the hash of the password is broadcasted and if we can capture this hash, we can also attempt to crack it.</p>
 <h1 id="capturing-the-handshake"><a class="header" href="#capturing-the-handshake">Capturing the Handshake</a></h1>
 <p>You will first need to put your adapter into <a href="index.html">monitor mode</a>:</p>
 <pre><code>sudo airmon-ng start &lt;dev&gt;
@@ -219,6 +219,22 @@ max-height:100%;" src="../../favicon.png" > <!-- Icon pls -->
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

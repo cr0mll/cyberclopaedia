@@ -25,7 +25,7 @@ Now, you will need to be patient in order to gather a large amount of frames, ty
 # Fake Authentication Attack
 The ultimate goal of this attack is to enable an adversary to force the AP to send out more and more packets, typically through ARP replay, so that more IVs can be captured. However, in order to elicit any proper response with an IV from the access point, the attacker must be authenticated and and their MAC address needs to be associated with it. Otherwise, the AP simply replies with a deauth frame in cleartext to any packets sent by the adversary, which generates no IVs.
 
-WEP supports two types of authentication - [Open System Authentication (OSA)](../../Networking/Protocols/WLAN%20(802.11)/Authentication%20&%20Association.md#open-authentication) and [Shared Key Authentication](../../Networking/Protocols/WLAN%20(802.11)/Authentication%20&%20Association.md#shared-key-authentication). 
+WEP supports two types of authentication - [Open System Authentication (OSA)](../../Networking/Protocols/WLAN%20(IEEE%20802.11)/Authentication%20&%20Association.md#open-authentication) and [Shared Key Authentication](../../Networking/Protocols/WLAN%20(IEEE%20802.11)/Authentication%20&%20Association.md#shared-key-authentication). 
 
 On the other hand, now that they are associated with the network, they can elicit responses with IVs from the AP.
 
@@ -48,7 +48,7 @@ Note, `airodump-ng` should be locked to the target network and its channel, so a
 
 Now that the client is associated with the network, they can elicit responses with IVs from the AP and can proceed to ARP relaying.
 
-If OSA is not allowed by the target network, then the process is a [bit more complicated](../../Networking/Protocols/WLAN%20(802.11)/Authentication%20&%20Association.md#shared-key-authentication), but still not secure.
+If OSA is not allowed by the target network, then the process is a [bit more complicated](../../Networking/Protocols/WLAN%20(IEEE%20802.11)/Authentication%20&%20Association.md#shared-key-authentication), but still not secure.
 
 If you are able to sniff on the network, you can just capture the shared key handshake when another client authenticates to the AP (either naturally or by dint of a [deauth attack](Deauth%20Attack.md). Since you captured the plaintext challenge, $p_1$ from the AP and the correctly encrypted response challenge from the legitimate client, $c_1$, you can obtain the keystream $k = p_1 \oplus c_1$ and use it to correctly encrypt the challenge you receive when attempting to connect to the AP yourself.
 

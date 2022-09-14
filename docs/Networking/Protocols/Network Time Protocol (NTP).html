@@ -171,7 +171,7 @@ max-height:100%;" src="../../favicon.png" > <!-- Icon pls -->
 <p>Reference clocks are not directly connected to the network. Instead, the so-called <em>primary time servers</em> connect to the reference clock and synchronise their clocks with it. These servers have a stratum value of 1. For each layer you go down the chain, the stratum value increases by 1, since the distance from the reference clocks augments.</p>
 <p><img src="Resources/Images/NTP/Hierarchy.png" alt="" /></p>
 <h1 id="synchronising-time-on-linux-with-ntpdate"><a class="header" href="#synchronising-time-on-linux-with-ntpdate">Synchronising time on Linux with <code>ntpdate</code></a></h1>
-<p><code>ntpdate</code> is a useful utility for synching time on Linux machines through NTP. It's syntax is really simple:</p>
+<p><code>ntpdate</code> is a useful utility for synching time on Linux machines through NTP. Its syntax is really simple:</p>
 <p><code>ntpdate [server]</code></p>
 <p>In order to set the date, it requires root privileges:</p>
 <p><img src="Resources/Images/NTP/wrong_time.png" alt="" /></p>
@@ -212,6 +212,22 @@ max-height:100%;" src="../../favicon.png" > <!-- Icon pls -->
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

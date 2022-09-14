@@ -10,7 +10,7 @@ Reference clocks are not directly connected to the network. Instead, the so-call
 ![](Resources/Images/NTP/Hierarchy.png)
 
 # Synchronising time on Linux with `ntpdate`
-`ntpdate` is a useful utility for synching time on Linux machines through NTP. It's syntax is really simple:
+`ntpdate` is a useful utility for synching time on Linux machines through NTP. Its syntax is really simple:
 
 `ntpdate [server]`
 

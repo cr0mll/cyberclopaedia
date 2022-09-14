@@ -191,7 +191,7 @@ max-height:100%;" src="../../../favicon.png" > <!-- Icon pls -->
 <p>Next is the <code>More Fragments</code> field. If a datagram was fragmented into multiple frames, this field will be set to 1 for all frames except the last one. </p>
 <p>Afterwards comes the <code>Retry</code> field. A value of 1 indicates that this frame is a <em>retransmission</em> of a frame which did not receive a confirmation (ACK).</p>
 <p>The <code>Power Management</code> field is set to 1 if the station uses power saving mode, which means that periodically shuts down some of its components to preserve power. Frames with this bit set but no actual data are used to inform the AP of the station's power saving mode. The AP will then buffer frames intended for this client.</p>
-<p>The `More Data field indicates whether or not the AP has more buffered frames to send to a station in power saving mode. Receiving a frame with this bit set to 1 which cause the station to wait to receive all frames from the AP before proceeding with its power saving shenanigans. </p>
+<p>The <code>More Data</code> field indicates whether or not the AP has more buffered frames to send to a station in power saving mode. Receiving a frame with this bit set to 1 which cause the station to wait to receive all frames from the AP before proceeding with its power saving shenanigans. </p>
 <p>The <code>Protected Frame</code> bit is set to 1 when the payload of the frame is encrypted and is 0 otherwise. </p>
 <p>Finally, the <code>Order</code> bit should be set to 0 for all frames with the exception of non-QoS data frames. In this case, this bit is set to 1 if a request from a higher layer for the data to be sent using a strictly ordered Class of Service. This tells the receiving station to process the frames in order.</p>
 <h2 id="duration--id"><a class="header" href="#duration--id">Duration / ID</a></h2>
@@ -276,6 +276,22 @@ max-height:100%;" src="../../../favicon.png" > <!-- Icon pls -->
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 
