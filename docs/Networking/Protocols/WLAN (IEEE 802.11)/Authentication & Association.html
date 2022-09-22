@@ -165,7 +165,7 @@ max-height:100%;" src="../../../favicon.png" > <!-- Icon pls -->
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p>Before a device can send traffic to an AP it needs to be authenticated and associated with that access point. This is done via a <em>4-way handshake</em>:</p>
-<p><img src="Resources/Images/WiFi_4_way_handshake.svg" alt="" /></p>
+<p><img src="Management%20Frames/Resources/Images/WiFi_authentication_association.svg" alt="" /></p>
 <p>First, the client sends an Authentication Request frame. The AP then returns an Authentication Response. If authentication is allowed by the AP, the client can now send the Association Request, to which the AP will response with an Association Response stating whether or not the association was successful.</p>
 <h1 id="authentication"><a class="header" href="#authentication">Authentication</a></h1>
 <p>Authentication refers to the verification of a device's identity, but does <em>not</em> include encryption. There are multiple possible protocols for authentication.</p>
@@ -232,22 +232,6 @@ max-height:100%;" src="../../../favicon.png" > <!-- Icon pls -->
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
 

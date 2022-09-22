@@ -1,7 +1,7 @@
 # Introduction
 Before a device can send traffic to an AP it needs to be authenticated and associated with that access point. This is done via a *4-way handshake*:
 
-![](Resources/Images/WiFi_4_way_handshake.svg)
+![](Management%20Frames/Resources/Images/WiFi_authentication_association.svg)
 
 First, the client sends an Authentication Request frame. The AP then returns an Authentication Response. If authentication is allowed by the AP, the client can now send the Association Request, to which the AP will response with an Association Response stating whether or not the association was successful.
 

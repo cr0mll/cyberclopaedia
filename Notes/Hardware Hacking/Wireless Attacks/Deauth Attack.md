@@ -1,5 +1,5 @@
 # Introduction
-A deauthentication, or deauth, attack injects deathentication frames in order to disconnect a target from a network. It works on pretty much any network and can be extremely useful in many other attacks in order to force a handshake, since most devices automatically try to connect to any networks in the area that they recognise. Moreover, a deauth attack can serve as a DOS attack, temporarily precluding a particular client from connecting to a network.
+A deauthentication, or deauth, attack injects [deathentication frames](../../Networking/Protocols/WLAN%20(IEEE%20802.11)/Management%20Frames/Authentication%20Frames.md#deauthentication-frame) in order to disconnect a target from a network. It works on pretty much any network and can be extremely useful in many other attacks in order to force a handshake, since most devices automatically try to connect to any networks in the area that they recognise. Moreover, a deauth attack can serve as a DOS attack, temporarily precluding a particular client from connecting to a network.
 
 `aireplay-ng` can be to disconnect a device already connected to the network:
 
