@@ -51,9 +51,6 @@ If the `APSD` set is set to 1, then the AP supports the eponymous feature. If th
 compatible networks. When this bit is set to 1, the DSSS-OFDM mode is allowed.  
 When the bit is set to 0, this mode is not allowed. This bit is always set to 0 for 802.11a networks.
 
-## Listen Interval
-This 2-byte field is sent in Association and Reassociation Request in order to signal to the AP how often a station wakes up in order to listen to beacon management frames. Its value is in beacon interval units - a value of $n$ indicates that the station wakes up every $n$ beacons.
-
 ## Status Code Field
 This is a 2-byte long field present in Response frames. If set to 0, then the request was successful. Otherwise, the field contains the failure code, where 1 indicates an unspecified failure.
 
