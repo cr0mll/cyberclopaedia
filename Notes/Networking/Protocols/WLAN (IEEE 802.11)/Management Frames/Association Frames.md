@@ -3,6 +3,8 @@ When 802.11 [authentication](../Authentication%20&%20Association.md) is complete
 
 After the association phase, a second authentication may occur depending on whether a protocol like WPA is set up.
 
+![](Resources/Images/WiFi_authentication_association.svg)
+
 ## Management Frame Fields & Information Elements
 ### Listen Interval
 This 2-byte field is sent in Association and Reassociation Request in order to signal to the AP how often a station wakes up in order to listen to beacon management frames. Its value is in beacon interval units - a value of $n$ indicates that the station wakes up every $n$ beacons.
@@ -65,7 +67,36 @@ If the association is successful, then the response will contain the association
 |Last|Vendor-Specific|Optional||
 
 # Reassociation Request
+This frame may be sent only from a station to an AP and is used when the station is already connected to the ESS and wishes to connect to another AP within the same ESS. Furthermore, a station may avail itself of this frame when it wants to rejoin the network after it left for a short duration. If the authentication timer has expired, then the station will need to begin anew from the authentication phase and then proceed to issuing a reassociation request. Finally, a station already associated with the network may use a reassociation request in order to tweak some parameters which were exchanged during the original association phase.
 
+![](Resources/Images/Reassociation_Request.svg)
+
+The following elements may be present in a reassociation request:
+
+|Order|Name|Status|Description|
+|:-----:|:------:|:-----:|------------|
+|1|[Capability Information](index.md#capability-information)|Mandatory||
+|2|[Listen Interval](Association%20Frames.md#listen-interval)|Mandatory||
+|3|Current AP MAC Address|Mandatory||
+|4|[Service Set Identifier (SSID)](index.md#ssid)|Mandatory||
+|5|[Supported Rates](index.md#supported-rates--extended-supported-rates)|Mandatory||
+|6|[Extended Supported Rates](index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
+|7|[Power Capability](index.md#power-capability)|Optional|Used with 802.11h.|
+|8|[Supported Channels](index.md#supported-channels)|Optional|Used with 802.11h.|
+|9|[RSN](index.md#robust-security-network-rsn)|Optional|Used with 802.11i.|
+|10|[QoS Capability](index.md#qos-capability)|Optional|Used with 802.11e QoS when the EDCA Parameter element is missing.|
+|11|RRM Enabled Capabilities|Optional|Used with 802.11k.|
+|12|Mobility Domain|Optional|Used with 802.11r Fast BSS Transition.|
+|13|Fast Transition|Optional|Used with 802.11r.|
+|14|Resource Information Container|Optional|Used with 802.11r.|
+|15|Supported Regulatory Classes|Optional|Used with 802.11r.|
+|16|HT Capabilities|Optional|Used with 802.11n.|
+|17|20/40 BSS Coexistence|Optional|Used with 802.11n.|
+|18|Extended Capabilities|Optional|See Capability Information.|
+|Last|Vendor-Specific|Optional||
+
+# Reassociation Response
+The response to a reassociation request has the exact same format as the [Association Response Frame](Association%20Frames.md#association-response).
 
 # Disassociation Frame
 Association can be terminated by either side at any time by sending a disassociation frame. A station could send such a frame, for  example, because it leaves the cell to roam to another AP. An AP could send this frame for  example because the station tries to use invalid parameters.

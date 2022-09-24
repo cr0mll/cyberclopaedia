@@ -165,8 +165,95 @@ max-height:100%;" src="../../../../favicon.png" > <!-- Icon pls -->
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p>When 802.11 <a href="../Authentication%20&amp;%20Association.html">authentication</a> is complete, the station and AP will move onto to the association phase. The purpose of this exchange is for the station to obtain an Association Identifier (AID). This is achieved by the client sending an <em>Association Request</em> to the AP which then responds with an <em>Association Response</em>.</p>
+<p>After the association phase, a second authentication may occur depending on whether a protocol like WPA is set up.</p>
+<p><img src="Resources/Images/WiFi_authentication_association.svg" alt="" /></p>
+<h2 id="management-frame-fields--information-elements"><a class="header" href="#management-frame-fields--information-elements">Management Frame Fields &amp; Information Elements</a></h2>
+<h3 id="listen-interval"><a class="header" href="#listen-interval">Listen Interval</a></h3>
+<p>This 2-byte field is sent in Association and Reassociation Request in order to signal to the AP how often a station wakes up in order to listen to beacon management frames. Its value is in beacon interval units - a value of \( n \) indicates that the station wakes up every \( n \) beacons.</p>
 <h1 id="association-request"><a class="header" href="#association-request">Association Request</a></h1>
-<p>The Association Request has the following format:</p>
+<p>If the <a href="Authentication%20Frames.html">authentication phase</a> was successful, then the station willing to join the network will issue an <em>association request</em>.</p>
+<p><img src="Resources/Images/Association_Request.svg" alt="" /></p>
+<p>The following elements may be present in an association request:</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Order</th><th style="text-align: center">Name</th><th style="text-align: center">Status</th><th>Description</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: center"><a href="index.html#capability-information">Capability Information</a></td><td style="text-align: center">Mandatory</td><td></td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center"><a href="Association%20Frames.html#listen-interval">Listen Interval</a></td><td style="text-align: center">Mandatory</td><td></td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center"><a href="index.html#ssid">Service Set Identifier (SSID)</a></td><td style="text-align: center">Mandatory</td><td></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center"><a href="index.html#supported-rates--extended-supported-rates">Supported Rates</a></td><td style="text-align: center">Mandatory</td><td></td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center"><a href="index.html#supported-rates--extended-supported-rates">Extended Supported Rates</a></td><td style="text-align: center">Optional</td><td>See Supported Rates.</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center"><a href="index.html#power-capability">Power Capability</a></td><td style="text-align: center">Optional</td><td>Used with 802.11h.</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center"><a href="index.html#supported-channels">Supported Channels</a></td><td style="text-align: center">Optional</td><td>Used with 802.11h.</td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: center"><a href="index.html#robust-security-network-rsn">RSN</a></td><td style="text-align: center">Optional</td><td>Used with 802.11i.</td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: center"><a href="index.html#qos-capability">QoS Capability</a></td><td style="text-align: center">Optional</td><td>Used with 802.11e QoS when the EDCA Parameter element is missing.</td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: center">RRM Enabled Capabilities</td><td style="text-align: center">Optional</td><td>Used with 802.11k.</td></tr>
+<tr><td style="text-align: center">11</td><td style="text-align: center">Mobility Domain</td><td style="text-align: center">Optional</td><td>Used with 802.11r Fast BSS Transition.</td></tr>
+<tr><td style="text-align: center">12</td><td style="text-align: center">Supported Regulatory Classes</td><td style="text-align: center">Optional</td><td>Used with 802.11r.</td></tr>
+<tr><td style="text-align: center">13</td><td style="text-align: center">HT Capabilities</td><td style="text-align: center">Optional</td><td>Used with 802.11n.</td></tr>
+<tr><td style="text-align: center">14</td><td style="text-align: center">20/40 BSS Coexistence</td><td style="text-align: center">Optional</td><td>Used with 802.11n.</td></tr>
+<tr><td style="text-align: center">15</td><td style="text-align: center">Extended Capabilities</td><td style="text-align: center">Optional</td><td>See Capability Information.</td></tr>
+<tr><td style="text-align: center">Last</td><td style="text-align: center">Vendor-Specific</td><td style="text-align: center">Optional</td><td></td></tr>
+</tbody></table>
+</div>
+<h1 id="association-response"><a class="header" href="#association-response">Association Response</a></h1>
+<p>After the association request is acknowledged by the AP, it is examined to verify that its parameters match those of the AP. If differences are found, then the AP must decide whether or not the discrepancy is significant enough to deny association. </p>
+<p><img src="Resources/Images/Association_Response.svg" alt="" /></p>
+<p>If the station can join the network, then the <code>Status Code</code> will contain 0. Otherwise, it will contain the reason for the failure. Additionally, the AP sends its own parameters in the response. A station who is denied association can examine the parameters sent by the AP in the response and try to tweak its own parameters and attempt association anew.</p>
+<p>If the association is successful, then the response will contain the association ID for the station. The station can now proceed with sending data or undergoing further authentication. Notwithstanding the 2-byte size of this field, only the 14 less significant bits are used in practice, with the rest of the bits being set to 1. </p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Order</th><th style="text-align: center">Name</th><th style="text-align: center">Status</th><th>Description</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: center"><a href="index.html#capability-information">Capability Information</a></td><td style="text-align: center">Mandatory</td><td></td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center"><a href="index.html#status-code-field">Status Code</a></td><td style="text-align: center">Mandatory</td><td></td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center"><a href="index.html#ssid">Association ID</a></td><td style="text-align: center">Mandatory</td><td></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center"><a href="index.html#supported-rates--extended-supported-rates">Supported Rates</a></td><td style="text-align: center">Mandatory</td><td></td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center"><a href="index.html#supported-rates--extended-supported-rates">Extended Supported Rates</a></td><td style="text-align: center">Optional</td><td>See Supported Rates.</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center"><a href="index.html#enhanced-distributed-channel-access-edca-parameter">EDCA Parameter</a></td><td style="text-align: center">Optional</td><td>Used with 802.11e QoS when the QoS Capability element is missing.</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">RCPI</td><td style="text-align: center">Optional</td><td>Used with 802.11k.</td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: center">RSNI</td><td style="text-align: center">Optional</td><td>Used with 802.11k.</td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: center">RRM Enabled Capabilities</td><td style="text-align: center">Optional</td><td>Used with 802.11k.</td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: center">Mobility Domain</td><td style="text-align: center">Optional</td><td>Used with 802.11r. Fast BSS Transition</td></tr>
+<tr><td style="text-align: center">11</td><td style="text-align: center">Fast BSS Transition</td><td style="text-align: center">Optional</td><td>Used with 802.11r.</td></tr>
+<tr><td style="text-align: center">12</td><td style="text-align: center">DSE Registered Location</td><td style="text-align: center">Optional</td><td>Used with 802.11y.</td></tr>
+<tr><td style="text-align: center">13</td><td style="text-align: center">Timeout Interval (Association Comeback Time)</td><td style="text-align: center">Optional</td><td>Used with 802.11w.</td></tr>
+<tr><td style="text-align: center">14</td><td style="text-align: center">HT Capabilities</td><td style="text-align: center">Optional</td><td>Used with 802.11n.</td></tr>
+<tr><td style="text-align: center">15</td><td style="text-align: center">HT Operation</td><td style="text-align: center">Optional</td><td>Used with 802.11n.</td></tr>
+<tr><td style="text-align: center">16</td><td style="text-align: center">20/40 BSS Coexistence</td><td style="text-align: center">Optional</td><td>Used with 802.11n.</td></tr>
+<tr><td style="text-align: center">17</td><td style="text-align: center">Overlapping BSS Scan Parameters</td><td style="text-align: center">Optional</td><td></td></tr>
+<tr><td style="text-align: center">18</td><td style="text-align: center">Extended Capabilities</td><td style="text-align: center">Optional</td><td>See Capability Information.</td></tr>
+<tr><td style="text-align: center">Last</td><td style="text-align: center">Vendor-Specific</td><td style="text-align: center">Optional</td><td></td></tr>
+</tbody></table>
+</div>
+<h1 id="reassociation-request"><a class="header" href="#reassociation-request">Reassociation Request</a></h1>
+<p>This frame may be sent only from a station to an AP and is used when the station is already connected to the ESS and wishes to connect to another AP within the same ESS. Furthermore, a station may avail itself of this frame when it wants to rejoin the network after it left for a short duration. If the authentication timer has expired, then the station will need to begin anew from the authentication phase and then proceed to issuing a reassociation request. Finally, a station already associated with the network may use a reassociation request in order to tweak some parameters which were exchanged during the original association phase.</p>
+<p><img src="Resources/Images/Reassociation_Request.svg" alt="" /></p>
+<p>The following elements may be present in a reassociation request:</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Order</th><th style="text-align: center">Name</th><th style="text-align: center">Status</th><th>Description</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: center"><a href="index.html#capability-information">Capability Information</a></td><td style="text-align: center">Mandatory</td><td></td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center"><a href="Association%20Frames.html#listen-interval">Listen Interval</a></td><td style="text-align: center">Mandatory</td><td></td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">Current AP MAC Address</td><td style="text-align: center">Mandatory</td><td></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center"><a href="index.html#ssid">Service Set Identifier (SSID)</a></td><td style="text-align: center">Mandatory</td><td></td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center"><a href="index.html#supported-rates--extended-supported-rates">Supported Rates</a></td><td style="text-align: center">Mandatory</td><td></td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center"><a href="index.html#supported-rates--extended-supported-rates">Extended Supported Rates</a></td><td style="text-align: center">Optional</td><td>See Supported Rates.</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center"><a href="index.html#power-capability">Power Capability</a></td><td style="text-align: center">Optional</td><td>Used with 802.11h.</td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: center"><a href="index.html#supported-channels">Supported Channels</a></td><td style="text-align: center">Optional</td><td>Used with 802.11h.</td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: center"><a href="index.html#robust-security-network-rsn">RSN</a></td><td style="text-align: center">Optional</td><td>Used with 802.11i.</td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: center"><a href="index.html#qos-capability">QoS Capability</a></td><td style="text-align: center">Optional</td><td>Used with 802.11e QoS when the EDCA Parameter element is missing.</td></tr>
+<tr><td style="text-align: center">11</td><td style="text-align: center">RRM Enabled Capabilities</td><td style="text-align: center">Optional</td><td>Used with 802.11k.</td></tr>
+<tr><td style="text-align: center">12</td><td style="text-align: center">Mobility Domain</td><td style="text-align: center">Optional</td><td>Used with 802.11r Fast BSS Transition.</td></tr>
+<tr><td style="text-align: center">13</td><td style="text-align: center">Fast Transition</td><td style="text-align: center">Optional</td><td>Used with 802.11r.</td></tr>
+<tr><td style="text-align: center">14</td><td style="text-align: center">Resource Information Container</td><td style="text-align: center">Optional</td><td>Used with 802.11r.</td></tr>
+<tr><td style="text-align: center">15</td><td style="text-align: center">Supported Regulatory Classes</td><td style="text-align: center">Optional</td><td>Used with 802.11r.</td></tr>
+<tr><td style="text-align: center">16</td><td style="text-align: center">HT Capabilities</td><td style="text-align: center">Optional</td><td>Used with 802.11n.</td></tr>
+<tr><td style="text-align: center">17</td><td style="text-align: center">20/40 BSS Coexistence</td><td style="text-align: center">Optional</td><td>Used with 802.11n.</td></tr>
+<tr><td style="text-align: center">18</td><td style="text-align: center">Extended Capabilities</td><td style="text-align: center">Optional</td><td>See Capability Information.</td></tr>
+<tr><td style="text-align: center">Last</td><td style="text-align: center">Vendor-Specific</td><td style="text-align: center">Optional</td><td></td></tr>
+</tbody></table>
+</div>
+<h1 id="reassociation-response"><a class="header" href="#reassociation-response">Reassociation Response</a></h1>
+<p>The response to a reassociation request has the exact same format as the <a href="Association%20Frames.html#association-response">Association Response Frame</a>.</p>
+<h1 id="disassociation-frame"><a class="header" href="#disassociation-frame">Disassociation Frame</a></h1>
+<p>Association can be terminated by either side at any time by sending a disassociation frame. A station could send such a frame, for  example, because it leaves the cell to roam to another AP. An AP could send this frame for  example because the station tries to use invalid parameters.</p>
+<p>A disassociated station, however, retains its authentication status and may attempt to associate anew without going through the authentication phase.</p>
+<p><img src="Resources/Images/Deassociation_Frame.svg" alt="" /></p>
+<p>The <code>Destination MAC</code> for this type of frame may be the MAC address of the target station/AP, or the broadcast address if the AP needs to disassociate all clients.</p>
+<p>A deassociation frame typically contains only a <a href="index.html#reason-code-field">Reason Code</a> field, although it may be augmented by vendor-specific MFIEs following this reason code. The last element (if present and if it is not the reason code itself) is used with 802.11w.</p>
 
                     </main>
 
