@@ -21,7 +21,6 @@ mathjax-support = true
 [output.html.fold]
 enable = true
 
-
 [build]
 build-dir = "docs"
 create-missing = false
