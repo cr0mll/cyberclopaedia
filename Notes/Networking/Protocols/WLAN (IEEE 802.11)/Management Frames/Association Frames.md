@@ -18,15 +18,15 @@ The following elements may be present in an association request:
 
 |Order|Name|Status|Description|
 |:-----:|:------:|:-----:|------------|
-|1|[Capability Information](index.md#capability-information)|Mandatory||
+|1|[Capability Information](../../../../index.md#capability-information)|Mandatory||
 |2|[Listen Interval](Association%20Frames.md#listen-interval)|Mandatory||
-|3|[Service Set Identifier (SSID)](index.md#ssid)|Mandatory||
-|4|[Supported Rates](index.md#supported-rates--extended-supported-rates)|Mandatory||
-|5|[Extended Supported Rates](index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
-|6|[Power Capability](index.md#power-capability)|Optional|Used with 802.11h.|
-|7|[Supported Channels](index.md#supported-channels)|Optional|Used with 802.11h.|
-|8|[RSN](index.md#robust-security-network-rsn)|Optional|Used with 802.11i.|
-|9|[QoS Capability](index.md#qos-capability)|Optional|Used with 802.11e QoS when the EDCA Parameter element is missing.|
+|3|[Service Set Identifier (SSID)](../../../../index.md#ssid)|Mandatory||
+|4|[Supported Rates](../../../../index.md#supported-rates--extended-supported-rates)|Mandatory||
+|5|[Extended Supported Rates](../../../../index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
+|6|[Power Capability](../../../../index.md#power-capability)|Optional|Used with 802.11h.|
+|7|[Supported Channels](../../../../index.md#supported-channels)|Optional|Used with 802.11h.|
+|8|[RSN](../../../../index.md#robust-security-network-rsn)|Optional|Used with 802.11i.|
+|9|[QoS Capability](../../../../index.md#qos-capability)|Optional|Used with 802.11e QoS when the EDCA Parameter element is missing.|
 |10|RRM Enabled Capabilities|Optional|Used with 802.11k.|
 |11|Mobility Domain|Optional|Used with 802.11r Fast BSS Transition.|
 |12|Supported Regulatory Classes|Optional|Used with 802.11r.|
@@ -46,12 +46,12 @@ If the association is successful, then the response will contain the association
 
 |Order|Name|Status|Description|
 |:-----:|:------:|:-----:|------------|
-|1|[Capability Information](index.md#capability-information)|Mandatory||
-|2|[Status Code](index.md#status-code-field)|Mandatory||
-|3|[Association ID](index.md#ssid)|Mandatory||
-|4|[Supported Rates](index.md#supported-rates--extended-supported-rates)|Mandatory||
-|5|[Extended Supported Rates](index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
-|6|[EDCA Parameter](index.md#enhanced-distributed-channel-access-edca-parameter)|Optional|Used with 802.11e QoS when the QoS Capability element is missing.|
+|1|[Capability Information](../../../../index.md#capability-information)|Mandatory||
+|2|[Status Code](../../../../index.md#status-code-field)|Mandatory||
+|3|[Association ID](../../../../index.md#ssid)|Mandatory||
+|4|[Supported Rates](../../../../index.md#supported-rates--extended-supported-rates)|Mandatory||
+|5|[Extended Supported Rates](../../../../index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
+|6|[EDCA Parameter](../../../../index.md#enhanced-distributed-channel-access-edca-parameter)|Optional|Used with 802.11e QoS when the QoS Capability element is missing.|
 |7|RCPI|Optional|Used with 802.11k.|
 |8|RSNI|Optional|Used with 802.11k.|
 |9|RRM Enabled Capabilities|Optional|Used with 802.11k.|
@@ -75,16 +75,16 @@ The following elements may be present in a reassociation request:
 
 |Order|Name|Status|Description|
 |:-----:|:------:|:-----:|------------|
-|1|[Capability Information](index.md#capability-information)|Mandatory||
+|1|[Capability Information](../../../../index.md#capability-information)|Mandatory||
 |2|[Listen Interval](Association%20Frames.md#listen-interval)|Mandatory||
 |3|Current AP MAC Address|Mandatory||
-|4|[Service Set Identifier (SSID)](index.md#ssid)|Mandatory||
-|5|[Supported Rates](index.md#supported-rates--extended-supported-rates)|Mandatory||
-|6|[Extended Supported Rates](index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
-|7|[Power Capability](index.md#power-capability)|Optional|Used with 802.11h.|
-|8|[Supported Channels](index.md#supported-channels)|Optional|Used with 802.11h.|
-|9|[RSN](index.md#robust-security-network-rsn)|Optional|Used with 802.11i.|
-|10|[QoS Capability](index.md#qos-capability)|Optional|Used with 802.11e QoS when the EDCA Parameter element is missing.|
+|4|[Service Set Identifier (SSID)](../../../../index.md#ssid)|Mandatory||
+|5|[Supported Rates](../../../../index.md#supported-rates--extended-supported-rates)|Mandatory||
+|6|[Extended Supported Rates](../../../../index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
+|7|[Power Capability](../../../../index.md#power-capability)|Optional|Used with 802.11h.|
+|8|[Supported Channels](../../../../index.md#supported-channels)|Optional|Used with 802.11h.|
+|9|[RSN](../../../../index.md#robust-security-network-rsn)|Optional|Used with 802.11i.|
+|10|[QoS Capability](../../../../index.md#qos-capability)|Optional|Used with 802.11e QoS when the EDCA Parameter element is missing.|
 |11|RRM Enabled Capabilities|Optional|Used with 802.11k.|
 |12|Mobility Domain|Optional|Used with 802.11r Fast BSS Transition.|
 |13|Fast Transition|Optional|Used with 802.11r.|
@@ -107,4 +107,4 @@ A disassociated station, however, retains its authentication status and may atte
 
 The `Destination MAC` for this type of frame may be the MAC address of the target station/AP, or the broadcast address if the AP needs to disassociate all clients.
 
-A deassociation frame typically contains only a [Reason Code](index.md#reason-code-field) field, although it may be augmented by vendor-specific MFIEs following this reason code. The last element (if present and if it is not the reason code itself) is used with 802.11w.
+A deassociation frame typically contains only a [Reason Code](../../../../index.md#reason-code-field) field, although it may be augmented by vendor-specific MFIEs following this reason code. The last element (if present and if it is not the reason code itself) is used with 802.11w.

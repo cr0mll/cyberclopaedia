@@ -52,30 +52,30 @@ Following is a table of the possible fields in a beacon frame (the order for opt
 
 |Order|Name|Status|Description|
 |:-----:|:------:|:-----:|------------|
-|1|[Timestamp](index.md#timestamp)|Mandatory||
-|2|[Beacon Interval](index.md#beacon-interval)|Mandatory||
-|3|[Capability Information](index.md#capability-information)|Mandatory||
-|4|[Service Set Identifier (SSID)](index.md#ssid)|Mandatory||
-|5|[Supported Rates](index.md#supported-rates--extended-supported-rates)|Mandatory||
+|1|[Timestamp](../../../../index.md#timestamp)|Mandatory||
+|2|[Beacon Interval](../../../../index.md#beacon-interval)|Mandatory||
+|3|[Capability Information](../../../../index.md#capability-information)|Mandatory||
+|4|[Service Set Identifier (SSID)](../../../../index.md#ssid)|Mandatory||
+|5|[Supported Rates](../../../../index.md#supported-rates--extended-supported-rates)|Mandatory||
 |6|Frequency-Hopping (FH) Parameter Set|Optional|Used by legacy FH stations.|
-|7|[DS Parameter Set](index.md#direct-sequence-ds-parameter-set)|Optional|Present within beacon frames with stations with clause 15, 18, and 19 as their provenance.|
+|7|[DS Parameter Set](../../../../index.md#direct-sequence-ds-parameter-set)|Optional|Present within beacon frames with stations with clause 15, 18, and 19 as their provenance.|
 |8|CF Parameter Set|Optional|Used for PCF and not present in non-notional situations.|
 |9|[IBSS Parameter Set](Discovery%20Frames.md#ibss-parameter-set)|Optional|Used within an IBSS (duh).|
 |10|Traffic Indication Map (TIM)|Optional|Present only in beacons with an AP as their provenance.|
-|11|[Country](index.md#country)|Optional||
+|11|[Country](../../../../index.md#country)|Optional||
 |12|FH Parameters|Optional|Used with legacy FH stations.|
 |13|FH Pattern Table|Optional|Used with legacy FH stations.|
-|14|[Power Constraint](index.md#power-constraint)|Optional|Used with 802.11h.|
-|15|[Channel Switch Announcement](index.md#channel-switch-announcement)|Optional|Used with 802.11h.|
-|16|[Quiet](index.md#quiet)|Optional|Used with 802.11h.|
-|17|[IBSS DSF](index.md#ibss-dsf)|Optional|Used with 802.11h in an IBSS.|
-|18|[TPC Report](index.md#tpc-report)|Optional|Used with 802.11h.|
+|14|[Power Constraint](../../../../index.md#power-constraint)|Optional|Used with 802.11h.|
+|15|[Channel Switch Announcement](../../../../index.md#channel-switch-announcement)|Optional|Used with 802.11h.|
+|16|[Quiet](../../../../index.md#quiet)|Optional|Used with 802.11h.|
+|17|[IBSS DSF](../../../../index.md#ibss-dsf)|Optional|Used with 802.11h in an IBSS.|
+|18|[TPC Report](../../../../index.md#tpc-report)|Optional|Used with 802.11h.|
 |19|[ERP Information](Discovery%20Frames.md#extended-rate-phy-erp-element)|Optional||
-|20|[Extended Supported Rates](index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
-|21|[RSN](index.md#robust-security-network-rsn)|Optional||
-|22|[BSS Load](index.md#bss-load)|Optional|Used with 802.11e QoS.|
-|23|[EDCA Parameter](index.md#enhanced-distributed-channel-access-edca-parameter)|Optional|Used with 802.11e QoS when the QoS Capability element is missing.|
-|24|[QoS Capability](index.md#qos-capability)|Optional|Used with 802.11e QoS when the EDCA Parameter element is missing.|
+|20|[Extended Supported Rates](../../../../index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
+|21|[RSN](../../../../index.md#robust-security-network-rsn)|Optional||
+|22|[BSS Load](../../../../index.md#bss-load)|Optional|Used with 802.11e QoS.|
+|23|[EDCA Parameter](../../../../index.md#enhanced-distributed-channel-access-edca-parameter)|Optional|Used with 802.11e QoS when the QoS Capability element is missing.|
+|24|[QoS Capability](../../../../index.md#qos-capability)|Optional|Used with 802.11e QoS when the EDCA Parameter element is missing.|
 |25 - 32, 34 - 36|Vendor Specific|Optional||
 |33|Mobility Domain|Optional|Used with 802.11r Fast BSS Transition.|
 |37|HT Capabilities|Optional|Used with 802.11n.|
@@ -91,10 +91,10 @@ Probe request frames are employed by devices seeking to uncover what networks ar
 
 |Order|Name|Status|Description|
 |:-----:|:------:|:-----:|------------|
-|1|[Service Set Identifier (SSID)](index.md#ssid)|Mandatory||
-|2|[Supported Rates](index.md#supported-rates--extended-supported-rates)|Mandatory||
+|1|[Service Set Identifier (SSID)](../../../../index.md#ssid)|Mandatory||
+|2|[Supported Rates](../../../../index.md#supported-rates--extended-supported-rates)|Mandatory||
 |3|Request Information|Optional|See below.|
-|4|[Extended Supported Rates](index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
+|4|[Extended Supported Rates](../../../../index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
 |5|Vendor-Specific|Optional|Used by the vendor as seen fit.|
 
 The SSID of a particular network that the device is looking for may be set in the appropriate field. This way, only the devices bearing the desired SSID should response. Otherwise, the SSID element is still present but is empty. In this case, it signifies a wildcard probe and so all available networks should respond.
@@ -125,28 +125,28 @@ A probe response frame is sent as a unicast frame with the destination address b
 
 |Order|Name|Status|Description|
 |:-----:|:------:|:-----:|------------|
-|1|[Timestamp](index.md#timestamp)|Mandatory||
-|2|[Beacon Interval](index.md#beacon-interval)|Mandatory||
-|3|[Capability Information](index.md#capability-information)|Mandatory||
-|4|[Service Set Identifier (SSID)](index.md#ssid)|Mandatory||
-|5|[Supported Rates](index.md#supported-rates--extended-supported-rates)|Mandatory||
+|1|[Timestamp](../../../../index.md#timestamp)|Mandatory||
+|2|[Beacon Interval](../../../../index.md#beacon-interval)|Mandatory||
+|3|[Capability Information](../../../../index.md#capability-information)|Mandatory||
+|4|[Service Set Identifier (SSID)](../../../../index.md#ssid)|Mandatory||
+|5|[Supported Rates](../../../../index.md#supported-rates--extended-supported-rates)|Mandatory||
 |6|Frequency-Hopping (FH) Parameter Set|Optional|Used by legacy FH stations.|
-|7|[DS Parameter Set](index.md#direct-sequence-ds-parameter-set)|Optional|Present within beacon frames with stations with clause 15, 18, and 19 as their provenance.|
+|7|[DS Parameter Set](../../../../index.md#direct-sequence-ds-parameter-set)|Optional|Present within beacon frames with stations with clause 15, 18, and 19 as their provenance.|
 |8|CF Parameter Set|Optional|Used for PCF and not present in non-notional situations.|
 |9|[IBSS Parameter Set](Discovery%20Frames.md#ibss-parameter-set)|Optional|Used within an IBSS (duh).|
-|10|[Country](index.md#country)|Optional|Used with 802.11d and used with 802.11h.|
+|10|[Country](../../../../index.md#country)|Optional|Used with 802.11d and used with 802.11h.|
 |11|FH Parameters|Optional|Used with legacy FH stations.|
 |12|FH Pattern Table|Optional|Used with legacy FH stations.|
-|13|[Power Constraint](index.md#power-constraint)|Optional|Used with 802.11h.|
-|14|[Channel Switch Announcement](index.md#channel-switch-announcement)|Optional|Used with 802.11h.|
-|15|[Quiet](index.md#quiet)|Optional|Used with 802.11h.|
-|16|[IBSS DSF](index.md#ibss-dsf)|Optional|Used with 802.11h in an IBSS.|
-|17|[TPC Report](index.md#tpc-report)|Optional|Used with 802.11h.|
+|13|[Power Constraint](../../../../index.md#power-constraint)|Optional|Used with 802.11h.|
+|14|[Channel Switch Announcement](../../../../index.md#channel-switch-announcement)|Optional|Used with 802.11h.|
+|15|[Quiet](../../../../index.md#quiet)|Optional|Used with 802.11h.|
+|16|[IBSS DSF](../../../../index.md#ibss-dsf)|Optional|Used with 802.11h in an IBSS.|
+|17|[TPC Report](../../../../index.md#tpc-report)|Optional|Used with 802.11h.|
 |18|[ERP Information](Discovery%20Frames.md#extended-rate-phy-erp-element)|Optional||
-|19|[Extended Supported Rates](index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
-|20|[RSN](index.md#robust-security-network-rsn)|Optional||
-|21|[BSS Load](index.md#bss-load)|Optional|Used with 802.11e QoS.|
-|22|[EDCA Parameter](index.md#enhanced-distributed-channel-access-edca-parameter)|Optional|Used with 802.11e QoS when the QoS capability element is missing.|
+|19|[Extended Supported Rates](../../../../index.md#supported-rates--extended-supported-rates)|Optional|See Supported Rates.|
+|20|[RSN](../../../../index.md#robust-security-network-rsn)|Optional||
+|21|[BSS Load](../../../../index.md#bss-load)|Optional|Used with 802.11e QoS.|
+|22|[EDCA Parameter](../../../../index.md#enhanced-distributed-channel-access-edca-parameter)|Optional|Used with 802.11e QoS when the QoS capability element is missing.|
 |23|Measurement Pilot Transmission Information|Optional|Used with 802.11k.|
 |24|Multiple BSSID|Optional|Used with 802.11k.|
 |25|RRM Enabled Capabilities|Optional|Used with 802.11k.|

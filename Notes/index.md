@@ -8,4 +8,4 @@ Experimental support for inline Mathjax is now provided using a [custom preproce
 
 *The information here is for educational purposes only and I do not bear any responsibility for your own actions.*
 
-![](icon_black.png)
+![](Notes/icon_black.png)
