@@ -134,6 +134,7 @@ FTP commands are divided into three groups.
 FTP avails itself of 3-digit reply codes of the form `xyz`. Each digit carries different type of information and provides reply categorisation. 
 
 The *first* digits represents the success or failure status of the FTP command previously sent.
+
 |Reply Code|Name|Meaning|
 |:-----------:|:------:|---------|
 |1yz|Positive Perliminary Reply|An initial response indicating the acknowledgment of the command and that the command is still in progress. The user should await another reply before proceeding with the next command.|
@@ -143,6 +144,7 @@ The *first* digits represents the success or failure status of the FTP command p
 |5yz|Permanent Negative Completion Reply|The command could not be executed and another attempt is likely to throw an error as well.|
 
 The *second* digit is utilised for the categorisation of replies into functional groups.
+
 |Reply Code|Name|Meaning|
 |:-----------:|:------:|---------|
 |x0z|Syntax|Syntax errors or miscellaneous messages.|
