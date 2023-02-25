@@ -163,7 +163,8 @@ max-height:100%;" src="../../../favicon.png" > <!-- Icon pls -->
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p>This chunk of data is NOT part of a typical PE file. It is an undocumented structure which is only found in files built with the Visual Studio Toolset. It is located immediately after the DOS stub and before the NT headers and serves the purpose of outlining the Visual Studio tools and versions that were used to build the PE file. It is possible to completely zero out this part of the PE file without affecting it.</p>
 <p>The Rich Header comprises a chunk of XOR-encrypted data. It begins with a signature, <code>DanS</code>, followed by three zero-ed DWORDs used for padding. Next are entries containing information about the Visual Studio tools used in the build process of the PE file. The entries are represented by DWORD pairs, where the high word of the first DWORD stores the product or type ID and the low word contains the build ID. The second DWORD is used for storing the use count for each tool. </p>
 <p>At the end of the header is another signature, <code>Rich</code>, followed by a checksum. The checksum field is what serves as the XOR key.</p>

@@ -6,13 +6,11 @@ src = "Notes"
 title = "The Cyberclopaedia"
 description = "This is an aspiring project aimed at accumulating knowledge from the world of cybersecurity and presenting it in a cogent way, so it is accessible to as large and audience as possible and so that everyone has a good resource to learn hacking from."
 
+
 [output.katex]
 
 [preprocessor.katex]
-
 renderers = ["html"]
-
-[proprocessor.links]
 
 [output.html]
 no-section-label = true
@@ -27,4 +25,3 @@ enable = true
 [build]
 build-dir = "docs"
 create-missing = false
-use-default-preprocessors = false

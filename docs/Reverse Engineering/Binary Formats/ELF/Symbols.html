@@ -163,7 +163,8 @@ max-height:100%;" src="../../../favicon.png" > <!-- Icon pls -->
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p>ELF symbols represent symbolic references to certain pieces of code and data such as functions and global variables. For example, the <code>printf()</code> function will have such an entry in the <code>.symtab</code> and <code>.dynsym</code> sections (if the object is dynamically linked).</p>
 <h1 id="the-symbol-tables"><a class="header" href="#the-symbol-tables">The Symbol Tables</a></h1>
 <p>Ultimately, there exist at most two symbol tables in an ELF object - <code>.symtab</code> and <code>.dynsym</code>. The former will also contain the contents of the latter, however, it is not necessary for dynamic linking and is thus usually omitted in the memory image of a binary. The extraneous symbols in <code>.symtab</code> are simply too big and completely useless during execution time, so <code>.dynsym</code> only contains the information absolutely necessary for dynamic linking. You will see that <code>.symtab</code> has no flags, while <code>.dynsym</code> is marked as <code>ALLOC</code>.</p>

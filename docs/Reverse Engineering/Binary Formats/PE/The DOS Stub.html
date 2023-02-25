@@ -163,7 +163,8 @@ max-height:100%;" src="../../../favicon.png" > <!-- Icon pls -->
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p>Immediately following the <a href="The%20DOS%20Header.html">DOS header</a> is the DOS Stub. This is a tiny portion of executable instructions which get executed instead of the programme when run in DOS mode. Its purpose is to print an error message that the programme cannot be run in DOS mode. It is possible to also alter the message displayed.</p>
 <p>We can analyse the DOS stub with a disassembler:</p>
 <pre><code class="language-asm">0x0000000000000000:  0E                   push  cs  

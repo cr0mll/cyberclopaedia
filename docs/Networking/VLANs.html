@@ -163,7 +163,8 @@ max-height:100%;" src="../favicon.png" > <!-- Icon pls -->
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p>Virtual LANs provide the means for logically separating a LAN at Layer 2 and can be thought of as the Layer 2 counterpart to the Layer 3 subnets. The reasons to do this are typically bandwidth- and security-related and have to do with broadcast frames.</p>
 <p>Imagine the following LAN, without VLANs configured:</p>
 <p><img src="Resources/Images/VLAN_not.png" alt="" /></p>
@@ -178,7 +179,7 @@ max-height:100%;" src="../favicon.png" > <!-- Icon pls -->
 <p><img src="Resources/Images/VLAN_trunk.png" alt="" /></p>
 <p>However, since a trunk port allows for traffic from many VLANs, it is not possible to determine to which VLAN the traffic belongs solely based on the interface it is flowing through. Therefore, a way of <em>tagging</em> each frame must be implemented by the switch. There are two main protocols for achieving this - the now obsolescent ISL (Inter-Switch Link) protocol, which is a propriety Cisco protocol which is not even used by Cisco anymore, and the <a href="Protocols/Ethernet%20(IEEE%20802.3).html#8021q-encapsulation">IEEE 802.1Q standard</a> (also called &quot;dot1q&quot;).</p>
 <p><img src="Resources/Images/VLAN_trunking.png" alt="" /></p>
-<p>Due to the size of the VID field in the dot1q tag, there are a total of $2^{12} = 4096$ VLANs. Two of them - the first and last one - are reserved and cannot be used. Therefore, the actual range for VLANs is from 1 to 4094. This range is further subdivided:</p>
+<p>Due to the size of the VID field in the dot1q tag, there are a total of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">12</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">4096</span></span></span></span> VLANs. Two of them - the first and last one - are reserved and cannot be used. Therefore, the actual range for VLANs is from 1 to 4094. This range is further subdivided:</p>
 <ul>
 <li>Normal VLANs: 1 - 1005</li>
 <li>Extended VLANs: 1006 - 4094</li>

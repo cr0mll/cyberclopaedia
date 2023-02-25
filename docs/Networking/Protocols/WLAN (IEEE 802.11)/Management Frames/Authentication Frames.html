@@ -163,7 +163,8 @@ max-height:100%;" src="../../../../favicon.png" > <!-- Icon pls -->
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p>The authentication phase follows the discovery phase. Note that this is not the same authentication phase as the one which establishes encryption in WPA2. The latter is built on top of this system, which in turn only pertains to <a href="../Authentication%20&amp;%20Association.html#open-system-authentication">Open System Authentication</a> and <a href="../Authentication%20&amp;%20Association.html#shared-key-authentication">Shared-Key Authentication</a>.</p>
 <p>The purpose of this phase is to only check and confirm and the station which wants to join the network matches the capabilities required. Shared-Key Authentication was introduced as an extension to this phase in order to enable <a href="../Encryption%20&amp;%20Integrity.html#wireless-equivalent-privacy-wep">WEP encryption</a>.</p>
 <p>It is paramount to note that if more complex authentication, such as that required by WPA, is used, then OSA is used first and any advanced authentication procedures occur after the association phase.</p>
