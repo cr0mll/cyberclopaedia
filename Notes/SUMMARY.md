@@ -37,7 +37,7 @@
 			- [Union injections](Exploitation/Web/SQL%20Injection/Union%20injections.md)
 		- [CRLF Injection](Exploitation/Web/CRLF%20Injection.md)
 		- [Cross-Site Request Forgery](Exploitation/Web/Cross-Site%20Request%20Forgery.md)
-		- [Cross-Site Scripting](Exploitation/Web/Cross-Site%20Scripting.md)
+		- [Cross-Site Scripting (XSS)](Exploitation/Web/Cross-Site%20Scripting%20(XSS).md)
 		- [HTTP Parameter Pollution](Exploitation/Web/HTTP%20Parameter%20Pollution.md)
 		- [HTTP Response Splitting](Exploitation/Web/HTTP%20Response%20Splitting.md)
 		- [Open Redirect](Exploitation/Web/Open%20Redirect.md)

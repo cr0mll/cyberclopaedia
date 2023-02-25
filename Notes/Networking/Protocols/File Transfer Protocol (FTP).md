@@ -92,7 +92,7 @@ FTP commands are divided into three groups.
 |`CWD`|Change Working Directory|Changes the directory the user is currently in.|
 |`CDUP`|Change to Parent Directory|A specialised `CWD` command which just goes up a directory.|
 |`SMNT`|Structrure Mount|Mounts a particular file system for resource access.|
-|`REIN`|Reinitialised the FTP session by flushing all previously set parameters.|
+|`REIN`|Reinitialise|Reinitialise the FTP session by flushing all previously set parameters.|
 |`QUIT`|Logout|Terminates the FTP session and closes the control connection. The name is a bit of a misnomer, since `REIN` is more akin to an actual logout.|
 
 **FTP Transfer Parameter Commands** are used for specifying how data transfers should occur.

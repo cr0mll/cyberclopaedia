@@ -1,0 +1,445 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js coal">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The ELF Header - The Cyberclopaedia</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="This is an aspiring project aimed at accumulating knowledge from the world of cybersecurity and presenting it in a cogent way, so it is accessible to as large and audience as possible and so that everyone has a good resource to learn hacking from.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <meta property="og:title" content="The ELF Header" />
+        <meta property="og:image" content="http://cr0mll.github.io/cyberclopaedia/favicon.png" />
+        <meta property="og:image:secure_url" content="https://cr0mll.github.io/cyberclopaedia/favicon.png" />
+        <meta property="og:description" content="The Cyberclopaedia is an aspiring project aimed at accumulating knowledge from the world of cybersecurity and presenting it in a cogent way, so it is accessible to as large and audience as possible and so that everyone has a good resource to learn hacking from." />
+
+        <meta property="twitter:card" content="summary" />
+        <meta property="twitter:site" content="@cr0mll" />
+        <meta property="twitter:creator" content="@cr0mll" />
+        <meta property="twitter:title" content="The ELF Header" />
+        <meta property="twitter:description" content="The Cyberclopaedia is an aspiring project aimed at accumulating knowledge from the world of cybersecurity and presenting it in a cogent way, so that everyone can learn." />
+        <meta property="twitter:image" content="https://cr0mll.github.io/cyberclopaedia/favicon.png" />
+        <meta property="twitter:image:alt" content="Cyberclopaedia Logo" />
+        
+
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../highlight.css">
+        <link rel="stylesheet" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "coal";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('coal')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            
+            <div class="sidebar-scrollbox">
+                <img style="max-width:100%;
+max-height:100%;" src="../../../favicon.png" > <!-- Icon pls -->
+                <ol class="chapter"><li class="chapter-item affix "><a href="../../../index.html">Cyberclopaedia</a></li><li class="chapter-item "><a href="../../../Reconnaissance/index.html">Reconnaissance</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Reconnaissance/Enumeration/index.html">Enumeration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Reconnaissance/Enumeration/nmap/index.html">nmap</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Reconnaissance/Enumeration/nmap/FIN, NULL & XMAS Scans.html">FIN, NULL & XMAS Scans</a></li><li class="chapter-item "><a href="../../../Reconnaissance/Enumeration/nmap/TCP SYN & TCP Connect scans.html">TCP SYN & TCP Connect scans</a></li></ol></li><li class="chapter-item "><a href="../../../Reconnaissance/Enumeration/DNS Server Enumeration (53).html">DNS Server Enumeration (53)</a></li><li class="chapter-item "><a href="../../../Reconnaissance/Enumeration/FTP Enumeration (21).html">FTP Enumeration (21)</a></li><li class="chapter-item "><a href="../../../Reconnaissance/Enumeration/LDAP Enumeration (389, 636, 3268, 3269).html">LDAP Enumeration (389, 636, 3268, 3269)</a></li><li class="chapter-item "><a href="../../../Reconnaissance/Enumeration/SNMP Enumeration (161).html">SNMP Enumeration (161)</a></li></ol></li><li class="chapter-item "><a href="../../../Reconnaissance/OSINT/index.html">OSINT</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Reconnaissance/OSINT/Tools/index.html">Tools</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Reconnaissance/OSINT/Tools/recon-ng.html">recon-ng</a></li><li class="chapter-item "><a href="../../../Reconnaissance/OSINT/Tools/theHarvester.html">theHarvester</a></li></ol></li><li class="chapter-item "><a href="../../../Reconnaissance/OSINT/Domain Name Enumeration.html">Domain Name Enumeration</a></li><li class="chapter-item "><a href="../../../Reconnaissance/OSINT/Google Dorks.html">Google Dorks</a></li><li class="chapter-item "><a href="../../../Reconnaissance/OSINT/Harvesting E-Mails.html">Harvesting E-Mails</a></li><li class="chapter-item "><a href="../../../Reconnaissance/OSINT/Instagram User Enumeration.html">Instagram User Enumeration</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../../Exploitation/index.html">Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Exploitation/Binary Exploitation/index.html">Binary Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Exploitation/Binary Exploitation/Heap Exploitation/index.html">Heap Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Exploitation/Binary Exploitation/Heap Exploitation/Use After Free (UAF).html">Use After Free (UAF)</a></li></ol></li><li class="chapter-item "><a href="../../../Exploitation/Binary Exploitation/Stack Exploitation/index.html">Stack Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Exploitation/Binary Exploitation/Stack Exploitation/Buffer Overflows.html">Buffer Overflows</a></li><li class="chapter-item "><a href="../../../Exploitation/Binary Exploitation/Stack Exploitation/Format String Vulnerabilities.html">Format String Vulnerabilities</a></li><li class="chapter-item "><a href="../../../Exploitation/Binary Exploitation/Stack Exploitation/Return to _dl_resolve.html">Return to _dl_resolve</a></li><li class="chapter-item "><a href="../../../Exploitation/Binary Exploitation/Stack Exploitation/Return-oriented programming (ROP).html">Return-oriented programming (ROP)</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../../Exploitation/DNS/index.html">DNS</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Exploitation/DNS/DNS Cache Poisoning.html">DNS Cache Poisoning</a></li><li class="chapter-item "><a href="../../../Exploitation/DNS/DNS Traffic Amplification.html">DNS Traffic Amplification</a></li></ol></li><li class="chapter-item "><a href="../../../Exploitation/Web/index.html">Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Exploitation/Web/SQL Injection/index.html">SQL Injection</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Exploitation/Web/SQL Injection/Cheatsheets.html">Cheatsheets</a></li><li class="chapter-item "><a href="../../../Exploitation/Web/SQL Injection/Defences.html">Defences</a></li><li class="chapter-item "><a href="../../../Exploitation/Web/SQL Injection/Finding SQLi.html">Finding SQLi</a></li><li class="chapter-item "><a href="../../../Exploitation/Web/SQL Injection/Introduction.html">Introduction</a></li><li class="chapter-item "><a href="../../../Exploitation/Web/SQL Injection/Union injections.html">Union injections</a></li></ol></li><li class="chapter-item "><a href="../../../Exploitation/Web/CRLF Injection.html">CRLF Injection</a></li><li class="chapter-item "><a href="../../../Exploitation/Web/Cross-Site Request Forgery.html">Cross-Site Request Forgery</a></li><li class="chapter-item "><a href="../../../Exploitation/Web/Cross-Site Scripting (XSS).html">Cross-Site Scripting (XSS)</a></li><li class="chapter-item "><a href="../../../Exploitation/Web/HTTP Parameter Pollution.html">HTTP Parameter Pollution</a></li><li class="chapter-item "><a href="../../../Exploitation/Web/HTTP Response Splitting.html">HTTP Response Splitting</a></li><li class="chapter-item "><a href="../../../Exploitation/Web/Open Redirect.html">Open Redirect</a></li><li class="chapter-item "><a href="../../../Exploitation/Web/Template Injection.html">Template Injection</a></li></ol></li><li class="chapter-item "><a href="../../../Exploitation/Windows/index.html">Windows</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Exploitation/Windows/SCF File Attacks.html">SCF File Attacks</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../../Post Exploitation/index.html">Post Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Post Exploitation/Active Directory (AD)/index.html">Active Directory (AD)</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Post Exploitation/Active Directory (AD)/Domain Data Enumeration with Bloodhound.html">Domain Data Enumeration with Bloodhound</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Active Directory (AD)/Domain Enumeration with PowerView.html">Domain Enumeration with PowerView</a></li></ol></li><li class="chapter-item "><a href="../../../Post Exploitation/Enumeration/index.html">Enumeration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Post Exploitation/Enumeration/Linux/index.html">Linux</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Post Exploitation/Enumeration/Linux/Hunting Down Sensitive Files.html">Hunting Down Sensitive Files</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Enumeration/Linux/Network Enumeration.html">Network Enumeration</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Enumeration/Linux/System Enumeration.html">System Enumeration</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Enumeration/Linux/User Enumeration.html">User Enumeration</a></li></ol></li><li class="chapter-item "><a href="../../../Post Exploitation/Enumeration/Windows/index.html">Windows</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Post Exploitation/Enumeration/Windows/System Enumeration.html">System Enumeration</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../../Post Exploitation/Pivoting/index.html">Pivoting</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Post Exploitation/Pivoting/SSH Tunneling.html">SSH Tunneling</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Pivoting/Tunneling with Chisel.html">Tunneling with Chisel</a></li></ol></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/index.html">Privilege Escalation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Linux/index.html">Linux</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Linux/Abusing Linux Capabilities.html">Abusing Linux Capabilities</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Linux/Abusing SUID & SGID Binaries.html">Abusing SUID & SGID Binaries</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Linux/Kernel Exploits.html">Kernel Exploits</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Linux/NFS Root Squashing.html">NFS Root Squashing</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Linux/Sudo Escalation via LD_PRELOAD.html">Sudo Escalation via LD_PRELOAD</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Linux/Sudo Shell Escape Sequences.html">Sudo Shell Escape Sequences</a></li></ol></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Windows/index.html">Windows</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Windows/Misconfigured Services/index.html">Misconfigured Services</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Windows/Misconfigured Services/Insecure Service Executable Permissions.html">Insecure Service Executable Permissions</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Windows/Misconfigured Services/Insecure Service Permissions.html">Insecure Service Permissions</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Windows/Misconfigured Services/Unquoted Service Paths.html">Unquoted Service Paths</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Windows/Misconfigured Services/Weak Registry Permissions.html">Weak Registry Permissions</a></li></ol></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Windows/AlwaysInstallElevated Group Policy.html">AlwaysInstallElevated Group Policy</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Windows/AutoRun Programmes.html">AutoRun Programmes</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Windows/Bypassing UAC.html">Bypassing UAC</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Windows/Kernel Exploits.html">Kernel Exploits</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Windows/Scheduled Tasks.html">Scheduled Tasks</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Windows/Startup Applications.html">Startup Applications</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Windows/Stored Credentials.html">Stored Credentials</a></li><li class="chapter-item "><a href="../../../Post Exploitation/Privilege Escalation/Windows/Token Impersonation.html">Token Impersonation</a></li></ol></li></ol></li></ol></li><li class="chapter-item "><a href="../../../Malware Analysis/index.html">Malware Analysis</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Malware Analysis/Basic Static Analysis.html">Basic Static Analysis</a></li></ol></li><li class="chapter-item "><a href="../../../Malware Development/index.html">Malware Development</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Malware Development/Code Execution Techniques/index.html">Code Execution Techniques</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Malware Development/Code Execution Techniques/Hyperlinking.html">Hyperlinking</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../Reverse Engineering/index.html">Reverse Engineering</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../Reverse Engineering/Binary Formats/index.html">Binary Formats</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../Reverse Engineering/Binary Formats/ELF/index.html">ELF</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Reverse Engineering/Binary Formats/ELF/Dynamic Linking.html">Dynamic Linking</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Binary Formats/ELF/Relocations.html">Relocations</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Binary Formats/ELF/Sections.html">Sections</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Binary Formats/ELF/Segments.html">Segments</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Binary Formats/ELF/Symbols.html">Symbols</a></li><li class="chapter-item expanded "><a href="../../../Reverse Engineering/Binary Formats/ELF/The ELF Header.html" class="active">The ELF Header</a></li></ol></li><li class="chapter-item "><a href="../../../Reverse Engineering/Binary Formats/PE/index.html">PE</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Reverse Engineering/Binary Formats/PE/NT Headers.html">NT Headers</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Binary Formats/PE/Relocations.html">Relocations</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Binary Formats/PE/Sections.html">Sections</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Binary Formats/PE/The DOS Header.html">The DOS Header</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Binary Formats/PE/The DOS Stub.html">The DOS Stub</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Binary Formats/PE/The Rich Header.html">The Rich Header</a></li></ol></li><li class="chapter-item "><a href="../../../Reverse Engineering/Binary Formats/Reverse Engineering Android Applications.html">Reverse Engineering Android Applications</a></li></ol></li><li class="chapter-item "><a href="../../../Reverse Engineering/Program Anatomy/index.html">Program Anatomy</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Reverse Engineering/Program Anatomy/Instructions.html">Instructions</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Program Anatomy/Registers.html">Registers</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Program Anatomy/The Heap.html">The Heap</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Program Anatomy/The Stack.html">The Stack</a></li></ol></li><li class="chapter-item "><a href="../../../Reverse Engineering/Reverse Engineering with Ghidra/index.html">Reverse Engineering with Ghidra</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Reverse Engineering/Reverse Engineering with Ghidra/Creating a Project and Loading a Binary.html">Creating a Project and Loading a Binary</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Reverse Engineering with Ghidra/Initial Analysis.html">Initial Analysis</a></li></ol></li><li class="chapter-item "><a href="../../../Reverse Engineering/Reverse Engineering with radare2/index.html">Reverse Engineering with radare2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Reverse Engineering/Reverse Engineering with radare2/Analysis.html">Analysis</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Reverse Engineering with radare2/Binary Info.html">Binary Info</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Reverse Engineering with radare2/Flags.html">Flags</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Reverse Engineering with radare2/Seeking.html">Seeking</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Reverse Engineering with radare2/Strings.html">Strings</a></li></ol></li><li class="chapter-item "><a href="../../../Reverse Engineering/Assembly.html">Assembly</a></li><li class="chapter-item "><a href="../../../Reverse Engineering/Basic Reverse Engineering using objdump, strace, and ltrace.html">Basic Reverse Engineering using objdump, strace, and ltrace</a></li></ol></li><li class="chapter-item "><a href="../../../Hardware Hacking/index.html">Hardware Hacking</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Hardware Hacking/Wireless Attacks/index.html">Wireless Attacks</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Hardware Hacking/Wireless Attacks/Deauth Attack.html">Deauth Attack</a></li><li class="chapter-item "><a href="../../../Hardware Hacking/Wireless Attacks/Hacking WEP Networks.html">Hacking WEP Networks</a></li><li class="chapter-item "><a href="../../../Hardware Hacking/Wireless Attacks/Hacking WPA Networks.html">Hacking WPA Networks</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../../Cryptography/index.html">Cryptography</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Cryptography/Block Ciphers/index.html">Block Ciphers</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Cryptography/Block Ciphers/Advanced Encryption Standard (AES).html">Advanced Encryption Standard (AES)</a></li><li class="chapter-item "><a href="../../../Cryptography/Block Ciphers/Encrypting Non-Conforming Messages.html">Encrypting Non-Conforming Messages</a></li><li class="chapter-item "><a href="../../../Cryptography/Block Ciphers/Modes of Operation.html">Modes of Operation</a></li><li class="chapter-item "><a href="../../../Cryptography/Block Ciphers/Padding Oracle Attack.html">Padding Oracle Attack</a></li></ol></li><li class="chapter-item "><a href="../../../Cryptography/Hash Functions/index.html">Hash Functions</a></li><li class="chapter-item "><a href="../../../Cryptography/Stream Ciphers/index.html">Stream Ciphers</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Cryptography/Stream Ciphers/Hardware-Oriented Stream Ciphers/index.html">Hardware-Oriented Stream Ciphers</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Cryptography/Stream Ciphers/Hardware-Oriented Stream Ciphers/Grain-128a.html">Grain-128a</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../../Cryptography/Breaking Classical Cryptrography.html">Breaking Classical Cryptrography</a></li><li class="chapter-item "><a href="../../../Cryptography/Principles of Modern Cryptography.html">Principles of Modern Cryptography</a></li></ol></li><li class="chapter-item "><a href="../../../Networking/index.html">Networking</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Networking/Networks/index.html">Networks</a></li><li class="chapter-item "><a href="../../../Networking/Protocols/index.html">Protocols</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Networking/Protocols/Domain Name System (DNS)/index.html">Domain Name System (DNS)</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Networking/Protocols/Domain Name System (DNS)/DNS Protocol.html">DNS Protocol</a></li><li class="chapter-item "><a href="../../../Networking/Protocols/Domain Name System (DNS)/The Domain Name System.html">The Domain Name System</a></li><li class="chapter-item "><a href="../../../Networking/Protocols/Domain Name System (DNS)/The in-addr.arpa Domain.html">The in-addr.arpa Domain</a></li></ol></li><li class="chapter-item "><a href="../../../Networking/Protocols/WLAN (IEEE 802.11)/index.html">WLAN (IEEE 802.11)</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/index.html">Management Frames</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/Action Frames.html">Action Frames</a></li><li class="chapter-item "><a href="../../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/Association Frames.html">Association Frames</a></li><li class="chapter-item "><a href="../../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/Authentication Frames.html">Authentication Frames</a></li><li class="chapter-item "><a href="../../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/Discovery Frames.html">Discovery Frames</a></li></ol></li><li class="chapter-item "><a href="../../../Networking/Protocols/WLAN (IEEE 802.11)/Authentication & Association.html">Authentication & Association</a></li><li class="chapter-item "><a href="../../../Networking/Protocols/WLAN (IEEE 802.11)/Control Frames.html">Control Frames</a></li><li class="chapter-item "><a href="../../../Networking/Protocols/WLAN (IEEE 802.11)/Data Frames.html">Data Frames</a></li><li class="chapter-item "><a href="../../../Networking/Protocols/WLAN (IEEE 802.11)/Encryption & Integrity.html">Encryption & Integrity</a></li><li class="chapter-item "><a href="../../../Networking/Protocols/WLAN (IEEE 802.11)/WiFi Protected Access (WPA).html">WiFi Protected Access (WPA)</a></li></ol></li><li class="chapter-item "><a href="../../../Networking/Protocols/Ethernet (IEEE 802.3).html">Ethernet (IEEE 802.3)</a></li><li class="chapter-item "><a href="../../../Networking/Protocols/File Transfer Protocol (FTP).html">File Transfer Protocol (FTP)</a></li><li class="chapter-item "><a href="../../../Networking/Protocols/Network Time Protocol (NTP).html">Network Time Protocol (NTP)</a></li><li class="chapter-item "><a href="../../../Networking/Protocols/Server Message Block (SMB).html">Server Message Block (SMB)</a></li><li class="chapter-item "><a href="../../../Networking/Protocols/Simple Network Management Protocol (SNMP).html">Simple Network Management Protocol (SNMP)</a></li></ol></li><li class="chapter-item "><a href="../../../Networking/The TCP-IP Suite and the OSI Model/index.html">The TCP-IP Suite and the OSI Model</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../Networking/The TCP-IP Suite and the OSI Model/(1) The Physical Layer.html">(1) The Physical Layer</a></li><li class="chapter-item "><a href="../../../Networking/The TCP-IP Suite and the OSI Model/(2) The Datalink Layer.html">(2) The Datalink Layer</a></li></ol></li><li class="chapter-item "><a href="../../../Networking/Network Address Translation (NAT).html">Network Address Translation (NAT)</a></li><li class="chapter-item "><a href="../../../Networking/Subnetting.html">Subnetting</a></li><li class="chapter-item "><a href="../../../Networking/VLANs.html">VLANs</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Cyberclopaedia</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/cr0mll/cyberclopaedia/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>The ELF header is a data structure which sits at the beginning of every ELF file and describes its layout. It starts with 16 identification bytes that contain the ELF magic bytes. The following structs are defined in <code>&lt;elf.h&gt;</code>:</p>
+<pre><code class="language-cpp">#define EI_NIDENT 16
+
+typedef struct {
+        unsigned char   e_ident[EI_NIDENT];
+        Elf32_Half      e_type;
+        Elf32_Half      e_machine;
+        Elf32_Word      e_version;
+        Elf32_Addr      e_entry;
+        Elf32_Off       e_phoff;
+        Elf32_Off       e_shoff;
+        Elf32_Word      e_flags;
+        Elf32_Half      e_ehsize;
+        Elf32_Half      e_phentsize;
+        Elf32_Half      e_phnum;
+        Elf32_Half      e_shentsize;
+        Elf32_Half      e_shnum;
+        Elf32_Half      e_shstrndx;
+} Elf32_Ehdr;
+
+typedef struct {
+        unsigned char   e_ident[EI_NIDENT];
+        Elf64_Half      e_type;
+        Elf64_Half      e_machine;
+        Elf64_Word      e_version;
+        Elf64_Addr      e_entry;
+        Elf64_Off       e_phoff;
+        Elf64_Off       e_shoff;
+        Elf64_Word      e_flags;
+        Elf64_Half      e_ehsize;
+        Elf64_Half      e_phentsize;
+        Elf64_Half      e_phnum;
+        Elf64_Half      e_shentsize;
+        Elf64_Half      e_shnum;
+        Elf64_Half      e_shstrndx;
+} Elf64_Ehdr;
+</code></pre>
+<p><img src="Resources/Images/ELF_Header.png" alt="" /></p>
+<ul>
+<li><code>e_ident</code> - the initial magic bytes which denote an ELF file.</li>
+<li><code>e_type</code> - the type of the object file. </li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Name</th><th style="text-align: center">Value</th><th style="text-align: center">Meaning</th></tr></thead><tbody>
+<tr><td style="text-align: center"><code>ET_NONE</code></td><td style="text-align: center">0</td><td style="text-align: center">Unknown</td></tr>
+<tr><td style="text-align: center"><code>ET_REL</code></td><td style="text-align: center">1</td><td style="text-align: center">Relocatable file</td></tr>
+<tr><td style="text-align: center"><code>ET_EXEC</code></td><td style="text-align: center">2</td><td style="text-align: center">Executable file</td></tr>
+<tr><td style="text-align: center"><code>ET_DYN</code></td><td style="text-align: center">3</td><td style="text-align: center">Shared object file</td></tr>
+<tr><td style="text-align: center"><code>ET_CORE</code></td><td style="text-align: center">4</td><td style="text-align: center">Core file</td></tr>
+<tr><td style="text-align: center"><code>ET_LOOS</code></td><td style="text-align: center"><code>0xfe00</code></td><td style="text-align: center">Operating system-specific</td></tr>
+<tr><td style="text-align: center"><code>ET_HIOS</code></td><td style="text-align: center"><code>0xfeff</code></td><td style="text-align: center">Operating system-specific</td></tr>
+<tr><td style="text-align: center"><code>ET_LOPROC</code></td><td style="text-align: center"><code>0xff00</code></td><td style="text-align: center">Processor-specific</td></tr>
+<tr><td style="text-align: center"><code>ET_HIPROC</code></td><td style="text-align: center"><code>0xffff</code></td><td style="text-align: center">Processor-specific</td></tr>
+</tbody></table>
+</div>
+<ul>
+<li><code>e_machine</code> - specifies the required architecture. Values not labeled in the table are reserved for future machine names.</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th style="text-align: center">Value</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>EM_NONE</code></td><td style="text-align: center">0</td><td>No machine</td></tr>
+<tr><td><code>EM_M32</code></td><td style="text-align: center">1</td><td>AT&amp;T WE 32100</td></tr>
+<tr><td><code>EM_SPARC</code></td><td style="text-align: center">2</td><td>SPARC</td></tr>
+<tr><td><code>EM_386</code></td><td style="text-align: center">3</td><td>Intel 80386</td></tr>
+<tr><td><code>EM_68K</code></td><td style="text-align: center">4</td><td>Motorola 68000</td></tr>
+<tr><td><code>EM_88K</code></td><td style="text-align: center">5</td><td>Motorola 88000</td></tr>
+<tr><td>reserved</td><td style="text-align: center">6</td><td>Reserved for future use (was EM_486)</td></tr>
+<tr><td><code>EM_860</code></td><td style="text-align: center">7</td><td>Intel 80860</td></tr>
+<tr><td><code>EM_MIPS</code></td><td style="text-align: center">8</td><td>MIPS I Architecture</td></tr>
+<tr><td><code>EM_S370</code></td><td style="text-align: center">9</td><td>IBM System/370 Processor</td></tr>
+<tr><td><code>EM_MIPS_RS3_LE</code></td><td style="text-align: center">10</td><td>MIPS RS3000 Little-endian</td></tr>
+<tr><td>reserved</td><td style="text-align: center">11-14</td><td>Reserved for future use</td></tr>
+<tr><td><code>EM_PARISC</code></td><td style="text-align: center">15</td><td>Hewlett-Packard PA-RISC</td></tr>
+<tr><td>reserved</td><td style="text-align: center">16</td><td>Reserved for future use</td></tr>
+<tr><td><code>EM_VPP500</code></td><td style="text-align: center">17</td><td>Fujitsu VPP500</td></tr>
+<tr><td><code>EM_SPARC32PLUS</code></td><td style="text-align: center">18</td><td>Enhanced instruction set SPARC</td></tr>
+<tr><td><code>EM_960</code></td><td style="text-align: center">19</td><td>Intel 80960</td></tr>
+<tr><td><code>EM_PPC</code></td><td style="text-align: center">20</td><td>PowerPC</td></tr>
+<tr><td><code>EM_PPC64</code></td><td style="text-align: center">21</td><td>64-bit PowerPC</td></tr>
+<tr><td><code>EM_S390</code></td><td style="text-align: center">22</td><td>IBM System/390 Processor</td></tr>
+<tr><td>reserved</td><td style="text-align: center">23-35</td><td>Reserved for future use</td></tr>
+<tr><td><code>EM_V800</code></td><td style="text-align: center">36</td><td>NEC V800</td></tr>
+<tr><td><code>EM_FR20</code></td><td style="text-align: center">37</td><td>Fujitsu FR20</td></tr>
+<tr><td><code>EM_RH32</code></td><td style="text-align: center">38</td><td>TRW RH-32</td></tr>
+<tr><td><code>EM_RCE</code></td><td style="text-align: center">39</td><td>Motorola RCE</td></tr>
+<tr><td><code>EM_ARM</code></td><td style="text-align: center">40</td><td>Advanced RISC Machines ARM</td></tr>
+<tr><td><code>EM_ALPHA</code></td><td style="text-align: center">41</td><td>Digital Alpha</td></tr>
+<tr><td><code>EM_SH</code></td><td style="text-align: center">42</td><td>Hitachi SH</td></tr>
+<tr><td><code>EM_SPARCV9</code></td><td style="text-align: center">43</td><td>SPARC Version 9</td></tr>
+<tr><td><code>EM_TRICORE</code></td><td style="text-align: center">44</td><td>Siemens TriCore embedded processor</td></tr>
+<tr><td><code>EM_ARC</code></td><td style="text-align: center">45</td><td>Argonaut RISC Core, Argonaut Technologies Inc.</td></tr>
+<tr><td><code>EM_H8_300</code></td><td style="text-align: center">46</td><td>Hitachi H8/300</td></tr>
+<tr><td><code>EM_H8_300H</code></td><td style="text-align: center">47</td><td>Hitachi H8/300H</td></tr>
+<tr><td><code>EM_H8S</code></td><td style="text-align: center">48</td><td>Hitachi H8S</td></tr>
+<tr><td><code>EM_H8_500</code></td><td style="text-align: center">49</td><td>Hitachi H8/500</td></tr>
+<tr><td><code>EM_IA_64</code></td><td style="text-align: center">50</td><td>Intel IA-64 processor architecture</td></tr>
+<tr><td><code>EM_MIPS_X</code></td><td style="text-align: center">51</td><td>Stanford MIPS-X</td></tr>
+<tr><td><code>EM_COLDFIRE</code></td><td style="text-align: center">52</td><td>Motorola ColdFire</td></tr>
+<tr><td><code>EM_68HC12</code></td><td style="text-align: center">53</td><td>Motorola M68HC12</td></tr>
+<tr><td><code>EM_MMA</code></td><td style="text-align: center">54</td><td>Fujitsu MMA Multimedia Accelerator</td></tr>
+<tr><td><code>EM_PCP</code></td><td style="text-align: center">55</td><td>Siemens PCP</td></tr>
+<tr><td><code>EM_NCPU</code></td><td style="text-align: center">56</td><td>Sony nCPU embedded RISC processor</td></tr>
+<tr><td><code>EM_NDR1</code></td><td style="text-align: center">57</td><td>Denso NDR1 microprocessor</td></tr>
+<tr><td><code>EM_STARCORE</code></td><td style="text-align: center">58</td><td>Motorola Star*Core processor</td></tr>
+<tr><td><code>EM_ME16</code></td><td style="text-align: center">59</td><td>Toyota ME16 processor</td></tr>
+<tr><td><code>EM_ST100</code></td><td style="text-align: center">60</td><td>STMicroelectronics ST100 processor</td></tr>
+<tr><td><code>EM_TINYJ</code></td><td style="text-align: center">61</td><td>Advanced Logic Corp. TinyJ embedded processor family</td></tr>
+<tr><td><code>EM_X86_64</code></td><td style="text-align: center">62</td><td>AMD x86-64 architecture</td></tr>
+<tr><td><code>EM_PDSP</code></td><td style="text-align: center">63</td><td>Sony DSP Processor</td></tr>
+<tr><td><code>EM_PDP10</code></td><td style="text-align: center">64</td><td>Digital Equipment Corp. PDP-10</td></tr>
+<tr><td><code>EM_PDP11</code></td><td style="text-align: center">65</td><td>Digital Equipment Corp. PDP-11</td></tr>
+<tr><td><code>EM_FX66</code></td><td style="text-align: center">66</td><td>Siemens FX66 microcontroller</td></tr>
+<tr><td><code>EM_ST9PLUS</code></td><td style="text-align: center">67</td><td>STMicroelectronics ST9+ 8/16 bit microcontroller</td></tr>
+<tr><td><code>EM_ST7</code></td><td style="text-align: center">68</td><td>STMicroelectronics ST7 8-bit microcontroller</td></tr>
+<tr><td><code>EM_68HC16</code></td><td style="text-align: center">69</td><td>Motorola MC68HC16 Microcontroller</td></tr>
+<tr><td><code>EM_68HC11</code></td><td style="text-align: center">70</td><td>Motorola MC68HC11 Microcontroller</td></tr>
+<tr><td><code>EM_68HC08</code></td><td style="text-align: center">71</td><td>Motorola MC68HC08 Microcontroller</td></tr>
+<tr><td><code>EM_68HC05</code></td><td style="text-align: center">72</td><td>Motorola MC68HC05 Microcontroller</td></tr>
+<tr><td><code>EM_SVX</code></td><td style="text-align: center">73</td><td>Silicon Graphics SVx</td></tr>
+<tr><td><code>EM_ST19</code></td><td style="text-align: center">74</td><td>STMicroelectronics ST19 8-bit microcontroller</td></tr>
+<tr><td><code>EM_VAX</code></td><td style="text-align: center">75</td><td>Digital VAX</td></tr>
+<tr><td><code>EM_CRIS</code></td><td style="text-align: center">76</td><td>Axis Communications 32-bit embedded processor</td></tr>
+<tr><td><code>EM_JAVELIN</code></td><td style="text-align: center">77</td><td>Infineon Technologies 32-bit embedded processor</td></tr>
+<tr><td><code>EM_FIREPATH</code></td><td style="text-align: center">78</td><td>Element 14 64-bit DSP Processor</td></tr>
+<tr><td><code>EM_ZSP</code></td><td style="text-align: center">79</td><td>LSI Logic 16-bit DSP Processor</td></tr>
+<tr><td><code>EM_MMIX</code></td><td style="text-align: center">80</td><td>Donald Knuth's educational 64-bit processor</td></tr>
+<tr><td><code>EM_HUANY</code></td><td style="text-align: center">81</td><td>Harvard University machine-independent object files</td></tr>
+<tr><td><code>EM_PRISM</code></td><td style="text-align: center">82</td><td>SiTera Prism</td></tr>
+<tr><td><code>EM_AVR</code></td><td style="text-align: center">83</td><td>Atmel AVR 8-bit microcontroller</td></tr>
+<tr><td><code>EM_FR30</code></td><td style="text-align: center">84</td><td>Fujitsu FR30</td></tr>
+<tr><td><code>EM_D10V</code></td><td style="text-align: center">85</td><td>Mitsubishi D10V</td></tr>
+<tr><td><code>EM_D30V</code></td><td style="text-align: center">86</td><td>Mitsubishi D30V</td></tr>
+<tr><td><code>EM_V850</code></td><td style="text-align: center">87</td><td>NEC v850</td></tr>
+<tr><td><code>EM_M32R</code></td><td style="text-align: center">88</td><td>Mitsubishi M32R</td></tr>
+<tr><td><code>EM_MN10300</code></td><td style="text-align: center">89</td><td>Matsushita MN10300</td></tr>
+<tr><td><code>EM_MN10200</code></td><td style="text-align: center">90</td><td>Matsushita MN10200</td></tr>
+<tr><td><code>EM_PJ</code></td><td style="text-align: center">91</td><td>picoJava</td></tr>
+<tr><td><code>EM_OPENRISC</code></td><td style="text-align: center">92</td><td>OpenRISC 32-bit embedded processor</td></tr>
+<tr><td><code>EM_ARC_A5</code></td><td style="text-align: center">93</td><td>ARC Cores Tangent-A5</td></tr>
+<tr><td><code>EM_XTENSA</code></td><td style="text-align: center">94</td><td>Tensilica Xtensa Architecture</td></tr>
+<tr><td><code>EM_VIDEOCORE</code></td><td style="text-align: center">95</td><td>Alphamosaic VideoCore processor</td></tr>
+<tr><td><code>EM_TMM_GPP</code></td><td style="text-align: center">96</td><td>Thompson Multimedia General Purpose Processor</td></tr>
+<tr><td><code>EM_NS32K</code></td><td style="text-align: center">97</td><td>National Semiconductor 32000 series</td></tr>
+<tr><td><code>EM_TPC</code></td><td style="text-align: center">98</td><td>Tenor Network TPC processor</td></tr>
+<tr><td><code>EM_SNP1K</code></td><td style="text-align: center">99</td><td>Trebia SNP 1000 processor</td></tr>
+<tr><td><code>EM_ST200</code></td><td style="text-align: center">100</td><td>STMicroelectronics (www.st.com) ST200 microcontroller</td></tr>
+</tbody></table>
+</div>
+<ul>
+<li><code>e_version</code> - specifies the ELF version.</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Value</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>EV_NONE</td><td>0</td><td>Invalid version</td></tr>
+<tr><td>EV_CURRENT</td><td>1</td><td>Current version</td></tr>
+</tbody></table>
+</div>
+<ul>
+<li><code>e_entry</code> - the virtual address of the entry point. If there is no entry point, this member is 0.</li>
+<li><code>e_phoff</code> - the offset (in bytes) from the beginning of the ELF header for the Program Header Table. If the file does not contain such a table, this member is 0.</li>
+<li><code>e_shoff</code> - the offset (in bytes) from the beginning of the ELF header for the Section Header Table. If the file does not contain such a table, this member is 0.</li>
+<li><code>e_flags</code> - processor-specific flags which take values of the form <code>EF_flag_name</code>.</li>
+<li><code>e_ehsize</code> - the size of the ELF header in bytes.</li>
+<li><code>e_phentsize</code> - the size of an entry in the Program Header Table. All entries are equally-sized.</li>
+<li><code>e_phnum</code> - the number of entries in the Program Header Table.</li>
+<li><code>e_shentsize</code> - the size of an entry in the Section Header Table. All entries are equally-sized.</li>
+<li><code>e_shnum</code> - the number of entries in the Section Header Table. If the number of sections is greater than or equal to <code>SHN_LORESERVE</code> (<code>0xff00</code>), this member is 0 and the actual number of entries in the Section Header Table is contained in the <code>sh_size</code> field of the first section header (at index 0). Otherwise, the <code>sh_size</code> member of the initial entry contains 0.</li>
+<li><code>e_shstrndx</code> - the Section Header Table index of the entry which is associated with the section name string table. If there is no such table, this holds <code>SHN_UNDEF</code>.  If this index is greater than or equal to <code>SHN_LORESERVE</code> (<code>0xff00</code>), this member contains <code>SHN_XINDEX</code> (<code>0xffff</code>) and the actual index of the section name string table section is stored in the <code>sh_link</code> field of the first section header (at index 0). Otherwise, the <code>sh_link</code> member of the initial entry contains 0.</li>
+</ul>
+<h1 id="elf-identification"><a class="header" href="#elf-identification">ELF Identification</a></h1>
+<p>Since ELF supports multiple types of processors, data encodings and machines, the first 16 bytes provide information as to how to interpret the file, regardless of the rest of its contents. These are the indices and meaning of each identification byte (<code>e_ident</code>):</p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th style="text-align: center">Index</th><th>Purpose</th></tr></thead><tbody>
+<tr><td><code>EI_MAG0</code></td><td style="text-align: center">0</td><td>File identification</td></tr>
+<tr><td><code>EI_MAG1</code></td><td style="text-align: center">1</td><td>File identification</td></tr>
+<tr><td><code>EI_MAG2</code></td><td style="text-align: center">2</td><td>File identification</td></tr>
+<tr><td><code>EI_MAG3</code></td><td style="text-align: center">3</td><td>File identification</td></tr>
+<tr><td><code>EI_CLASS</code></td><td style="text-align: center">4</td><td>File class</td></tr>
+<tr><td><code>EI_DATA</code></td><td style="text-align: center">5</td><td>Data encoding</td></tr>
+<tr><td><code>EI_VERSION</code></td><td style="text-align: center">6</td><td>File version</td></tr>
+<tr><td><code>EI_OSABI</code></td><td style="text-align: center">7</td><td>Operating system/ABI identification</td></tr>
+<tr><td><code>EI_ABIVERSION</code></td><td style="text-align: center">8</td><td>ABI version</td></tr>
+<tr><td><code>EI_PAD</code></td><td style="text-align: center">9</td><td>Start of padding bytes</td></tr>
+<tr><td><code>EI_NIDENT</code></td><td style="text-align: center">16</td><td>Size of <code>e_ident[]</code></td></tr>
+</tbody></table>
+</div>
+<p>The first 4 bytes contain the magic bytes which identify an ELF file and always have the same values:</p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th style="text-align: center">Value</th><th>Position</th></tr></thead><tbody>
+<tr><td><code>ELFMAG0</code></td><td style="text-align: center"><code>0x7f</code></td><td><code>e_ident[EI_MAG0]</code></td></tr>
+<tr><td><code>ELFMAG1</code></td><td style="text-align: center"><code>'E'</code></td><td><code>e_ident[EI_MAG1]</code></td></tr>
+<tr><td><code>ELFFMAG2</code></td><td style="text-align: center"><code>'L'</code></td><td><code>e_ident[EI_MAG2]</code></td></tr>
+<tr><td><code>ELFFMAG3</code></td><td style="text-align: center"><code>'F'</code></td><td><code>e_ident[EI_MAG3]</code></td></tr>
+</tbody></table>
+</div>
+<p>Next is the <code>EI_CLASS</code> byte which describes the file's class - whether it is a 32-bit or 64-bit file. </p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th style="text-align: center">Value</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>ELFCLASSNONE</code></td><td style="text-align: center">0</td><td>Invalid class</td></tr>
+<tr><td><code>ELFCLASS32</code></td><td style="text-align: center">1</td><td>32-bit</td></tr>
+<tr><td><code>ELFCLASS64</code></td><td style="text-align: center">2</td><td>64-bit</td></tr>
+</tbody></table>
+</div>
+<p><code>EI_DATA</code> specifies the encoding of the data structures in the ELF file.</p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th style="text-align: center">Value</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>ELFDATANONE</code></td><td style="text-align: center">0</td><td>Invalid data encoding</td></tr>
+<tr><td><code>ELFDATA2LSB</code></td><td style="text-align: center">1</td><td>2's complement, little-endian</td></tr>
+<tr><td><code>ELFDATA2MSB</code></td><td style="text-align: center">2</td><td>2's complement, big-endian</td></tr>
+</tbody></table>
+</div>
+<p><code>EI_VERSION</code> contains the ELF header version and must be set to <code>EV_CURRENT</code>.</p>
+<p><code>EI_OSABI</code> specifies OS- or ABI-specific extensions used by the file. Certain fields in other ELF structures contain values with OS- or ABI-specific meaning and their interpretation is determined by this byte. This byte should be set to 0 if no such extensions are used. The meaning of values between 64 and 255 is determined by the <code>e_machine</code> member of the ELF header. Furthermore, ABIs may define their own meanings for this byte, but otherwise, it should be interpreted in the following way:</p>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th style="text-align: center">Value</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>ELFOSABI_NONE</code></td><td style="text-align: center">0</td><td>No extensions</td></tr>
+<tr><td><code>ELFOSABI_HPUX</code></td><td style="text-align: center">1</td><td>Hewlett-Packard HP-UX</td></tr>
+<tr><td><code>ELFOSABI_NETBSD</code></td><td style="text-align: center">2</td><td>NetBSD</td></tr>
+<tr><td><code>ELFOSABI_LINUX</code></td><td style="text-align: center">3</td><td>Linux</td></tr>
+<tr><td><code>ELFOSABI_SOLARIS</code></td><td style="text-align: center">6</td><td>Sun Solaris</td></tr>
+<tr><td><code>ELFOSABI_AIX</code></td><td style="text-align: center">7</td><td>AIX</td></tr>
+<tr><td><code>ELFOSABI_IRIX</code></td><td style="text-align: center">8</td><td>IRIX</td></tr>
+<tr><td><code>ELFOSABI_FREEBSD</code></td><td style="text-align: center">9</td><td>FreeBSD</td></tr>
+<tr><td><code>ELFOSABI_TRU64</code></td><td style="text-align: center">10</td><td>Compaq TRU64 UNIX</td></tr>
+<tr><td><code>ELFOSABI_MODESTO</code></td><td style="text-align: center">11</td><td>Novell Modesto</td></tr>
+<tr><td><code>ELFOSABI_OPENBSD</code></td><td style="text-align: center">12</td><td>Open BSD</td></tr>
+<tr><td><code>ELFOSABI_OPENVMS</code></td><td style="text-align: center">13</td><td>Open VMS</td></tr>
+<tr><td><code>ELFOSABI_NSK</code></td><td style="text-align: center">14</td><td>Hewlett-Packard Non-Stop Kernel</td></tr>
+<tr><td></td><td style="text-align: center">64-255</td><td>Architecture-specific value range</td></tr>
+</tbody></table>
+</div>
+<p><code>EI_ABIVERSION</code> identifies the target ABI version and is used to distinguish between incompatible ABI versions. The byte's interpretation depends on the ABI specified by <code>EI_OSABI</code>. If it is unspecified, <code>EI_ABIVERSION</code> should contain 0.</p>
+<p><code>EI_PAD</code> - demarcates the beginning of the unused bytes in <code>e_ident</code>, which are reserved and set to 0. The value of this byte may change as meanings are assigned to these unused bytes.</p>
+<p>You can view the ELF header of an ELF binary by using <code>readelf</code> with the <code>-h</code> option:
+<img src="Resources/Images/ELF_Header_read.png" alt="" /></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../Reverse Engineering/Binary Formats/ELF/Symbols.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../../Reverse Engineering/Binary Formats/PE/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../Reverse Engineering/Binary Formats/ELF/Symbols.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../../Reverse Engineering/Binary Formats/PE/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

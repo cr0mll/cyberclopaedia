@@ -6,7 +6,7 @@ You can use the `ftp` command if you have credentials:
 ftp <ip>
 ```
 
-![](Resources/Images/FTP%20Login.PNG)
+![](Resources/Images/FTP%20Login.png)
 
 You can then proceed with typical navigation commands like `dir`, `cd`, `pwd`, `get` and `send` to navigate and interact with the remote file system.
 
