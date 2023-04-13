@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js coal">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>(1) The Physical Layer - The Cyberclopaedia</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="This is an aspiring project aimed at accumulating knowledge from the world of cybersecurity and presenting it in a cogent way, so it is accessible to as large and audience as possible and so that everyone has a good resource to learn hacking from.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <meta property="og:title" content="(1) The Physical Layer" />
+        <meta property="og:image" content="http://cr0mll.github.io/cyberclopaedia/favicon.png" />
+        <meta property="og:image:secure_url" content="https://cr0mll.github.io/cyberclopaedia/favicon.png" />
+        <meta property="og:description" content="The Cyberclopaedia is an aspiring project aimed at accumulating knowledge from the world of cybersecurity and presenting it in a cogent way, so it is accessible to as large and audience as possible and so that everyone has a good resource to learn hacking from." />
+
+        <meta property="twitter:card" content="summary" />
+        <meta property="twitter:site" content="@cr0mll" />
+        <meta property="twitter:creator" content="@cr0mll" />
+        <meta property="twitter:title" content="(1) The Physical Layer" />
+        <meta property="twitter:description" content="The Cyberclopaedia is an aspiring project aimed at accumulating knowledge from the world of cybersecurity and presenting it in a cogent way, so that everyone can learn." />
+        <meta property="twitter:image" content="https://cr0mll.github.io/cyberclopaedia/favicon.png" />
+        <meta property="twitter:image:alt" content="Cyberclopaedia Logo" />
+        
+
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "coal";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('coal')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            
+            <div class="sidebar-scrollbox">
+                <img style="max-width:100%;
+max-height:100%;" src="../../favicon.png" > <!-- Icon pls -->
+                <ol class="chapter"><li class="chapter-item affix "><a href="../../index.html">Cyberclopaedia</a></li><li class="chapter-item "><a href="../../Reconnaissance/index.html">Reconnaissance</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reconnaissance/Enumeration/index.html">Enumeration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reconnaissance/Enumeration/nmap/index.html">nmap</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reconnaissance/Enumeration/nmap/FIN, NULL & XMAS Scans.html">FIN, NULL & XMAS Scans</a></li><li class="chapter-item "><a href="../../Reconnaissance/Enumeration/nmap/TCP SYN & TCP Connect scans.html">TCP SYN & TCP Connect scans</a></li></ol></li><li class="chapter-item "><a href="../../Reconnaissance/Enumeration/DNS Server Enumeration (53).html">DNS Server Enumeration (53)</a></li><li class="chapter-item "><a href="../../Reconnaissance/Enumeration/FTP Enumeration (21).html">FTP Enumeration (21)</a></li><li class="chapter-item "><a href="../../Reconnaissance/Enumeration/LDAP Enumeration (389, 636, 3268, 3269).html">LDAP Enumeration (389, 636, 3268, 3269)</a></li><li class="chapter-item "><a href="../../Reconnaissance/Enumeration/SNMP Enumeration (161).html">SNMP Enumeration (161)</a></li></ol></li><li class="chapter-item "><a href="../../Reconnaissance/OSINT/index.html">OSINT</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Tools/index.html">Tools</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Tools/recon-ng.html">recon-ng</a></li><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Tools/theHarvester.html">theHarvester</a></li></ol></li><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Domain Name Enumeration.html">Domain Name Enumeration</a></li><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Google Dorks.html">Google Dorks</a></li><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Harvesting E-Mails.html">Harvesting E-Mails</a></li><li class="chapter-item "><a href="../../Reconnaissance/OSINT/Instagram User Enumeration.html">Instagram User Enumeration</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../Exploitation/index.html">Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Exploitation/Binary Exploitation/index.html">Binary Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Exploitation/Binary Exploitation/Heap Exploitation/index.html">Heap Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Exploitation/Binary Exploitation/Heap Exploitation/Use After Free (UAF).html">Use After Free (UAF)</a></li></ol></li><li class="chapter-item "><a href="../../Exploitation/Binary Exploitation/Stack Exploitation/index.html">Stack Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Exploitation/Binary Exploitation/Stack Exploitation/Buffer Overflows.html">Buffer Overflows</a></li><li class="chapter-item "><a href="../../Exploitation/Binary Exploitation/Stack Exploitation/Format String Vulnerabilities.html">Format String Vulnerabilities</a></li><li class="chapter-item "><a href="../../Exploitation/Binary Exploitation/Stack Exploitation/Protection Mechanisms.html">Protection Mechanisms</a></li><li class="chapter-item "><a href="../../Exploitation/Binary Exploitation/Stack Exploitation/Return to _dl_resolve.html">Return to _dl_resolve</a></li><li class="chapter-item "><a href="../../Exploitation/Binary Exploitation/Stack Exploitation/Return-oriented Programming (ROP).html">Return-oriented Programming (ROP)</a></li><li class="chapter-item "><a href="../../Exploitation/Binary Exploitation/Stack Exploitation/Sigreturn-oriented Programming.html">Sigreturn-oriented Programming</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../Exploitation/DNS/index.html">DNS</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Exploitation/DNS/DNS Cache Poisoning.html">DNS Cache Poisoning</a></li><li class="chapter-item "><a href="../../Exploitation/DNS/DNS Traffic Amplification.html">DNS Traffic Amplification</a></li></ol></li><li class="chapter-item "><a href="../../Exploitation/Web/index.html">Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Exploitation/Web/SQL Injection/index.html">SQL Injection</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Exploitation/Web/SQL Injection/Cheatsheets.html">Cheatsheets</a></li><li class="chapter-item "><a href="../../Exploitation/Web/SQL Injection/Defences.html">Defences</a></li><li class="chapter-item "><a href="../../Exploitation/Web/SQL Injection/Finding SQLi.html">Finding SQLi</a></li><li class="chapter-item "><a href="../../Exploitation/Web/SQL Injection/Introduction.html">Introduction</a></li><li class="chapter-item "><a href="../../Exploitation/Web/SQL Injection/Union injections.html">Union injections</a></li></ol></li><li class="chapter-item "><a href="../../Exploitation/Web/CRLF Injection.html">CRLF Injection</a></li><li class="chapter-item "><a href="../../Exploitation/Web/Cross-Site Request Forgery.html">Cross-Site Request Forgery</a></li><li class="chapter-item "><a href="../../Exploitation/Web/Cross-Site Scripting (XSS).html">Cross-Site Scripting (XSS)</a></li><li class="chapter-item "><a href="../../Exploitation/Web/Host Header Injection.html">Host Header Injection</a></li><li class="chapter-item "><a href="../../Exploitation/Web/HTTP Parameter Pollution.html">HTTP Parameter Pollution</a></li><li class="chapter-item "><a href="../../Exploitation/Web/HTTP Response Splitting.html">HTTP Response Splitting</a></li><li class="chapter-item "><a href="../../Exploitation/Web/Open Redirect.html">Open Redirect</a></li><li class="chapter-item "><a href="../../Exploitation/Web/Template Injection.html">Template Injection</a></li><li class="chapter-item "><a href="../../Exploitation/Web/WebSockets.html">WebSockets</a></li></ol></li><li class="chapter-item "><a href="../../Exploitation/Windows/index.html">Windows</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Exploitation/Windows/SCF File Attacks.html">SCF File Attacks</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../Post Exploitation/index.html">Post Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Post Exploitation/Active Directory (AD)/index.html">Active Directory (AD)</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Post Exploitation/Active Directory (AD)/Domain Data Enumeration with Bloodhound.html">Domain Data Enumeration with Bloodhound</a></li><li class="chapter-item "><a href="../../Post Exploitation/Active Directory (AD)/Domain Enumeration with PowerView.html">Domain Enumeration with PowerView</a></li></ol></li><li class="chapter-item "><a href="../../Post Exploitation/Enumeration/index.html">Enumeration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Post Exploitation/Enumeration/Linux/index.html">Linux</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Post Exploitation/Enumeration/Linux/Hunting Down Sensitive Files.html">Hunting Down Sensitive Files</a></li><li class="chapter-item "><a href="../../Post Exploitation/Enumeration/Linux/Network Enumeration.html">Network Enumeration</a></li><li class="chapter-item "><a href="../../Post Exploitation/Enumeration/Linux/System Enumeration.html">System Enumeration</a></li><li class="chapter-item "><a href="../../Post Exploitation/Enumeration/Linux/User Enumeration.html">User Enumeration</a></li></ol></li><li class="chapter-item "><a href="../../Post Exploitation/Enumeration/Windows/index.html">Windows</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Post Exploitation/Enumeration/Windows/System Enumeration.html">System Enumeration</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../Post Exploitation/Pivoting/index.html">Pivoting</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Post Exploitation/Pivoting/SSH Tunneling.html">SSH Tunneling</a></li><li class="chapter-item "><a href="../../Post Exploitation/Pivoting/Tunneling with Chisel.html">Tunneling with Chisel</a></li></ol></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/index.html">Privilege Escalation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Linux/index.html">Linux</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Linux/Abusing Linux Capabilities.html">Abusing Linux Capabilities</a></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Linux/Abusing SUID & SGID Binaries.html">Abusing SUID & SGID Binaries</a></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Linux/Kernel Exploits.html">Kernel Exploits</a></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Linux/NFS Root Squashing.html">NFS Root Squashing</a></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Linux/Sudo Escalation via LD_PRELOAD.html">Sudo Escalation via LD_PRELOAD</a></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Linux/Sudo Shell Escape Sequences.html">Sudo Shell Escape Sequences</a></li></ol></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Windows/index.html">Windows</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Windows/Misconfigured Services/index.html">Misconfigured Services</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Windows/Misconfigured Services/Insecure Service Executable Permissions.html">Insecure Service Executable Permissions</a></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Windows/Misconfigured Services/Insecure Service Permissions.html">Insecure Service Permissions</a></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Windows/Misconfigured Services/Unquoted Service Paths.html">Unquoted Service Paths</a></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Windows/Misconfigured Services/Weak Registry Permissions.html">Weak Registry Permissions</a></li></ol></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Windows/AlwaysInstallElevated Group Policy.html">AlwaysInstallElevated Group Policy</a></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Windows/AutoRun Programmes.html">AutoRun Programmes</a></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Windows/Bypassing UAC.html">Bypassing UAC</a></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Windows/Kernel Exploits.html">Kernel Exploits</a></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Windows/Scheduled Tasks.html">Scheduled Tasks</a></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Windows/Startup Applications.html">Startup Applications</a></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Windows/Stored Credentials.html">Stored Credentials</a></li><li class="chapter-item "><a href="../../Post Exploitation/Privilege Escalation/Windows/Token Impersonation.html">Token Impersonation</a></li></ol></li></ol></li></ol></li><li class="chapter-item "><a href="../../Malware Analysis/index.html">Malware Analysis</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Malware Analysis/Basic Static Analysis.html">Basic Static Analysis</a></li></ol></li><li class="chapter-item "><a href="../../Malware Development/index.html">Malware Development</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Malware Development/Code Execution Techniques/index.html">Code Execution Techniques</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Malware Development/Code Execution Techniques/Hyperlinking.html">Hyperlinking</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../Reverse Engineering/index.html">Reverse Engineering</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reverse Engineering/Assembly Programming/index.html">Assembly Programming</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reverse Engineering/Assembly Programming/x86-64/index.html">x86-64</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reverse Engineering/Assembly Programming/x86-64/Data Representation.html">Data Representation</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Assembly Programming/x86-64/Memory.html">Memory</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Assembly Programming/x86-64/Registers.html">Registers</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Assembly Programming/x86-64/Variables.html">Variables</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../Reverse Engineering/Binary Formats/index.html">Binary Formats</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reverse Engineering/Binary Formats/ELF/index.html">ELF</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reverse Engineering/Binary Formats/ELF/Dynamic Linking.html">Dynamic Linking</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Binary Formats/ELF/Relocations.html">Relocations</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Binary Formats/ELF/Sections.html">Sections</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Binary Formats/ELF/Segments.html">Segments</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Binary Formats/ELF/Symbols.html">Symbols</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Binary Formats/ELF/The ELF Header.html">The ELF Header</a></li></ol></li><li class="chapter-item "><a href="../../Reverse Engineering/Binary Formats/PE/index.html">PE</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reverse Engineering/Binary Formats/PE/NT Headers.html">NT Headers</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Binary Formats/PE/Relocations.html">Relocations</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Binary Formats/PE/Sections.html">Sections</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Binary Formats/PE/The DOS Header.html">The DOS Header</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Binary Formats/PE/The DOS Stub.html">The DOS Stub</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Binary Formats/PE/The Rich Header.html">The Rich Header</a></li></ol></li><li class="chapter-item "><a href="../../Reverse Engineering/Binary Formats/Reverse Engineering Android Applications.html">Reverse Engineering Android Applications</a></li></ol></li><li class="chapter-item "><a href="../../Reverse Engineering/Program Anatomy/index.html">Program Anatomy</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reverse Engineering/Program Anatomy/Instructions.html">Instructions</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Program Anatomy/Registers.html">Registers</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Program Anatomy/The Heap.html">The Heap</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Program Anatomy/The Stack.html">The Stack</a></li></ol></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with Ghidra/index.html">Reverse Engineering with Ghidra</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with Ghidra/Creating a Project and Loading a Binary.html">Creating a Project and Loading a Binary</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with Ghidra/Initial Analysis.html">Initial Analysis</a></li></ol></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/index.html">Reverse Engineering with radare2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/Analysis.html">Analysis</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/Binary Info.html">Binary Info</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/Flags.html">Flags</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/Seeking.html">Seeking</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Reverse Engineering with radare2/Strings.html">Strings</a></li></ol></li><li class="chapter-item "><a href="../../Reverse Engineering/Assembly.html">Assembly</a></li><li class="chapter-item "><a href="../../Reverse Engineering/Basic Reverse Engineering using objdump, strace, and ltrace.html">Basic Reverse Engineering using objdump, strace, and ltrace</a></li></ol></li><li class="chapter-item "><a href="../../Hardware Hacking/index.html">Hardware Hacking</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Hardware Hacking/Wireless Attacks/index.html">Wireless Attacks</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Hardware Hacking/Wireless Attacks/Deauth Attack.html">Deauth Attack</a></li><li class="chapter-item "><a href="../../Hardware Hacking/Wireless Attacks/Hacking WEP Networks.html">Hacking WEP Networks</a></li><li class="chapter-item "><a href="../../Hardware Hacking/Wireless Attacks/Hacking WPA Networks.html">Hacking WPA Networks</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../Cryptography/index.html">Cryptography</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Cryptography/Block Ciphers/index.html">Block Ciphers</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Cryptography/Block Ciphers/Advanced Encryption Standard (AES).html">Advanced Encryption Standard (AES)</a></li><li class="chapter-item "><a href="../../Cryptography/Block Ciphers/Encrypting Non-Conforming Messages.html">Encrypting Non-Conforming Messages</a></li><li class="chapter-item "><a href="../../Cryptography/Block Ciphers/Modes of Operation.html">Modes of Operation</a></li><li class="chapter-item "><a href="../../Cryptography/Block Ciphers/Padding Oracle Attack.html">Padding Oracle Attack</a></li></ol></li><li class="chapter-item "><a href="../../Cryptography/Hash Functions/index.html">Hash Functions</a></li><li class="chapter-item "><a href="../../Cryptography/Stream Ciphers/index.html">Stream Ciphers</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Cryptography/Stream Ciphers/Hardware-Oriented Stream Ciphers/index.html">Hardware-Oriented Stream Ciphers</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Cryptography/Stream Ciphers/Hardware-Oriented Stream Ciphers/Grain-128a.html">Grain-128a</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../Cryptography/Breaking Classical Cryptrography.html">Breaking Classical Cryptrography</a></li></ol></li><li class="chapter-item expanded "><a href="../../Networking/index.html">Networking</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Networking/Networks/index.html">Networks</a></li><li class="chapter-item "><a href="../../Networking/Protocols/index.html">Protocols</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Networking/Protocols/Domain Name System (DNS)/index.html">Domain Name System (DNS)</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Networking/Protocols/Domain Name System (DNS)/DNS Protocol.html">DNS Protocol</a></li><li class="chapter-item "><a href="../../Networking/Protocols/Domain Name System (DNS)/The Domain Name System.html">The Domain Name System</a></li><li class="chapter-item "><a href="../../Networking/Protocols/Domain Name System (DNS)/The in-addr.arpa Domain.html">The in-addr.arpa Domain</a></li></ol></li><li class="chapter-item "><a href="../../Networking/Protocols/WLAN (IEEE 802.11)/index.html">WLAN (IEEE 802.11)</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/index.html">Management Frames</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/Action Frames.html">Action Frames</a></li><li class="chapter-item "><a href="../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/Association Frames.html">Association Frames</a></li><li class="chapter-item "><a href="../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/Authentication Frames.html">Authentication Frames</a></li><li class="chapter-item "><a href="../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/Discovery Frames.html">Discovery Frames</a></li></ol></li><li class="chapter-item "><a href="../../Networking/Protocols/WLAN (IEEE 802.11)/Authentication & Association.html">Authentication & Association</a></li><li class="chapter-item "><a href="../../Networking/Protocols/WLAN (IEEE 802.11)/Control Frames.html">Control Frames</a></li><li class="chapter-item "><a href="../../Networking/Protocols/WLAN (IEEE 802.11)/Data Frames.html">Data Frames</a></li><li class="chapter-item "><a href="../../Networking/Protocols/WLAN (IEEE 802.11)/Encryption & Integrity.html">Encryption & Integrity</a></li><li class="chapter-item "><a href="../../Networking/Protocols/WLAN (IEEE 802.11)/WiFi Protected Access (WPA).html">WiFi Protected Access (WPA)</a></li></ol></li><li class="chapter-item "><a href="../../Networking/Protocols/Address Resolution Protocol (ARP).html">Address Resolution Protocol (ARP)</a></li><li class="chapter-item "><a href="../../Networking/Protocols/Ethernet (IEEE 802.3).html">Ethernet (IEEE 802.3)</a></li><li class="chapter-item "><a href="../../Networking/Protocols/File Transfer Protocol (FTP).html">File Transfer Protocol (FTP)</a></li><li class="chapter-item "><a href="../../Networking/Protocols/Network Time Protocol (NTP).html">Network Time Protocol (NTP)</a></li><li class="chapter-item "><a href="../../Networking/Protocols/Server Message Block (SMB).html">Server Message Block (SMB)</a></li><li class="chapter-item "><a href="../../Networking/Protocols/Simple Network Management Protocol (SNMP).html">Simple Network Management Protocol (SNMP)</a></li></ol></li><li class="chapter-item expanded "><a href="../../Networking/The TCP-IP Suite and the OSI Model/index.html">The TCP-IP Suite and the OSI Model</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../Networking/The TCP-IP Suite and the OSI Model/(1) The Physical Layer.html" class="active">(1) The Physical Layer</a></li><li class="chapter-item "><a href="../../Networking/The TCP-IP Suite and the OSI Model/(2) The Datalink Layer.html">(2) The Datalink Layer</a></li></ol></li><li class="chapter-item "><a href="../../Networking/Network Address Translation (NAT).html">Network Address Translation (NAT)</a></li><li class="chapter-item "><a href="../../Networking/Subnetting.html">Subnetting</a></li><li class="chapter-item "><a href="../../Networking/VLANs.html">VLANs</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Cyberclopaedia</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/cr0mll/cyberclopaedia/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>The Physical layer is the lowest layer in the OSI model. It provides the electrical, mechanical, or electromagnetic means by which data is physically transferred between hosts. At the core of the Physical layer lie interfaces and mediums. Interfaces are what allow devices to send receive data, while mediums are what the data travels through between interfaces. Data at the physical layer is transmitted in <em>bits</em>, not bytes, hence why internet speeds are typically measured in multiples of bits per seconds or bps.</p>
+<h1 id="mediums"><a class="header" href="#mediums">Mediums</a></h1>
+<h2 id="copper-utp-cables"><a class="header" href="#copper-utp-cables">Copper (UTP) Cables</a></h2>
+<p>The following standards are defined for copper cable Ethernet:</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Speed</th><th style="text-align: center">Common Name</th><th style="text-align: center">IEEE Standard</th><th style="text-align: center">Informal Name</th><th style="text-align: center">Max Length</th></tr></thead><tbody>
+<tr><td style="text-align: center">10 Mbps</td><td style="text-align: center">Ethernet</td><td style="text-align: center">802.3i</td><td style="text-align: center">10BASE-T</td><td style="text-align: center">100m</td></tr>
+<tr><td style="text-align: center">100 Mbps</td><td style="text-align: center">Fast Ethernet</td><td style="text-align: center">802.3u</td><td style="text-align: center">100BASE-T</td><td style="text-align: center">100m</td></tr>
+<tr><td style="text-align: center">1 Gbps</td><td style="text-align: center">Gigabit Ethernet</td><td style="text-align: center">802.3ab</td><td style="text-align: center">1000BASE-T</td><td style="text-align: center">100m</td></tr>
+<tr><td style="text-align: center">10 Gbps</td><td style="text-align: center">10 Gig Ethernet</td><td style="text-align: center">802.3an</td><td style="text-align: center">10GBASE-T</td><td style="text-align: center">100m</td></tr>
+</tbody></table>
+</div>
+<p>In the above nomenclature, <code>BASE</code> refers to baseband signaling, while <code>T</code> indicates <em>twisted pair</em>.</p>
+<p>The copper cables described by the above standards are <em>Unshielded Twisted Pair</em> (UTP) cables which comprise 4 pairs of 8 wires.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/UTP_cable.jpg" alt="" /></p>
+<p>&quot;Unshielded&quot; means that the wires lack a metallic shield which increases their susceptibility to electrical interference. The &quot;twisted pair&quot; part is pretty self-explanatory and serves the purpose of reducing electromagnetic interference.</p>
+<p>The RJ-45 jacks used for Ethernet have 8 pins - one pin per wire - however, not all pins are in use by all standards. 10BASE-T and 100BASE-T avail themselves only of pins 1, 2, 3, and 6. Moreover, different devices use these pins differently. Switches utilise pins 3 and 6 for <em>transmitting</em> (Tx) data and use pins 1 and 2 for <em>receiving</em> (Rx) data. This separation allows for <em>full-duplex</em> transmission - the device is able to both receive and send data at the same time. Most other devices, however, such as PCs, routers, and firewalls do the opposite - they use pins 3 and 6 for receiving and use pins 1 and 2 for sending data.</p>
+<p><img src="Resources/Images/UTP_10_100_BASE_T_straight_through.png" alt="" /></p>
+<p>The above is a diagram of a <em>straight-through cable</em>, since there is a one-to-one correspondence between the pins. This is a simple approach, but unfortunately only works when devices of opposite types are being connected - you can't use it to connect a router to another router, a switch to another switch, or a PC to another PC. This is where <em>crossover cables</em> come. In these cables, different pins on one end correspond to different pins on the other.</p>
+<p><img src="Resources/Images/UTP_10_100_BASE_T_crossover.png" alt="" /></p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Device Type</th><th style="text-align: center">Tx Pins</th><th style="text-align: center">Rx Pins</th></tr></thead><tbody>
+<tr><td style="text-align: center">Router</td><td style="text-align: center">1 and 2</td><td style="text-align: center">3 and 6</td></tr>
+<tr><td style="text-align: center">Firewall</td><td style="text-align: center">1 and 2</td><td style="text-align: center">3 and 6</td></tr>
+<tr><td style="text-align: center">PC</td><td style="text-align: center">1 and 2</td><td style="text-align: center">3 and 6</td></tr>
+<tr><td style="text-align: center">Switch</td><td style="text-align: center">3 and 6</td><td style="text-align: center">1 and 2</td></tr>
+</tbody></table>
+</div>
+<p>Most modern devices, however, support a feature called Auto MDI-X. This allows them to detect which pins their neighbour is transmitting data on and automatically adjust their own use of Tx and Rx pins to allow for proper communication. This makes the use of different types of cables often obsolete.</p>
+<p>Higher speed standards avail themselves of all the pins. Additionally, in 1000BASE-T and 10GBASE-T are bidirectional and allow for both transmission and reception which allows for greater speeds.</p>
+<p><img src="Resources/Images/UTP_1000_10GBASE_T.png" alt="" /></p>
+<h2 id="fibre-optic-cables"><a class="header" href="#fibre-optic-cables">Fibre-Optic Cables</a></h2>
+<p>Fibre-Optic cables are a new generation of cables. Instead of transferring electrical signals through copper wiring, these cables conduct signals in the form of <em>light</em>, which makes them immune to EMI. In order to use fibre-optics, a special type of connector called SFP is required, which is short for <em>Small Form-Factor Pluggable</em> and looks like this:</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/QSFP-40G-SR4_Transceiver.jpg" alt="" /></p>
+<p>Data is transferred through the fibre-optic cable which has two connections on each end - one for sending and one for receiving:</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Lc-sc-fiber-connectors.jpg" alt="" /></p>
+<p>The fibre-optic cable is comprised of 4 main layers. The innermost layer is the fibreglass core, which is what the light travels through. This core is enveloped in a cladding layer which reflects the light beam travelling through the cable. Around the cladding is a protective buffer, which is in turn wrapped in the outer jacket.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Singlemode_fibre_structure.svg/1024px-Singlemode_fibre_structure.svg.png" alt="" /></p>
+<p>There are two main types of fibre-optic cables in the wild. The first type is multi-mode fibre which allows for light to enter at multiple angles. It has a larger glass core and allows for a greater transmission distance than UTP and is also cheaper than single-mode fibre. Single-mode fibre, on the other hand allows for light to enter only at a single angle, called a <em>mode</em>, and has a much greater maximum distance than that of multi-mode (step index).</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Optical_fiber_types.svg/1920px-Optical_fiber_types.svg.png" alt="" /></p>
+<p>The following fibre-optic cable standards are defined:</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Informal Name</th><th style="text-align: center">IEEE Standard</th><th style="text-align: center">Speed</th><th style="text-align: center">Cable Type</th><th style="text-align: center">Maximum Length</th></tr></thead><tbody>
+<tr><td style="text-align: center">1000BASE-LX</td><td style="text-align: center">802.3z</td><td style="text-align: center">1 Gbps</td><td style="text-align: center">Multi- or single-mode</td><td style="text-align: center">550 m (MM), 5 km (SM)</td></tr>
+<tr><td style="text-align: center">10GBASE-SR</td><td style="text-align: center">802.3ae</td><td style="text-align: center">10 Gbps</td><td style="text-align: center">Multi-mode</td><td style="text-align: center">400 m</td></tr>
+<tr><td style="text-align: center">10GBASE-LR</td><td style="text-align: center">802.3ae</td><td style="text-align: center">10 Gbps</td><td style="text-align: center">Single-mode</td><td style="text-align: center">10 km</td></tr>
+<tr><td style="text-align: center">10GBASE-ER</td><td style="text-align: center">802.3ae</td><td style="text-align: center">10 Gbps</td><td style="text-align: center">Single-mode</td><td style="text-align: center">30 km</td></tr>
+</tbody></table>
+</div>
+<h1 id="wireless-wifi"><a class="header" href="#wireless-wifi">Wireless (WiFi)</a></h1>
+<p>Wireless LANs (WLANs) use electromagnetic radiation for the transfer of data. The standards WLANs are defined in IEEE 802.11. Although commonly called &quot;WiFi&quot;, this is actually a trademark of the <em>WiFi Alliance</em> which certifies devices for compliance with the IEEE 802.11 standards, but is not directly connected with it.</p>
+<p>A corollary of WiFi's using radio waves to transmit data is that <em>all</em> devices within range receive <em>all</em> frames. It is, therefore, paramount that this data is encrypted. Furthermore, due to the fact that multiple devices will be using the same frequency ranges to transmit data, it is of the utmost importance that collisions are avoided. This is typically actuated by <em>CSMA/CA</em> - Carrier Sense Multiple Access will Collision Avoidance. Essentially, when this technique is in use, the device will wait for the channel to be free before transmitting any data by checking it periodically. An additional feature is also supported whereby the device will send a Request-To-Send (RTS) packet and will wait for a Clear-To-Send (CTS) response.</p>
+<p>WiFi uses 3 major <em>frequency bands (ranges)</em>. The first is 2.4 GHz and it covers the frequencies from 2.400 GHz to 2.4835 GHz. Next is the 5 GHz band which ranges from 5.150 GHz to 5.825 GHz and is further subdivided into 4 smaller bands - from 5.150 to 5.250 GHz, from 5.250 to 5.350, from 5.470 to 5.725, and from 5.725 to 5.825. The last band is the 6 GHz band and it was introduced with WiFi 6.</p>
+<p>While 2.4 GHz provides further reach and better obstacle penetration, it is typically used by more devices and may have higher interference than 5 or 6 GHz.</p>
+<p>Each band is divided into <em>channels</em> with a different width. 2.4 GHz is comprised of 13 channels, each of width 22 MHz although this may depend on your country. These channels may overlap with each other, so it is crucial that non-overlapping ones are chosen for the access points in a certain area to avoid interference. A typical configuration is to use channels 1, 6, and 11 in a honeycomb pattern, since those channels have no overlap with each other.</p>
+<p><img src="Resources/Images/WiFi_honeycomb.png" alt="" /></p>
+<p>There are a few standards defined in IEEE 802.11:</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Standard</th><th style="text-align: center">Frequencies</th><th style="text-align: center">Max Speed</th><th style="text-align: center">Name</th></tr></thead><tbody>
+<tr><td style="text-align: center">802.11</td><td style="text-align: center">2.4 GHz</td><td style="text-align: center">2 Mbps</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">802.11b</td><td style="text-align: center">2.4 GHz</td><td style="text-align: center">11 Mbps</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">802.11a</td><td style="text-align: center">5 GHz</td><td style="text-align: center">54 Mbps</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">802.11g</td><td style="text-align: center">2.4 GHz</td><td style="text-align: center">54 Mbps</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">802.11n</td><td style="text-align: center">2.4 GHz / 5 GHz</td><td style="text-align: center">600 Mbps</td><td style="text-align: center">Wi-Fi 4</td></tr>
+<tr><td style="text-align: center">802.11ac</td><td style="text-align: center">5 GHz</td><td style="text-align: center">6.93 Gbps</td><td style="text-align: center">Wi-Fi 5</td></tr>
+<tr><td style="text-align: center">802.11ax</td><td style="text-align: center">2.4 GHz / 5 GHz / 6 GHz</td><td style="text-align: center"><code>4 * 802.11ac</code></td><td style="text-align: center">Wi-Fi 6</td></tr>
+</tbody></table>
+</div>
+<h2 id="service-sets"><a class="header" href="#service-sets">Service Sets</a></h2>
+<p>The IEEE 802.11 standard also defines a different kinds of <em>service sets</em>. These are groups of wireless network devices and are organised into three main types:</p>
+<ul>
+<li>Independent</li>
+<li>Infrastructure</li>
+<li>Mesh</li>
+</ul>
+<p>All devices in a service set share the same <em>service set identifier (SSID)</em>. This is a human-readable name which does <em>not</em> have to be unique. Following is an example of the SSIDs visible to my current device.</p>
+<p><img src="Resources/Images/WiFi_SSIDs.png" alt="" /></p>
+<h3 id="independent-basic-service-set-ibss"><a class="header" href="#independent-basic-service-set-ibss">Independent Basic Service Set (IBSS)</a></h3>
+<p>An IBSS is a wireless network in which a small number of wireless devices are connected directly to each other without an access point. It is also commonly referred to as an <em>ad hoc network</em>. It can be useful for some tasks such as small file transfers (i.e. AirDrop), but is not scalable beyond a few devices.</p>
+<p><img src="Resources/Images/WiFi_IBSS.png" alt="" /></p>
+<h3 id="basic-service-set-bss"><a class="header" href="#basic-service-set-bss">Basic Service Set (BSS)</a></h3>
+<p>A BSS is a network infrastructure in which the clients are all connected to an access point, but not to each other. All traffic must go through the AP, even if two devices that want to communicate are within range of one another. A BSS is characterised by a <em>Basic Service Set ID (BSSID)</em> and an SSID. The former is the MAC address of the AP and must be unique, while the latter may be shared across multiple access points.</p>
+<p><img src="Resources/Images/WiFi_BSS.png" alt="" /></p>
+<p>In order to connect to a BSS, wireless devices request to be <em>associated</em> with it. Once a device has been associated with an access point, it is referred to as a <em>station</em>.</p>
+<p>The area around an AP where its signal is usable is typically called a <em>Basic Service Area (BSA)</em>.</p>
+<h3 id="extended-service-set-ess"><a class="header" href="#extended-service-set-ess">Extended Service Set (ESS)</a></h3>
+<p>For the creation of larger WLANs, which span more than the range of a single AP, an <em>Extended Service Set (ESS)</em> is utilised. In it, multiple APs are connected by a wired network. Each BSS shares the same SSID, but has a unique BSSID. Furthermore, the BSSs use different channels in order to avoid interference. </p>
+<p><img src="Resources/Images/WiFi_ESS.png" alt="" /></p>
+<p>Clients are able to pass between APs without the need to reconnect, which is referred to as <em>roaming</em>. In order to ensure as seamless an experience as possible, the BSAs should overlap ~10-15%.</p>
+<h3 id="mesh-basic-service-set-mbss"><a class="header" href="#mesh-basic-service-set-mbss">Mesh Basic Service Set (MBSS)</a></h3>
+<p>An MBSS is employed when difficulties arise with running a direct Ethernet connection through every AP. Mesh access points utilise two radios - one for the provision of a BSS to the wireless clients and one for inter-AP communication, called a <em>backhaul network</em>. At least one AP must be connected to the wired network and it is referred to as <em>Root Access Point (RAP)</em>. The rest of the APs are called <em>Mesh Access Points (MAPs)</em>. A protocol is employed to determine the best path for traffic in the MBSS.</p>
+<p><img src="Resources/Images/WiFi_MBSS.png" alt="" /></p>
+<h3 id="the-distribution-system"><a class="header" href="#the-distribution-system">The Distribution System</a></h3>
+<p>Most wireless networks typically aren't standalone networks, but instead provide a means for wireless devices to connect to a wired network. This wired network is referred to as the <em>Distribution System (DS)</em>. Each BSS or ESS gets mapped to a <a href="../VLANs.html">VLAN</a> on the wired network. Moreover, an AP is capable of providing multiple wireless LANs, each with a unique SSID and BSSID, where the latter is typically achieved by incrementing the last digit of the BSSID by one. IN this case, each WLAN gets mapped to a separate VLAN in the wired network.</p>
+<h2 id="ap-operation-modes"><a class="header" href="#ap-operation-modes">AP Operation Modes</a></h2>
+<h3 id="repeater-mode"><a class="header" href="#repeater-mode">Repeater Mode</a></h3>
+<p>An AP in repeater mode can be utilised to extend the range of a BSS. The repeater simply retransmits any signal it receives from the AP. It is recommended that the repeater support at least two radios so that it can receive from the AP on one channel and then retransmit the data on a different channel, so as to avoid cutting the overall throughput.</p>
+<p><img src="Resources/Images/AP_Repeater.png" alt="" /></p>
+<h3 id="workgroup-bridge"><a class="header" href="#workgroup-bridge">Workgroup Bridge</a></h3>
+<p>A workgroup bridge (WGP) acts as a client of another AP and can be used to connect wired devices to the wireless network. </p>
+<p><img src="Resources/Images/AP_WGB.png" alt="" /></p>
+<h3 id="outdoor-bridge"><a class="header" href="#outdoor-bridge">Outdoor Bridge</a></h3>
+<p>An outdoor bridge is used to connect networks over large distances without a physical cable. This is achieved by APs with special directional antennas.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../Networking/The TCP-IP Suite and the OSI Model/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../Networking/The TCP-IP Suite and the OSI Model/(2) The Datalink Layer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../Networking/The TCP-IP Suite and the OSI Model/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../Networking/The TCP-IP Suite and the OSI Model/(2) The Datalink Layer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

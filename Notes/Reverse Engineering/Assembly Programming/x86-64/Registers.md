@@ -1,3 +1,4 @@
+# Introduction
 Registers are value containers which reside on the CPU (separately from RAM). They are small in size and some have special purposes. x86-64 assembly operates with 16 general-purpose registers (GPRs). It should be noted that the 8-byte (`r`) variants do not exist in 32-bit mode.
 
  64-bit Register | Lower 4 Bytes | Lower 2 Bytes | Lower 1 Byte 

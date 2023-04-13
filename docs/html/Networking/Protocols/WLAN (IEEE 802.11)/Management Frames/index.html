@@ -1,0 +1,403 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js coal">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Management Frames - The Cyberclopaedia</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="This is an aspiring project aimed at accumulating knowledge from the world of cybersecurity and presenting it in a cogent way, so it is accessible to as large and audience as possible and so that everyone has a good resource to learn hacking from.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <meta property="og:title" content="Management Frames" />
+        <meta property="og:image" content="http://cr0mll.github.io/cyberclopaedia/favicon.png" />
+        <meta property="og:image:secure_url" content="https://cr0mll.github.io/cyberclopaedia/favicon.png" />
+        <meta property="og:description" content="The Cyberclopaedia is an aspiring project aimed at accumulating knowledge from the world of cybersecurity and presenting it in a cogent way, so it is accessible to as large and audience as possible and so that everyone has a good resource to learn hacking from." />
+
+        <meta property="twitter:card" content="summary" />
+        <meta property="twitter:site" content="@cr0mll" />
+        <meta property="twitter:creator" content="@cr0mll" />
+        <meta property="twitter:title" content="Management Frames" />
+        <meta property="twitter:description" content="The Cyberclopaedia is an aspiring project aimed at accumulating knowledge from the world of cybersecurity and presenting it in a cogent way, so that everyone can learn." />
+        <meta property="twitter:image" content="https://cr0mll.github.io/cyberclopaedia/favicon.png" />
+        <meta property="twitter:image:alt" content="Cyberclopaedia Logo" />
+        
+
+        <link rel="shortcut icon" href="../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "coal";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('coal')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            
+            <div class="sidebar-scrollbox">
+                <img style="max-width:100%;
+max-height:100%;" src="../../../../favicon.png" > <!-- Icon pls -->
+                <ol class="chapter"><li class="chapter-item affix "><a href="../../../../index.html">Cyberclopaedia</a></li><li class="chapter-item "><a href="../../../../Reconnaissance/index.html">Reconnaissance</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Reconnaissance/Enumeration/index.html">Enumeration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Reconnaissance/Enumeration/nmap/index.html">nmap</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Reconnaissance/Enumeration/nmap/FIN, NULL & XMAS Scans.html">FIN, NULL & XMAS Scans</a></li><li class="chapter-item "><a href="../../../../Reconnaissance/Enumeration/nmap/TCP SYN & TCP Connect scans.html">TCP SYN & TCP Connect scans</a></li></ol></li><li class="chapter-item "><a href="../../../../Reconnaissance/Enumeration/DNS Server Enumeration (53).html">DNS Server Enumeration (53)</a></li><li class="chapter-item "><a href="../../../../Reconnaissance/Enumeration/FTP Enumeration (21).html">FTP Enumeration (21)</a></li><li class="chapter-item "><a href="../../../../Reconnaissance/Enumeration/LDAP Enumeration (389, 636, 3268, 3269).html">LDAP Enumeration (389, 636, 3268, 3269)</a></li><li class="chapter-item "><a href="../../../../Reconnaissance/Enumeration/SNMP Enumeration (161).html">SNMP Enumeration (161)</a></li></ol></li><li class="chapter-item "><a href="../../../../Reconnaissance/OSINT/index.html">OSINT</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Reconnaissance/OSINT/Tools/index.html">Tools</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Reconnaissance/OSINT/Tools/recon-ng.html">recon-ng</a></li><li class="chapter-item "><a href="../../../../Reconnaissance/OSINT/Tools/theHarvester.html">theHarvester</a></li></ol></li><li class="chapter-item "><a href="../../../../Reconnaissance/OSINT/Domain Name Enumeration.html">Domain Name Enumeration</a></li><li class="chapter-item "><a href="../../../../Reconnaissance/OSINT/Google Dorks.html">Google Dorks</a></li><li class="chapter-item "><a href="../../../../Reconnaissance/OSINT/Harvesting E-Mails.html">Harvesting E-Mails</a></li><li class="chapter-item "><a href="../../../../Reconnaissance/OSINT/Instagram User Enumeration.html">Instagram User Enumeration</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../../../Exploitation/index.html">Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Exploitation/Binary Exploitation/index.html">Binary Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Exploitation/Binary Exploitation/Heap Exploitation/index.html">Heap Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Exploitation/Binary Exploitation/Heap Exploitation/Use After Free (UAF).html">Use After Free (UAF)</a></li></ol></li><li class="chapter-item "><a href="../../../../Exploitation/Binary Exploitation/Stack Exploitation/index.html">Stack Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Exploitation/Binary Exploitation/Stack Exploitation/Buffer Overflows.html">Buffer Overflows</a></li><li class="chapter-item "><a href="../../../../Exploitation/Binary Exploitation/Stack Exploitation/Format String Vulnerabilities.html">Format String Vulnerabilities</a></li><li class="chapter-item "><a href="../../../../Exploitation/Binary Exploitation/Stack Exploitation/Protection Mechanisms.html">Protection Mechanisms</a></li><li class="chapter-item "><a href="../../../../Exploitation/Binary Exploitation/Stack Exploitation/Return to _dl_resolve.html">Return to _dl_resolve</a></li><li class="chapter-item "><a href="../../../../Exploitation/Binary Exploitation/Stack Exploitation/Return-oriented Programming (ROP).html">Return-oriented Programming (ROP)</a></li><li class="chapter-item "><a href="../../../../Exploitation/Binary Exploitation/Stack Exploitation/Sigreturn-oriented Programming.html">Sigreturn-oriented Programming</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../../../Exploitation/DNS/index.html">DNS</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Exploitation/DNS/DNS Cache Poisoning.html">DNS Cache Poisoning</a></li><li class="chapter-item "><a href="../../../../Exploitation/DNS/DNS Traffic Amplification.html">DNS Traffic Amplification</a></li></ol></li><li class="chapter-item "><a href="../../../../Exploitation/Web/index.html">Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Exploitation/Web/SQL Injection/index.html">SQL Injection</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Exploitation/Web/SQL Injection/Cheatsheets.html">Cheatsheets</a></li><li class="chapter-item "><a href="../../../../Exploitation/Web/SQL Injection/Defences.html">Defences</a></li><li class="chapter-item "><a href="../../../../Exploitation/Web/SQL Injection/Finding SQLi.html">Finding SQLi</a></li><li class="chapter-item "><a href="../../../../Exploitation/Web/SQL Injection/Introduction.html">Introduction</a></li><li class="chapter-item "><a href="../../../../Exploitation/Web/SQL Injection/Union injections.html">Union injections</a></li></ol></li><li class="chapter-item "><a href="../../../../Exploitation/Web/CRLF Injection.html">CRLF Injection</a></li><li class="chapter-item "><a href="../../../../Exploitation/Web/Cross-Site Request Forgery.html">Cross-Site Request Forgery</a></li><li class="chapter-item "><a href="../../../../Exploitation/Web/Cross-Site Scripting (XSS).html">Cross-Site Scripting (XSS)</a></li><li class="chapter-item "><a href="../../../../Exploitation/Web/Host Header Injection.html">Host Header Injection</a></li><li class="chapter-item "><a href="../../../../Exploitation/Web/HTTP Parameter Pollution.html">HTTP Parameter Pollution</a></li><li class="chapter-item "><a href="../../../../Exploitation/Web/HTTP Response Splitting.html">HTTP Response Splitting</a></li><li class="chapter-item "><a href="../../../../Exploitation/Web/Open Redirect.html">Open Redirect</a></li><li class="chapter-item "><a href="../../../../Exploitation/Web/Template Injection.html">Template Injection</a></li><li class="chapter-item "><a href="../../../../Exploitation/Web/WebSockets.html">WebSockets</a></li></ol></li><li class="chapter-item "><a href="../../../../Exploitation/Windows/index.html">Windows</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Exploitation/Windows/SCF File Attacks.html">SCF File Attacks</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../../../Post Exploitation/index.html">Post Exploitation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Post Exploitation/Active Directory (AD)/index.html">Active Directory (AD)</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Post Exploitation/Active Directory (AD)/Domain Data Enumeration with Bloodhound.html">Domain Data Enumeration with Bloodhound</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Active Directory (AD)/Domain Enumeration with PowerView.html">Domain Enumeration with PowerView</a></li></ol></li><li class="chapter-item "><a href="../../../../Post Exploitation/Enumeration/index.html">Enumeration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Post Exploitation/Enumeration/Linux/index.html">Linux</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Post Exploitation/Enumeration/Linux/Hunting Down Sensitive Files.html">Hunting Down Sensitive Files</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Enumeration/Linux/Network Enumeration.html">Network Enumeration</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Enumeration/Linux/System Enumeration.html">System Enumeration</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Enumeration/Linux/User Enumeration.html">User Enumeration</a></li></ol></li><li class="chapter-item "><a href="../../../../Post Exploitation/Enumeration/Windows/index.html">Windows</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Post Exploitation/Enumeration/Windows/System Enumeration.html">System Enumeration</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../../../Post Exploitation/Pivoting/index.html">Pivoting</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Post Exploitation/Pivoting/SSH Tunneling.html">SSH Tunneling</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Pivoting/Tunneling with Chisel.html">Tunneling with Chisel</a></li></ol></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/index.html">Privilege Escalation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Linux/index.html">Linux</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Linux/Abusing Linux Capabilities.html">Abusing Linux Capabilities</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Linux/Abusing SUID & SGID Binaries.html">Abusing SUID & SGID Binaries</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Linux/Kernel Exploits.html">Kernel Exploits</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Linux/NFS Root Squashing.html">NFS Root Squashing</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Linux/Sudo Escalation via LD_PRELOAD.html">Sudo Escalation via LD_PRELOAD</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Linux/Sudo Shell Escape Sequences.html">Sudo Shell Escape Sequences</a></li></ol></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Windows/index.html">Windows</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Windows/Misconfigured Services/index.html">Misconfigured Services</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Windows/Misconfigured Services/Insecure Service Executable Permissions.html">Insecure Service Executable Permissions</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Windows/Misconfigured Services/Insecure Service Permissions.html">Insecure Service Permissions</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Windows/Misconfigured Services/Unquoted Service Paths.html">Unquoted Service Paths</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Windows/Misconfigured Services/Weak Registry Permissions.html">Weak Registry Permissions</a></li></ol></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Windows/AlwaysInstallElevated Group Policy.html">AlwaysInstallElevated Group Policy</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Windows/AutoRun Programmes.html">AutoRun Programmes</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Windows/Bypassing UAC.html">Bypassing UAC</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Windows/Kernel Exploits.html">Kernel Exploits</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Windows/Scheduled Tasks.html">Scheduled Tasks</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Windows/Startup Applications.html">Startup Applications</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Windows/Stored Credentials.html">Stored Credentials</a></li><li class="chapter-item "><a href="../../../../Post Exploitation/Privilege Escalation/Windows/Token Impersonation.html">Token Impersonation</a></li></ol></li></ol></li></ol></li><li class="chapter-item "><a href="../../../../Malware Analysis/index.html">Malware Analysis</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Malware Analysis/Basic Static Analysis.html">Basic Static Analysis</a></li></ol></li><li class="chapter-item "><a href="../../../../Malware Development/index.html">Malware Development</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Malware Development/Code Execution Techniques/index.html">Code Execution Techniques</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Malware Development/Code Execution Techniques/Hyperlinking.html">Hyperlinking</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../../../Reverse Engineering/index.html">Reverse Engineering</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Reverse Engineering/Assembly Programming/index.html">Assembly Programming</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Reverse Engineering/Assembly Programming/x86-64/index.html">x86-64</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Reverse Engineering/Assembly Programming/x86-64/Data Representation.html">Data Representation</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Assembly Programming/x86-64/Memory.html">Memory</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Assembly Programming/x86-64/Registers.html">Registers</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Assembly Programming/x86-64/Variables.html">Variables</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Binary Formats/index.html">Binary Formats</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Reverse Engineering/Binary Formats/ELF/index.html">ELF</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Reverse Engineering/Binary Formats/ELF/Dynamic Linking.html">Dynamic Linking</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Binary Formats/ELF/Relocations.html">Relocations</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Binary Formats/ELF/Sections.html">Sections</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Binary Formats/ELF/Segments.html">Segments</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Binary Formats/ELF/Symbols.html">Symbols</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Binary Formats/ELF/The ELF Header.html">The ELF Header</a></li></ol></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Binary Formats/PE/index.html">PE</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Reverse Engineering/Binary Formats/PE/NT Headers.html">NT Headers</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Binary Formats/PE/Relocations.html">Relocations</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Binary Formats/PE/Sections.html">Sections</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Binary Formats/PE/The DOS Header.html">The DOS Header</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Binary Formats/PE/The DOS Stub.html">The DOS Stub</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Binary Formats/PE/The Rich Header.html">The Rich Header</a></li></ol></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Binary Formats/Reverse Engineering Android Applications.html">Reverse Engineering Android Applications</a></li></ol></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Program Anatomy/index.html">Program Anatomy</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Reverse Engineering/Program Anatomy/Instructions.html">Instructions</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Program Anatomy/Registers.html">Registers</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Program Anatomy/The Heap.html">The Heap</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Program Anatomy/The Stack.html">The Stack</a></li></ol></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Reverse Engineering with Ghidra/index.html">Reverse Engineering with Ghidra</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Reverse Engineering/Reverse Engineering with Ghidra/Creating a Project and Loading a Binary.html">Creating a Project and Loading a Binary</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Reverse Engineering with Ghidra/Initial Analysis.html">Initial Analysis</a></li></ol></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Reverse Engineering with radare2/index.html">Reverse Engineering with radare2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Reverse Engineering/Reverse Engineering with radare2/Analysis.html">Analysis</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Reverse Engineering with radare2/Binary Info.html">Binary Info</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Reverse Engineering with radare2/Flags.html">Flags</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Reverse Engineering with radare2/Seeking.html">Seeking</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Reverse Engineering with radare2/Strings.html">Strings</a></li></ol></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Assembly.html">Assembly</a></li><li class="chapter-item "><a href="../../../../Reverse Engineering/Basic Reverse Engineering using objdump, strace, and ltrace.html">Basic Reverse Engineering using objdump, strace, and ltrace</a></li></ol></li><li class="chapter-item "><a href="../../../../Hardware Hacking/index.html">Hardware Hacking</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Hardware Hacking/Wireless Attacks/index.html">Wireless Attacks</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Hardware Hacking/Wireless Attacks/Deauth Attack.html">Deauth Attack</a></li><li class="chapter-item "><a href="../../../../Hardware Hacking/Wireless Attacks/Hacking WEP Networks.html">Hacking WEP Networks</a></li><li class="chapter-item "><a href="../../../../Hardware Hacking/Wireless Attacks/Hacking WPA Networks.html">Hacking WPA Networks</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../../../Cryptography/index.html">Cryptography</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Cryptography/Block Ciphers/index.html">Block Ciphers</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Cryptography/Block Ciphers/Advanced Encryption Standard (AES).html">Advanced Encryption Standard (AES)</a></li><li class="chapter-item "><a href="../../../../Cryptography/Block Ciphers/Encrypting Non-Conforming Messages.html">Encrypting Non-Conforming Messages</a></li><li class="chapter-item "><a href="../../../../Cryptography/Block Ciphers/Modes of Operation.html">Modes of Operation</a></li><li class="chapter-item "><a href="../../../../Cryptography/Block Ciphers/Padding Oracle Attack.html">Padding Oracle Attack</a></li></ol></li><li class="chapter-item "><a href="../../../../Cryptography/Hash Functions/index.html">Hash Functions</a></li><li class="chapter-item "><a href="../../../../Cryptography/Stream Ciphers/index.html">Stream Ciphers</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Cryptography/Stream Ciphers/Hardware-Oriented Stream Ciphers/index.html">Hardware-Oriented Stream Ciphers</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Cryptography/Stream Ciphers/Hardware-Oriented Stream Ciphers/Grain-128a.html">Grain-128a</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../../../Cryptography/Breaking Classical Cryptrography.html">Breaking Classical Cryptrography</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../Networking/index.html">Networking</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Networking/Networks/index.html">Networks</a></li><li class="chapter-item expanded "><a href="../../../../Networking/Protocols/index.html">Protocols</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Networking/Protocols/Domain Name System (DNS)/index.html">Domain Name System (DNS)</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Networking/Protocols/Domain Name System (DNS)/DNS Protocol.html">DNS Protocol</a></li><li class="chapter-item "><a href="../../../../Networking/Protocols/Domain Name System (DNS)/The Domain Name System.html">The Domain Name System</a></li><li class="chapter-item "><a href="../../../../Networking/Protocols/Domain Name System (DNS)/The in-addr.arpa Domain.html">The in-addr.arpa Domain</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../Networking/Protocols/WLAN (IEEE 802.11)/index.html">WLAN (IEEE 802.11)</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/index.html" class="active">Management Frames</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/Action Frames.html">Action Frames</a></li><li class="chapter-item "><a href="../../../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/Association Frames.html">Association Frames</a></li><li class="chapter-item "><a href="../../../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/Authentication Frames.html">Authentication Frames</a></li><li class="chapter-item "><a href="../../../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/Discovery Frames.html">Discovery Frames</a></li></ol></li><li class="chapter-item "><a href="../../../../Networking/Protocols/WLAN (IEEE 802.11)/Authentication & Association.html">Authentication & Association</a></li><li class="chapter-item "><a href="../../../../Networking/Protocols/WLAN (IEEE 802.11)/Control Frames.html">Control Frames</a></li><li class="chapter-item "><a href="../../../../Networking/Protocols/WLAN (IEEE 802.11)/Data Frames.html">Data Frames</a></li><li class="chapter-item "><a href="../../../../Networking/Protocols/WLAN (IEEE 802.11)/Encryption & Integrity.html">Encryption & Integrity</a></li><li class="chapter-item "><a href="../../../../Networking/Protocols/WLAN (IEEE 802.11)/WiFi Protected Access (WPA).html">WiFi Protected Access (WPA)</a></li></ol></li><li class="chapter-item "><a href="../../../../Networking/Protocols/Address Resolution Protocol (ARP).html">Address Resolution Protocol (ARP)</a></li><li class="chapter-item "><a href="../../../../Networking/Protocols/Ethernet (IEEE 802.3).html">Ethernet (IEEE 802.3)</a></li><li class="chapter-item "><a href="../../../../Networking/Protocols/File Transfer Protocol (FTP).html">File Transfer Protocol (FTP)</a></li><li class="chapter-item "><a href="../../../../Networking/Protocols/Network Time Protocol (NTP).html">Network Time Protocol (NTP)</a></li><li class="chapter-item "><a href="../../../../Networking/Protocols/Server Message Block (SMB).html">Server Message Block (SMB)</a></li><li class="chapter-item "><a href="../../../../Networking/Protocols/Simple Network Management Protocol (SNMP).html">Simple Network Management Protocol (SNMP)</a></li></ol></li><li class="chapter-item "><a href="../../../../Networking/The TCP-IP Suite and the OSI Model/index.html">The TCP-IP Suite and the OSI Model</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../../Networking/The TCP-IP Suite and the OSI Model/(1) The Physical Layer.html">(1) The Physical Layer</a></li><li class="chapter-item "><a href="../../../../Networking/The TCP-IP Suite and the OSI Model/(2) The Datalink Layer.html">(2) The Datalink Layer</a></li></ol></li><li class="chapter-item "><a href="../../../../Networking/Network Address Translation (NAT).html">Network Address Translation (NAT)</a></li><li class="chapter-item "><a href="../../../../Networking/Subnetting.html">Subnetting</a></li><li class="chapter-item "><a href="../../../../Networking/VLANs.html">VLANs</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Cyberclopaedia</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/cr0mll/cyberclopaedia/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>Management frames render the service of managing the Service Set. They have 3 addresses in their MAC header, which is 24 bytes in size for 802.11a/b/g/, and 28 bytes for 802.11n (additional 4 bytes for the HT Control field). Their type in the <a href="../index.html#frame-control">Frame Control</a> is indicated by <code>00</code>. Moreover, management frames are never forwarded to the DS, so they have the <code>FromDS</code> and <code>ToDS</code> bits set to 0 in their Frame Control. </p>
+<p><img src="Resources/Images/Management_Frame.svg" alt="" /></p>
+<p>The source and destination MAC addresses are self-explanatory. The third address is the BSS ID which can either be the MAC of the AP or a wildcard value (for probe requests). If 802.11n is used, there is also an HT Control field in the MAC header. The frame body (payload) is comprised of fixed-size fields and variable-size information elements.</p>
+<p>There are 12 subtypes of management frames:</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Subtype Bits</th><th style="text-align: center">Meaning</th></tr></thead><tbody>
+<tr><td style="text-align: center"><code>0000</code></td><td style="text-align: center">Association Request</td></tr>
+<tr><td style="text-align: center"><code>0001</code></td><td style="text-align: center">Association Response</td></tr>
+<tr><td style="text-align: center"><code>0010</code></td><td style="text-align: center">Reassociation Request</td></tr>
+<tr><td style="text-align: center"><code>0011</code></td><td style="text-align: center">Reassociation Response</td></tr>
+<tr><td style="text-align: center"><code>0100</code></td><td style="text-align: center">Probe Request</td></tr>
+<tr><td style="text-align: center"><code>0101</code></td><td style="text-align: center">Probe Response</td></tr>
+<tr><td style="text-align: center"><code>1000</code></td><td style="text-align: center">Beacon Frame</td></tr>
+<tr><td style="text-align: center"><code>1001</code></td><td style="text-align: center">Announcement Traffic Indication Message (ATIM)</td></tr>
+<tr><td style="text-align: center"><code>1010</code></td><td style="text-align: center">Disassociation Frame</td></tr>
+<tr><td style="text-align: center"><code>1011</code></td><td style="text-align: center">Authentication Frame</td></tr>
+<tr><td style="text-align: center"><code>1100</code></td><td style="text-align: center">Deauthentication Frame</td></tr>
+<tr><td style="text-align: center"><code>1101</code></td><td style="text-align: center">Action Frame</td></tr>
+<tr><td style="text-align: center"><code>1110</code></td><td style="text-align: center">Action - no ACK</td></tr>
+</tbody></table>
+</div>
+<h1 id="management-frame-fields"><a class="header" href="#management-frame-fields">Management Frame Fields</a></h1>
+<p>These are fixed-size fields and are typically located at the beginning of the management frame's body.</p>
+<h2 id="capability-information"><a class="header" href="#capability-information">Capability Information</a></h2>
+<p>This is a complex 2-byte field which indicates request or advertised capabilities. This field is present in beacon, probe response, association request, association response, reassociation request, and reassociation response frames.</p>
+<p><img src="Resources/Images/Capability_Information.svg" alt="" /></p>
+<p>The <code>ESS</code> &amp; <code>IBSS</code> fields are mutually exclusive. The ESS bit indicates whether the frame is coming from an AP (1) or not (0) and the IBSS fields indicates whether or not the frame is coming form an IBSS station (1) or not (0).</p>
+<p>The <code>Privacy</code> field is set to 1 if data confidentiality (AES, TKIP, or WEP) is required and is set to 0 otherwise. The encryption type is actually determined by the RSN field.</p>
+<p><code>Short Preamble</code> is set to 1 if short preambles are supported.</p>
+<p><code>Channel Agility</code> is an optional feature introduced by 802.11b. Its purpose was to reduce interference by periodically shifting the channel up and down a bit but it was never widely adopted.</p>
+<p><code>Spectrum Management</code> is set to 1 to reflect DFS and TPC support.</p>
+<p><code>QoS</code> is set to 1 if the AP supports QoS and is seto to 0 otherwise.</p>
+<p><code>Short Slot Time</code> is used to indicate whether Short Slot Time (9 μs) is used. This indicates that 802.11b is not supported by the AP, since this standard only uses Standard Slot Time (20 μs). If an 802.11b client joins the network, Short Slot Time should be disabled across the entire network until the 802.11b device leaves. Thus, all following frames should have this bit set to 0. For 802.11a, this bit is always set to 0, since Standard Slot Time is not supported, so there is no &quot;long&quot; and therefore no &quot;short&quot; time.</p>
+<p>If the <code>APSD</code> set is set to 1, then the AP supports the eponymous feature. If this is set to 0, then the AP only supports Legacy Power Saving Mode. Frames originating from client should always have this bit set to 0, due to network-wide nature of this feature.</p>
+<p><code>DSSS-OFDM</code> provides 54 Mbps speeds in 802.11b/g-<br />
+compatible networks. When this bit is set to 1, the DSSS-OFDM mode is allowed.<br />
+When the bit is set to 0, this mode is not allowed. This bit is always set to 0 for 802.11a networks.</p>
+<h2 id="status-code-field"><a class="header" href="#status-code-field">Status Code Field</a></h2>
+<p>This is a 2-byte long field present in Response frames. If set to 0, then the request was successful. Otherwise, the field contains the failure code, where 1 indicates an unspecified failure.</p>
+<h2 id="reason-code-field"><a class="header" href="#reason-code-field">Reason Code Field</a></h2>
+<p>This 2-byte field is used to indicate the reason that an unsolicited notification man-<br />
+agement frame of type disassociation, deauthentication, DELTS, DELBA, or DLS teardown<br />
+was generated. It is only present in frames of the above types when such a frame is sent to a station without the client asking.</p>
+<h1 id="management-frame-information-elements"><a class="header" href="#management-frame-information-elements">Management Frame Information Elements</a></h1>
+<p>Manage frames can contain Management Frame Information Elements which are variable-length components and they may or may not be present. The typical structure of an MFIE is an element ID, followed by a length, and then the actual payload. The element ID and the length fields are both 1 bytes long, while the payload may range from 0 to 32 bytes. </p>
+<p><img src="Resources/Images/MFIE.svg" alt="" /></p>
+<p>The following Element IDs are defined:</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Element ID</th><th style="text-align: center">Name</th></tr></thead><tbody>
+<tr><td style="text-align: center">0</td><td style="text-align: center">Service Set Identity (SSID)</td></tr>
+<tr><td style="text-align: center">1</td><td style="text-align: center">Supported Rates</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">FH Parameter Set</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">DS Parameter Set</td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">CF Parameter Set</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">Traffic Indication Map (TIM)</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">IBSS Parameter Set</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">Country</td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: center">Hopping Pattern Parameters</td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: center">Hopping Pattern Table</td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: center">Request Information</td></tr>
+<tr><td style="text-align: center">11</td><td style="text-align: center">BSS Load</td></tr>
+<tr><td style="text-align: center">12 - 15</td><td style="text-align: center">Reserved</td></tr>
+<tr><td style="text-align: center">16</td><td style="text-align: center">Challenge Text</td></tr>
+<tr><td style="text-align: center">17 - 31</td><td style="text-align: center">Reserved</td></tr>
+<tr><td style="text-align: center">32</td><td style="text-align: center">Power Constraint</td></tr>
+<tr><td style="text-align: center">33</td><td style="text-align: center">Power Capability</td></tr>
+<tr><td style="text-align: center">34</td><td style="text-align: center">Transmit Power Control (TPC) Request</td></tr>
+<tr><td style="text-align: center">35</td><td style="text-align: center">TPC Report</td></tr>
+<tr><td style="text-align: center">36</td><td style="text-align: center">Supported Channels</td></tr>
+<tr><td style="text-align: center">37</td><td style="text-align: center">Channel Switch Announcement</td></tr>
+<tr><td style="text-align: center">38</td><td style="text-align: center">Measurement Request</td></tr>
+<tr><td style="text-align: center">39</td><td style="text-align: center">Measurement Report</td></tr>
+<tr><td style="text-align: center">40</td><td style="text-align: center">Quiet</td></tr>
+<tr><td style="text-align: center">41</td><td style="text-align: center">IBSS DFS</td></tr>
+<tr><td style="text-align: center">42</td><td style="text-align: center">ERP Information</td></tr>
+<tr><td style="text-align: center">43 - 47</td><td style="text-align: center">Reserved</td></tr>
+<tr><td style="text-align: center">48</td><td style="text-align: center">Robust Security Network (RSN)</td></tr>
+<tr><td style="text-align: center">49</td><td style="text-align: center">Reserved</td></tr>
+<tr><td style="text-align: center">50</td><td style="text-align: center">Extended Supported Rates</td></tr>
+<tr><td style="text-align: center">51 - 220</td><td style="text-align: center">Reserved</td></tr>
+<tr><td style="text-align: center">221</td><td style="text-align: center">WPA</td></tr>
+<tr><td style="text-align: center">222 - 255</td><td style="text-align: center">Reserved</td></tr>
+</tbody></table>
+</div>
+<h2 id="ssid"><a class="header" href="#ssid">SSID</a></h2>
+<p>The SSID element is present in all beacons, probe requests, probe responses, association<br />
+requests, and reassociation requests. It has an Element ID of 0. Its length is the length of the SSID string. The SSID string is encoded one character per byte and has a maximum length of 32.</p>
+<p><img src="Resources/Images/SSID_MFIE.svg" alt="" /></p>
+<h2 id="supported-rates--extended-supported-rates"><a class="header" href="#supported-rates--extended-supported-rates">Supported Rates &amp; Extended Supported Rates</a></h2>
+<p>This element is present in beacons, probe requests, probe responses, and all<br />
+association frames. Its component is comprised of a maximum of 8 bytes where each byte describes a single supported rate. Each rate takes the following format in a byte. The last bit is set to 1 if the rate is basic (mandatory) and to 0 if there is simply support for it. The rest of the bits described the data rate in multiples of 500 Kbps. A station willing to join the network must support all the mandatory rates.</p>
+<p><img src="Resources/Images/Supported_Rates_MFIE.svg" alt="" /></p>
+<p>If there are more than 8 supported rates, then an Extender Rates Element is also present. This Element can describe up to 255 additional rates in the same fashion as the Supported Rates Element.</p>
+<p><img src="Resources/Images/Extended_Supported_Rates_MFIE.svg" alt="" /></p>
+<h2 id="robust-security-network-rsn"><a class="header" href="#robust-security-network-rsn">Robust Security Network (RSN)</a></h2>
+<p>This element has an ID of 48. It is present in present in beacons, probe responses,<br />
+association responses, and reassociation responses, and is utilised with WPA/2/3 in order to determine the authentication and encryption mechanism in use. RSN has several subfields and its length depends on the number of supported mechanisms.</p>
+<p><img src="Resources/Images/RSN_MFIE.svg" alt="" /></p>
+<p>The <code>Version</code> subfield is 2 bytes in length and always set to 1.</p>
+<p>Next is the <code>Group Cipher Suite</code> descriptor. The first three bytes are an OUI of the vendor (<code>00:0F:AC</code> for 802.11) and the last byte is the suite type. Following is a table of the cipher suites.</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">OUI</th><th style="text-align: center">Suite Type</th><th style="text-align: center">Description</th></tr></thead><tbody>
+<tr><td style="text-align: center"><code>00:0F:AC</code></td><td style="text-align: center">0</td><td style="text-align: center">Use the group cipher suite (for pairwise ciphers only).</td></tr>
+<tr><td style="text-align: center"><code>00:0F:AC</code></td><td style="text-align: center">1</td><td style="text-align: center">WEP-40</td></tr>
+<tr><td style="text-align: center"><code>00:0F:AC</code></td><td style="text-align: center">2</td><td style="text-align: center">TKIP</td></tr>
+<tr><td style="text-align: center"><code>00:0F:AC</code></td><td style="text-align: center">3</td><td style="text-align: center">Reserved</td></tr>
+<tr><td style="text-align: center"><code>00:0F:AC</code></td><td style="text-align: center">4</td><td style="text-align: center">CCMP-128</td></tr>
+<tr><td style="text-align: center"><code>00:0F:AC</code></td><td style="text-align: center">5</td><td style="text-align: center">WEP-104</td></tr>
+<tr><td style="text-align: center"><code>00:0F:AC</code></td><td style="text-align: center">6</td><td style="text-align: center">BIP-CMAC-128</td></tr>
+<tr><td style="text-align: center"><code>00:0F:AC</code></td><td style="text-align: center">7</td><td style="text-align: center">Reserved</td></tr>
+<tr><td style="text-align: center"><code>00:0F:AC</code></td><td style="text-align: center">8</td><td style="text-align: center">GCMP-128</td></tr>
+<tr><td style="text-align: center"><code>00:0F:AC</code></td><td style="text-align: center">9, 10</td><td style="text-align: center">GCMP-256</td></tr>
+<tr><td style="text-align: center"><code>00:0F:AC</code></td><td style="text-align: center">11</td><td style="text-align: center">BIP-GMAC-128</td></tr>
+<tr><td style="text-align: center"><code>00:0F:AC</code></td><td style="text-align: center">12, 13</td><td style="text-align: center">BIP-GMAC-256</td></tr>
+</tbody></table>
+</div>
+<p>Next is a 2-byte <code>Pairwise Cipher Suite Count</code> which indicates how many ciphers are in the next field. Each cipher is described by 4 bytes in the <code>Pairwise Cipher Suite List</code>.</p>
+<p>The next two fields are similar to the Pairwise Cipher Suite fields, but describe the mechanisms supported for authentication (Authentication &amp; Key Management). The <code>AKM Suite Count</code> defines the number of methods supported. Each method is described by 4 bytes in the <code>AKM Suite List</code>, where the first 3 bytes are again an OUI. </p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">OUI</th><th style="text-align: center">Suite Type</th><th style="text-align: center">Authentication</th></tr></thead><tbody>
+<tr><td style="text-align: center"><code>00:0F:AC</code></td><td style="text-align: center">1</td><td style="text-align: center">802.1X or PMK Caching</td></tr>
+<tr><td style="text-align: center"><code>00:0F:AC</code></td><td style="text-align: center">2</td><td style="text-align: center">Pre-shared Key (PSK)</td></tr>
+<tr><td style="text-align: center">Vendor OUI</td><td style="text-align: center">Any</td><td style="text-align: center">Vendor-specific</td></tr>
+</tbody></table>
+</div>
+<p>The <code>RSN Capabilities</code> is a 2-byte field. The first 4 bits are flags and the rest must be set to 0. The <code>Preauthentication</code> bit is set by an AP to indicate that it supports preauthentication with other APs in order to move security sessions around. The <code>No Pairwise</code> bit is set station can support a manual WEP key for broadcast data in conjunction with a stronger unicast key, but this should not be used. </p>
+<p>The last two fields, <code>PMKID Count</code> and <code>PMKID List</code>, describe a list of PMKs which a client may send to an AP during association in order to speed up the process by bypassing time-consuming authentication. This only works if the AP caches PMKs. </p>
+<h2 id="direct-sequence-ds-parameter-set"><a class="header" href="#direct-sequence-ds-parameter-set">Direct Sequence (DS) Parameter Set</a></h2>
+<p>The DS Parameter Set element in used both by DSSS and OFDM system, on both 2.4 GHz and 5 GHz bands. It is a simple field with an important task - it indicates the current channel.</p>
+<p><img src="Resources/Images/DS_Parameter_Set_MFIE.svg" alt="" /></p>
+<p>Since 802.11 signals are spread across multiple channel, this indicates the channel that the sender is centering their transmission on.
+When 802.11n is employed with channel bonding, the secondary channel is indicated in several 802.11n-specific field such as the Secondary Channel element or the 20/40 IBSS Coexistence element.</p>
+<h2 id="bss-load"><a class="header" href="#bss-load">BSS Load</a></h2>
+<p>This element is used only when QoS is supported (when the QoS subfield in the Capability<br />
+Information element is enabled) and is often additionally called QBSS Load. It provides information about the network load and is typically sent by APs. Stations avail themselves of this field in order to determine how to <a href="../../../The%20TCP-IP%20Suite%20and%20the%20OSI%20Model/(1)%20The%20Physical%20Layer.html#extended-service-set-ess">roam</a>.</p>
+<p><img src="Resources/Images/BSS_Load_MFIE.svg" alt="" /></p>
+<p>The <code>Station Count</code> is an integer indicating the number of stations currently connected to the network.</p>
+<p>The <code>Channel Utilisation</code> field is the percentage of time, normalised to 255, that the AP sensed the medium was busy. An AP senses the medium every slot time. At regular inter- vals (every 50 beacons by default)), the AP looks over the last period and counts how many times the<br />
+network was seen as busy and how many times it was seen as idle. A simple percentage is then calculated and translated into a 0 to 255 range.</p>
+<h2 id="enhanced-distributed-channel-access-edca-parameter"><a class="header" href="#enhanced-distributed-channel-access-edca-parameter">Enhanced Distributed Channel Access (EDCA) Parameter</a></h2>
+<p>This element is used only when QoS is supported. In most QoS-enabled networks, this<br />
+field is not used, and the same information is provided through the WMM or the WME<br />
+vendor-specific elements.</p>
+<h2 id="qos-capability"><a class="header" href="#qos-capability">QoS Capability</a></h2>
+<p>This element is used only when QoS is supported. It is used as a conjugate to the EDCA<br />
+Parameter element when EDCA Parameter is not present. Furthermore, It is utilised by the AP to transmit QoS information to the network. It is a shorter version of the EDCA Parameter Set<br />
+element and contains only the QoS information section. In most QoS-enabled networks,<br />
+this field is not used, and the same information is provided through the WMM or the<br />
+WME vendor-specific elements.</p>
+<h2 id="ibss-dfs"><a class="header" href="#ibss-dfs">IBSS DFS</a></h2>
+<p>IBSSs require a designated owner for the dynamic frequency selection (DFS) algorithm. Thus, this element may be transmitted by management frames in an IBSS.</p>
+<p><img src="Resources/Images/IBSS_DFS_MFIE.svg" alt="" /></p>
+<p>The <code>DFS Owner</code> field contains the MAC address of the, well, DFS owner. Should this owner disappear or be lost during a hop, the <code>DFS Recovery Interval</code> will contain a timeout (in TBTTs or beacon intervals) for how long a station not hearing from the DFS owner should wait before selecting its own channel and assuming the role of a DFS owner itself.</p>
+<p>The last field is a <code>Channel Map</code> which is a series of members which report what is detected on each channel. A channel map member consists of two bytes - one for the channel number and one for the actual information.</p>
+<p>The latter byte is split into five subfields - the last three bits are reserved. The <code>BSS</code> bit will be set to 1 if frames from another network are detected during a measurement period. The <code>OFDM Preamble</code> bit is set if the 802.11a short training sequence is detected, but without being followed by the rest of the frame. The <code>Unidentified Signal</code> bit is set to 1 when the received power is high, but the signal cannot be classified as either a 802.11 network, an OFDM network, or a radar signal. The <code>Radar</code> bit is set to 1 if a radar signal was received during the measurement period. The <code>Unmeasured</code> bit is set to 1 if the channel wasn't measured. In this case, all other bits will naturally be 0.</p>
+<h2 id="country"><a class="header" href="#country">Country</a></h2>
+<p>Since each country is allowed to regulate the allowed channels and power levels, a mechanism was invented for networks to describe these limitations to new stations instead of ceaselessly updating drivers.</p>
+<p><img src="Resources/Images/Country_MFIE.svg" alt="" /></p>
+<p>The <code>Country String</code> is a 3-byte ASCII string representing the country of operation. The first two characters are the country's ISO code and the last character is either set to &quot;I&quot; or &quot;O&quot; which distinguishes between indoor and outdoor regulations, respectively.</p>
+<p>The rest of the country MFIE is composed of <code>Constraint Triplets</code>. The <code>First Channel</code> field signifies the lowest channel subject to the power constraint. Next is the <code>Number of Channels</code> in the band that are subject to the power constraint. Ultimately comes the <code>Max Transmit Power</code> which indicates the maximum transmission power allowed, in dBm.</p>
+<p>The size of the information element must be an even number. Otherwise, a <code>Padding</code> byte full of 0s is appended.</p>
+<h2 id="power-constraint"><a class="header" href="#power-constraint">Power Constraint</a></h2>
+<p>Under 802.11h, stations operating in the 5 GHz bands should reduce their power level so as to avoid creating interference with other devices using the same spectrum. This is referred to as &quot;satellite services&quot;, but is so far implemented only to avoid interference with civilian airport radars in the UNII-2 and UNII-2 extended bands. In this field, the AP indicates how much lower than the maximum power indicated by the Country element participants should strive for.</p>
+<p><img src="Resources/Images/Power_Constraint_MFIE.svg" alt="" /></p>
+<p>The <code>Local Power Constraint</code> field is the reduction of power, in dBm, from the one in the Country element that stations should strive for. If the Country element designated 10 dBm as the maximum and this field contains 4 dBm, then the stations should ultimately strive for a signal power of 6 dBm.</p>
+<h2 id="power-capability"><a class="header" href="#power-capability">Power Capability</a></h2>
+<p>This field allows a station to report its minimum and maximum transmission power in dBm.</p>
+<p><img src="Resources/Images/Power_Capability_MFIE.svg" alt="" /></p>
+<h2 id="tpc-report"><a class="header" href="#tpc-report">TPC Report</a></h2>
+<p>The attenuation of the link is useful to stations seeking to adjust their transmission power. This field typically serves as a response to a <a href="Discovery%20Frames.html#tpc-request">TPC Request</a>. </p>
+<p><img src="Resources/Images/TPC_Report_MFIE.svg" alt="" /></p>
+<p>The <code>Transmit Power</code> indicates the transmission power, in dBm, used to transmit the frame containing the element. The <code>Link Margin</code> is another field which contains the number of decibels that are required by the sending station for safety.</p>
+<h2 id="supported-channels"><a class="header" href="#supported-channels">Supported Channels</a></h2>
+<p>This field describes the channel sub-bands supported by the device. After the element header follows a series of <em>sub-band descriptors</em>. The first member of the descriptor is the lowest channel supported in the sub-band. The second subfield describes the number of supported channels, beginning with the <code>First Channel</code>.</p>
+<p><img src="Resources/Images/Supported_Channels_MFIE.svg" alt="" /></p>
+<p>If a station supported channels 20 through 36, then it would have the above fields set to 20 and 16, respectively.</p>
+<h2 id="channel-switch-announcement"><a class="header" href="#channel-switch-announcement">Channel Switch Announcement</a></h2>
+<p>With the advent of 802.11h, a feature for dynamic channel switching was implemented. Therefore, management frames may include this element in order to warn stations about the impending channel switch.</p>
+<p><img src="Resources/Images/Channel_Switch_Announcement_MFIE.svg" alt="" /></p>
+<p>When the channel is switched, communications are disrupted. If the <code>Switch Mode</code> is set to 1, then associated stations should cease transmission until the switch occurs. If set to 0, no restrictions are placed on transmission.</p>
+<p>The <code>New Channel</code> field indicates the number of the channel to switch to.</p>
+<p>Channel switching can be scheduled. The <code>Switch Count</code> indicates the number of <a href="Discovery%20Frames.html#beacon-frames">TBTTs</a> that it will take before the channel is changed. The channel switch occurs at the nick of time before the <a href="Discovery%20Frames.html#beacon-frames">beacon frame</a> is sent. If this field is set to 0, then the channel switch may occur without further warning.</p>
+<h2 id="quiet"><a class="header" href="#quiet">Quiet</a></h2>
+<p>Under 802.11h, an AP can request a period of silence during which no station should transmit. This is done in order to detect possible radars and then possible issue a channel switch if such is found.</p>
+<p><img src="Resources/Images/Quiet_MFIE.svg" alt="" /></p>
+<p>Silence periods are scheduled. The <code>Quiet Count</code> field contains the number of <a href="Discovery%20Frames.html#beacon-frames">TBTTs</a> before the quiet period is to occur.</p>
+<p>Moreover, silence periods may be scheduled periodically. The <code>Quiet Period</code> field indicates the number of <a href="Discovery%20Frames.html#beacon-interval">beacon intervals</a> between silence periods. If this field is set to 0, then the silence period is not periodical.</p>
+<p>The <code>Quiet Duration</code> field specifies the number of time units that the silence period will last.</p>
+<p>The <code>Quiet Offset</code> field is the number of time units after a <a href="Discovery%20Frames.html#beacon-interval">beacon interval</a> that the silence period is to begin at.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../Networking/Protocols/WLAN (IEEE 802.11)/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/Action Frames.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../Networking/Protocols/WLAN (IEEE 802.11)/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../../../Networking/Protocols/WLAN (IEEE 802.11)/Management Frames/Action Frames.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
