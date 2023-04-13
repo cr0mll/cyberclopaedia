@@ -26,7 +26,7 @@
 			- [Protection Mechanisms](Exploitation/Binary%20Exploitation/Stack%20Exploitation/Protection%20Mechanisms.md)
 			- [Return to _dl_resolve](Exploitation/Binary%20Exploitation/Stack%20Exploitation/Return%20to%20_dl_resolve.md)
 			- [Return-oriented Programming (ROP)](Exploitation/Binary%20Exploitation/Stack%20Exploitation/Return-oriented%20Programming%20(ROP).md)
-			- [Sigreturn-oriented Programming](Exploitation/Binary%20Exploitation/Stack%20Exploitation/Sigreturn-oriented%20Programming.md)
+			- [Sigreturn-oriented Programming (SROP)](Exploitation/Binary%20Exploitation/Stack%20Exploitation/Sigreturn-oriented%20Programming%20(SROP).md)
 	- [DNS](Exploitation/DNS/index.md)
 		- [DNS Cache Poisoning](Exploitation/DNS/DNS%20Cache%20Poisoning.md)
 		- [DNS Traffic Amplification](Exploitation/DNS/DNS%20Traffic%20Amplification.md)
