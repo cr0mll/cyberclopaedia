@@ -3,6 +3,7 @@ Variables in assembly do not exists in the same sense as they do in higher-level
 
 That being said, there are some parallels with higher-level programming languages as well.
 
+When manually programming assembly, it should be noted that variable names are more or less identical to addresses.
 # Constants
 Assembly constants cannot be changed during run-time execution. Their value is substituted at assembly-time (corresponding to compile-time substitution for constants in higher-level languages). Consequently, constants are not even assigned a location in memory, for they turn into hard-coded values.
 
