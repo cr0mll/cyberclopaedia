@@ -20,7 +20,9 @@ Each folder you create must have the following structure:
 
 ![](Resources/Images/Folder%20Structure.svg)
 
-Images, such as diagrams, are respectively placed in the `Resources/Images` subdirectory. The `index.md` file is required by mdBook. This is the file which gets rendered when someone clicks on the folder name in the website's table of contents. Ideally, it should contain an overview of or introduction to the content inside the directory, but you may also leave it empty.
+Images, such as diagrams, are respectively placed in the `Resources/Images` subdirectory. Every page in your main folder should be reflected in this subdirectory by means of an eponymous folder within `Resource/Images`. Any images used in this page would then go in `Resource/Images/Page Name`.
+
+The `index.md` file is required by mdBook. This is the file which gets rendered when someone clicks on the folder name in the website's table of contents. Ideally, it should contain an overview of or introduction to the content inside the directory, but you may also leave it empty.
 
 ### Page Structure
 Ideally, pages should begin with an introduction or overview section - for example, with an `# Introduction` or `# Overview` heading.

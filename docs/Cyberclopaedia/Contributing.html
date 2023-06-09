@@ -178,7 +178,8 @@ max-height:100%;" src="../favicon.png" > <!-- Icon pls -->
 <h3 id="folder-organisation"><a class="header" href="#folder-organisation">Folder Organisation</a></h3>
 <p>Each folder you create must have the following structure:</p>
 <p><img src="Resources/Images/Folder%20Structure.svg" alt="" /></p>
-<p>Images, such as diagrams, are respectively placed in the <code>Resources/Images</code> subdirectory. The <code>index.md</code> file is required by mdBook. This is the file which gets rendered when someone clicks on the folder name in the website's table of contents. Ideally, it should contain an overview of or introduction to the content inside the directory, but you may also leave it empty.</p>
+<p>Images, such as diagrams, are respectively placed in the <code>Resources/Images</code> subdirectory. Every page in your main folder should be reflected in this subdirectory by means of an eponymous folder within <code>Resource/Images</code>. Any images used in this page would then go in <code>Resource/Images/Page Name</code>.</p>
+<p>The <code>index.md</code> file is required by mdBook. This is the file which gets rendered when someone clicks on the folder name in the website's table of contents. Ideally, it should contain an overview of or introduction to the content inside the directory, but you may also leave it empty.</p>
 <h3 id="page-structure"><a class="header" href="#page-structure">Page Structure</a></h3>
 <p>Ideally, pages should begin with an introduction or overview section - for example, with an <code># Introduction</code> or <code># Overview</code> heading.</p>
 <p>The name of any new major topic in a page should be indicated with a Heading 1 style. From then on, subtopics should be introduced with Heading 2, 3 and so on.</p>
@@ -224,22 +225,6 @@ max-height:100%;" src="../favicon.png" > <!-- Icon pls -->
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
 
