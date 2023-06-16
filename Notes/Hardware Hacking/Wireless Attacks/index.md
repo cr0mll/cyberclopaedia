@@ -1,7 +1,7 @@
 # Introduction
 WiFi has become an integral part of our lives.
 
-Many wireless attack will require a wireless adapter which supports [monitor mode and packet injection](https://deviwiki.com/wiki/List_of_Wireless_Adapters_That_Support_Monitor_Mode_and_Packet_Injection).
+Many wireless attacks will require a wireless adapter which supports [monitor mode and packet injection](https://deviwiki.com/wiki/List_of_Wireless_Adapters_That_Support_Monitor_Mode_and_Packet_Injection).
 
 # Monitor Mode
 Monitor mode disconnects a wireless interface from any network that it may be connected to and allows the device to listen to *all* traffic in the area at the same, from *all* access points and *all* clients. 
@@ -31,7 +31,7 @@ sudo airmon-ng start <dev>
 
 ![](Resources/Images/WIFI_airmon_start.png)
 
-Alternatively, the following sequence of commands may be used:
+Alternatively, the following sequence of commands can be employed:
 ```
 sudo ifconfig <dev> down
 sudo iwconfig <dev> mode monitor
@@ -49,7 +49,7 @@ sudo airmon-ng stop wlan0
 
 ![](Resources/Images/WIFI_airmon_stop.png)
 
-Alternatively, `ifconfig` and `iwconfig` may be also be used to disable monitor mode:
+Alternatively, `ifconfig` and `iwconfig` may be also be used to this:
 
 ```
 sudo ifconfig <dev> down
@@ -57,7 +57,7 @@ sudo iwconfig <dev> mode managed
 sudo ifconfig <dev> up
 ```
 
-Finally, you should restart the process killed by `airmon-ng`:
+Finally, you should restart the processes killed by `airmon-ng`:
 ```
 sudo systemctl start NetworkManager 
 ```
@@ -124,7 +124,7 @@ sudo airodump-ng --bssid <BSSID> -c <channel> <dev>
 
 ![](Resources/Images/WIFI_airodump_monitor_single.png)
 
-It is often times useful to write the data captured to a file, which can be done with the `--write` argument:
+It is oftentimes useful to write the captured data to a file, which can be done with the `--write` argument:
 ```
 sudo airodump-ng --write <filename>
 ```
