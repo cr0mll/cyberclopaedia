@@ -1,5 +1,5 @@
 # Introduction
-The Advanced Encryption Standard (AES) is an encryption standard which has been ubiquitously adopted due to its security and has been standardised by NIST. It is comprised of three symmetric block ciphers which all take blocks of size 128 bits and output blocks of the same size. AES has three versions depending on the length of the key it can take. These are AES-128, AES-192, and AES-256, for 128-, 192-, and 256-bit keys, respectively. 
+The Advanced Encryption Standard (AES) is an encryption standard which has been ubiquitously adopted due to its security and has been standardised by NIST. It is comprised of three symmetric block ciphers which all take blocks of size 128 bits and output blocks of the same size. AES has three versions depending on the length of the key it can take. These are AES-128, AES-192, and AES-256, for 128-, 192-, and 256-bit keys, respectively. While the different AES versions may use a different length for the initial key, all round keys derived from it will still be the same size as the block - 128 bits.
 
 The key length also determines the number of rounds that each 128-bit block goes through:
 
@@ -9,39 +9,55 @@ The key length also determines the number of rounds that each 128-bit block goes
 |192|12|
 |256|14|
 
-# Initialisation
-AES round operations are performed on a 2D array (matrix) called the *State*. The State has dimensions 4x4 and contains bytes at each cell. Each element in the State can be referred to as $s_{r,c}$, or $s\left[r,c\right]$, where $r$ and $c$ denote respectively the row and column of the element and begin from 0. 
+AES operates on a 4x4 matrix called the State ( $S$ ). Each of its elements contains a single byte. 
 
-At the beginning of the Cipher and Inverse Cipher, the State is populated in the following way:
-$$s\left[r,c\right] = in\left[r+4c\right]$$
-At the end of the Cipher and Inverse Cipher, the State is mapped back again into the output bytes in the following manner:
-$$out\left[r+4c\right] = s\left[r,c\right]$$
+$$S = \begin{bmatrix} s_{0,0} & s_{0,1} & s_{0,2} & s_{0,3} \\ s_{1,0} & s_{1,1} & s_{1,2} & s_{1,3} \\ s_{2,0} & s_{2,1} & s_{2,2} & s_{2,3} \\ s_{3,0} & s_{3,1} & s_{3,2} & s_{3,3} \\ \end{bmatrix}$$
 
-$$
-\begin{bmatrix}
-in_0 & in_1 & in_2 & in_3 & in_4 & in_5 & in_6 & in_7 & in_8 & in_9 & in_{10} & in_{11} & in_{12} & in_{13} & in_{14} & in_{15}
-\end{bmatrix}
-$$
+At the beginning of both the encryption and decryption algorithms, the state is populated with the 16 bytes from the input block in the following way:
 
-$$\big\Downarrow $$
+$$S[r, c] = \text{in}[4r + c]$$
 
-$$
-\begin{bmatrix}
-s_{0,0} & s_{0,1} & s_{0,2} & s_{0,3} \\
-s_{1,0} & s_{1,1} & s_{1,2} & s_{1,3} \\
-s_{2,0} & s_{2,1} & s_{2,2} & s_{2,3} \\
-s_{3,0} & s_{3,1} & s_{3,2} & s_{3,3} \\
-\end{bmatrix}
-$$
+The indices $r$ and $c$ denote the row and the column of the cell currently being populated.
 
-$$\big\Downarrow $$
+At the end, the final State is mapped back to a 16-byte output array by a similar procedure:
 
-$$
-\begin{bmatrix}
-out_0 & out_1 & out_2 & out_3 & out_4 & out_5 & out_6 & out_7 & out_8 & out_9 & out_{10} & out_{11} & out_{12} & out_{13} & out_{14} & out_{15}
-\end{bmatrix}
-$$
+$$\text{out}[4r + c] = S[r, c]$$
 
-# Key Expansion
-Every round uses a different round key, $K_i$, in order to encrypt the block. These keys are generated from the initial key, $K_0$, which was chosen.
+# AES Operations
+AES has 4 basic of operations: *SubBytes*, *ShiftRows*, *MixColumns* and *AddRoundKey*. Encryption and decryption boil down to stringing these operations in a certain order. Note that for decryption we have the inverse of these operations: *InvSubBytes*, *InvShiftRows* and *InvMixColumns* (AddRoundKey is its own inverse).
 
+### SubBytes
+The SubBytes operation substitutes each element of the state with one from a predefined 16x16 lookup table called the S-box. This is an essential part of the cipher because it introduces *complexity* which makes it difficult to deduce any information about the key form the ciphertext. This complexity is based in non-linearity. Basically, complicated non-linear function is applied to every byte in the state. To speed up the process, the substitutions have been pre-computed for the byte values `0x00` to `0xff` and summarised into the S-box. Note that there are two versions of the S-box - one for encryption and the other for decryption.
+
+![](Resources/Images/AES/AES%20S-Box.png)
+
+![](Resources/Images/AES/AES%20Inverse%20S-box.png)
+
+The row is specified by the most significant nibble and the column by the least significant.
+
+### ShiftRows & MixColumns
+These two operations introduce *diffusion* to the AES algorithm. For a cipher to be as secure as possible, changes in the plaintext should propagate to many bits in the ciphertext. Ideally, changing one bit of the plaintext should alter at least half the bits in the ciphertext. This is known as the [Avalanche effect](https://en.wikipedia.org/wiki/Avalanche_effect).
+
+ShiftRows is the simplest of AES operations and ensures that the columns of the State are *not* encrypted independently. This operation leaves the first row unchanged and shifts the second row one byte to the left, wrapping around. The third row is similarly shifted left by two bytes, again wrapping around, and the fourth row is shifted 3 bytes to left, wrapping around:
+
+$$\begin{bmatrix} s_{0,0} & s_{0,1} & s_{0,2} & s_{0,3} \\ s_{1,0} & s_{1,1} & s_{1,2} & s_{1,3} \\ s_{2,0} & s_{2,1} & s_{2,2} & s_{2,3} \\ s_{3,0} & s_{3,1} & s_{3,2} & s_{3,3} \\ \end{bmatrix} \overset{\text{ShiftRows}}{\Rightarrow} \begin{bmatrix} s_{0,0} & s_{0,1} & s_{0,2} & s_{0,3} \\ s_{1,1} & s_{1,2} & s_{1,3} & s_{1,0} \\ s_{2,2} & s_{2,3} & s_{2,0} & s_{2,1} \\ s_{3,3} & s_{3,0} & s_{3,1} & s_{3,2} \\ \end{bmatrix} $$
+
+MixColumns is a lot more complex and involves matrix multiplication in Rijndael's Galois field between the State and a pre-computed matrix. The key takeaway is that every byte affects all other bytes in the same column. 
+
+### AddRoundKey
+The AddRoundKey operation is quite simple - all it does is XOR the state with the current round key:
+
+$$\begin{bmatrix} s_{0,0} & s_{0,1} & s_{0,2} & s_{0,3} \\ s_{1,0} & s_{1,1} & s_{1,2} & s_{1,3} \\ s_{2,0} & s_{2,1} & s_{2,2} & s_{2,3} \\ s_{3,0} & s_{3,1} & s_{3,2} & s_{3,3} \\ \end{bmatrix} \bigoplus \begin{bmatrix} k_{0,0} & k_{0,1} & k_{0,2} & k_{0,3} \\ k_{1,0} & k_{1,1} & k_{1,2} & k_{1,3} \\ k_{2,0} & k_{2,1} & k_{2,2} & k_{2,3} \\ k_{3,0} & k_{3,1} & k_{3,2} & k_{3,3} \\ \end{bmatrix} \equiv \begin{bmatrix} s_{0,0} \oplus k_{0,0} & s_{0,1} \oplus k_{0,1} & s_{0,2} \oplus k_{0,2} & s_{0,3} \oplus k_{0,3} \\ s_{1,0} \oplus k_{1,0} & s_{1,1} \oplus k_{1,1} & s_{1,2} \oplus k_{1,2} & s_{1,3} \oplus k_{1,3} \\ s_{2,0} \oplus k_{2,0} & s_{2,1} \oplus k_{2,1} & s_{2,2} \oplus k_{2,2} & s_{2,3} \oplus k_{2,3} \\ s_{3,0} \oplus k_{3,0} & s_{3,1} \oplus k_{3,1} & s_{3,2} \oplus k_{3,2} & s_{3,3} \oplus k_{3,3} \\ \end{bmatrix}$$
+
+# Encryption
+
+![](Resources/Images/AES/AES%20Encryption.svg)
+
+First is the Key Expansion phase where $n + 1$  keys of length 128 bits are derived from the master key. Before the first round, an AddRoundKey is performed with the plaintext and the first generated key. Then comes the round chain. Every round, apart from the last one, is comprised of a SubBytes, ShiftRows, MixColumns and an AddRoundKey operation in that order. The MixColumns operation is dropped from the last round. 
+
+# Decryption
+Decryption involves running the inverse round operations and in reverse order. Again, the Key Expansion phase generates the same $n + 1$ round keys as with encryption, but these keys are used in reverse order. Before the first round, the an AddRoundKey operation is performed on the ciphertext and the first generated key:
+
+![](Resources/Images/AES/AES%20Decryption.svg)
+
+The InvMixColumns operation is again dropped from the final round.
