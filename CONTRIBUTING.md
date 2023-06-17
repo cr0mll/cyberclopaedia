@@ -1,21 +1,46 @@
+# Overview
+The Cyberclopaedia is open to contribution from everyone via pull requests on the [Cyberclopaedia GitHub repository](https://github.com/cr0mll/cyberclopaedia). When contributing new content, please ensure that it is as relevant as possible, contains detailed (and yet tractable) explanations and is accompanied by diagrams where appropriate.
 
-# Welcome
-The Cyberclopaedia is welcome to all and the community's contributions are much appreciated.
+### In-Scope
+You should only make changes inside the [eight category folders](#structure) under the `Notes/` directory. Minor edits to already existing content outside of the aforementioned allowed directories are permitted as long as they do not bring any semantic change - for example fixing typos.
 
-# Getting Started
-You would first need to create a Pull Request. 
+### Out-of-Scope
+Any major changes outside of the eight category folders in the `Notes/` directory are not permitted and will be rejected.
 
-In your pull request it is important that you only alter files located in the `Notes` directory. Do NOT use mdbook to build the book yourself in the PR, since that may generate unnecessary merge conflicts and will also mingle with the book publishing cycle (sections of the book may not be made available on https://cr0mll.github.io/cyberclopaedia immediately after they are written). Moreover, do not touch the `SUMMARY.md` file, since it is auto-generated.
+# Structure
+Cyberclopaedia content is organised in the following eight categories: [Reconnaissance](../Reconnaissance/index.md), [Exploitation](Notes/Exploitation/index.md), [Post Exploitation](../Post%20Exploitation/index.md), [System Internals](../System%20Internals/index.md), [Reverse Engineering](../Reverse%20Engineering/index.md), [Hardware Hacking](../Hardware%20Hacking/index.md), [Cryptography](../Cryptography/index.md) and [Networking](../Networking/index.md). You should organise your content within them. If you feel like it is completely unable to fit in one of these categories (highly unlikely), you are still encouraged to submit your pull request. It will be reviewed and you will be either instructed to move your content to an already existing category which was deemed appropriate, or your new category will be implemented. Note that the name of the new category may not be the same as the one suggested by you if a different name is more pertinent.
 
-You are advised to use Obsidian as your markdown editor, although really anything is possible as long as it uses the `![]()` syntax for images and the `[]()` syntax for links.
+Inside the eight category directories, you are free to create as many new folders and go as many layers deep as you like. Nevertheless, you should still strive to abide by the already existing structure.
 
-Once you are finished with adding new or improving old content, you should submit your pull request and await its merge.
+### Naming
+All file and directory names should follow Title Case.
 
-*Note, case sensitives applies throughout.*
+### Folder Organisation
+Each folder you create must have the following structure:
 
-## Project Structure
-Any content should be classifiable in one of the main categories: Cryptography, Reconnaissance, Exploitation, Post Exploitation, Reverse Engineering, Web (preferably not since this section will be deprecated), or Malware Analysis. If your content does not conform to such classification, you should create a new such category, but that's only for extreme cases. Once again, however, do NOT mess with the `summarise.py` script.
+![](Notes/Cyberclopaedia/Resources/Images/Folder%20Structure.svg)
 
-Each folder should be equipped with a `README.md` file which should serve as an introduction to the contents inside. 
+Images, such as diagrams, are respectively placed in the `Resources/Images` subdirectory. Every page in your main folder should be reflected in this subdirectory by means of an eponymous folder within `Resource/Images`. Any images used in this page would then go in `Resource/Images/Page Name`.
 
-Resources are split at every directory into the `Resources` folder, with images specifically being placed under the `Resource/Images` folder. From there on, you are free to create new subdirectories inside for each article, which should be eponymous with the article's name. Your other option is to just prefix every resource with the article name that it pertains to. Resource names should be written in `Camel_Snake_Case`.
+The `index.md` file is required by mdBook. This is the file which gets rendered when someone clicks on the folder name in the website's table of contents. Ideally, it should contain an overview of or introduction to the content inside the directory, but you may also leave it empty.
+
+### Page Structure
+Ideally, pages should begin with an introduction or overview section - for example, with an `# Introduction` or `# Overview` heading.
+
+The name of any new major topic in a page should be indicated with a Heading 1 style. From then on, subtopics should be introduced with Heading 2, 3 and so on.
+
+For links and images, do NOT use wiki-links style. Instead, use the standard `(text)[link]` or `!()[path]` paradigms. Note that images should be isolated by an empty line both above and below. 
+
+LaTeX is done using the `$` delimiters for inline equations and the `$$` delimiters for blocks. The latter should be isolated by an empty line both above and below, just like images. If you want to insert a dollar sign, prepend it with a backslash or put it in a code block.
+
+# Toolchain
+- Website building: The Cyberclopaedia website is built using [mdBook](https://github.com/rust-lang/mdBook). The summary file is automatically created with the `summarise.py` script in the Scripts directory. Do NOT run this script or build the book yourself when contributing content to the Cyberclopaedia. This is done only by reviewers in order to avoid unnecessary merge conflicts. An mdBook installation is NOT necessary for contributions.
+- Markdown: Feel free to use your favourite markdown editor. [Obsidian](https://obsidian.md/) is an excellent free option.
+- Diagrams: These should be in the form of vector `.svg` images. Diagrams should have a completely opaque, white background and appropriate padding. As a suggestion, you can use [diagrams.net](https://app.diagrams.net/) with the following export settings:
+
+![](Notes/Cyberclopaedia/Resources/Images/Diagram.net%20Export%20Settings.png)
+
+# Licensing
+All content inside the Cyberclopaedia is subject to a custom [licence](../../LICENSE.md) which is basically the [MIT licence](https://opensource.org/license/mit/) modified to preclude commercial use of Cyberclopaedia content. This is done to prevent the content from being put behind a paywall or being used for any form of financial gain. 
+
+Knowledge should be free.
