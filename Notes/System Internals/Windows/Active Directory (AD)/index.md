@@ -70,4 +70,21 @@ It is also important to note that the following characters are special and need 
 |`CR`|carriage return|
 |`=`|equals sign|
 
-# Functionality
+# Trusts
+Trusts in Active Directory allow for forest-forest or domain-domain links. They allow users in one domain to access resources in another domain where their account does not reside. The way they work is by linking the authentication systems between two domains.
+
+The two parties in a trust do not necessarily have the same capabilities with respect to each other:
+- One-way trusts allow only one party to access the resources of the other. The trusted domain is considered the one *accessing* the resources and the trusting domain is the one providing them.
+- Two-way trusts allow the parties to mutually access each other's resources.
+
+Additionally, trusts can either be transitive or non-transitive. Transitivity means that the trust relationship is propagated upwards through a domain tree as it is formed. For example, a transitive two-way trust is established between a new domain and its parent domain upon creation. Any children of the new domain (grandchildren of the parent domain) will also then share a trust relationship with the master parent. 
+
+Five possible types of trusts can be discerned depending on the relationships between the systems being linked:
+
+|Trust|Description|
+|:-----:|:-----:|
+|Parent-child|A two-way transitive relationship between a parent and a child domain.|
+|Cross-link|A trust between two child domains at the same hierarchical level, which is used to speed up authentication.|
+|External|A non-transitive trust between two separate domains in separate forests which are not already linked by a forest trust.|
+|Tree-root|A two-way transitive trust between a forest root domain and a new tree root domain.|
+|Forest|A transitive trust between two forest root domains in separate forests.|
