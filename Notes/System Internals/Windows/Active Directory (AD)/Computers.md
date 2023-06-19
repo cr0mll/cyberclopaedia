@@ -1,0 +1,2 @@
+# Introduction
+A computer object is an instance of the [Computer class](https://learn.microsoft.com/en-us/windows/win32/adschema/c-computer) in Active Directory and represents a workstation or server connected to the AD network. Computer objects are security principals and therefore have both a SID and GUID. These are prime targets for adversaries, since full administrative access to a computer (`NT AUTHORITY\SYSTEM`) grants privileges similar to those of a standard domain user and can be used to enumerate the AD environment.
