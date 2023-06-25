@@ -52,7 +52,7 @@ The following attribute names for RDNs are defined:
 |C|countryName|
 |UID|userid|
 
-It is also important to note that the following characters are special and need to be escaped by a `\` if the appear in the attribute value:
+It is also important to note that the following characters are special and need to be escaped by a `\` if they appear in the attribute value:
 
 |Character|Description|
 |:---:|:---:|

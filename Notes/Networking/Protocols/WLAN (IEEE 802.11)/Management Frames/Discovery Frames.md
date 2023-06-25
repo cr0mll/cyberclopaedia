@@ -5,7 +5,7 @@ Passive scanning is when the client goes through all available channels in turn 
 
 Active scanning is when the client sends probe requests to each channel in turn in order to discover what networks are available on it.
 
-# Management Frame Fields & Information Elements
+# Discovery Frame Fields & Information Elements
 These are management frame fields and information elements specifically found in discovery management frames - beacon, probe request, and probe response.
 
 ## Frame Fields
