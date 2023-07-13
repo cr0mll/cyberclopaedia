@@ -73,3 +73,26 @@ It is also important to note that the following characters are special and need 
 |`LF`|line feed|
 |`CR`|carriage return|
 |`=`|equals sign|
+
+# LDAP Filters
+[Filters](https://ldap.com/ldap-filters/) are logically meaningful combinations of attribute-value pairs of the format which must be encapsulated in `()`. The value may be replaced by an asterisk (`*`) in order to match any objects which simply have that attribute, regardless of what its value is.
+
+As already demonstrated, LDAP filters are represented as strings. Therefore, any characters that have special meaning in LDAP must be escaped if they are used as a literal part of an attribute name or value:
+
+|Character|Escape Sequence|
+|:----:|:-----:|
+|`(`|`\28`|
+|`)`|`\29`|
+|`*`|`\2a`|
+|`\`|`\5c`|
+|null character (must *always* be escaped)|`\00`|
+
+### Presence Filters
+The simplest possible filter is the presence filter which matches all objects that have a certain attribute regardless of its value. It has the format `(attribute=*)`. For example, the filter `(objectClass=*)` is often used to match all entries because any entry must have at least one objectClass.
+
+### Comparison Filters
+These filters are a bit more complex and involve the comparison of the attribute's value with some desired value. 
+
+The simplest of these is an equality filter which checks if the attribute has a certain value. It has the format `(attribute=value)`. For example, the filter `(objectClass=user)` will return all objects which have an objectClass of User.
+
+Greater-or-Equal and Less-or-Equal filters will match an object if it has at least one value for the specified attribute that is `>=` or `<=` to the provided value, respectively. They are constructed in the same way as equality filters but use `>=` or `<=` in lieu of the equal sign. The way the comparison is done depends on the data type. For example, attributes whose values are expected to be numbers will use numeric comparison, while strings will be compared lexicographically. For some attributes comparisons like this may not even make sense and thus these filters cannot be used with them. For example, it doesn't make sense to say that the colour blue is greater than red or vice versa.  
