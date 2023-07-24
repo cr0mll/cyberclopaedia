@@ -63,7 +63,9 @@ Setting SUID on a file can be done with the following command:
 chmod u+s <file>
 ```
 
-*Note that the SUID permission on scripts is ignored.*
+```admonish note
+The SUID permission on scripts is ignored.
+```
 
 ## Set Group ID (SGID)
 Similarly to SUID, the Set Group ID (SGID) is a special permission which can be set on both executable files *and* directories. When set on files, it behaves in the same way SUID but rather than the files executing with the privileges of the owning user, they execute with the effective GID the owning group.
@@ -75,7 +77,9 @@ Setting SGID on a file can be done with the following command:
 chmod g+s <path>
 ```
 
-*Note that the SGID permission on scripts is ignored.*
+```admonish note
+The SGID permission on scripts is ignored.
+```
 
 ## Sticky Bit
 The sticky bit is a special permission which can be applied to directories in order to limit file deletion within them to the owners of the files. It is denoted by a `t` in the place of the `x` permission for the directory and can be set with the following command:

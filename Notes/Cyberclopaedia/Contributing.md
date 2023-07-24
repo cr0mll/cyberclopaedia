@@ -41,6 +41,6 @@ LaTeX is done using the `$` delimiters for inline equations and the `$$` delimit
 ![](Resources/Images/Diagram.net%20Export%20Settings.png)
 
 # Licensing
-All content inside the Cyberclopaedia is subject to a custom [licence](../../LICENSE.md) which is basically the [MIT licence](https://opensource.org/license/mit/) modified to preclude commercial use of Cyberclopaedia content. This is done to prevent the content from being put behind a paywall or being used for any form of financial gain. 
+All content inside the Cyberclopaedia, including contributions, is subject to the [MIT licence](License.md). By contributing, you guarantee that any content you submit is compatible with this licence.
 
 Knowledge should be free.

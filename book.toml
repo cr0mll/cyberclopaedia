@@ -10,12 +10,17 @@ description = "This is an aspiring project aimed at accumulating knowledge from 
 renderers = ["html"]
 after = ["links"]
 
+[preprocessor.admonish]
+command = "mdbook-admonish"
+assets_version = "2.0.1" # do not edit: managed by `mdbook-admonish install`
+
 [output.html]
 no-section-label = true
 default-theme = "coal"
 git-repository-url = "https://github.com/cr0mll/cyberclopaedia/"
 git-repository-icon = "fa-github"
 mathjax-support = true
+additional-css = ["./mdbook-admonish.css"]
 
 [output.html.fold]
 enable = true

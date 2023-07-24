@@ -1,5 +1,6 @@
 - [Cyberclopaedia](Cyberclopaedia/index.md)
 	- [Contributing](Cyberclopaedia/Contributing.md)
+	- [License](Cyberclopaedia/License.md)
 - [Reconnaissance](Reconnaissance/index.md)
 	- [Enumeration](Reconnaissance/Enumeration/index.md)
 		- [nmap](Reconnaissance/Enumeration/nmap/index.md)
