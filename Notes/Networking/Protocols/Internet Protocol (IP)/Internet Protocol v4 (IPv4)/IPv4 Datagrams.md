@@ -67,7 +67,9 @@ This 1-byte field indicates the upper-layer protocol encapsulated by the IP data
 ### Header Checksum
 This 2-byte field contains a value which is calculated by dividing only the IP header into two-byte sections and then summing their values. This is used to provide basic integrity checking - each router the datagram goes through will perform the same calculation on the IP header and if the result does not match with the specified checksum, the datagram will be discarded as corrupted.
 
-It is important to note that the data does *not* figure in the calculation of the checksum.
+```admonish note
+The data does *not* figure in the calculation of the checksum.
+```
 
 ### Source & Destination Addresses
 These are two 4-byte fields representing respectively the source and destination IP addresses. Even though an IP address may be forwarded multiple times through a bunch of routers, the source and destination addresses are unchanged.
@@ -108,3 +110,67 @@ Following is a list of possible IP options. TODO: complete
 The size of the IP header must be a multiple of 32-bits, so padding bits set to 0 may be added following any options in order to fulfil this requirement.
 
 # Fragmentation
+IPv4 datagrams are ultimately passed onto the data-link layer. Depending on what protocol is employed at that level, the maximum size of a frame, called the *Maximum Transmission Unit (MTU)*, is limited. The implementation of the IP layer on every device must, therefore, be cognisant of the MTU of the underlying data-link protocol. When an IP datagram is to be transmitted, the IP implementation checks what the size of the datagram would be after the addition of the IP header and if this size exceeds the MTU, then fragmentation is necessary.
+
+This is seen when a datagram passes from a network with a high MTU to a network with a low MTU. Since IP datagrams may hop to and from multiple networks before reaching their ultimate destination, it is common for the fragments of a datagram to themselves get fragmented along the way!
+
+Each router needs to be able to fragment datagrams with a size up to the highest MTU network that the router is connected to. Additionally, every router must support a minimum MTU of 576 bytes, defined in RFC 791, in order to allow for a reasonable message size of 512 bytes including bytes for the IP header.
+
+## Datagram Disassembly
+When a datagram's size exceeds the MTU of the network it is to be sent through, the datagram needs to be fragmented. The IP header of the first fragment is largest and has a size which we denote by $s_0$. Each subsequent fragment also gets an IP header, but the size of this header, $s \le s_0$, is the same for all fragments, apart from the first one. 
+
+```admonish note
+Datagrams whose size exceeds the MTU but have the *Don't Fragment* flag set to 1 will be dropped and an ICMP Destination Unreachable: "Fragmentation Needed and Don't Fragment Bit Set" message will be returned to the sender.
+```
+
+If we let $n$ be the number of bytes the original datagram is made up of, $m$ be the MTU, then the algorithm for datagram fragmentation can be written as follows:
+
+1. Create the first fragment by taking the first $m - s_0$ bytes from the IP datagram's data. 
+2. Create the next fragments by taking the first $m - s$ bytes from the remaining data bytes.
+3. Create the last fragment by taking all of the left-over data bytes.
+4. Generate the IP headers
+	- IP header of the first fragment - the original IP header is copied into the IP header of the first fragment.
+	- IP header of the subsequent fragments - copy the original IP header but only include the options marked as *Copied*.
+	- Populate the fields of the IP headers.
+
+The `Total Length` is set to the size of each fragment, not the size of the original message.
+
+```admonish
+The size of each fragment must be a multiple of 8 to allow for proper offset calculation.
+```
+
+The `Identification` field is set to a value unique for the message but which is the same for all of the *fragments* of the message and it is used by the destination to determine which fragments belong to the message.
+
+The `More Fragments` flag is set to 1 for all the fragments except for the last one where it is set to 0.
+
+The `Fragment Offset` indicates where a fragment's data is supposed to be in the original datagram. This offset is specified in units of 8 bytes (hence why the length of each fragment must be a multiple of 8).
+
+```admonish example
+Suppose we had an MTU of 3300 bytes and a datagram of size 12,000 bytes including the IP header, which, for the sake of simplicity, contained no options and was thus 20 bytes long. Therefore, the size of the actual data will be $12,000 - 20 = 11,980$ bytes.
+
+The first fragment will take the first 3280 bytes of the datagram's data, leaving $11,980 - 3280 = 8700$ bytes of data.
+
+The second fragment will take the next 3280 bytes of data, leaving $8700 - 3280 = 5420$ bytes.
+
+The third fragment will take the next 3280 bytes of data, leaving $5420 - 3280 = 2140$ bytes.
+
+The last fragment will take the remaining 2140 bytes.
+
+The `Total Length` fields of the fragments will be set respectively to 3300, 3300, 3300 and 2160.
+
+The `Identification` field of all the fragments will be set to the same value, for example `0xbeef`.
+
+The `More Fragments` field of the last fragment will be set to 0 and for the rest of the fragments it will be set to 1.
+
+The `Fragment Offset` for the first fragment will be 0. The second fragment's data begins at an offset of 3280 bytes from the start of the initial datagram's data and so its `Fragment Offset` will be set to $3280 / 8 = 410$. The third fragment's data begins at an offset of $3280 + 3280 = 6560$ from the original datagram's data and so its `Fragment Offset` will be set to $6560 / 8 = 820$. Finally, the last fragment will have a `Fragment Offset` equal to $1230$ because its data begins at an offset of $3280 \times 3 = 9840$ from the initial datagram's data.
+```
+
+
+
+## Datagram Reassembly
+Datagram reassembly is the inverse of the fragmentation process but it is *not* symmetric. This is because while an intermediate router can fragment a datagram, it cannot reassemble it. Reassembly is only done by the final recipient and follows this algorithm:
+
+1. Fragment Recognition - the recipient knows it has received fragment from a new message when it sees a datagram with `More Fragments` set to 1 or a `Fragment Offset` different from zero which has a previously unseen `Identification` field.
+2. Buffer Initialisation - the recipient initialises a buffer for the new message and populates it with data from message fragments according to their `Fragment Offset` as they arrive.
+3. Timer Initialisation - the recipient also initialises a timer. Since fragments may get lost and may thus never be received by the recipient, when the timer expires the message is dropped and an ICMP Time Exceeded message is sent back to the sender.
+4. Transmission Completion - the recipient knows it has received the entire message when it has the message fragment with `More Fragments` set to 0 and the entire buffer is filled up. From this point forward, the message is processed as a normal IP datagram.
