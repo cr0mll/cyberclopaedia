@@ -160,6 +160,7 @@
 		- [Encrypting Non-Conforming Messages](Cryptography/Block%20Ciphers/Encrypting%20Non-Conforming%20Messages.md)
 		- [Modes of Operation](Cryptography/Block%20Ciphers/Modes%20of%20Operation.md)
 	- [Breaking Classical Cryptrography](Cryptography/Breaking%20Classical%20Cryptrography.md)
+	- [Mathematical Prerequisites](Cryptography/Mathematical%20Prerequisites.md)
 	- [The XOR Operation](Cryptography/The%20XOR%20Operation.md)
 - [Networking](Networking/index.md)
 	- [Protocols](Networking/Protocols/index.md)
