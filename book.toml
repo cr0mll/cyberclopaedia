@@ -13,6 +13,7 @@ after = ["links"]
 [preprocessor.admonish]
 command = "mdbook-admonish"
 assets_version = "2.0.1" # do not edit: managed by `mdbook-admonish install`
+before = ["katex"]
 
 [output.html]
 no-section-label = true
