@@ -244,3 +244,5 @@ This function is ubiquitous in cryptography due to its four essential properties
 ```admonish tip title="XOR(a,a)"
 Another interesting property of $XOR$ is that XOR-ing a bit with itself will always produce 0. This is often used in computers to reset a [register](../Reverse%20Engineering/Assembly%20Programming/x86-64/Registers.md) to 0. 
 ```
+
+# Probability
