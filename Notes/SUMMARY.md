@@ -161,6 +161,7 @@
 		- [Encrypting Non-Conforming Messages](Cryptography/Block%20Ciphers/Encrypting%20Non-Conforming%20Messages.md)
 		- [Modes of Operation](Cryptography/Block%20Ciphers/Modes%20of%20Operation.md)
 	- [Private-Key Cryptography](Cryptography/Private-Key%20Cryptography/index.md)
+		- [One-Time Pad](Cryptography/Private-Key%20Cryptography/One-Time%20Pad.md)
 	- [Breaking Classical Cryptrography](Cryptography/Breaking%20Classical%20Cryptrography.md)
 	- [Mathematical Prerequisites](Cryptography/Mathematical%20Prerequisites.md)
 - [Networking](Networking/index.md)
