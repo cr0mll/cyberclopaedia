@@ -195,6 +195,11 @@ max-height:100%;" src="../../favicon.png" > <!-- Icon pls -->
 <h1 id="security-notions"><a class="header" href="#security-notions">Security Notions</a></h1>
 <p>The definition given for a <em>valid</em> private-key encryption scheme specifies <em>what</em> functions can be used for encryption and decryption, but says nothing about <em>how secure</em> those functions should be. For example, the trivial encryption function <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord text"><span class="mord textit">Enc</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">m</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span></span></span></span> which simply encrypts a plaintext to itself is a valid private-key encryption function but is far from secure.</p>
 <p>Defining what makes a private-key encryption scheme <em>secure</em> is a bit tricky. </p>
+<h2 id="randomness"><a class="header" href="#randomness">Randomness</a></h2>
+<p>Getting an outcome from the sample space can be rephrased as choosing an element from it at random. The question of what &quot;at random&quot; <em>is</em>, however, does not have as intuitive an answer as one would hope. </p>
+<pre><code class="language-danger title=&quot;Definition: &quot;Random&quot;&quot;">Something is *random* if there is no way to predict its outcome with absolute certainty.
+</code></pre>
+<p>Consider again the example of tossing a fair coin - it has 50% chance of landing on &quot;heads&quot; and 50% chance of landing on &quot;tails&quot;. This for sure is <em>random</em> - there is no way to tell for certain the outcome of the toss. But now consider a &quot;rigged&quot; coin (maybe it weighs more on one side) which has a 25% chance of landing on &quot;heads&quot; and a 75% chance of landing on &quot;tails&quot;. Is this random? Of course it is! Sure we know that there is more chance for the coin to land on &quot;tails&quot;, but can we tell with certainty that it will? No, we cannot and so this rigged coin is still random.</p>
 <h2 id="perfect-secrecy"><a class="header" href="#perfect-secrecy">Perfect Secrecy</a></h2>
 <p>The foundations of the contemporary definition for security were laid out by <a href="https://en.wikipedia.org/wiki/Claude_Shannon">Claude Shannon</a> who realised that an encryption scheme is secure if <em>the ciphertext reveals nothing about the plaintext</em> - a principle called <em>perfect secrecy</em>.</p>
 <div id="admonition-formal-definition-perfect-secrecy" class="admonition danger">
@@ -244,22 +249,6 @@ max-height:100%;" src="../../favicon.png" > <!-- Icon pls -->
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
 

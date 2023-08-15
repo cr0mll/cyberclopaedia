@@ -29,6 +29,15 @@ The definition given for a *valid* private-key encryption scheme specifies *what
 
 Defining what makes a private-key encryption scheme *secure* is a bit tricky. 
 
+## Randomness
+Getting an outcome from the sample space can be rephrased as choosing an element from it at random. The question of what "at random" *is*, however, does not have as intuitive an answer as one would hope. 
+
+```danger title="Definition: \"Random\""
+Something is *random* if there is no way to predict its outcome with absolute certainty.
+```
+
+Consider again the example of tossing a fair coin - it has 50% chance of landing on "heads" and 50% chance of landing on "tails". This for sure is *random* - there is no way to tell for certain the outcome of the toss. But now consider a "rigged" coin (maybe it weighs more on one side) which has a 25% chance of landing on "heads" and a 75% chance of landing on "tails". Is this random? Of course it is! Sure we know that there is more chance for the coin to land on "tails", but can we tell with certainty that it will? No, we cannot and so this rigged coin is still random.
+
 ## Perfect Secrecy
 The foundations of the contemporary definition for security were laid out by [Claude Shannon](https://en.wikipedia.org/wiki/Claude_Shannon) who realised that an encryption scheme is secure if *the ciphertext reveals nothing about the plaintext* - a principle called *perfect secrecy*.
 

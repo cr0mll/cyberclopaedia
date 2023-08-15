@@ -69,30 +69,6 @@ If we wanted to denote the set of all possible strings of any finite length over
 - binary strings $\{0,1\}^*$ - strings which only contain 0s and 1s
 ```
 
-### Summary
-```admonish summary
-Membership:
-- $s$ is a member of $S$ - $s \in S$
-- $s$ is *not* a member of $S$ - $s \notin S$
-- $S'$ is a strict subset of $S$ - $S' \subset S$
-- $S'$ is either a subset or is equal to $S$ - $S' \subseteq S$
-
-Cardinality:
-- $|S|$ - the number of elements in $S$
-
-Set Operations:
-- union of $A$ and $B$ - $A \cup B$
-- intersection of $A$ and $B$ - $A \cap B$
-- relative complement of $A$ with respect to $B$ - $A - B$
-
-Strings:
-- string - a sequence of characters
-- alphabet $\Sigma$ - the set of characters we can choose from to make our string
-- the set of all strings with a certain length $n$ over some alphabet $\Sigma$ - $\Sigma^n$
-- the set of all strings over some alphabet $\Sigma$ - $\Sigma^*$
-- binary strings - $\{0,1\}^*$
-```
-
 # Functions
 A *function* takes an input and produces an output. The inputs of a function are called its *arguments* and can be different types of objects and so can its output. For example, a function may take in a natural number and a binary string and may output a single bit. The types of the inputs and outputs of the functions are specified by sets in its *declaration* which has the following syntax:
 
@@ -246,3 +222,154 @@ Another interesting property of $XOR$ is that XOR-ing a bit with itself will alw
 ```
 
 # Probability
+When we perform an experiment such as tossing a fair coin, we obtain a certain result from it called its *outcome*.
+
+```admonish danger title="Definition: Outcome of an Experiment"
+The *outcome* of an experiment is all the information about the experiment after it has been carried out.
+```
+
+For the experiment of the coin toss, the outcome is simply the coin's face after the toss and will be either *heads* ($H$) or *tails* ($T$). If the coin was tossed three times, then the outcome of this experiment could be $THT$ or $HTT$ or $HHH$, etc. Therefore, different experiments can have multiple possible outcomes and the set of *all* possible outcomes is called the *sample space* for the experiment.
+
+```admonish danger title="Definition: Sample Space"
+The *sample space* of an experiment is the set of *all* possible outcomes from the experiment.
+```
+
+```admonish example
+Consider the experiment of tossing a coin three times. Its sample space is $\{HHH,HHT,HTH,HTT,THH,THT,TTH,TTT\}$, or equivalently $\{000,001,010,011,100,101,110,111\}$ if we encoded "heads" with $0$ and "tails" with $1$. 
+```
+
+Each outcome can be associated with a number, called its *probability*, which describes how likely this outcome is. However, not all outcomes in the sample space need to have the same probability. Suppose that our coin was "rigged" (maybe it weighed more on one side) and actually was more inclined to result in heads rather than tails. Then, if the coin was tossed three times, the outcome $HHH$ would clearly be more likely than $TTT$. The way probability is assigned to the outcomes in the sample space is called a *probability function*.
+
+```admonish danger title="Formal Definition: Probability Space"
+A *probability space* is a sample space $S$ with a total function $\Pr: S \to [0,1]$ such that
+
+$$\sum_{s \in S} \Pr(s) = 1$$
+
+The function $\Pr$ is called a *probability function* over the sample space $S$.
+```
+
+```admonish tip title="Definition Breakdown"
+The probability function $\Pr$ assigns to each possible outcome a probability value between 0 and 1. The sum of all the probabilities must be one because *some* outcome is guaranteed to happen. If the probabilities did not sum up to one, then there would be a chance that the experiment resulted in an outcome outside its sample space, which is impossible, since the sample space is the set of *all* possible outcomes.
+```
+
+
+If all outcomes from the experiment are equally likely, then they have the same probability and the probability of every outcome $s$ in the experiment's sample space $S$ is 
+
+$$\Pr(s) = \frac{1}{|S|}$$
+
+When this is the case, the probability function $\Pr$ is called *uniform*.
+
+## Events
+An *event* $E$ can be thought of as a subset of the sample space of a given experiment which contains only the outcomes we are interested in. Then we would say that an *event has occurred* if the outcome after performing the experiment is in $E$.
+
+The probability of this event occurring (i.e. getting one of its elements as an outcome), denoted by $\Pr_{s\sim S}[E]$ for the sample space $S$, is the sum of the probabilities of all outcomes in the event.
+
+$$\Pr_{s\sim S}[E] = \sum_{s\in E} \Pr(s)$$
+
+When the sample space is understood from context, this can be simply written as
+
+$$\Pr[E] = \sum_{s\in E} \Pr(s)$$
+
+```admonish example
+If we wanted to describe the event that we get "tails" an even number of times from the three coin tosses, then we would do it as $E = \{s: s \text{ has an an even number of "tails"}\} = \{HHH, HTT, THT, TTH\}$. The probability of this event is the sum of the probabilities of its outcomes. We assumed a fair coin, so each outcome in the sample space $S$ has the same probability $P(s) = \frac{1}{|S|}$. Then,
+
+$$\Pr[E] = \sum_{s \in E} \Pr(s) = 4\times \frac{1}{|S|}$$
+
+The total number of outcomes, $|S|$, is eight as we saw earlier, so
+
+$$\Pr[E] = \frac{4}{8} = \frac{1}{2}$$
+```
+
+### Logic with Events
+For an event $E$, we can describe the event $\overline{E}$ which simply encompasses all outcomes for which $E$ does *not* occur. The probability of $\overline{E}$ is the probability that $E$ does *not* happen and is equal to the following:
+
+$$\Pr[\overline{E}] = 1 - \Pr[E]$$
+
+Given two possible events $A$ and $B$, we can talk about both $A$ *and* $B$ happening or $A$ *or* $B$ (or both) happening. These correspond to the *intersection* and union of the two events, respectively. Therefore,
+
+$$A \land B \equiv A \cap B$$
+
+$$A \lor B \equiv A \cup B$$
+
+## Random Variables
+A *random variable* (which is a terrible misnomer, but again, mathematicians...) is a way to assign a number to every outcome in the sample space $S$. Formally, a random variable is a function $X: S \to \mathbb{R}$. 
+
+```admonish example
+Consider the experiment of rolling a fair die three times. Each roll has six possible outcomes - $\{1,2,3,4,5,6\}$ - and there are three rolls, so the sample space is $\{1,2,3,4,5,6\}^3$. One possible random variable for this experiment would be the sum $\textit{SUM}: \{1,2,3,4,5,6\}^n \to \mathbb{R}$ of the points from the three rolls ($n = 3$ in this case).
+```
+
+In fact, we have already seen another possible random variable which can be defined for every sample space - that's right, probability! Since the probability function $\Pr$ assigns to every outcome in the sample space a number ranging from $0$ to $1$ (which is a subset of the real numbers), this means that it is a random variable.
+
+### Expectation Value
+The *expectation value* of a random variable $X$ over a sample space $|S|$, denoted by $\mathbb{E}[X]$ or $\langle X \rangle$, is the average value of the random variable:
+
+$$\mathbb{E}[X] \coloneqq \sum_{x \in S} \frac{X(x)}{|S|}$$
+
+The expectation value is calculated by summing all the values of the random variable for the outcomes in the sample space and then dividing it by the total number of outcomes.
+
+```admonish example
+For the previous example where $\textit{SUM}: \{1,2,3,4,5,6\}^n \to \mathbb{R}$ was the random variable which for each outcome was equal to the sum of the three rolls, the expectation value can be calculated as follows:
+
+$$\mathbb{E}[\textit{SUM}] = \sum_{x\in\{1,2,3,4,5,6\}^3} \frac{SUM(x)}{|\{1,2,3,4,5,6\}^3|} = \frac{2268}{216} = 10.5$$
+
+Of course, calculating this by summing up all the numbers for every outcome is tedious, but it can be circumvented using some properties of expectation.
+```
+
+There are two properties of the expectation value that one should be aware of.
+
+```admonish abstract title="Linearity"
+For every two random variables $X$ and $Y$ over the same sample space $S$, the expectation value of their sum (which is itself a random variable defined as $X(x) + Y(x)$ for every $x\in S$) is equal to sum of the expectation values of $X$ and $Y$.
+
+$$\mathbb{E}[X + Y] = \mathbb{E}[X] + \mathbb{E}[Y]$$
+
+Similarly, for every random variable $X$ and constant $k \in \mathbb{R}$, the expectation value of $k$ multiplied by $X$ is equal to $k$ multiplied by the expectation value of $X$.
+
+$$\mathbb{E}[kX] = k\mathbb{E}[X]$$
+```
+
+```admonish check collapsible=true title="Proof of Linearity"
+For the sum part,
+
+$$\mathbb{E}[X + Y] = \sum_{x\in S} \frac{X(x) + Y(x)}{|S|} = \sum_{x\in S} \frac{X(x)}{|S|} + \sum_{x\in S} \frac{Y(x)}{|S|} = \mathbb{E}[X] + \mathbb{E}[Y]$$
+
+For the multiplication by a constant part,
+
+$$\mathbb{E}[kX] = \sum_{x\in S} \frac{k\times X(x)}{|S|} = k\times \sum_{x\in S} \frac{X(x)}{|S|} = k \mathbb{E}[X]$$
+```
+
+```admonish example
+Linearity can be used to calculate the expectation of the $\textit{SUM}$ random variable which we defined for the experiment of rolling a dice three times. For each separate roll the sum is just the number of points on the die's face and the sum of three rolls is just the sum of the points from the three rolls which can also be said as "the sum of the three rolls is the sum of the sums of each separate roll". This allows us to use linearity.
+
+If we denoted the number of points from the first, second and third roll with $a,b,c$, respectively, then the final outcome will be written as $abc$ (this is concatenation, not multiplication) and we have, by linearity,
+
+$$\begin{align}\mathbb{E}[\textit{SUM}(abc)] &= \mathbb{E}[\textit{SUM}(a)+\textit{SUM}(b)+\textit{SUM}(c)] \\ &= \mathbb{E}[\textit{SUM}(a)] + \mathbb{E}[\textit{SUM}(b)] + \mathbb{E}[\textit{SUM}(c)] \\ &= \sum_{x\in\{1,2,3,4,5,6\}} \frac{\textit{SUM}(x)}{6} + \sum_{x\in\{1,2,3,4,5,6\}} \frac{\textit{SUM}(x)}{6} + \sum_{x\in\{1,2,3,4,5,6\}} \frac{\textit{SUM}(x)}{6} \\ &= 3 \times \sum_{x\in\{1,2,3,4,5,6\}} \frac{\textit{SUM}(x)}{6} \\ &= 3\times \frac{1+2+3+4+5+6}{6} \\ &= 3\times 3.5 = 10.5\end{align}$$
+```
+
+## Distributions
+Random variables (which output only real numbers) are a special case of all total surjective functions $f: S \to O$ which assign some value in the finite output set $O$ to every element of $S$. The function is surjective, so $O$ is the set of *all* possible outputs and for every $o \in O$ there must be at least one $s \in S$ for which $f(s) = o$. However, that doesn't stop the function from outputting the same $o$ given two or more different $s_1, s_2,...\in S$. The number of times that each $o \in O$ is obtained when executing $f$ on every $s \in S$ is described by a *probability distribution*.
+
+```admonish danger title="Formal Definition: Probability Distribution"
+A *probability distribution* over a finite set $O$ is a total *probability function* $\Pr$ such that
+
+$$\sum_{o \in O} \Pr(o) = 1$$
+```
+
+```admonish tip title="Definition Breakdown"
+This definition is quite broad and does not even mention the function $f$. This is because a probability distribution is just a way to assign a probability value to every member of a set $O$.
+
+When we say that we "choose a random member from a set $O$" according to some distribution $\mathcal{D}$, we simply mean that the probability of choosing a particular $o \in O$ is equal to $\Pr(o)$.
+
+The requirement that the sum of all the probabilities is equal to 1 is very intuitive - we are choosing from a finite set $O$, so we must get *some* member of it.
+```
+
+This is all great, but how do we know what probability $\Pr$ will assign to a given $o \in O$. This is where the function $f$ comes in. We say that a "distribution over a set $O$ is obtained by sampling $s \leftarrow_R S$ and outputting $f(s)$" when the set $O$ is generated by executing $f(s)$ on every $s \in S$ and counting how many $s_1,s_2,... \in S$ produce a specific output $o \in O$ in order to define the probability function $\Pr$. For each $o \in O$ then, the probability function is defined as follows:
+
+$$\Pr(o) = \frac{\textit{number of inputs }s\in S\textit{ for which } f(s) = o}{|S|}$$
+
+```admonish info title="Probability"
+In this way, it makes some sense to call this a *probability function* because $\Pr(o)$ tells us how likely it is that $f$ outputs $o$ when choosing an $s \in S$ uniformly at random. 
+```
+
+
+
+
