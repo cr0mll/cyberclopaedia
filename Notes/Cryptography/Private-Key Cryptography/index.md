@@ -1,10 +1,10 @@
 # Introduction
 Private-key cryptography uses the same secret key for both encryption and decryption. It is important that modern cryptography is usually concerned entirely with the encryption and decryption of binary data, i.e. binary strings. That is why both the message, the key and the encrypted message are represented as binary strings of 1s and 0s.
 
-What defines a given *cipher* is a *private-key encryption scheme* which has an algorithm for encryption and decryption. The message to be encrypted is called the *plaintext* and the resulting string after encryption is called the *ciphertext*.
+A private-key encryption scheme has an algorithm for encryption and decryption. The message to be encrypted is called the *plaintext* and the resulting string after encryption is called the *ciphertext*.
 
-```admonish danger title="Formal Definition: Valid Private-Key Encryption Scheme"
-Given a key-length $n \in \mathbb{N}$, a plaintext length function $l: \mathbb{N} \to \mathbb{N}$ and a ciphertext length function $C: \mathbb{N} \to \mathbb{N}$, a *valid private-key encryption scheme* is a pair of polynomial-time computable functions $(\textit{Enc}, \textit{Dec})$ such that for every key $k \in \{0,1\}^n$ and plaintext $m \in \{0,1\}^{l(n)}$, it is true that:
+```admonish danger title="Formal Definition: Shannon Cipher"
+Given a key-length $n \in \mathbb{N}$, a plaintext length function $l: \mathbb{N} \to \mathbb{N}$ and a ciphertext length function $C: \mathbb{N} \to \mathbb{N}$, a *valid private-key encryption scheme* or *Shannon cipher* is a pair of polynomial-time computable functions $(\textit{Enc}, \textit{Dec})$ such that for every key $k \in \mathcal{K}$ and plaintext $m \in \mathcal{M}$, it is true that:
 
 $$\textit{Dec}(k, \textit{Enc}(k,m)) = m$$
 
@@ -17,13 +17,13 @@ The set of all possible keys is called the *key space* and is denoted by $\mathc
 ```
 
 ```admonish tip title="Definition Breakdown"
-The encryption function is denoted by $\textit{Enc}$ and the decryption function is called $\textit{Dec}$. The first function, $\textit{Enc}$,  takes a key $k$ and a plaintext $m$ and outputs a ciphertext $c$, while the latter, $\textit{Dec}$, does the opposite - it takes a key $k$ and a ciphertext $c$ and produces the plaintext $m$ which was encrypted to get the ciphertext. Since both will be used with the same key for a given encryption scheme, the key is often written as a subscript, i.e. $\textit{Enc}_k$ and $\textit{Dec}_k$
+The encryption function is denoted by $\textit{Enc}$ and the decryption function is called $\textit{Dec}$. The first function, $\textit{Enc}$,  takes a key $k$ and a plaintext $m$ and outputs a ciphertext $c$, while the latter, $\textit{Dec}$, does the opposite - it takes a key $k$ and a ciphertext $c$ and produces the plaintext $m$ which was encrypted to get the ciphertext.
 
 The key $k$, the plaintext $m$ and the ciphertext $c$ are all binary strings and their lengths, i.e. the number of bits in them, are denoted by $n$, $l(n)$ and $C(n)$, respectively. For simplicity, these are often substituted by just $n$, $l$ and $C$.
 
 The term *polynomial-time computable* means that the encryption and decryption functions should be fast to compute for long keys and messages, which is not an unreasonable requirement. After all, encryption and decryption would be useless if we could never hide or see the message's contents, even if they were intended for us.
 
-The final requirement, i.e. that $\textit{Dec}_k(\textit{Enc}_k(m)) = m$ is essential. It tells us that under any private-key encryption scheme, the encryption function is [one-to-one](../Mathematical%20Prerequisites.md#admonition-injection-surjection-and-bijection) which means that every plaintext produces a unique ciphertext - no two plaintexts can be encrypted to the same ciphertext if the same key $k$ is used. It might seem obvious that this should be true, but it is *not* the case for [hash functions](../Hash%20Functions/index.md), for example, and so hash functions are *not* valid private-key encryption schemes.
+The final requirement, i.e. that $\textit{Dec}_k(\textit{Enc}_k(m)) = m$, is essential and is called the *correctness property*. It tells us that under any Shannon cipher, the encryption function is [one-to-one](../Mathematical%20Prerequisites.md#admonition-injection-surjection-and-bijection) which means that every no two plaintexts can be encrypted to the same ciphertext if the same key $k$ is used. It might seem obvious that this should be true, but it is *not* the case for [hash functions](../Hash%20Functions/index.md), for example, and so hash functions are *not* valid private-key encryption schemes.
 ```
 
 # Security Notions
@@ -70,9 +70,9 @@ $$\Pr_{m\leftarrow_R \mathcal{D}, k\leftarrow_R \mathcal{K}}[\textit{Eve}(\texti
 ```admonish check collapsible=true title="Proof: Perfect Secrecy Properties"
 **Proof of the first property**:
 
-If an encryption is scheme $(\textit{Enc}, \textit{Dec})$ is perfectly secret, then the first property follows directly from the definition of perfect secrecy.
+If a Shannon cipher $(\textit{Enc}, \textit{Dec})$ is perfectly secret, then the first property follows directly from the definition of perfect secrecy.
 
-To prove the "if" direction we use a proof by contradiction. We need to show that if there were some set of plaintexts $M \subseteq \mathcal{M}$ and a strategy for Eve to guess a chosen plaintext from $M$ with a probability greater than $\frac{1}{|M|}$ (i.e., the encryption scheme were *not* perfectly secret), then there would also exist a set $M'$ of size 2 for which Eve can guess a plaintext chosen from $M'$ with probability greater than $\frac{1}{2}$.
+To prove the "if" direction we use a proof by contradiction. We need to show that if there were some set of plaintexts $M \subseteq \mathcal{M}$ and a strategy for Eve to guess a chosen plaintext from $M$ with a probability greater than $\frac{1}{|M|}$ (i.e., the cipher were *not* perfectly secret), then there would also exist a set $M'$ of size 2 for which Eve can guess a plaintext chosen from $M'$ with probability greater than $\frac{1}{2}$.
 
 Essentially, this set would be $M' = \{m_0,m_1\}$ for some plaintexts $m_0$ and $m_1$ such that $\Pr[\textit{Eve}(\textit{Enc}_k(m_1)) = m_1] \gt \Pr[\textit{Eve}(\textit{Enc}_k(m_1)) = m_0]$. 
 
@@ -98,10 +98,10 @@ $$\underset{m_1 \leftarrow_R M}{\mathbb{E}} ( \Pr[\textit{Eve}(\textit{Enc}_k(m_
 
 By the averaging argument, there *must* exist some $m_1$ for which $\Pr[\textit{Eve}(\textit{Enc}_k(m_1)) = m_1] \gt \Pr[\textit{Eve}(\textit{Enc}_k(m_1)) = m_0]$. 
 
-In other words, we just proved the existence of two messages $m_0,m_1$ for which $\Pr[\textit{Eve}(\textit{Enc}_k(m_1)) = m_1] \gt \Pr[\textit{Eve}(\textit{Enc}_k(m_1)) = m_0]$ and can now construct the set $M' = \{m_0,m_1\}$ which contradicts our initial condition. Therefore, $M'$ cannot exist and by extension $M$ cannot either, making the encryption scheme perfectly secret.
+In other words, we just proved the existence of two messages $m_0,m_1$ for which $\Pr[\textit{Eve}(\textit{Enc}_k(m_1)) = m_1] \gt \Pr[\textit{Eve}(\textit{Enc}_k(m_1)) = m_0]$ and can now construct the set $M' = \{m_0,m_1\}$ which contradicts our initial condition. Therefore, $M'$ cannot exist and by extension $M$ cannot either, making the cipher perfectly secret.
 
 **Proof of Second Property**
-This can be thought of as the definition of perfect secrecy but with the message and key swapped.
+TODO
 
 **Proof of Third Property**
 TODO
@@ -118,13 +118,13 @@ For every perfectly secret encryption scheme $(\textit{Enc},\textit{Dec})$, the 
 ```
 
 ```admonish check collapsible=true title="Proof: Long Keys Requirement"
-Given an encryption scheme $(\textit{Enc}, \textit{Dec})$, if the key was shorter than the message, then there would be a fewer number of possible keys than possible messages, i.e. $|\mathcal{K}| \lt |\mathcal{M}|$. An adversary can gain an edge by choosing a key instead of a plaintext at random and simply decrypting the known ciphertext $c$ with it. The probability that the decrypted ciphertext results in the hidden message $m$, i.e. $\Pr[\textit{Dec}_k(c) = m]$, will be $\frac{1}{|K|}$ and since there are less keys than messages, this probability is greater than $\frac{1}{|M|}$, thus making the encryption scheme not perfectly secret.
+Given a Shannon cipher $(\textit{Enc}, \textit{Dec})$, if the key was shorter than the message, then there would be fewer possible keys than possible messages, i.e. $|\mathcal{K}| \lt |\mathcal{M}|$. An adversary can gain an edge by choosing a key instead of a plaintext at random and simply decrypting the known ciphertext $c$ with it. The probability that the decrypted ciphertext results in the hidden message $m$, i.e. $\Pr[\textit{Dec}_k(c) = m]$, will be $\frac{1}{|K|}$ and since there are fewer keys than messages, this probability is greater than $\frac{1}{|M|}$, thus making the cipher not perfectly secret.
 ```
 
-In more general, however, the proof of this theorem tells us the following principle.
+In proving the theorem, we have actually proved the following, more general statement.
 
-```admonish warning title="Size of the Key and Message Spaces"
-For an encryption scheme to be perfectly secret, the size of the key space $\mathcal{K}$ must always be greater than or equal to the size of the message space $\mathcal{M}$.
+```admonish warning title="Shannon's Theorem"
+For a Shannon cipher to be perfectly secret, the number of possible keys must be greater than or equal to the number of possible messages, i.e. $|\mathcal{K}| \ge |\mathcal{M}|$.
 ```
 
 The aforementioned relationship between the key and message lengths is just a corollary of this. This is a profound fact which limits the practicality of perfect secrecy. For example, if one wanted to securely transmit a 1 GB file using a perfectly secret encryption scheme, then they would also require a 1 GB key!
