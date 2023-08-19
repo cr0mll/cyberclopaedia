@@ -30,7 +30,7 @@ This strategy is *universal* in the sense that it works for any encryption schem
 
 This entails that *some* advantage over $\frac{1}{2}$ is always possible when the key is shorter than the message and our goal with the definition of computational security is to keep this advantage as low as possible for any potential strategy that Eve might employ.
 
-```admonish danger title="Formal Definition: Computational Security"
+```admonish danger title="Definition: Computational Security"
 A Shannon cipher $(\textit{Enc},\textit{Dec})$ is *computationally secure* if for every two distinct plaintexts $m_1,m_2 \in \mathcal{M}$ and every polynomial-time strategy of Eve, if a random message $m$ is chosen from $\{m_1,m_2\}$ and is encrypted with a random key $k \in \mathcal{K}$, then the probability that Eve guesses which message was chosen after seeing $\textit{Enc}_k(m)$ is at most $\frac{1}{2} + \mu(n)$ for some negligible function $\mu(n)$.
 ```
 
@@ -43,7 +43,7 @@ The negligible function $\mu$ is given the key length $n$ as an input.
 The description "negligible" here means that the advantage is small enough that we don't need to care about it in practice. 
 
 ### Negligible Functions
-```admonish danger title="Formal Definition: Negligible Function"
+```admonish danger title="Definition: Negligible Function"
 A function $\mu :\mathbb{N} \to [0,1]$ is *negligible* if for every polynomial $p: \mathbb{N} \to \mathbb{N}$ there exists a number $N \in \mathbb{N}$ such that $\mu(n) \lt \frac{1}{p(n)}$ for every $n \gt N$.
 ```
 

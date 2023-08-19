@@ -1,15 +1,15 @@
 # Introduction
-An idealised model of security, called *perfect secrecy*, states that a cipher is secure if *the ciphertext reveals nothing about the plaintext*.
+The notion of *perfect secrecy* exists thanks to the father of information theory - [Claude Shannon](https://en.wikipedia.org/wiki/Claude_Shannon) and provides security against any [ciphertext-only attack](index.md). Shannon realised that for a cipher to be invulnerable to a COA attack, the ciphertext must not reveal anything about the plaintext.
 
-```admonish danger title="Formal Definition: Perfect Secrecy"
-An encryption scheme $(\textit{Enc}, \textit{Dec})$ is *perfectly secret* if for every set of plaintexts $M \subseteq \mathcal{M}$ and for every strategy employed by the adversary Eve, if the plaintext $m \in M$ was chosen at random and was encrypted with a random key $k \in \mathcal{K}$, then the probability that Eve can guess the plaintext after seeing its ciphertext $c = \textit{Enc}_k(m)$ is at most $\frac{1}{|M|}$.
+```admonish danger title="Definition: Perfect Secrecy"
+An encryption scheme $(\textit{Enc}, \textit{Dec})$ is *perfectly secret* if for every subset $M \subseteq \mathcal{M}$ and for every strategy employed by the adversary Eve, if the plaintext $m \in M$ was chosen at uniformly at random and was encrypted with a uniformly random key $k \in \mathcal{K}$, then the probability that Eve can guess the plaintext when knowing its ciphertext $c = \textit{Enc}_k(m)$ is at most $\frac{1}{|M|}$.
 ```
 
 ```admonish tip title="Definition Breakdown"
 When stripped of its mathematical coating, the definition is pretty simple. A plaintext is chosen at random from a set of plaintexts $M$, which is a subset of the message space. There are $|M|$ possible messages for this choice, so the chance that Eve can guess the chosen message without having seen its ciphertext is $\frac{1}{|M|}$. The premise behind perfect secrecy is that this holds true even if Eve *does* have access to the ciphertext - Eve should not be able to obtain any information from the ciphertext that would improve her chances of guessing the chosen plaintext.
 ```
 
-Determining whether a given encryption scheme is perfectly secret might prove tricky when using this definition. Fortunately, there are some properties which are unique to perfectly secret encryption schemes - every perfectly secret encryption scheme has them and if a given encryption scheme has *one* of these properties, then it is perfectly secret and by extension has *all* of these properties (what is known are "if and only if" conditions).
+Determining whether a given encryption scheme is perfectly secret might prove tricky when using this definition. Fortunately, there are some properties which are unique to perfectly secret encryption schemes - every perfectly secret cipher has them and if a given encryption scheme has *one* of these properties, then it is perfectly secret and by extension has *all* of these properties (what are known as "if and only if" conditions).
 
 ```admonish abstract title="Perfect Secrecy Equivalent Definitions"
 Since these properties go both ways - every perfectly secret cipher has these and every cipher which has *one* of these has all of them and is perfectly secret, they are called *equivalent definitions*.

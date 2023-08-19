@@ -1,8 +1,16 @@
 # Introduction
-The One-Time Pad (OTP) or also known as the Vernam Cipher is the most famous (and perhaps the only remotely useful) [perfectly secret](index.md#perfect-secrecy) cipher. It uses a plaintext and a key and produces a ciphertext of all which have the same bit-length. The mainstay of this cipher is the [XOR operation](../Mathematical%20Prerequisites.md#xor-operation). Encryption simply XORs the key with the plaintext and decryption XORs the ciphertext with the key to retrieve the plaintext.
+The One-Time Pad (OTP) or also known as the Vernam Cipher is the most famous (and perhaps the only remotely useful) [perfectly secret](index.md#perfect-secrecy) cipher. It uses a plaintext and a key with the same length and produces a ciphertext also with that length. The mainstay of this cipher is the [XOR operation](../Mathematical%20Prerequisites.md#xor-operation). Encryption simply XORs the key with the plaintext and decryption XORs the ciphertext with the key to retrieve the plaintext.
 
 $$\textit{Enc}(k, m) = k \oplus m$$
 $$\textit{Dec}(k, c) = k \oplus c$$
+
+```admonish check collapsible=true title="Proof: Validity of OTP"
+To ensure that OTP is a *valid* Shannon cipher, we check the decryption function.
+
+$$\begin{align}\textit{Dec}(k, \textit{Enc}(k, m)) &= \\ &= k \oplus (k \oplus m) \\ &= (k \oplus k) \oplus m \\ &= 0 \oplus m = m \end{align}$$
+
+This indeed proves that decryption undoes encryption and so OTP is a valid private-key encryption scheme.
+```
 
 ```admonish check collapsible=true title="Proof: Perfect Secrecy of OTP"
 We claim that for every $m \in \mathcal{M}$, the distribution $D_m$ obtained by sampling the keyspace $k \leftarrow_R \mathcal{K}$ and outputting $\textit{Enc}_k(m)$ is the uniform distribution over $\mathcal{C}$ and therefore, the distributions $D_m$ and $D_{m'}$ are identical for every $m,m' \in \mathcal{M}$.
