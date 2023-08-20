@@ -14,50 +14,61 @@ Cryptography requires randomness and it requires a lot of it, too. However, comp
 
 So, it would be useful to be able to use these random bits to obtain *more* random bits, wouldn't it? However, there is a caveat. Since classical computers are deterministic, it is not really possible to obtain *truly* random bits, so we will have to settle for something that *looks* random.
 
-### Statistical Tests
-But now comes the problem of what does it mean to "appear to random" or to be "indistinguishable from random". This is where *statistical tests* come in.
+## Statistical Tests
+There is a caveat, however. Since classical computers are deterministic, it is not really possible to obtain *truly* random bits, so we will have to settle for something that *looks* random. But in order to determine what it means to *look random*, we must know what it means to *be random*. This is where *statistical tests* come in.
 
-```admonish danger title="Definition: Statistical Test"
-A *statistical test* is an algorithm $\textit{ST}: \{0,1\}^m \to \{0,1\}$ such that $\textit{ST}(x) = 1$ if the input $x$ appears random and $\textit{ST}(x) = 0$ if the input $x$ does *not* appear random.
-```
+~~~admonish danger title="Definition: Statistical Test"
+A *statistical test* is an algorithm $\textit{ST}(x: str[m]) \to bit$ defined as
+$$\textit{ST}(x) = \begin{cases}1, \text{ the input } x \text{ appears random} \\ 0, \text{ the input } x \text{ does not appear random}\end{cases}$$
+~~~
 
 ```admonish tip title="Definition Breakdown"
-A statistical test is just a way to determine if a string of bits appears random according to some definition of what "appears to be random" means. In a sense, every statistical test is a different definition of what "random" is.
+A statistical test is a definition of what "random" means.
 ```
 
-Okay, so a statistical test is a way to determine if a string is random according to some definition of "random".
+Let's look at some possible statistical tests, or as we already saw, some possible *definitions of random*.
 
 ```admonish example
-In a uniformly random string one would expect that the number of 0s and the number of 1s are approximately equal, so one possible statistical test is
+In a uniformly chosen string one would expect that the number of 0s and the number of 1s are approximately equal, so one possible statistical test is
 
-$$\textit{ST}(x) = \begin{cases}1, |\textit{Num}(0)} - \textit{Num}(1)| \le 10\times \sqrt{n}\\ 0, \text{ otherwise} \end{cases}$$
+$$\textit{ST}(x) = \begin{cases} 1, |\textit{Num}(0) - \textit{Num}(1)| \le 10\cdot \sqrt{n} \\ 0, \text{ otherwise} \end{cases}$$
 
 where $m$ is the length of the binary string $x$.
 
-Similarly, one would expect the longest sequence of 1s in a uniformly random string to be around $\log_2(m)$ and so another possible statistical test would be
+Similarly, one would expect the longest sequence of 1s in a uniformly chosen string to be around $\log_2(m)$ and so another possible statistical test would be
 
-$$\textit{ST}(x) = \begin{cases}1, \textit{Longest string of 1s}(x) \le \log_2(m) \\ 0, \text{ otherwise} \end{cases}$$
+$$\textit{ST}(x) = \begin{cases}1, \textit{LS1s}(x) \le \log_2(m) \\ 0, \text{ otherwise} \end{cases}$$
 ```
 
-### Pseudorandom Generators
-```admonish tldr
-A pseudorandom generator is an algorithm which takes a small number of random bits and produces more random bits.
-```
+Since statistical tests can be pretty much anything and we have no way of really determining that a given statistical test is "better" than another, why don't we build our definition of what it means to "look random" by taking all the possible definitions for what "random is"?
 
-An algorithm which fulfils the task of generating more seemingly random bits from a smaller number of truly random bits is called a *pseudorandom generator (PRG)* - it takes a short string of random bits, called a *seed*, and expands them into a larger string of bits which *appear to be random* (hence the "pseudo"). 
+```admonish danger title="Definition: Pseudorandomness"
+A string of bits $s \in \{0,1\}^m$ is *pseudorandom*, i.e. *looks random*, if for every efficient statistical test $\textit{ST}$ running in time $p(m)$, where $p$ is some polynomial, it holds true that
 
-```admonish danger title="Definition: Pseudorandom Generator"
-A *pseudorandom generator (PRG)* is an efficiently computable function $\textit{PRG}: \mathcal{S} \to \mathcal{R}, where $\mathcal{S} \coloneqq \{0,1\}^S$ is called the *seed space*, $\mathcal{R} \coloneqq \{0,1\}^R$ is called the *output space* and $R \gt S$. 
-```
-
-```admonish danger title="Definition: Security of a PRG"
-A pseudorandom generator $\textit{PRG}$ is *secure* if for every seed $s \in \mathcal{S}$ and every efficient statistical test $\textit{ST}: \mathcal{R} \to \{0,1\}$ it holds that
-
-$$|\Pr_{s\leftarrow_R \mathcal{S}}[\textit{ST}(\textit{PRG}(s)) = 1] - \Pr_{r \leftarrow_R \mathcal{R}}[\textit{ST}(r) = 1]| \text{ is negligible}$$
+$$\left| \Pr[\textit{ST}(s) = 1] - \Pr_{r \leftarrow_R \{0,1\}^m}[\textit{ST(r)} = 1] \right| \lt \frac{1}{p(m)}$$
 ```
 
 ```admonish tip title="Definition Breakdown"
-This definition tells us that an algorithm $\textit{PRG}$ which takes a uniformly random binary string of length $S$ (i.e. "truly random" string), called a *seed*, and outputs a longer binary string of length $R$, is a pseudorandom generator if there is no efficient statistical test which can distinguish between $\textit{PRG}$'s output and a string chosen uniformly at random from the output space $\mathcal{R}$ with non-negligible probability.
+Essentially, a string of bits $s$ with length $m$ is pseudorandom if there is no statistical test which can distinguish with non-negligible probability between it and a string uniformly chosen from all strings of length $m$. In other words, the difference between the probability that the statistical test classifies a string $s$ as random and that it classifies a uniformly chosen string as random should be very very small, i.e. negligible.
+```
+
+### Pseudorandom Generators
+An algorithm which fulfils the task of generating more seemingly random bits from a smaller number of truly random bits is called a *pseudorandom generator (PRG)* - it takes a short string of random bits, called a *seed*, and expands them into a larger string of pseudorandom bits. 
+
+```admonish danger title="Definition: Generator"
+A *generator* is an efficient algorithm $\textit{Gen}(x: str[X]) \to str[R]$ where $R\gt X$ which takes a binary string as an input and produces a longer binary string as an output.
+```
+
+```admonish danger title="Definition: (Secure) Pseudorandom Generator (PRG)"
+A (secure) *pseudorandom generator* $\textit{PRG}(seed: str[S]) \to str[R]$ is a generator such that for every input, called a *seed*, $s \in \{0,1\}^S$ and every efficient statistical test $\textit{ST}: \{0,1\}^R \to \{0,1\}$ which runs in time $p(R)$ for some polynomial $R$, the output $\textit{PRG}(s)$ is *pseudorandom*, i.e. it holds that
+
+$$\left|\Pr[\textit{ST}(\textit{PRG}(s)) = 1] - \Pr_{r \leftarrow_R \mathcal{R}}[\textit{ST}(r) = 1]\right| \lt \frac{1}{p(R)}$$
+
+The set $\mathcal{S} \coloneqq \{0,1\}^S$ is called the *seed space* and the set $\mathcal{R} \coloneqq \{0,1\}^R$ is called the *output space*.
+```
+
+```admonish tip title="Definition Breakdown"
+This definition tells us that an algorithm $\textit{PRG}$ which takes a uniformly chosen binary string of length $S$ (i.e. "truly random" string), called a *seed*, and outputs a longer binary string of length $R$, is a pseudorandom generator if there is no efficient statistical test which can distinguish between $\textit{PRG}$'s output and a string chosen uniformly at random from the output space $\mathcal{R}$ with non-negligible probability.
 
 Essentially, the definition says that the probability that any statistical test thinks a string generated by $\textit{PRG}$ is random is approximately equal to the probability that the same statistical test thinks a string uniformly chosen from $\mathcal{R}$ is random, i.e.
 
@@ -69,23 +80,24 @@ It does not matter if you understand the nitty-gritty details of this definition
 Nevertheless, it gives us an idealised model for what a secure PRG *should* be.
 
 ### Determining the Security of a PRG
-We can derive from it certain properties from the definition for security of a PRG which can hint that a candidate PRG is secure and can be trusted.
+We can derive some properties from the definition of a PRG which can hint that a candidate PRG is secure and can be trusted.
 
 ```admonish info title="PRG Properties"
-1. A secure PRG is *unpredictable* in the sense that there is no algorithm which given the first $i$ bits of the output of $\textit{PRG}$ can guess what the $i+1$ bit would be with probability that is non-negligibly greater than $\frac{1}{2}.
+1. A secure PRG is *unpredictable* in the sense that there is no algorithm which given the first $i$ bits of the output of $\textit{PRG}$ can guess what the $i+1$ bit would be with probability that is non-negligibly greater than $\frac{1}{2}$. Similarly, an unpredictable PRG is secure.
 2. A predictable PRG is *insecure*.
 ```
 
-It can be proven that insecurity follows predictability and it can be proven that security means unpredictability.
+It can be proven that insecurity follows predictability and it can be proven that security means unpredictability (and vice versa).
 
-```admonish check title="Proof: Unpredictability<p>&rarr;</p>Security and Predictability<p>&rarr;</p>Insecurity"
-1. Suppose, towards contradiction, that there exists an efficient algorithm $\mathcal{P}$ which given the bits $y[0], y[1], ..., y[i]$ of the output of a secure $\textit{PRG}$ can guess the bit $y[i+1]$ is probability greater than $\frac{1}{2} + \Epsilon$ for some non-negligible $\Epsilon$, i.e.
+```admonish check collapsible=true title="Proof: Unpredictability<p>&lrarr;</p>Security and Predictability<p>&rarr;</p>Insecurity"
+1. Suppose, towards contradiction, that there exists an efficient algorithm $\mathcal{P}$ which given the bits $y[0], y[1], ..., y[i]$ of the output of a secure $\textit{PRG}$ can guess the bit $y[i+1]$ is probability greater than $\frac{1}{2} + \xi$ for some non-negligible $\xi$, i.e.
 	
-	$$\Pr_{s \in \mathcal{S}}[\mathcal{P}(\textit{PRG}(s)|_{\{0,1,...,i\}}) = textit{PRG}(s)|_{i+1}}] gt \frac{1}{2} + \Epsilon$$
-	We define a statistical test $\textit{ST}$ which outputs 1 only if $
+$$\Pr_{s \leftarrow_R \mathcal{S}}[\mathcal{P}(\textit{PRG}(s)|_{\{0,1,...,i\}}) = \textit{PRG}(s)_{i+1}] \gt \frac{1}{2} + \xi$$
+	
+We define a statistical test $\textit{ST}$ which outputs 1 only if $
 ```
 
-However, these two properties only provide a potential way to rule out an PRG as insecure. At best, if the first property is proven for some PRG, then it only suggests that the PRG *might* be secure but not necessarily that it *is* secure. A different way to break the PRG might still be found even if the PRG is unpredictable.
+However, these two properties only provide a potential way to rule out an PRG as insecure. Proving the first property is equally difficult as proving that a PRG is secure, since it is essentially an equivalent definition of security for a PRG.  
 
 ```admonish note
 At the end of the day we just *assume* that secure generators exists. In fact, we have many PRGs that we believe to be secure but are just unable to prove it. Similarly, we have many PRGs that have been shown to be *insecure* and should not be used. So really, we consider a PRG to be secure until someone comes along and shows a way to break it. Since we have no better alternative, i.e. we do not know how to prove that a PRG is secure, we are forced to take the leap of faith and make-do with what we have. 

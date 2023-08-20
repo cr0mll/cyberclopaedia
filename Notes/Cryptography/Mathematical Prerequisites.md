@@ -370,6 +370,3 @@ $$\Pr(o) = \frac{\textit{number of inputs }s\in S\textit{ for which } f(s) = o}{
 In this way, it makes some sense to call this a *probability function* because $\Pr(o)$ tells us how likely it is that $f$ outputs $o$ when choosing an $s \in S$ uniformly at random. 
 ```
 
-
-
-
