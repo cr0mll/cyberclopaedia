@@ -166,6 +166,7 @@
 			- [Randomness](Cryptography/Private-Key%20Cryptography/Security%20Notions/Randomness.md)
 			- [Computational Security](Cryptography/Private-Key%20Cryptography/Security%20Notions/Computational%20Security.md)
 		- [One-Time Pad](Cryptography/Private-Key%20Cryptography/One-Time%20Pad.md)
+		- [Pseudorandom Generators (PRGs)](Cryptography/Private-Key%20Cryptography/Pseudorandom%20Generators%20(PRGs).md)
 	- [Breaking Classical Cryptrography](Cryptography/Breaking%20Classical%20Cryptrography.md)
 	- [Mathematical Prerequisites](Cryptography/Mathematical%20Prerequisites.md)
 	- [Computer Science Prerequisites](Cryptography/Computer%20Science%20Prerequisites.md)
