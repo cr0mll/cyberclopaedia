@@ -47,6 +47,10 @@ $$\textit{ST}(x) = \begin{cases}1, \textit{LS1s}(x) \le \log_2(m) \\ 0, \text{ o
 
 These examples illustrate that statistical tests can be pretty much anything and that if we are given no other information about a string other than the string itself, we cannot with certainty determine if it came from a uniform distribution. We can only test the string for properties that we would expect from a uniformly chosen string.
 
+```admonish note title="Distinguishers"
+Statistical tests are often called *distinguishers* since they attempt to distinguish whether their input came from one distribution or another.
+```
+
 # Obtaining Randomness
 Cryptography requires randomness and it requires a lot of it, too. However, computers (at least classical ones) are entirely deterministic, so it turns out that randomness is actually quite difficult to come by. For example, a computer might use information from its temperature sensors or from surrounding electromagnetic noise. Nevertheless, these sources can only provide so many random bits and rarely satisfy the needs for randomness at a given time. 
 
