@@ -221,6 +221,22 @@ This function is ubiquitous in cryptography due to its four essential properties
 Another interesting property of $XOR$ is that XOR-ing a bit with itself will always produce 0. This is often used in computers to reset a [register](../Reverse%20Engineering/Assembly%20Programming/x86-64/Registers.md) to 0. 
 ```
 
+
+## Negligible Functions
+```admonish danger title="Definition: Negligible Function"
+A function $\mu :\mathbb{N} \to [0,1]$ is *negligible* if for every polynomial $p: \mathbb{N} \to \mathbb{N}$ there exists a number $N \in \mathbb{N}$ such that $\mu(n) \lt \frac{1}{p(n)}$ for every $n \gt N$.
+```
+
+The definition itself is not that important, just remember that a negligible function approaches 0 and it does so quickly as its input approaches infinity.
+
+```admonish tip title="Definition Breakdown"
+Essentially, a function is negligble if it approaches 0 as its input becomes larger and larger. That is, no matter how big a polynomial one can think of, after some input $N$ the function will always be smaller than the reciprocal of the polynomial. 
+
+The reason the function outputs a number between 0 and 1 is that such functions are usually used in the context of probabilities (as is the case here).
+```
+
+The reason we want the negligible function to get smaller and smaller as its input gets larger and larger is because we are using the key length $n$ for its input, so we want to say that longer keys are still more secure than shorter ones but at the same time we do not need to use *massive* keys. By today's standards, a reasonable negligible function would be one which is already on the order of $\frac{1}{2^{128}}$ for an input $n = 128$. So, not only does the function need to approach 0, but it also needs to do so fairly quickly.
+
 # Probability
 When we perform an experiment such as tossing a fair coin, we obtain a certain result from it called its *outcome*.
 

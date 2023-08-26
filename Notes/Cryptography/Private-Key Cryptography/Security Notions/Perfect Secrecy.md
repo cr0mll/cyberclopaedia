@@ -1,5 +1,5 @@
 # Introduction
-The notion of *perfect secrecy* exists thanks to the father of information theory - [Claude Shannon](https://en.wikipedia.org/wiki/Claude_Shannon) and provides security against any [ciphertext-only attack](index.md). Shannon realised that for a cipher to be invulnerable to a COA attack, the ciphertext must not reveal anything about the plaintext.
+The notion of *perfect secrecy* exists thanks to the father of information theory - [Claude Shannon](https://en.wikipedia.org/wiki/Claude_Shannon) and provides security against a limited variant of the [ciphertext-only attack](index.md) where the adversary is presented with only a single ciphertext - no more, no less. Shannon realised that for a cipher to be invulnerable to a COA attack, the ciphertext must not reveal anything about the plaintext.
 
 ```admonish danger title="Definition: Perfect Secrecy"
 An encryption scheme $(\textit{Enc}, \textit{Dec})$ is *perfectly secret* if for every subset $M \subseteq \mathcal{M}$ and for every strategy employed by the adversary Eve, if the plaintext $m \in M$ was chosen at uniformly at random and was encrypted with a uniformly random key $k \in \mathcal{K}$, then the probability that Eve can guess the plaintext when knowing its ciphertext $c = \textit{Enc}_k(m)$ is at most $\frac{1}{|M|}$.
