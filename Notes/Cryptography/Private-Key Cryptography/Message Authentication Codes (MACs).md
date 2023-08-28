@@ -27,7 +27,7 @@ $$\textit{Verify}(k, m, \tau) \coloneqq
 ```
 
 ```admonish tip title="Definition Breakdown"
-The $\textit{Sign}$ algorithm is described exactly as above - it uses the message and the secret key in order to generate a tag which can be used to authenticate the message. The $\textit{Verify}$ algorithm takes uses the secret key and a message to check if the tag was generated using that specific key and that specific message. If $\textit{Verify}$ outputs 1, then the message is accepted. Otherwise, the message is discarded.
+The $\textit{Sign}$ algorithm is described exactly as above - it uses the message and the secret key in order to generate a tag which can be used to authenticate the message. The $\textit{Verify}$ algorithm uses the secret key and a message to check if the tag was generated using that specific key and that specific message. If $\textit{Verify}$ outputs 1, then the message is accepted. Otherwise, the message is discarded.
 ```
 
 For all practical purposes, the tag is much shorter than the message - we do not want to overwhelm the network channel that is used by sending unnecessarily large tags. However, this does mean that multiple messages will produce the same tag when signed with a given key $k$.

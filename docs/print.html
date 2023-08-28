@@ -5957,7 +5957,7 @@ TODO</p>
 <p><a class="admonition-anchor-link" href="Cryptography/Private-Key Cryptography/Message Authentication Codes (MACs).html#admonition-definition-breakdown"></a></p>
 </div>
 <div>
-<p>The <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord textit">Sign</span></span></span></span></span> algorithm is described exactly as above - it uses the message and the secret key in order to generate a tag which can be used to authenticate the message. The <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord textit">Verify</span></span></span></span></span> algorithm takes uses the secret key and a message to check if the tag was generated using that specific key and that specific message. If <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord textit">Verify</span></span></span></span></span> outputs 1, then the message is accepted. Otherwise, the message is discarded.</p>
+<p>The <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord textit">Sign</span></span></span></span></span> algorithm is described exactly as above - it uses the message and the secret key in order to generate a tag which can be used to authenticate the message. The <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord textit">Verify</span></span></span></span></span> algorithm uses the secret key and a message to check if the tag was generated using that specific key and that specific message. If <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord textit">Verify</span></span></span></span></span> outputs 1, then the message is accepted. Otherwise, the message is discarded.</p>
 </div>
 </div>
 <p>For all practical purposes, the tag is much shorter than the message - we do not want to overwhelm the network channel that is used by sending unnecessarily large tags. However, this does mean that multiple messages will produce the same tag when signed with a given key <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>.</p>
@@ -8070,22 +8070,6 @@ The <em>User Data Transfer Process</em> (User-DTP) is responsible for sending an
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
 
