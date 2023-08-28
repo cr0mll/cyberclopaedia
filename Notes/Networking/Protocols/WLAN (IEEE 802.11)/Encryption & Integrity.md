@@ -32,11 +32,11 @@ This encryption method is used by WPA1.
 ## Counter / CBC-MAC Protocol (CCMP)
 CCMP was developed after TKIP and, due its higher security, finds its use in WPA2. In order to be used, however, it requires special hardware which is not present in ancient devices.
 
-For encryption, CCMP utilises AES [counter mode](../../../Cryptography/Block%20Ciphers/Modes%20of%20Operation.md#the-counter-mode-ctr).
+For encryption, CCMP utilises AES [counter mode](../../../Cryptography/Private-Key%20Cryptography/Block%20Ciphers/Modes%20of%20Operation.md#the-counter-mode-ctr).
 
-[Cipher Block Chaining](../../../Cryptography/Block%20Ciphers/Modes%20of%20Operation.md#the-cipher-block-chaining-cbc-mode) Message Authentication Code (CBC-MAC) is used as a MIC to ensure the integrity of messages.
+[Cipher Block Chaining](../../../Cryptography/Private-Key%20Cryptography/Block%20Ciphers/Modes%20of%20Operation.md#the-cipher-block-chaining-cbc-mode) Message Authentication Code (CBC-MAC) is used as a MIC to ensure the integrity of messages.
 
 ## Galois / Counter Mode Protocol (GCMP)
 This protocol provides even further security than CCMP and is additionally more efficient. It is used in WPA3.
 
-For encryption, GCMP also uses AES [counter mode](../../../Cryptography/Block%20Ciphers/Modes%20of%20Operation.md#the-counter-mode-ctr). However, it utilises Galois Message Authentication Code (GMAC) for MICs.
+For encryption, GCMP also uses AES [counter mode](../../../Cryptography/Private-Key%20Cryptography/Block%20Ciphers/Modes%20of%20Operation.md#the-counter-mode-ctr). However, it utilises Galois Message Authentication Code (GMAC) for MICs.

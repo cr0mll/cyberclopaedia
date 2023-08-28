@@ -43,7 +43,7 @@ The negligible function $\epsilon$ is given the key length $n$ as an input.
 The description "negligible" here means that the advantage is small enough that we don't need to care about it in practice. 
 
 # Leap of Faith
-As it turns out, proving that a cipher is semantically secure is not a trivial task. Similarly to [Pseudorandom Generators (PRGs)](../../Pseudorandom%20Generators%20(PRGs).md#leap-of-faith), we are actually forced to *assume* that such ciphers exist. On the one hand, there are some ciphers which have withstood years of attempts to be broken . Therefore, we really do believe that they are secure but we are, unfortunately, unable to prove this. On the other hand, we have ruled out many ciphers as insecure by showing a way to break them. Essentially, a cipher is considered semantically secure until a way to break it is found.
+As it turns out, proving that a cipher is semantically secure is not a trivial task. Similarly to [index](../../Pseudorandom%20Generators%20(PRGs)/index.md#leap-of-faith), we are actually forced to *assume* that such ciphers exist. On the one hand, there are some ciphers which have withstood years of attempts to be broken . Therefore, we really do believe that they are secure but we are, unfortunately, unable to prove this. On the other hand, we have ruled out many ciphers as insecure by showing a way to break them. Essentially, a cipher is considered semantically secure until a way to break it is found.
 
 Nevertheless, in order to be as safe as possible, one needs to make as few assumptions as possible and indeed that is what cryptography does. In this regard, cryptography makes only *one* assumption about the existence of a specific semantically secure cipher.
 

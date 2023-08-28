@@ -12,9 +12,11 @@ A *generator* is an efficient algorithm $\textit{Gen}(x: str[X]) \to str[R]$ whe
 A generator which takes a short string of random bits, called a *seed*, and expands them into a larger string of pseudorandom bits is called a *pseudorandom generator (PRG)*.
 
 ```admonish danger title="Definition: (Secure) Pseudorandom Generator (PRG)"
-A (secure) *pseudorandom generator* $\textit{PRG}(seed: str[S]) \to str[R]$ is a generator such that for every input, called a *seed*, $s \in \{0,1\}^S$ and every efficient statistical test $\textit{ST}: \{0,1\}^R \to \{0,1\}$ which runs in time $p(R)$ for some polynomial $p$, the output $\textit{PRG}(s)$ is *pseudorandom*, i.e. it holds that
+A (secure) *pseudorandom generator* $\textit{PRG}(seed: \textbf{str}[S]) \to \textbf{str}[R]$ is a generator such that for every input, called a *seed*, $s \in \{0,1\}^S$ and every efficient statistical test $\textit{ST}: \{0,1\}^R \to \{0,1\}$, the output $\textit{PRG}(s)$ is *pseudorandom*, i.e. it holds that
 
-$$\left|\Pr[\textit{ST}(\textit{PRG}(s)) = 1] - \Pr_{r \leftarrow_R \mathcal{R}}[\textit{ST}(r) = 1]\right| \lt \frac{1}{p(R)}$$
+$$\left|\Pr[\textit{ST}(\textit{PRG}(s)) = 1] - \Pr_{r \leftarrow_R \mathcal{R}}[\textit{ST}(r) = 1]\right| \le \epsilon(R)$$
+
+for some negligible $\epsilon(R)$.
 
 The set $\mathcal{S} \coloneqq \{0,1\}^S$ is called the *seed space* and the set $\mathcal{R} \coloneqq \{0,1\}^R$ is called the *output space*.
 ```
