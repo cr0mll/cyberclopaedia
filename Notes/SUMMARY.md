@@ -152,7 +152,7 @@
 	- [Hash Functions](Cryptography/Hash%20Functions/index.md)
 	- [Public-Key Cryptography](Cryptography/Public-Key%20Cryptography/index.md)
 	- [Pseudorandom Generators (PRGs)](Cryptography/Pseudorandom%20Generators%20(PRGs)/index.md)
-		- [Pseudorandom Functions (PRFs)](Cryptography/Pseudorandom%20Generators%20(PRGs)/Pseudorandom%20Functions%20(PRFs).md)
+		- [Pseudorandom Function Generators (PRFGs)](Cryptography/Pseudorandom%20Generators%20(PRGs)/Pseudorandom%20Function%20Generators%20(PRFGs).md)
 	- [Private-Key Cryptography](Cryptography/Private-Key%20Cryptography/index.md)
 		- [Stream Ciphers](Cryptography/Private-Key%20Cryptography/Stream%20Ciphers/index.md)
 			- [Hardware-Oriented Stream Ciphers](Cryptography/Private-Key%20Cryptography/Stream%20Ciphers/Hardware-Oriented%20Stream%20Ciphers/index.md)
