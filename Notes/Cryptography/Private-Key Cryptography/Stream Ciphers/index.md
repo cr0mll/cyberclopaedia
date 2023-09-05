@@ -30,7 +30,7 @@ The purpose of the initialisation vector is to allow for key reuse. So long as t
 # Security
 A stream cipher is [semantically-secure](../Security%20Notions/Semantic%20Security.md) so long as it uses a [secure PRG](../../Pseudorandom%20Generators%20(PRGs)/index.md#admonition-definition-secure-pseudorandom-generator-prg).
 
-```admonish check title="Proof: Semantic Security of Stream Ciphers"
+```admonish check collapsible=true title="Proof: Semantic Security of Stream Ciphers"
 We are given a stream cipher $(\textit{Enc},\textit{Dec})$ which uses a secure pseudorandom generator $\textit{Gen}(seed: \textbf{str}[S]) \to \textbf{str}[R]$ under the hood and we need to prove that the cipher is semantically secure.
 
 Essentially, it all boils down to the security of the one-time pad. If instead of using a generator the message $m_b$ was XOR-ed with a truly random string $r \leftarrow_R \{0,1\}^l$, then we get a one-time pad which is perfectly secret (and by extension also semantically secure), i.e.
@@ -41,7 +41,7 @@ Suppose, towards contradiction, that there was an adversary $\mathcal{A}$ which 
 
 $$\Pr_{k\leftarrow_R \mathcal{K}, b \leftarrow_R \{0,1\}}[\mathcal{A}(\textit{Enc}(m_b)) = m_b] \gt \frac{1}{2} + \xi(n)$$
 
-for some non-negligible $\Xi(n)$. This can be rewritten as
+for some non-negligible $\xi(n)$. This can be rewritten as
 
 $$\Pr_{k\leftarrow_R \mathcal{K}, b \leftarrow_R \{0,1\}}[\mathcal{A}(\textit{Gen}(s) \oplus m_b) = m_b] \gt \frac{1}{2} + \xi(n)$$
 

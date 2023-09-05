@@ -40,18 +40,32 @@ Just how the two communicating parties exchange a particular secret key without 
 It is now time to describe what it means for a MAC system to be secure. As it turns out, the most pertinent threat model for MACs is a [chosen-message attack](index.md). The adversary has access to some messages and their corresponding tags and they are even free to choose the messages to be signed. The adversary's goal is to then find an entirely new *valid* message-tag pair without any knowledge of the secret key.
 
 ```admonish danger title="Definition: CMA-Security for Message Authentication Codes"
-A MAC system $(\textit{Sign}, \textit{Verify})$ is *CMA-secure* if for any set of message-tag pairs $(m_1, \tau_1), (m_2,\tau_2), ..., (m_q, \tau_q)$ that were signed with the same key $k \leftarrow_R \mathcal{K}$ and for every efficient adversary $\textit{Eve}$ which has access to those message-tag pairs, the probability that $\textit{Eve}$ can produce a new valid message-tag pair $(m, \tau)$, called an *existential forgery*, is negligble, i.e.
+A MAC system $(\textit{Sign}, \textit{Verify})$ is *CMA-secure* if for every efficient adversary $\textit{Eve}$ and any set of message-tag pairs $(m_1, \tau_1), (m_2,\tau_2), ..., (m_q, \tau_q)$ whose messages were selected by $\textit{Eve}$ and were signed with the same key $k \leftarrow_R \{0,1\}^n$ to obtain their corresponding tags, the probability that $\textit{Eve}$ can produce a new valid message-tag pair $(m, \tau)$, called an *existential forgery*, when given $(m_1, \tau_1), (m_2,\tau_2), ..., (m_q, \tau_q)$, is at most $\frac{1}{|\mathcal{K}|} + \epsilon(n)$ for some negligible $\epsilon$, i.e.
 
-$$\Pr_{k \leftarrow_R \mathcal{K}}[\textit{Verify}(k, m, \tau) = 1] \le \epsilon$$
-
-for some negligible $\epsilon$.
+$$\Pr_{k \leftarrow_R \mathcal{K}}[\textit{Verify}(k, m, \tau) = 1] \le \frac{1}{2^n} + \epsilon(n)$$.
 ```
 
 ```admonish tip title="Definition Breakdown"
-The adversary $\textit{Eve}$ is free to choose the messages $m_1,m_2,...,m_q$ and is then presented with their tags $t_1, t_2, ..., t_q$ which are signed with the secret key $k$, i.e. $\tau_i \leftarrow \textit{Sign}(k, m_i)$. The attacker then produces a new candidate pair $(m, \tau)$, called an *existential forgery*, with the goal that this pair fools $\textit{Verify}$ when checked with the secret key $k$. The MAC system is secure if the existential forgery can fool $\textit{Verify}$ with only an extremely small probability.
+The adversary $\textit{Eve}$ is free to choose the messages $m_1,m_2,...,m_q$ and is then presented with their tags $t_1, t_2, ..., t_q$ which are signed with the secret key $k$, i.e. $\tau_i \leftarrow \textit{Sign}(k, m_i)$. The attacker then produces a new candidate pair $(m, \tau)$, called an *existential forgery*, with the goal that this pair fools $\textit{Verify}$ when checked with the secret key $k$. The MAC system is secure if the existential forgery can fool $\textit{Verify}$ with only an extremely small advantage over $\frac{1}{2^n}$. The reason for $\frac{1}{2^n}$ here is that it represents the probability that the adversary can just guess the key $k$ that was used to sign the message-tag pairs. This is a strategy which can always be employed and we consider the MAC system secure if no other strategy can do marginally better.
 ```
 
-The good thing about this notion of security is that it captures the case where the adversary is trying to find a second valid tag $\tau'$ for the same message $m$ with an already known tag $\tau$. However, this definition provides no protection against *replay attacks*.
+Sometimes, a stronger notion of security is also used in order to take into account the scenario where the adversary might find a valid tag $\tau'$ for a valid message-tag pair $(m, \tau)$.
+
+```admonish danger title="Definition: Strong Unforgeability"
+A CMA-secure MAC system has *strong unforgeability* if for every efficient adversary $\textit{Eve}$ and any valid message-tag pair $(m, \tau)$ signed with a key $k$, the probability that $\textit{Eve}$ can find a second tag $\tau'$ such that $\textit{Verify}(k,m, \tau') = \textit{Verify}(k,m, \tau) = 1$ at most $\frac{1}{|\mathcal{K}|} + \epsilon(n)$ for some negligible $\epsilon$, i.e.
+
+$$\Pr[\textit{Verify}(k, m, \textit{Eve}(m, \tau)) = 1] \le \frac{1}{2^n} + \epsilon(n)$$
+```
+
+```admonish tip title="Definition Breakdown"
+Once again, $\frac{1}{2^n}$ is the probability that $\textit{Eve}$ can just guess the key which was used to sign the initial message-tag pair. Strong unforgeability entails that there is no strategy which can do marginally better than this.
+```
+
+This stronger security notion is essential for some applications, but it can be safely ignored for others, hence why it is a separate definition. 
+
+```admonish note
+Strong unforgeability builds on top of CMA-security. No MAC system can have strong unforgeability without being CMA-secure.
+```
 
 ### Replay Attacks
 A replay attack describes the scenario where the adversary eavesdropping on the communication channel has captured a bunch of valid message-tag pairs and later sends, or *replays*, them again. Since the pairs were generated by an authentic party and are merely being resent again by a malicious actor, they will pass verification at the receiving end with no problem.
@@ -60,6 +74,69 @@ A replay attack describes the scenario where the adversary eavesdropping on the 
 Image that Alice really does want to transfer 100€ to Bob's account, so she sends an authentic request with a valid tag to the bank. However, if Bob copies this request on its way to the bank, Bob can later pretend to be Alice by sending the exact same message with the same valid tag and the bank will think this is a legitimate request and will transfer another 100€ to Bob's account.
 ```
 
-Message authentication codes on their own provide no protection mechanisms against such attacks which is why additional measures must be implemented.
+Message authentication codes on their own provide *no* protection mechanisms against such attacks which is why additional measures must be implemented.
 
 # Implementing MACs
+Before implementing a MAC system, it is useful to talk about the intrinsics of its $\textit{Sign}$ algorithm. The signing function can be either deterministic or non-deterministic.
+
+If $\textit{Sign}$ is deterministic, given the same message $m$ and using the same key $k$, $\textit{Sign}(k, m) = \tau$ will always output the same tag $\tau$. This is quite useful because it means that one does not have to get particularly imaginative with the verification algorithm. The $\textit{Verify}$ function will take the received message $m_r$ and generate a tag $\tau_g = \textit{Sign}(k, m_r)$  by signing the received message with the secret key. If the generated tag $\tau_g$ matches the tag $\tau_r$ received with the message, then the message is accepted.
+
+![](Resources/Images/MACs/Deterministic%20MAC.svg)
+
+On the other hand, if the signing algorithm is non-deterministic, that means that it uses internal randomness in the signing process and so $\textit{Sign}(k, m)$ will *not* necessarily produce the same tag $\tau$ when passed the same key and message as inputs. This means that the canonical verification algorithm for deterministic MACs no longer works and we have to get more creative with $\textit{Verify}$.
+
+## Implementing MACs
+[Pseudorandom function generators (PRFGs)](../Pseudorandom%20Generators%20(PRGs)/Pseudorandom%20Function%20Generators%20(PRFGs).md) are an excellent tool for creating deterministic MAC signing algorithms. 
+
+### Fixed-Length MACs
+This is the most basic type of MAC system which uses pseudorandom function generators. A fixed-length MAC uses keys and messages that are of the same length $n$ and also produce tags with length $n$. Indeed, they are very limited because they require long keys for long messages and produce equally long tags which is a problem because bandwidth is limited. Nevertheless, fixed-length MACs can be used to implement more sophisticated and useful systems.
+
+The signing algorithm of a fixed-length MAC $\textit{Sign}(\textit{key}: \textbf{str}[n], \textit{message}: \textbf{str}[n]) \to \textbf{str}[n]$ can be any pseudorandom function generator $\textit{PRFG}(\textit{seed}: \textbf{str}[n], \textit{idb}: \textbf{str}[n]) \to \textbf{str}[n]$ where the secret key $k$ is used as the seed and the message $m$ is the input data block, i.e.
+
+$$\textit{Sign}(k, m) \coloneqq \textit{PRFG}(k, m)$$
+
+Since the signing algorithm is just a PRFG, this is a deterministic MAC system and so we can just use the trivial verification algorithm for $\textif{Verify}$, i.e.
+
+```rust
+fn Verify(key: str[n], message: str[n], tag: str[n]) -> bool {
+	generated_tag = Sign(key, message);
+	return generated_tag == tag;
+}
+```
+
+Indeed, this construction turns out to be a secure MAC system so long as the PRFG used for signing is secure.
+
+~~~admonish check collapsible=true title="Proof: Security of Fixed-Length MACs"
+Suppose, towards contradiction, that there is an efficient adversary $\mathcal{A}$ which can query the pseudorandom function $\textit{Sign}_k$, obtained from $\textit{PRFG}$ with a seed $k$, with $q = \textit{poly}(n)$ messages and can thus get the message-tag pairs $(m_1, \tau_1), (m_2, \tau_2), ..., (m_q, \tau_q)$. The adversary $\mathcal{A}$ then produces a valid existential forgery $(m, \tau)$ with probability non-negligibly greater than $\frac{1}{|\mathcal{K}|}$, i.e.
+
+$$\Pr[\textit{Sign}(k, m) = \tau] \gt \frac{1}{2^n} + \xi(n)$$
+
+for some non-neglgible $\xi(n)$. We can use this adversary to construct a distinguisher $D$ which can tell apart a PRF from a random function with non-negligible probability. Indeed, suppose that $\mathcal{A}$ is given oracle access to some function $\mathcal{O}$ which is either $\textit{Sign}_k$ or a truly random function, but $\mathcal{A}$ does not know which it is.
+
+The distinguisher $D$ is the following.
+
+```rust
+fn D() -> bit {
+	let existential_forgery = A(); // A performs q queries and returns an existential forgery
+	
+	if existential_forgery.tag == O(existential_forgery.message) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+```
+
+If the oracle function $\mathcal{O}$ is indeed $\textit{Sign}$, then the probability that the tag $\tau$ of the existential forgery equals $\mathcal{O}(m) \equiv \textit{Sign}_k(m)$, where $m$ is the message of the existential forgery, is greater than $\frac{1}{2^n} + \xi(n)$ and so is the probability that $D$ outputs $1$.
+
+On the other hand, if the oracle function $\mathcal{O}$ is some truly random function $H$, then the probability that the tag $\tau$ of the existential forgery equals $\mathcal{O}(m) \equiv H(m)$, where $m$ is the message of the existential forgery, is just $\frac{1}{2^n}$, since the function $H$ is truly random and the powers of $\mathcal{A}$ are useless against it due to its lack of information about the function. 
+
+Therefore,
+
+$$\begin{align} \left|\Pr[D(Sign_k) = 1] - \Pr_{H \leftarrow_R (\{0,1\}^n \to \{0,1\}^n)}[D(H) = 1] \right| &\gt \\ &\gt\frac{1}{2^n} + \xi(n) - \frac{1}{2^n} \\ &\gt \xi(n)\end{align}$$
+
+Since $\xi(n)$ is non-negligible, this contradicts the fact that $\text{Sign}_k$ is a pseudorandom function.
+~~~
+
+Despite being very limited themselves, fixed-length MACs can be used to construct much better MAC systems.

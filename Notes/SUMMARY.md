@@ -168,6 +168,8 @@
 			- [Semantic Security](Cryptography/Private-Key%20Cryptography/Security%20Notions/Semantic%20Security.md)
 			- [Randomness](Cryptography/Private-Key%20Cryptography/Security%20Notions/Randomness.md)
 			- [P vs NP](Cryptography/Private-Key%20Cryptography/Security%20Notions/P%20vs%20NP.md)
+		- [One-Time Passwords](Cryptography/Private-Key%20Cryptography/One-Time%20Passwords/index.md)
+			- [Time-Based One-Time Passwords (TOTP)](Cryptography/Private-Key%20Cryptography/One-Time%20Passwords/Time-Based%20One-Time%20Passwords%20(TOTP).md)
 		- [One-Time Pad](Cryptography/Private-Key%20Cryptography/One-Time%20Pad.md)
 		- [Message Authentication Codes (MACs)](Cryptography/Private-Key%20Cryptography/Message%20Authentication%20Codes%20(MACs).md)
 	- [Breaking Classical Cryptrography](Cryptography/Breaking%20Classical%20Cryptrography.md)

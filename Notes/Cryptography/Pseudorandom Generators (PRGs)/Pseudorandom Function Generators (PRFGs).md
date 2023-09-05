@@ -61,3 +61,6 @@ fn PRFG(seed: str[S], idb: str[S]) -> str[l_out] {
 	return f(idb);
 }
 ```
+
+## PRFGs from PRGs
+Okay but how can we construct a PRFG algorithm? Well, as it turns out a [pseudorandom generators](index.md) can be used to construct such algorithms. In particular, a PRG $G(seed: \textbf{str}[S]) \to \textbf{str}[2S]$, which takes a seed of length $S$ and outputs a pseudorandom string of double that length, can be used to construct a pseudorandom function generator $PRFG(seed: \textbf{str}[S], idb: \textbf{str}[S]) \to \textbf{str}[S]$. TODO
