@@ -28,7 +28,7 @@ The IV must be a random string and the same IV should *never* be used with the s
 The purpose of the initialisation vector is to allow for key reuse. So long as the same key is used with different IVs, it poses no threat to the security of the cipher under a [ciphertext-only attack](../Security%20Notions/index.md).
 
 # Security
-A stream cipher is [semantically-secure](../Security%20Notions/Semantic%20Security.md) so long as it uses a [secure PRG](../../Pseudorandom%20Generators%20(PRGs)/index.md#admonition-definition-secure-pseudorandom-generator-prg).
+A stream cipher is [semantically-secure](../Security%20Notions/Ciphertext-Only%20Attack%20(COA)/Semantic%20Security%201.md) so long as it uses a [secure PRG](../../Pseudorandom%20Generators%20(PRGs)/index.md#admonition-definition-secure-pseudorandom-generator-prg).
 
 ```admonish check collapsible=true title="Proof: Semantic Security of Stream Ciphers"
 We are given a stream cipher $(\textit{Enc},\textit{Dec})$ which uses a secure pseudorandom generator $\textit{Gen}(seed: \textbf{str}[S]) \to \textbf{str}[R]$ under the hood and we need to prove that the cipher is semantically secure.

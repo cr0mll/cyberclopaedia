@@ -41,7 +41,7 @@ But as with most things in cryptography, it is unknown if pseudorandom functions
 There exists a pseudorandom function $\textit{PRF}(idb: \mathbf{str}[S]) \to \mathbf{bit}$ which outputs a single bit, i.e. $l_{\text{out}} = 1$. 
 ```
 
-As it turns out, such a pseudorandom function can be used to construct PRFs with any output length. 
+As it turns out, such a pseudorandom function can be used to construct PRFs with any output length. TODO
 
 # Pseudorandom Function Generators (PRFGs)
 [Pseudorandom generators](index.md) produces pseudorandom strings, while pseudorandom function generators (PRFGs) produce pseudorandom functions. 
@@ -63,4 +63,22 @@ fn PRFG(seed: str[S], idb: str[S]) -> str[l_out] {
 ```
 
 ## PRFGs from PRGs
-Okay but how can we construct a PRFG algorithm? Well, as it turns out a [pseudorandom generators](index.md) can be used to construct such algorithms. In particular, a PRG $G(seed: \textbf{str}[S]) \to \textbf{str}[2S]$, which takes a seed of length $S$ and outputs a pseudorandom string of double that length, can be used to construct a pseudorandom function generator $PRFG(seed: \textbf{str}[S], idb: \textbf{str}[S]) \to \textbf{str}[S]$. TODO
+Okay but how can we construct a PRFG algorithm? Well, as it turns out a [pseudorandom generator](index.md) can be used to construct such algorithms. In particular, a PRG $G(seed: \textbf{str}[S]) \to \textbf{str}[2S]$, which takes a seed of length $S$ and outputs a pseudorandom string of double that length, can be used to construct a pseudorandom function generator $PRFG(seed: \textbf{str}[S], idb: \textbf{str}[S]) \to \textbf{str}[S]$. 
+
+We will denote the first $n$ bits of $G$'s output as $G_0(s)$ and will denote the last $n$ bits of $G$'s output as $G_1(s)$. For a particular seed $s \in \{0,1\}^S$ and an input data block $i \in \{0,1\}^S$, we define the output of $\textit{PRFG}(s, i)$ as
+
+$$\textit{PRFG}(s,i) \coloneqq G_{i[n-1]}(G_{i[n-2]}(\cdots G_{i[1]}(G_{i[0]}(s))))$$
+
+The PRFG begins by invoking the PRG $G$ on the seed $s$. If the first bit of $i$ is 0, then we use the first $n$ bits of $G'$ output, i.e. $G_0(s)$, as the seed for the next call to $G$. Conversely, if the first bit of $i$ is 1, then we use the last $n$ bits of $G'$ output, i.e. $G_1(s)$, as the seed for the next call to $G$. In general, at the $j$-th iteration (counting from 0) we use either the first or the last $n$ bits of the previous iteration's output as the new seed, depending on the bit $i[j-1]$. 
+
+This can be illustrated by the following tree diagram:
+
+![](Resources/Images/PRFG%20from%20PRG%20Tree.svg)
+
+The value $\textit{PRFG}(s,i)$ is simply the value inside the node $v_i$ which is the leaf node at position $i$ when treating the data block string $i$ as a number and counting from left to right. Alternatively, one can think of this as starting at the top and proceeding downwards. At the $j$-th step we examine the $j$-th bit of $i$ (i.e. $i[j-1]$) and we either take the left path, if $i[j-1]$ is 0, or we take the right path, if $i[j-1]$ is 1. The final node we arrive at will contain the value to be returned for $\textit{PRFG}(s,i)$.
+
+The intuition behind why this is indeed a PRFG is pretty simple - if $G$ is a secure pseudorandom generator, the output at each iteration is a pseudorandom string. Therefore, the output at the last iteration must also be a pseudorandom string. 
+
+```admonish check collapsible=true title="Proof: PRFG from PRG"
+TODO
+```

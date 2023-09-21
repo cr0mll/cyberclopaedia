@@ -1,7 +1,9 @@
 # Introduction
-[Perfect Secrecy](Perfect%20Secrecy.md) turns out to be an achievable yet impractical goal because it requires the key to be at least as long as the message to be encrypted which poses huge logistical problems when the message is longer that a few hundred bits (pretty much always). So we seek a relaxed definition for security which allows us to use keys shorter than the message but is still reasonable and as close to perfect secrecy as possible.
+[Perfect Secrecy](../Perfect%20Secrecy.md) turns out to be an achievable yet impractical goal because it requires the key to be at least as long as the message to be encrypted which poses huge logistical problems when the message is longer that a few hundred bits (pretty much always). So we seek a relaxed definition for security which allows us to use keys shorter than the message but is still reasonable and as close to perfect secrecy as possible.
 
 # Semantic Security
+The feasible equivalent of perfect secrecy is called *semantic security* and, similarly, applies only to a single-COA scenario.
+
 Let's consider again the scenario where we choose one from two plaintexts $m_1, m_2$ encrypted with the same, unknown to Eve key $k$ and Eve tries to guess which plaintext we chose. Without having the ciphertext of the chosen message, the probability that Eve guesses correctly is $\frac{1}{2}$. If the cipher used is perfectly secret, then this is true even after Eve sees the ciphertext $c$ of the chosen message. However, if the key used is shorter than the message, even by a single bit, then the adversary Eve can first pick a random key and decrypt the ciphertext with it. The probability that she chose the correct key and the decryption resulted in one of the messages $m_1$ or $m_2$ (i.e. Eve now knows which plaintext was used to obtain the ciphertext) is $\frac{1}{|\mathcal{K}|} = \frac{1}{2^n}$. If Eve did not guess the key correctly and $\textit{Dec}_k(c)$ is neither equal to $m_1$ nor $m_2$, then Eve can, as before, just guess randomly which message was used with probability $\frac{1}{2}$. This strategy can be implemented by the following algorithm:
 
 ```python
@@ -43,7 +45,7 @@ The negligible function $\epsilon$ is given the key length $n$ as an input.
 The description "negligible" here means that the advantage is small enough that we don't need to care about it in practice. 
 
 # Leap of Faith
-As it turns out, proving that a cipher is semantically secure is not a trivial task. Similarly to [index](../../Pseudorandom%20Generators%20(PRGs)/index.md#leap-of-faith), we are actually forced to *assume* that such ciphers exist. On the one hand, there are some ciphers which have withstood years of attempts to be broken . Therefore, we really do believe that they are secure but we are, unfortunately, unable to prove this. On the other hand, we have ruled out many ciphers as insecure by showing a way to break them. Essentially, a cipher is considered semantically secure until a way to break it is found.
+As it turns out, proving that a cipher is semantically secure is not a trivial task. Similarly to [index](../../../Pseudorandom%20Generators%20(PRGs)/index.md#leap-of-faith), we are actually forced to *assume* that such ciphers exist. On the one hand, there are some ciphers which have withstood years of attempts to be broken . Therefore, we really do believe that they are secure but we are, unfortunately, unable to prove this. On the other hand, we have ruled out many ciphers as insecure by showing a way to break them. Essentially, a cipher is considered semantically secure until a way to break it is found.
 
 Nevertheless, in order to be as safe as possible, one needs to make as few assumptions as possible and indeed that is what cryptography does. In this regard, cryptography makes only *one* assumption about the existence of a specific semantically secure cipher.
 
@@ -55,7 +57,7 @@ This is indeed a very limited assumption which does not provide much advantage o
 
 So, we are given a semantically secure cipher $(\textit{Enc}', \textit{Dec}')$ which takes a key of length $n$ and a message of length $n+1$. The encryption $\textit{Enc}$ of our new cipher which uses keys of length $n$ and messages of length $t$ follows this algorithm:
 
-![Length Extension Encryption](Resources/Images/Semantic%20Security/Length%20Extension%20Encryption.svg)
+![Length Extension Encryption](../Resources/Images/Semantic%20Security/Length%20Extension%20Encryption.svg)
 
 The encryption algorithm $\textit{Enc}$ naturally uses $\textit{Enc'}$. It processes the plaintext on a bit-per-bit basis. At the first step our cipher generates a random *ephemeral key* $k_0$ of length $n$ and appends to it the first bit of the plaintext - $m[0]$, resulting in a temporary string $r_0 = k_0m[0]$ of length $n+1$. It then encrypts this string with the key $k$ to produce the first part of the ciphertext - $c_0 = \textit{Enc}'(k, k_0m[0])$. This happens at each subsequent stage, however a new random ephemeral key is generated for each stage and one bit of the message is appended to it. This is then encrypted with the *ephemeral key from the previous stage* to produce a ciphertext portion. At the end, the resulting ciphertext is simply the concatenation of all the generated ciphertext parts.
 
@@ -63,7 +65,7 @@ The ephemeral keys are randomly generated on-demand by our encryption algorithm 
 
 The decryption algorithm is the following:
 
-![](Resources/Images/Semantic%20Security/Length%20Extension%20Decryption.svg)
+![](../Resources/Images/Semantic%20Security/Length%20Extension%20Decryption.svg)
 
 The decryption algorithm $\textit{Dec}$ takes the first $C'$ bits of the ciphertext $c$ and decrypts it using the key $k$ and $\textit{Dec'}$ in order to obtain the first ephemeral key and the first bit of the message. Subsequent stages use the ephemeral key from the preceding stage to get one bit of the message as well the next ephemeral key.
 
