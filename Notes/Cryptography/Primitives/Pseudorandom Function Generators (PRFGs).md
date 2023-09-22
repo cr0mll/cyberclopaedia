@@ -33,7 +33,7 @@ The distinguisher $D(\textit{func}: \textbf{function<}\mathbf{str}[S] \to \mathb
 A function is pseudorandom if there is no efficient distinguisher which can tell the difference between it and a truly random function $H$ which was chosen from the uniform distribution of all functions $\{0,1\}^S \to \{0,1\}^{l_{\text{out}}}$ with non-negligible probability.
 ```
 
-Pseudorandom functions are useful because they are a generalisation of [pseudorandom generators](index.md). The length of the output of a PRG must always be greater than the length of its seed, but PRFs allow for an output whose length is independent of the input data block. Mostly, however, they are useful because they produce pseudorandom strings, just like PRGs. 
+Pseudorandom functions are useful because they are a generalisation of [pseudorandom generators](Pseudorandom%20Generators%20(PRGs).md). The length of the output of a PRG must always be greater than the length of its seed, but PRFs allow for an output whose length is independent of the input data block. Mostly, however, they are useful because they produce pseudorandom strings, just like PRGs. 
 
 But as with most things in cryptography, it is unknown if pseudorandom functions actually exist. The definition is quite broad in the sense that there should be absolutely no distinguisher which can tell that the function is actually not truly random - a pretty difficult thing to do. So, once again, we are forced to hope that they do exist because otherwise cryptography falls apart - we consider a given algorithm to be a pseudorandom function until someone strings along and proves us wrong. Nevertheless, we still want to make as few assumptions as possible and build the rest on top of it.
 
@@ -44,32 +44,32 @@ There exists a pseudorandom function $\textit{PRF}(idb: \mathbf{str}[S]) \to \ma
 As it turns out, such a pseudorandom function can be used to construct PRFs with any output length. TODO
 
 # Pseudorandom Function Generators (PRFGs)
-[Pseudorandom generators](index.md) produces pseudorandom strings, while pseudorandom function generators (PRFGs) produce pseudorandom functions. 
+[Pseudorandom generators](Pseudorandom%20Generators%20(PRGs).md) produces pseudorandom strings, while pseudorandom function generators (PRFGs) produce pseudorandom functions. 
 
 ```admonish danger title="Definition: Pseudorandom Function Generator (PRFG)"
-A *pseudorandom function generator (PRFG)* is an efficient algorithm $\textit{PRFG}(seed: \textbf{str}[S]) \to \textbf{function<}\textbf{int}[0..2^S-1] \to \textbf{str}[l_{\text{out}}]\textbf{>}$ which takes a seed $s \in \{0,1\}^S$ and outputs a pseudorandom function whose input is a data block of size $S$ and whose output is a string of length $l_{\text{out}}$.
+A *pseudorandom function generator (PRFG)* is an efficient algorithm $\textit{PRFG}(seed: \textbf{str}[S]) \to \textbf{function<}\textbf{str}[S] \to \textbf{str}[l_{\text{out}}]\textbf{>}$ which takes a seed $s \in \{0,1\}^S$ and outputs a pseudorandom function whose input is a data block of size $S$ and whose output is a string of length $l_{\text{out}}$.
 ```
 ```admonish tip title="Definition Breakdown"
 A pseudorandom function generator takes a seed and produces a pseudorandom function. The resulting function takes input data blocks with the same length $S$ as the PRFG's seed and its outputs have length $l_{\text{out}}$. It is common to notate a PRF that was produced by PRFG as $f_s$ where $f$ is the function's name and $s$ is the seed used to obtain it.
 ```
 
-It is important to remember that the output of a PRFG is a *function*. Specifically, a PRFG produces a function which takes inputs of the same size as the PRFG's seed. This coincidence has unfortunately led to PRFs and PRFGs commonly being mixed up. It is common to see a PRFG as a two input algorithm $\textit{PRFG}(seed: \textbf{str}[S], idb: \textbf{str}[S]) \to l_{\text{out}}$ that takes a seed $s$ *and* an input data block $i$ and acts like a pseudorandom function $f_s(i)$. In this case, $\textit{PRFG}(s,i)$ internally obtains the function $f$ from the seed $s$ and then passes it the data block $i$. Finally, the PRFG returns the output of the function $f$.
+It is important to remember that the output of a PRFG is a *function*. Specifically, a PRFG produces a function which takes inputs of the same size as the PRFG's seed. This coincidence has unfortunately led to PRFs and PRFGs commonly being mixed up. It is common to see a PRFG as a two input algorithm $\textit{PRFG}(seed: \textbf{str}[S], idb: \textbf{str}[S]) \to \textbf{str}[l_{\text{out}}]$ that takes a seed $s$ and an input data block $i$ and acts like a pseudorandom function $\textit{PRF}_s(i)$. In this case, $\textit{PRFG}(s,i)$ internally obtains the function $\textit{PRF}_s$ from the seed $s$ and then passes it the data block $i$. Finally, the PRFG returns the output of the function $\textit{PRF}_s$.
 
 ```rust
 fn PRFG(seed: str[S], idb: str[S]) -> str[l_out] {
-	let f = get_function_from_seed(seed);
-	return f(idb);
+	let PRF = get_prf_from_seed(seed);
+	return PRF(idb);
 }
 ```
 
 ## PRFGs from PRGs
-Okay but how can we construct a PRFG algorithm? Well, as it turns out a [pseudorandom generator](index.md) can be used to construct such algorithms. In particular, a PRG $G(seed: \textbf{str}[S]) \to \textbf{str}[2S]$, which takes a seed of length $S$ and outputs a pseudorandom string of double that length, can be used to construct a pseudorandom function generator $PRFG(seed: \textbf{str}[S], idb: \textbf{str}[S]) \to \textbf{str}[S]$. 
+Okay but how can we construct a PRFG algorithm? Well, as it turns out a [pseudorandom generator](Pseudorandom%20Generators%20(PRGs).md) can be used to construct such algorithms. In particular, a PRG $G(seed: \textbf{str}[S]) \to \textbf{str}[2S]$, which takes a seed of length $S$ and outputs a pseudorandom string of double that length, can be used to construct a pseudorandom function generator $PRFG(seed: \textbf{str}[S], idb: \textbf{str}[S]) \to \textbf{str}[S]$. 
 
 We will denote the first $n$ bits of $G$'s output as $G_0(s)$ and will denote the last $n$ bits of $G$'s output as $G_1(s)$. For a particular seed $s \in \{0,1\}^S$ and an input data block $i \in \{0,1\}^S$, we define the output of $\textit{PRFG}(s, i)$ as
 
 $$\textit{PRFG}(s,i) \coloneqq G_{i[n-1]}(G_{i[n-2]}(\cdots G_{i[1]}(G_{i[0]}(s))))$$
 
-The PRFG begins by invoking the PRG $G$ on the seed $s$. If the first bit of $i$ is 0, then we use the first $n$ bits of $G'$ output, i.e. $G_0(s)$, as the seed for the next call to $G$. Conversely, if the first bit of $i$ is 1, then we use the last $n$ bits of $G'$ output, i.e. $G_1(s)$, as the seed for the next call to $G$. In general, at the $j$-th iteration (counting from 0) we use either the first or the last $n$ bits of the previous iteration's output as the new seed, depending on the bit $i[j-1]$. 
+The PRFG begins by invoking the PRG $G$ on the seed $s$. If the first bit of $i$ is 0, then we use the first $n$ bits of $G'$ output, i.e. $G_0(s)$, as the seed for the next call to $G$. Conversely, if the first bit of $i$ is 1, then we use the last $n$ bits of $G$'s output, i.e. $G_1(s)$, as the seed for the next call to $G$. In general, at the $j$-th iteration (counting from 0) we use either the first or the last $n$ bits of the previous iteration's output as the new seed, depending on the bit $i[j-1]$. 
 
 This can be illustrated by the following tree diagram:
 

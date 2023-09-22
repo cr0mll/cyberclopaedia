@@ -86,7 +86,7 @@ If $\textit{Sign}$ is deterministic, given the same message $m$ and using the sa
 On the other hand, if the signing algorithm is non-deterministic, that means that it uses internal randomness in the signing process and so $\textit{Sign}(k, m)$ will *not* necessarily produce the same tag $\tau$ when passed the same key and message as inputs. This means that the canonical verification algorithm for deterministic MACs no longer works and we have to get more creative with $\textit{Verify}$.
 
 ## Implementing MACs
-[Pseudorandom function generators (PRFGs)](../Pseudorandom%20Generators%20(PRGs)/Pseudorandom%20Function%20Generators%20(PRFGs).md) are an excellent tool for creating deterministic MAC signing algorithms. 
+[Pseudorandom function generators (PRFGs)](../Primitives/Pseudorandom%20Function%20Generators%20(PRFGs).md) are an excellent tool for creating deterministic MAC signing algorithms. 
 
 ### Fixed-Length MACs
 This is the most basic type of MAC system which uses pseudorandom function generators. A fixed-length MAC uses keys and messages that are of the same length $n$ and also produce tags with length $n$. Indeed, they are very limited because they require long keys for long messages and produce equally long tags which is a problem because bandwidth is limited. Nevertheless, fixed-length MACs can be used to implement more sophisticated and useful systems.

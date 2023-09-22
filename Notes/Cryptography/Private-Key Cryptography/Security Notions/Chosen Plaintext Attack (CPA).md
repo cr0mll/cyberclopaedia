@@ -35,7 +35,7 @@ If $\textit{Enc}$ is probabilistic, i.e. it uses internal randomness, then the s
 This property of CPA-security means that it is a *stronger* notion than [semantic security](Ciphertext-Only%20Attack%20(COA)/Semantic%20Security.md) - every CPA-secure cipher is also semantically secure, but the opposite is not necessarily true. In fact, CPA-security is nowadays the bare minimum definition which is expected to be satisfied by a cipher in order to be considered usable, since it provides security in the case of key reuse.
 
 ## Theoretical Implementation
-As with many things in cryptography, [pseudorandom function generators (PRFGs)](../../Pseudorandom%20Generators%20(PRGs)/Pseudorandom%20Function%20Generators%20(PRFGs).md) come to the rescue when trying to implement a CPA-secure cipher. 
+As with many things in cryptography, [pseudorandom function generators (PRFGs)](../../Primitives/Pseudorandom%20Function%20Generators%20(PRFGs).md) come to the rescue when trying to implement a CPA-secure cipher. 
 
 ```admonish note
 This is just a proof-of-concept and the following cipher is *not* used in practice.
