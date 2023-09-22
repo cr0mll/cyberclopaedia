@@ -63,7 +63,7 @@ fn RevPRP(input: str[2S]) -> str[2S]
 The more arduous task is proving that this permutation is indeed pseudorandom.
 
 ```admonish check collapsible=true title="Proof of Pseudorandomness"
-TODO
+TODO!
 ```
 
 # Pseudorandom Permutation Generator (PRPG)
