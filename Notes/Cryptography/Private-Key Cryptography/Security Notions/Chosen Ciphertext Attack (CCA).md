@@ -35,4 +35,7 @@ As with [CPA](Chosen%20Plaintext%20Attack%20(CPA).md), Mallory is allowed to que
 A cipher is CCA-secure if no matter what Mallory does, she cannot determine whether $c$ is the encryption of $m_a$ or $m_b$ with probability significantly better than $\frac{1}{2}$.
 ```
 
-Although there are ciphers which provide CCA-security, they are not used in practice because they provide no benefit in either security or efficiency over ciphers which satisfy the even stronger notion of [Authenticated Encryption](../Authenticated%20Encryption.md).
+Since CCA-security builds on top of CPA-security, it is a *stronger* notion of secrecy. In particular, every CCA-secure cipher is also CPA-secure, but the other way around is not necessarily true.
+
+# Theoretical Implementation
+Although there are ciphers which provide CCA-security, they are not used in practice because they provide no benefit in either security or efficiency over ciphers which satisfy the even stronger notion of [index](../Authenticated%20Encryption/index.md).
