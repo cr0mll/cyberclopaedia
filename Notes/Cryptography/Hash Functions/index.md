@@ -1,21 +1,18 @@
 # Introduction
-Hash functions take long inputs and produce outputs of a fixed bit-length, usually 256 or 512 bits. Their use is ubiquitous and is typically focused around verifying the integrity of data. The output of a hash function is called the *hash* (value) or *digest*.
+Hash functions are used ubiquitously not only in cryptography but also in more general algorithms and data structures like [hash tables](https://en.wikipedia.org/wiki/Hash_table). At its core, a hash function is simply an algorithm which takes an input of arbitrary length, denoted by $l_\text{in}$, and produces an output of a fixed length $l_{\text{out}}$. Usually the output length is much smaller than the input length, i.e. $l_{\text{out}} \lt l_{\text{in}}$, and so hash functions are also often called *compression functions*, although they have little to do with the modern notion of compression (in fact, in many ways they are the exact opposite).
 
-![](Resources/Images/Hash%20Function.svg)
-
-# Security Notions
-Security notions for hash functions are different from those pertaining to ciphers. Their security lies in the fact that they should be unpredictable. Id est, it should be impossible to make predictions about the hash of a message when you have another message and its hash. For example, take the following three hashes:
-
-```
-ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb
-3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d
-2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6
+```admonish danger title="Definition: (Keyless) Hash Function"
+A *(keyless) hash function* is an efficient deterministic algorithm $H(\textit{input}: \textbf{str}[l_{\text{in}}]) \to \textbf{str}[\textbf{const } l_{\text{out}}]$ which takes a binary string of arbitrary length $l_{\text{in}}$ as input and outputs a binary string of a fixed length $l_{\text{out}}$.
 ```
 
-These are the SHA-256 hash values of the letters "a", "b", and "c", respectively. While these messages only differ by a single bit when represented as ASCII, their hashes are like chalk and cheese.
+The input space, also called the message space, $\mathcal{M}$ is the set of all possible inputs for the hash function. The output of the hash function is called a *digest* or *hash* and the set of all possible outputs is called the *digest/hash space* $\mathcal{D}$. If $l_{\text{out}} \lt l_{\text{in}}$, then $H$ is said to be a *compression function*. In this case, the input space is much larger than the digest space, i.e. $|\mathcal{M}| \gt |\mathcal{D}|$.
 
-Hash functions are also sometimes called *one-way functions* because it should be impossible to find a message, $M$, which was hashed to get the digest $D$, when $D$ is given. This notion is called *preimage resistance*, where a *preimage* of a hash is simply a message which hashes to that particular digest. It should be easy to compute the hash of a message, but it should be impossible to compute the message from the hash.
+The word "keyless" means that the hash function does *not* take in an additional input key. This is in contrast to the following definition of *keyed hash functions*.
 
-Preimage resistance is further subdivided into *first-* and *second-preimage resistance*. The former refers to what we already described. Second-preimage resistance entails that given a message, $M_1$ and its digest $D$, it should be impossible to find another message, $M_2$, which hashes to the same $D$, by using solely $M_1$ and $D$.
+```admonish danger title="Definition: Keyed Hash Function"
+A *keyed hash function* is an efficient deterministic algorithm $H(\textit{key}: \textbf{str}[n], \textit{input}: \textbf{str}[l_{\text{in}}]) \to \textbf{str}[\textbf{const } l_{\text{out}}]$ which takes a binary string of arbitrary length $l_{\text{in}}$ as input and outputs a binary string of a fixed length $l_{\text{out}}$. 
 
-The other security notion is *collision resistance* and it describes the situation where we have found two or more messages, $M_1, M_2, ...$, which hash to the same digest, $D$. Now, since the input space of a hash functions is much larger than its fixed-length output space, collisions are *inevitable*. What collision resistance entails, however, is that it should be extremely difficult to find such messages which hash to the same hash value.
+The key $k$ is often denoted as a subscript, i.e. $H_k$.
+```
+
+In practice, *all* hash functions are *keyless*. By contrast, keyed hash functions are merely a theoretical tool designed to circumvent some limitations in the theoretical description of certain security notions pertaining to hash functions. Pretty much all proofs involving keyed hash functions can be transformed into proofs about keyless functions and vice-versa with ease - the key seldom appears in proofs. Therefore, we will have little to say about keyed hash functions, so that we can focus more on the practical side of hashing.

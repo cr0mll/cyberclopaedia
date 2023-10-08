@@ -150,6 +150,8 @@
 		- [Hacking WEP Networks](Hardware%20Hacking/Wireless%20Attacks/Hacking%20WEP%20Networks.md)
 - [Cryptography](Cryptography/index.md)
 	- [Hash Functions](Cryptography/Hash%20Functions/index.md)
+		- [Security Notions](Cryptography/Hash%20Functions/Security%20Notions.md)
+		- [Merkle-Damgård Construction](Cryptography/Hash%20Functions/Merkle-Damgård%20Construction.md)
 	- [Public-Key Cryptography](Cryptography/Public-Key%20Cryptography/index.md)
 	- [Primitives](Cryptography/Primitives/index.md)
 		- [Pseudorandom Permutations (PRPs)](Cryptography/Primitives/Pseudorandom%20Permutations%20(PRPs).md)
