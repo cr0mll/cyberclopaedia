@@ -62,6 +62,10 @@ The naive birthday attack does precisely this. First, it chooses $2^{\frac{1}{2}
 
 This variation is called *naive* because it has a huge space complexity, namely $O(2^{l_{\text{out}}/2})$, since the algorithm will have to store all the computed hashes while checking them for collisions.
 
+```admonish warning title="Universality of the Birthday Attack"
+Since the birthday attack is universal and works for any hash function, it is used instead of the simple brute force attack as the gold standard when creating security proofs.
+```
+
 ## Small-Space Birthday Attack
 There is an improved version of the birthday attack which has approximately the same probability success and running time but only takes a *constant* amount of memory. This attack uses [Floyd's cycle finding algorithm](https://en.wikipedia.org/wiki/Cycle_detection).
 
