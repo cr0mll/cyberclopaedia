@@ -23,7 +23,7 @@ This explains why ciphers which are only CCA-secure are rarely used in practice 
 There are many ways to implement authenticated encryption. Some include combining a CPA-secure cipher with a secure 
 
 ## Construction from a Cipher and a MAC
- AE-secure encryption schemes can be constructed by combining a [CPA-secure](Security%20Notions/Chosen%20Plaintext%20Attack%20(CPA).md) cipher $(\textit{Enc}', \textit{Dec}')$with a [CMA-secure](Message%20Authentication%20Codes%20(MACs).md) message authentication code system $(\textit{Sign}, \textit{Verify})$. Such approaches use two separate keys - $k_E$ for encryption / decryption and $k_S$ for message signing and verification. These keys *must* be independent of each other.
+ AE-secure encryption schemes can be constructed by combining a [CPA-secure](Security%20Notions/Chosen%20Plaintext%20Attack%20(CPA).md) cipher $(\textit{Enc}', \textit{Dec}')$with a [CMA-secure](../Message%20Authentication%20Codes%20(MACs)/index.md) message authentication code system $(\textit{Sign}, \textit{Verify})$. Such approaches use two separate keys - $k_E$ for encryption / decryption and $k_S$ for message signing and verification. These keys *must* be independent of each other.
  
  However, it turns out that not all ways of combining these two systems yield an authenticated encryption and even if the correct approach is used, the keys $k_E$ and $k_S$ must still be completely independent, lest AE-security is broken.
 
@@ -67,7 +67,7 @@ The Sign-then-Encrypt approach *may* be AE-secure, but this depends highly on th
 For example, if there are different error types depending on whether validation or decryption fails, something which is very much necessary in practice, then the security of this approach can be broken by [padding oracle attacks](../Block%20Ciphers/Padding%20Oracle%20Attack.md).
 
 ### Encrypt-then-Sign
-This approach requires a MAC system with [strong unforgeablity](../Message%20Authentication%20Codes%20(MACs).md#admonition-definition-strong-unforgeability). First, the message is encrypted. The resulting ciphertext $c$ is then signed and the tag $\tau$ is appended to it to obtain the final ciphertext.
+This approach requires a MAC system with [strong unforgeablity](../Message%20Authentication%20Codes%20(MACs)/index.md#admonition-definition-strong-unforgeability). First, the message is encrypted. The resulting ciphertext $c$ is then signed and the tag $\tau$ is appended to it to obtain the final ciphertext.
 
 $$c \coloneqq \textit{Enc}_{k_E}'(m)$$
 $$\tau \coloneqq \textit{Sign}_{k_S}(c)$$

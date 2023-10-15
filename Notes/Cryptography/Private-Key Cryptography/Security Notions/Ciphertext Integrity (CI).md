@@ -1,5 +1,5 @@
 # Ciphertext Integrity (CI)
-Ciphertext integrity is a notion which closely resembles [message authentication codes (MACs)](../Message%20Authentication%20Codes%20(MACs).md) and is the cipher analogue of [CMA-security](../Message%20Authentication%20Codes%20(MACs).md#admonition-definition-cma-security-for-message-authentication-codes) for them.
+Ciphertext integrity is a notion which closely resembles [message authentication codes (MACs)](../Message%20Authentication%20Codes%20(MACs)/index.md) and is the cipher analogue of [CMA-security](../Message%20Authentication%20Codes%20(MACs)/index.md#admonition-definition-cma-security-for-message-authentication-codes) for them.
 
 ```admonish danger title="Ciphertext Integrity (CI)"
 The adversary Eve is given oracle access $\textit{Enc}_k$ and can query it with $q$ messages $m_1, m_2, ..., m_q$ in order to obtain their ciphertexts $c_1, c_2, ..., c_q$. Her goal is to produce a new valid ciphertext $c \notin \{c_1, c_2, ..., c_q\}$, i.e. a ciphertext such that $\textit{Dec}_k(c) \ne \textbf{error}$.
