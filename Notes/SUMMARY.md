@@ -188,6 +188,8 @@
 			- [Time-Based One-Time Passwords (TOTP)](Cryptography/Private-Key%20Cryptography/One-Time%20Passwords/Time-Based%20One-Time%20Passwords%20(TOTP).md)
 		- [Authenticated Encryption](Cryptography/Private-Key%20Cryptography/Authenticated%20Encryption/index.md)
 		- [One-Time Pad](Cryptography/Private-Key%20Cryptography/One-Time%20Pad.md)
+	- [Integrity Verification](Cryptography/Integrity%20Verification/index.md)
+		- [Merkle Trees](Cryptography/Integrity%20Verification/Merkle%20Trees.md)
 	- [Breaking Classical Cryptrography](Cryptography/Breaking%20Classical%20Cryptrography.md)
 	- [Mathematical Prerequisites](Cryptography/Mathematical%20Prerequisites.md)
 	- [Computer Science Prerequisites](Cryptography/Computer%20Science%20Prerequisites.md)
