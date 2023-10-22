@@ -1,11 +1,11 @@
 # Introduction
-Most of the time, confidentiality is *not* enough - it needs to be combined with integrity in order for an application to be secure. So, even if an encryption scheme is [CCA-secure](Security%20Notions/Chosen%20Ciphertext%20Attack%20(CCA).md), there is still room for ciphertext forgery. This necessitates even stronger security notions which are satisfied by *authenticated encryption schemes*.
+Most of the time, confidentiality is *not* enough - it needs to be combined with integrity in order for an application to be secure. So, even if an encryption scheme is [CCA-secure](../Security%20Definitions/Chosen%20Ciphertext%20Attack%20(CCA).md), there is still room for ciphertext forgery. This necessitates even stronger security notions which are satisfied by *authenticated encryption schemes*.
 
 ```admonish danger title="Definition: Authenticated Encryption (AE-Security)"
 A cipher $(\textit{Enc}, \textit{Dec})$ is an *authenticated encryption* scheme or is *AE-secure* if it is [CPA-secure](Security%20Notions/Chosen%20Plaintext%20Attack%20(CPA).md) and provides [ciphertext integrity (CI)](Security%20Notions/Ciphertext%20Integrity%20(CI).md).
 ```
 
-AE-security is the most widely adopted security notion and is ubiquitous in web applications. It is *stronger* than [CCA-security](Security%20Notions/Chosen%20Ciphertext%20Attack%20(CCA).md) - the constructs which satisfy AE-security also satisfy CCA-security. However, there is no real efficiency difference between ciphers which are AE-secure and ciphers which are only CCA-secure.
+AE-security is the most widely adopted security notion and is ubiquitous in web applications. It is *stronger* than [CCA-security](../Security%20Definitions/Chosen%20Ciphertext%20Attack%20(CCA).md) - the constructs which satisfy AE-security also satisfy CCA-security. However, there is no real efficiency difference between ciphers which are AE-secure and ciphers which are only CCA-secure.
 
 ```admonish abstract title="Theorem: AE-Security implies CCA-Security"
 Every AE-secure cipher is also CCA-secure.
@@ -23,7 +23,7 @@ This explains why ciphers which are only CCA-secure are rarely used in practice 
 There are many ways to implement authenticated encryption. Some include combining a CPA-secure cipher with a secure 
 
 ## Construction from a Cipher and a MAC
- AE-secure encryption schemes can be constructed by combining a [CPA-secure](Security%20Notions/Chosen%20Plaintext%20Attack%20(CPA).md) cipher $(\textit{Enc}', \textit{Dec}')$with a [CMA-secure](../Message%20Authentication%20Codes%20(MACs)/index.md) message authentication code system $(\textit{Sign}, \textit{Verify})$. Such approaches use two separate keys - $k_E$ for encryption / decryption and $k_S$ for message signing and verification. These keys *must* be independent of each other.
+ AE-secure encryption schemes can be constructed by combining a [CPA-secure](../Security%20Definitions/Chosen%20Plaintext%20Attack%20(CPA).md) cipher $(\textit{Enc}', \textit{Dec}')$with a [CMA-secure](../Message%20Authentication%20Codes%20(MACs)/index.md) message authentication code system $(\textit{Sign}, \textit{Verify})$. Such approaches use two separate keys - $k_E$ for encryption / decryption and $k_S$ for message signing and verification. These keys *must* be independent of each other.
  
  However, it turns out that not all ways of combining these two systems yield an authenticated encryption and even if the correct approach is used, the keys $k_E$ and $k_S$ must still be completely independent, lest AE-security is broken.
 
@@ -47,7 +47,7 @@ This is certainly a good attempt at constructing an authenticated encryption but
 The Encrypt-and-Sign approach is *not* AE-secure.
 ```
 
-Since the message $m$ is signed directly before being encrypted, nothing is stopping the tag $\tau$ from leaking information about it (CMA-secure MACs provide no secrecy guarantees). For example, a MAC might be CMA-secure but have tags whose first bit is always identical to the first bit of the message. This means that the Encrypt-and-Sign method might not even be [semantically security](Security%20Notions/Ciphertext-Only%20Attack%20(COA)/Semantic%20Security.md).
+Since the message $m$ is signed directly before being encrypted, nothing is stopping the tag $\tau$ from leaking information about it (CMA-secure MACs provide no secrecy guarantees). For example, a MAC might be CMA-secure but have tags whose first bit is always identical to the first bit of the message. This means that the Encrypt-and-Sign method might not even be [semantically security](../Security%20Definitions/Ciphertext-Only%20Attack%20(COA)/Semantic%20Security.md).
 
 Moreover, it is not CPA-secure because deterministic MACs will produce the same tag when given the same message, provided that the same signing key $k_S$ is used. This is a real concern, since most MAC systems used in practice *are* deterministic.
 

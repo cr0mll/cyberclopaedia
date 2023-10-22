@@ -14,7 +14,7 @@ The ECB Mode is very simple so it comes as no surprise that it is not very secur
 The ECB mode should *never* be used.
 ```
 
-In particular, it is *not* [CPA-secure](../../Security%20Notions/Chosen%20Plaintext%20Attack%20(CPA).md), since it is entirely deterministic. Moreover, it is not even [semantically secure](../../Security%20Notions/Ciphertext-Only%20Attack%20(COA)/Semantic%20Security.md) because if a block is repeated in the plaintext, then the corresponding ciphertext block will also be repeated in the ciphertext which reveals a lot of information about the underlying message. 
+In particular, it is *not* [CPA-secure](../../Security%20Definitions/Chosen%20Plaintext%20Attack%20(CPA).md), since it is entirely deterministic. Moreover, it is not even [semantically secure](../../Security%20Definitions/Ciphertext-Only%20Attack%20(COA)/Semantic%20Security.md) because if a block is repeated in the plaintext, then the corresponding ciphertext block will also be repeated in the ciphertext which reveals a lot of information about the underlying message. 
 
 ```admonish example
 A famous example of ECB's egregious insecurity is called the ECB penguin. Here is the original image of Linux's mascot [Tux](https://en.wikipedia.org/wiki/Tux_(mascot)), created by Larry Ewing:

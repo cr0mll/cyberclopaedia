@@ -15,7 +15,7 @@ The reason that these two notions of a random function are equivalent is that ea
 A random function is still *deterministic* in the sense that when input the same data block it will always give the same output.
 ```
 
-Unfortunately, truly random functions present a great implementational challenge for classical computers due to their difficulty in obtaining true randomness. A computer cannot really "flip a coin $l_{\textit{out}}$ times" and is limited by its external [randomness sources](../Private-Key%20Cryptography/Security%20Notions/Randomness.md).
+Unfortunately, truly random functions present a great implementational challenge for classical computers due to their difficulty in obtaining true randomness. A computer cannot really "flip a coin $l_{\textit{out}}$ times" and is limited by its external [randomness sources](../Private-Key%20Cryptography/Security%20Definitions/Randomness.md).
 
 This is why we have to settle for *pseudorandom functions*.
 

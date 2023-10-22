@@ -1,5 +1,5 @@
 # Introduction
-Pseudorandom generators are used ubiquitously in cryptography in order to overcome the deterministic limitations of computers and generate good enough [pseudorandomness](Security%20Notions/Randomness.md#pseudorandomness) from true [randomness](Security%20Notions/Randomness.md#admonition-randomness).
+Pseudorandom generators are used ubiquitously in cryptography in order to overcome the deterministic limitations of computers and generate good enough [pseudorandomness](../Private-Key%20Cryptography/Security%20Definitions/Randomness.md#pseudorandomness) from true [randomness](../Private-Key%20Cryptography/Security%20Definitions/Randomness.md#admonition-randomness).
 
 An algorithm which fulfils the task of generating more bits from a smaller number of bits is called a *generator*. 
 

@@ -25,7 +25,7 @@ In order to generate the keystream, the pseudorandom generator needs a seed. In 
 
 The IV must be a random string and the same IV should *never* be used with the same key. Moreover, the IV must be known for decryption in order to derive the same seed from the key. Therefore, decryption requires both the key and the IV to function.
 
-The purpose of the initialisation vector is to allow for key reuse. So long as the same key is used with different IVs, it poses no threat to the security of the cipher under a [ciphertext-only attack](../Security%20Notions/index.md).
+The purpose of the initialisation vector is to allow for key reuse. So long as the same key is used with different IVs, it poses no threat to the security of the cipher under a [ciphertext-only attack](../Security%20Definitions/index.md).
 
 # Security
 A stream cipher is [semantically-secure](../Security%20Notions/Ciphertext-Only%20Attack%20(COA)/Semantic%20Security%201.md) so long as it uses a [secure PRG](../../Primitives/Pseudorandom%20Generators%20(PRGs).md#admonition-definition-secure-pseudorandom-generator-prg).
