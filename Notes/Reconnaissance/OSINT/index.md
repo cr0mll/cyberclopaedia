@@ -1,16 +1,10 @@
-# What are you looking for?
-The goal of OSINT (OpenSource Intelligence Gathering) is to obtain information about the victim. This is *passive* reconnaissance as it doesn't interact with the target systems at all and is therefore not detectable. You should be generally looking for the following:
-- usernames, profile names and email addresses
-- passwords, PINs, private keys
-- domain names
-- hostnames
-- software and OS types, versions, and names
-- IP addresses
-- technical documentation
+# Introduction
+Open-source Intelligence (OSINT), also known as *passive information gathering*, is the process of collecting public information about a target without actually directly interacting with said target. 
 
-# Where can you find this information?
-- social media (Facebook, Instagram, LinkedIn, Twitter, YouTube, etc.)
-- personal websites
-- accounts in forums and common platforms such as Github
-- public databases (wireless registrars, ICANN, domain name registrars, libraries, and even phone directories)
-- peer-to-peer sharing networks
+When this is definition is strictly followed, OSINT is undetectable and maintains a high level of secrecy due to its passive nature. If we only rely on third parties and never connect to the target's servers or applications directly, then there is no way for them to know that open-source intelligence is being conducted on them.
+
+However, this is often quite limiting so we usually do allow for *some* direct interaction with the target but only as a normal user would. For example, if the target allowed us to register an account, then we would. But we wouldn't immediately start fuzzing input fields at this stage.
+
+```admonish warning title="The Importance of OSINT"
+The importance of open-source intelligence cannot be overstated - it is, in fact, sometimes the only way to bypass security.
+```
