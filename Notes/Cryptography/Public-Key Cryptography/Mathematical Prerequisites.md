@@ -107,7 +107,7 @@ TODO
 The order $i$ of any element $g$ in a finite group $\mathbb{G}$, must be a factor of the group order, i.e. $i | m$, where $m$ is the order of $\mathbb{G}$.
 ```
 
-```admonish check collapsible=ture title="Proof"
+```admonish check collapsible=true title="Proof"
 TODO
 ```
 
