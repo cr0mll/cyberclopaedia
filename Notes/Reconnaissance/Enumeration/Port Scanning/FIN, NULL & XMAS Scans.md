@@ -10,14 +10,14 @@ It is not possible to distinguish an `open` from a `filtered` port with these sc
 # Null Scan
 Doesn't set any flags. Since null scanning does not set any set flags, it can sometimes penetrate firewalls and edge routers that filter incoming packets with certain flags. It is invoked with the `-sN` option:
 
-![](Resources/Images/null-scan.png)
+![](../Port%20Scanning/Resources/Images/null-scan.png)
 
 # FIN Scan
 Sets just the `FIN` bit to on. It is invoked with `-sF`:
 
-![](Resources/Images/fin-scan.png)
+![](../Port%20Scanning/Resources/Images/fin-scan.png)
 
 # Xmas Scan
 Sets the FIN, PSH, and URG flags, lighting the packet up like a Christmas tree. It is performed through the `-sX` option:
 
-![](Resources/Images/xmas-scan.png)
+![](../Port%20Scanning/Resources/Images/xmas-scan.png)
