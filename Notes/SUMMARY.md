@@ -7,6 +7,7 @@
 			- [SYN Scan](Reconnaissance/Enumeration/Port%20Scanning/SYN%20Scan.md)
 			- [TCP Connect Scan](Reconnaissance/Enumeration/Port%20Scanning/TCP%20Connect%20Scan.md)
 			- [FIN, NULL & XMAS Scans](Reconnaissance/Enumeration/Port%20Scanning/FIN,%20NULL%20&%20XMAS%20Scans.md)
+		- [Web Server Enumeration (80, 443)](Reconnaissance/Enumeration/Web%20Server%20Enumeration%20(80,%20443).md)
 		- [DNS Server Enumeration (53)](Reconnaissance/Enumeration/DNS%20Server%20Enumeration%20(53).md)
 		- [FTP Enumeration (21)](Reconnaissance/Enumeration/FTP%20Enumeration%20(21).md)
 		- [SNMP Enumeration (161)](Reconnaissance/Enumeration/SNMP%20Enumeration%20(161).md)
