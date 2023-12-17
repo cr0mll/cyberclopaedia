@@ -46,6 +46,7 @@
 		- [CRLF Injection](Exploitation/Web/CRLF%20Injection.md)
 		- [Cross-Site Scripting (XSS)](Exploitation/Web/Cross-Site%20Scripting%20(XSS).md)
 		- [Cross-Site Request Forgery](Exploitation/Web/Cross-Site%20Request%20Forgery.md)
+		- [File Inclusion](Exploitation/Web/File%20Inclusion.md)
 		- [WebSockets](Exploitation/Web/WebSockets.md)
 		- [Directory Traversal](Exploitation/Web/Directory%20Traversal.md)
 		- [HTTP Parameter Pollution](Exploitation/Web/HTTP%20Parameter%20Pollution.md)
