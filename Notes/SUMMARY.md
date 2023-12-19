@@ -49,6 +49,7 @@
 		- [File Inclusion](Exploitation/Web/File%20Inclusion.md)
 		- [WebSockets](Exploitation/Web/WebSockets.md)
 		- [Directory Traversal](Exploitation/Web/Directory%20Traversal.md)
+		- [File Upload](Exploitation/Web/File%20Upload.md)
 		- [HTTP Parameter Pollution](Exploitation/Web/HTTP%20Parameter%20Pollution.md)
 		- [Host Header Injection](Exploitation/Web/Host%20Header%20Injection.md)
 	- [Windows](Exploitation/Windows/index.md)
