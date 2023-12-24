@@ -47,6 +47,7 @@
 		- [Cross-Site Scripting (XSS)](Exploitation/Web/Cross-Site%20Scripting%20(XSS).md)
 		- [Cross-Site Request Forgery](Exploitation/Web/Cross-Site%20Request%20Forgery.md)
 		- [File Inclusion](Exploitation/Web/File%20Inclusion.md)
+		- [Command Injection](Exploitation/Web/Command%20Injection.md)
 		- [WebSockets](Exploitation/Web/WebSockets.md)
 		- [Directory Traversal](Exploitation/Web/Directory%20Traversal.md)
 		- [File Upload](Exploitation/Web/File%20Upload.md)
