@@ -3,6 +3,8 @@
 	- [License](Cyberclopaedia/License.md)
 - [Reconnaissance](Reconnaissance/index.md)
 	- [Enumeration](Reconnaissance/Enumeration/index.md)
+		- [Vulnerability Scanning](Reconnaissance/Enumeration/Vulnerability%20Scanning/index.md)
+			- [Nmap Scripting Engine (NSE)](Reconnaissance/Enumeration/Vulnerability%20Scanning/Nmap%20Scripting%20Engine%20(NSE).md)
 		- [Port Scanning](Reconnaissance/Enumeration/Port%20Scanning/index.md)
 			- [SYN Scan](Reconnaissance/Enumeration/Port%20Scanning/SYN%20Scan.md)
 			- [TCP Connect Scan](Reconnaissance/Enumeration/Port%20Scanning/TCP%20Connect%20Scan.md)
