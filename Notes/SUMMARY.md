@@ -20,6 +20,7 @@
 		- [Instagram User Enumeration](Reconnaissance/Open-Source%20Intelligence%20(OSINT)/Instagram%20User%20Enumeration.md)
 		- [Whois Enumeration](Reconnaissance/Open-Source%20Intelligence%20(OSINT)/Whois%20Enumeration.md)
 		- [Google Dorks](Reconnaissance/Open-Source%20Intelligence%20(OSINT)/Google%20Dorks.md)
+		- [Subdomain Enumeration](Reconnaissance/Open-Source%20Intelligence%20(OSINT)/Subdomain%20Enumeration.md)
 - [Exploitation](Exploitation/index.md)
 	- [Binary Exploitation](Exploitation/Binary%20Exploitation/index.md)
 		- [Heap Exploitation](Exploitation/Binary%20Exploitation/Heap%20Exploitation/index.md)
