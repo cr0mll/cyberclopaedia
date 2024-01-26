@@ -1,0 +1,2 @@
+# Introduction
+A class in Active Directory serves as the blueprint for instantiating objects. Interestingly enough, each class definition is represented by an *object* in the Schema. More specifically, every class is an instance of the [classSchema](https://learn.microsoft.com/en-us/windows/win32/adschema/c-classschema?redirectedfrom=MSDN) built-in class.

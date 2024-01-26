@@ -3,7 +3,7 @@ Groups are instances of the AD [Group](https://learn.microsoft.com/en-us/windows
 
 Groups have two essential characteristics - type and scope. 
 
-![](Resources/Images/Groups/Group%20Creation.png)
+![](../../Resources/Images/Groups/Group%20Creation.png)
 
 ## Group Type
 The group type identifies the group's purpose and must be chosen upon creation of the group. There are two types of groups.
