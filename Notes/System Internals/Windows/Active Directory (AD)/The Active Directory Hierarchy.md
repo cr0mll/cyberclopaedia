@@ -56,7 +56,7 @@ A collection of domain trees is referred to as a *forest* (really???) and it is 
 Whilst renaming the forest root domain is possible in AD environment from Windows Server 2003 onwards, it is not possible to change it to another domain
 ```
 
-```admonish danger title="Danger: Removing the Forest Root Domain
+```admonish danger title="Danger: Removing the Forest Root Domain"
 Removing the forest root domain results in the irrevocable destruction of the entire forest and all of its domains.
 ```
 

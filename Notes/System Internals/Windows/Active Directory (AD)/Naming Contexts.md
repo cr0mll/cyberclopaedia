@@ -1,5 +1,5 @@
 # Introduction
-The distributed nature of Active Directory necessitates data segregation. These partitions which organise various data are called *Naming Contexts (NCs)*, also known as *directory partitions*. Active Directory comes with three predefined types of predefined naming contexts:
+The distributed nature of Active Directory necessitates data segregation. These partitions which organise various data are called *Naming Contexts (NCs)*, also known as *directory partitions*. Active Directory comes with three types of predefined naming contexts:
 - Domain Naming Context - for each domain in the forest;
 - Configuration Naming Context - one per forest;
 - Schema Naming Context - one per forest.
