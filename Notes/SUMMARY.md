@@ -110,6 +110,8 @@
 				- [Attributes](System%20Internals/Windows/Active%20Directory%20(AD)/Schema/Attributes.md)
 				- [Classes](System%20Internals/Windows/Active%20Directory%20(AD)/Schema/Classes.md)
 			- [Naming Contexts](System%20Internals/Windows/Active%20Directory%20(AD)/Naming%20Contexts.md)
+			- [The Directory Information Tree (DIT)](System%20Internals/Windows/Active%20Directory%20(AD)/The%20Directory%20Information%20Tree%20(DIT).md)
+			- [Domain Controllers](System%20Internals/Windows/Active%20Directory%20(AD)/Domain%20Controllers.md)
 			- [The Active Directory Hierarchy](System%20Internals/Windows/Active%20Directory%20(AD)/The%20Active%20Directory%20Hierarchy.md)
 		- [File System](System%20Internals/Windows/File%20System.md)
 - [Reverse Engineering](Reverse%20Engineering/index.md)
