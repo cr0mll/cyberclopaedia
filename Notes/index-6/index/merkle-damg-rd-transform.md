@@ -1,0 +1,2 @@
+# Merkle-Damg�rd Transform
+
