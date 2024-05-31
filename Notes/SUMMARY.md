@@ -166,7 +166,7 @@
   * [Hash Functions](<Cryptography/Hash Functions/index.md>)
     * [Birthday Attacks](<Cryptography/Hash Functions/Birthday Attacks.md>)
     * [Davies-Meyer Transform](<Cryptography/Hash Functions/Davies-Meyer Transform.md>)
-    * [Merkle-Damg�rd Transform](index-7/index/merkle-damg-rd-transform.md)
+    * [Merkle-Damg�rd Transform](index-6/index/merkle-damg-rd-transform.md)
     * [Security Definitions](<Cryptography/Hash Functions/Security Definitions.md>)
   * [Integrity Verification](<Cryptography/Integrity Verification/index.md>)
     * [Merkle Trees](<Cryptography/Integrity Verification/Merkle Trees.md>)

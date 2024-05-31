@@ -20,17 +20,11 @@ An ARP **transaction** is the process of two hosts undergoing address resolution
 Address resolution is done via **messages**, of which there are two types - **requests** and **replies**.
 
 {% hint style="info" %}
-{% code overflow="wrap" %}
-```
 Regardless of the type of message, the **sender** is always the device which transmits the message and the **target** is always the device the message is meant for.
-```
-{% endcode %}
 {% endhint %}
 
 The **Sender Hardware Address** is the layer 2 (MAC) address of the message sender and the **Sender Protocol Address** is their layer 3 (IP) address. The situation is analogous for the **Target Hardware Address** and the **Target Protocol Address**.
 
 {% hint style="warning" %}
-```
 Do not confuse sender / target with source / destination.
-```
 {% endhint %}
