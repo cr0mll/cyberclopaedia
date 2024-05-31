@@ -7,6 +7,6 @@ This can be done by using the `-D RND:<number>` flag with Nmap, where `<number>`
 
 As we can see, Nmap generated a bunch of fake packets by spoofing multiple source IPs in order to make it difficult to figure out the actual source of the scan. 
 
-```admonish Warning
+{% hint style="warning" %}
 This type of scan generates a lot of traffic to the target host!
-```
+{% endhint %}

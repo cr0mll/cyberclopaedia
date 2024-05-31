@@ -4,16 +4,16 @@ The **Hypertext Transfer Protocol (HTTP)** is the modern Internet's courier. It 
 # Architecture Overview
 HTTP is based on a client-server architecture. A **client** is anyone who requests a **resource** from a web **server**.
 
-```admonish example
-An example is you (the client) watching a cat video (the resource) on YouTube (the server).
-```
+{% tabs %}
+{% tab % title="Example"} An example is you (the client) watching a cat video (the resource) on YouTube (the server). {% endtab% }
+{% endtabs %}
 
 The communication between the client and the server is actuated by the so-called **transactions**. Each transaction consists of a [request](HTTP%20Requests/index.md), sent by the client to the server, and a [response](HTTP%20Responses/index.md), sent back by the server to the client. Generally, a request describes what action the client wants the server to perform and the response contains information about the outcome of the action. 
 
-```admonish example
-The client could request a specific web page from the web server, or they could try to upload a file to it. The server would then respond with information about whether or not the action was successful and any accompanying data.
-```
+{% tabs %}
+{% tab % title="Example"} The client could request a specific web page from the web server, or they could try to upload a file to it. The server would then respond with information about whether or not the action was successful and any accompanying data. {% endtab% }
+{% endtabs %}
 
-```admonish note
+{% hint style="info" %}
 Requests and responses are collectively known as **messages**.
-```
+{% endhint %}

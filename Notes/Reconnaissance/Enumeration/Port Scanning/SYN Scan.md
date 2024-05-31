@@ -8,6 +8,6 @@ This is the type of scan which nmap defaults to when run with elevated privilege
 
 This type of scan can also be specified using the `-sS` option.
 
-```admonish note
+{% hint style="info" %}
 Despite its moniker, a SYN scan is no longer considered "stealthy" and is quite easily detected nowadays.
-```
+{% endhint %}
