@@ -16,7 +16,7 @@ The first "inner key" $k_1$ is prepended to the message $m$ and this concatenati
 
 ![](Resources/Images/HMAC.svg)
 
-Since this is a deterministic MAC system, the canonical [verification algorithm](index.md#implementing-macs) can be used.
+Since this is a deterministic MAC system, the canonical [verification algorithm](Notes/Cryptography/Private-Key%20Cryptography/Message%20Authentication%20Codes%20(MACs)/index.md#implementing-macs) can be used.
 
 ### Security of HMAC
 Using a [collision resistant](../../Hash%20Functions/Security%20Definitions.md) [hash function](../../Hash%20Functions/index.md) $H$ is actually *not* enough to prove that HMAC is a secure MAC. However, HMAC *can* be proven strongly unforgeable if the Merkle-Damgård function $H$ uses a compression function $h$ that is a [pseudorandom function (PRF)](../../Primitives/Pseudorandom%20Function%20Generators%20(PRFGs).md), for example a [Davies-Meyer function](../../Hash%20Functions/Davies-Meyer%20Transform.md).

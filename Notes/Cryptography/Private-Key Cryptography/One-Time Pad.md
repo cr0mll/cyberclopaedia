@@ -1,5 +1,5 @@
 # Introduction
-The One-Time Pad (OTP) or also known as the Vernam Cipher is the most famous (and perhaps the only remotely useful) [perfectly secret](index.md#perfect-secrecy) cipher. It uses a plaintext and a key with the same length and produces a ciphertext also with that length. The mainstay of this cipher is the [XOR operation](../Mathematical%20Prerequisites.md#xor-operation). Encryption simply XORs the key with the plaintext and decryption XORs the ciphertext with the key to retrieve the plaintext.
+The One-Time Pad (OTP) or also known as the Vernam Cipher is the most famous (and perhaps the only remotely useful) [perfectly secret](Notes/Cryptography/Private-Key%20Cryptography/index.md#perfect-secrecy) cipher. It uses a plaintext and a key with the same length and produces a ciphertext also with that length. The mainstay of this cipher is the [XOR operation](../Mathematical%20Prerequisites.md#xor-operation). Encryption simply XORs the key with the plaintext and decryption XORs the ciphertext with the key to retrieve the plaintext.
 
 $$\textit{Enc}(k, m) = k \oplus m$$
 $$\textit{Dec}(k, c) = k \oplus c$$
