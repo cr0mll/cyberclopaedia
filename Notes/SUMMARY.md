@@ -155,7 +155,6 @@
     * [Flags](<Reverse Engineering/Reverse Engineering with radare2/Flags.md>)
     * [Seeking](<Reverse Engineering/Reverse Engineering with radare2/Seeking.md>)
     * [Strings](<Reverse Engineering/Reverse Engineering with radare2/Strings.md>)
-  * [Assembly](<Reverse Engineering/Assembly.md>)
   * [Basic Reverse Engineering using objdump, strace, and ltrace](<Reverse Engineering/Basic Reverse Engineering using objdump, strace, and ltrace.md>)
 * [Hardware Hacking](<Hardware Hacking/index.md>)
   * [Wireless Attacks](<Hardware Hacking/Wireless Attacks/index.md>)
