@@ -62,15 +62,11 @@ Solving this equation yields $$q = 23$$. We need only 23 people for there to be 
 
 ## Naive Birthday Attack
 
-If we have a hash function $H$ with outputs of length $l\_{\text{out\}}$, then in order to have a 50% chance of a collision, we need $q \approx 1.2\times2^{\frac{1}{2}l\_{\text{out\}}}$ different messages (this can be obtained from the Birthday theorem bound by setting $B = 2^{l\_{\text{out\}}}$).
+If we have a hash function $$H$$ with outputs of length $$l_{\text{out}}$$, then in order to have a 50% chance of a collision, we need $$q \approx 1.2\times2^{\frac{1}{2}l_{\text{out}}}$$ different messages (this can be obtained from the Birthday theorem bound by setting $$B = 2^{l_{\text{out}}}$$).
 
-The naive birthday attack does precisely this. First, it chooses $2^{\frac{1}{2}l\_{\text{out\}}}$ different messages $m\_1, m\_2, ..., m\_q$. It then computes their hashes $h\_1, h\_2, ..., h\_q$. Finally, it looks for a collision amongst these hashes $h\_i = h\_j$. With probability approximately $\frac{1}{2}$ it is going to find such a collision. If it does not, it simply starts over. On average, this attack is going to need just 2 iterations to get a colliding pair and its running time is $O(2^{l\_{\text{out\}}/2})$. Compare that to the brute-force approach whose running time was $O(2^{l\_{\text{out\}}})$.
+The naive birthday attack does precisely this. First, it chooses $$2^{\frac{1}{2}l_{\text{out}}}$$ different messages $$m_1, m_2, ..., m_q$$. It then computes their hashes $$h_1, h_2, ..., h_q$$. Finally, it looks for a collision amongst these hashes $$h_i = h_j$$. With probability approximately $$\frac{1}{2}$$ it is going to find such a collision. If it does not, it simply starts over. On average, this attack is going to need just 2 iterations to get a colliding pair and its running time is $$O(2^{l_{\text{out}}/2})$$. Compare that to the brute-force approach whose running time was $$O(2^{l_{\text{out}}})$$.
 
-This variation is called _naive_ because it has a huge space complexity, namely $O(2^{l\_{\text{out\}}/2})$, since the algorithm will have to store all the computed hashes while checking them for collisions.
-
-```admonish
-Since the birthday attack is universal and works for any hash function, it is used instead of the simple brute force attack as the gold standard when creating security proofs.
-```
+This variation is called _naive_ because it has a huge space complexity, namely $$O(2^{l_{\text{out}}/2})$$, since the algorithm will have to store all the computed hashes while checking them for collisions.
 
 {% hint style="info" %}
 <mark style="color:blue;">**Universality of the Birthday Attack**</mark>
