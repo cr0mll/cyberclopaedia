@@ -20,7 +20,7 @@ At the beginning of both the encryption and decryption algorithms, the state is 
 
 $$S[r, c] = \text{in}[4r + c]$$
 
-The indices $r$ and $c$ denote the row and the column of the cell currently being populated.
+The indices $$r$$ and $$c$$ denote the row and the column of the cell currently being populated.
 
 At the end, the final State is mapped back to a 16-byte output array by a similar procedure:
 
@@ -60,11 +60,11 @@ $$\begin{bmatrix} s_{0,0} & s_{0,1} & s_{0,2} & s_{0,3} \\ s_{1,0} & s_{1,1} & s
 
 ![](<../../../Cryptography/Private-Key Cryptography/Block Ciphers/Resources/Images/AES/AES Encryption.svg>)
 
-First is the Key Expansion phase where $n + 1$ keys of length 128 bits are derived from the master key. Before the first round, an AddRoundKey is performed with the plaintext and the first generated key. Then comes the round chain. Every round, apart from the last one, is comprised of a SubBytes, ShiftRows, MixColumns and an AddRoundKey operation in that order. The MixColumns operation is dropped from the last round.
+First is the Key Expansion phase where $$n + 1$$ keys of length 128 bits are derived from the master key. Before the first round, an AddRoundKey is performed with the plaintext and the first generated key. Then comes the round chain. Every round, apart from the last one, is comprised of a SubBytes, ShiftRows, MixColumns and an AddRoundKey operation in that order. The MixColumns operation is dropped from the last round.
 
 ## Decryption
 
-Decryption involves running the inverse round operations and in reverse order. Again, the Key Expansion phase generates the same $n + 1$ round keys as with encryption, but these keys are used in reverse order. Before the first round, the an AddRoundKey operation is performed on the ciphertext and the first generated key:
+Decryption involves running the inverse round operations and in reverse order. Again, the Key Expansion phase generates the same $$n + 1$$ round keys as with encryption, but these keys are used in reverse order. Before the first round, the an AddRoundKey operation is performed on the ciphertext and the first generated key:
 
 ![](<../../../Cryptography/Private-Key Cryptography/Block Ciphers/Resources/Images/AES/AES Decryption.svg>)
 

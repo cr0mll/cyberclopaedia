@@ -10,7 +10,7 @@ Padding allows for the encryption of messages of arbitrary lengths, even ones wh
 
 The most common padding algorithm is described by PKCS#7 in RFC 5652.
 
-Given a block size, $n$, and a message of length $m$, the message is padded with $n-m$ number of bytes of value $n-m$. A concrete example with 16-byte blocks is the following:
+Given a block size, $$n$$, and a message of length $$m$$, the message is padded with $$n-m$$ number of bytes of value $$n-m$$. A concrete example with 16-byte blocks is the following:
 
 * If there's is one byte left until the message length is divisible by 16 - for example, it is 17 or 33 bytes long - then pad the message with 15 bytes `0x0f` (15 in decimal).
 * If there are two bytes left until the message length is divisible by 16 - for example, it is 18 or 34 bytes long - then pad the message with 14 bytes `0x0e` (14 in decimal).
