@@ -197,7 +197,6 @@
   * [Public-Key Cryptography](cryptography/public-key-cryptography/README.md)
     * [Security Definitions](cryptography/public-key-cryptography/index/README.md)
       * [Chosen-Plaintext Attack (CPA)](cryptography/public-key-cryptography/index/chosen-plaintext-attack-cpa.md)
-      * [Perfect Secrecy](cryptography/public-key-cryptography/index/perfect-secrecy.md)
     * [Mathematical Prerequisites](cryptography/public-key-cryptography/mathematical-prerequisites.md)
   * [Breaking Classical Cryptrography](cryptography/breaking-classical-cryptrography.md)
   * [Computer Science Prerequisites](cryptography/computer-science-prerequisites.md)
